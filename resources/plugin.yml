@@ -1,0 +1,11 @@
+name: Volleyball
+version: 1.0.0
+description: Simple volleyball ball plugin
+author: Jeremaster101
+main: me.Jeremaster101.Volleyball.Volleyball
+api-version: 1.13
+commands:
+  volleyball:
+    description: Spawn a volleyball
+    usage: /<command>
+    aliases: [vb]
