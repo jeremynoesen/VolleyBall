@@ -15,6 +15,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
+import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
@@ -274,5 +275,11 @@ public class Volleyball extends JavaPlugin implements Listener {
                 "" + ChatColor.BOLD + "BALL") && e.getTarget() instanceof Player) e.setCancelled(true);
     }
 
-
+    @EventHandler
+    public void onEntityInteract(PlayerInteractAtEntityEvent e) {
+        Player p = e.getPlayer();
+        if (e.getRightClicked() != null && e.getRightClicked() instanceof ArmorStand && e.getRightClicked().getCustomName()
+                != null && e.getRightClicked().getCustomName().equals("BALLSTAND"))
+            e.setCancelled(true);
+    }
 }
