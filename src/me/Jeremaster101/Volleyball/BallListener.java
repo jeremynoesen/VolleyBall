@@ -23,14 +23,13 @@ public class BallListener implements Listener {
     @EventHandler
     public void onBallHit(EntityDamageByEntityEvent e) {
         if (e.getDamager() instanceof Player && e.getEntity().getCustomName() != null && e.getEntity()
-                .getCustomName().equals(ChatColor.DARK_GREEN +
-
-                        "" + ChatColor.BOLD + "BALL")) {
+                .getCustomName().equals(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "BALL")) {
             e.setCancelled(true);
             Entity s = e.getEntity();
             s.getWorld().playSound(s.getLocation(), Sound.ENTITY_CHICKEN_EGG, 2, 0);
             s.setVelocity(e.getDamager().getLocation().getDirection().multiply(0.9).add(new Vector(0, 0.6, 0))
-                    .add(e.getDamager().getVelocity().setY(e.getDamager().getVelocity().multiply(2).getY())));
+                    .add(e.getDamager().getVelocity().setY(e.getDamager().getVelocity().multiply(2).getY()))
+                    .multiply(Volleyball.plugin.getConfig().getDouble("volleyball-speed")));
         }
 
         if (e.getDamager() instanceof Player && e.getEntity().getCustomName() != null && e.getEntity().getCustomName().equals("BALLSTAND")) {
@@ -39,7 +38,8 @@ public class BallListener implements Listener {
                         "" + ChatColor.BOLD + "BALL")) {
                     s.getWorld().playSound(s.getLocation(), Sound.ENTITY_CHICKEN_EGG, 2, 0);
                     s.setVelocity(e.getDamager().getLocation().getDirection().multiply(0.9).add(new Vector(0, 0.6, 0))
-                            .add(e.getDamager().getVelocity().setY(e.getDamager().getVelocity().multiply(2).getY())));
+                            .add(e.getDamager().getVelocity().setY(e.getDamager().getVelocity().multiply(2).getY()))
+                            .multiply(Volleyball.plugin.getConfig().getDouble("volleyball-speed")));
                     break;
                 }
             }
