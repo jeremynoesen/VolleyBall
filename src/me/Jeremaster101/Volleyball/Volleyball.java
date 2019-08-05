@@ -14,7 +14,7 @@ public class Volleyball extends JavaPlugin implements Listener {
     public static Volleyball plugin;
 
     /**
-     * rund when the plugin starts
+     * runs when the plugin starts
      */
     public void onEnable() {
         plugin = this;
@@ -30,6 +30,10 @@ public class Volleyball extends JavaPlugin implements Listener {
         pm.registerEvents(new BallListener(), plugin);
 
         getCommand("volleyball").setExecutor(new CommandExec());
+
+
+        getConfig().options().copyDefaults(true);
+        saveConfig();
     }
 
     /**
@@ -39,3 +43,6 @@ public class Volleyball extends JavaPlugin implements Listener {
         plugin = null;
     }
 }
+
+//todo count volleys
+

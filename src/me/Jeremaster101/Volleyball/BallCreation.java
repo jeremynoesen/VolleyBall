@@ -59,7 +59,7 @@ public class BallCreation {
 
         ArmorStand stand = s.getWorld().spawn(s.getLocation().subtract(0, 1.5, 0), ArmorStand.class);
         stand.setVisible(false);
-        stand.setHelmet(getSkull("http://textures.minecraft.net/texture/9b2513c8d08c60ad3785d3a9a651b7329c5f26937aca2fc8dfaf3441c9bd9da2"));
+        stand.setHelmet(getSkull(Volleyball.plugin.getConfig().getString("volleyball-texture")));
         stand.setGravity(false);
         stand.setCustomName("BALLSTAND");
         stand.setCustomNameVisible(false);
@@ -84,7 +84,10 @@ public class BallCreation {
                 s.getWorld().spawnParticle(Particle.END_ROD, s.getLocation(), 0, 0, 0, 0, 1);
                 s.setTarget(null);
 
-                if (s.isDead()) stand.remove();
+                if (s.isDead()) {
+                    stand.remove();
+                    this.cancel();
+                }
                 stand.setFallDistance(0);
                 if (!end) {
                     Location loc = s.getLocation();

@@ -1,7 +1,6 @@
 package me.Jeremaster101.Volleyball;
 
 import org.bukkit.ChatColor;
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
@@ -56,12 +55,9 @@ public class Message {
     public static void reloadConfig() {
         if (messageConfigFile == null) {
             messageConfigFile = new File(Volleyball.plugin.getDataFolder(), "messages.yml");
-            config = YamlConfiguration.loadConfiguration(messageConfigFile);
         }
-        try {
-            config.load(messageConfigFile);
-        } catch (IOException | InvalidConfigurationException ignored) {
-        }
+
+        config = YamlConfiguration.loadConfiguration(messageConfigFile);
 
         Reader defConfigStream = new InputStreamReader(Volleyball.plugin.getResource("messages.yml"),
                 StandardCharsets.UTF_8);
@@ -72,7 +68,7 @@ public class Message {
 
         PREFIX = format(config.getString("PREFIX"));
         ERROR_BALL_OUT = PREFIX + format(config.getString("ERROR_BALL_OUT"));
-        ERROR_NOT_ON_COURT = PREFIX + format(config.getString("ERROR_SENT_BEFORE"));
+        ERROR_NOT_ON_COURT = PREFIX + format(config.getString("ERROR_NOT_ON_COURT"));
     }
 
     /**
@@ -110,6 +106,7 @@ public class Message {
         }
         if (!messageConfigFile.exists()) {
             Volleyball.plugin.saveResource("messages.yml", false);
+            config = YamlConfiguration.loadConfiguration(messageConfigFile);
         }
     }
 
