@@ -19,7 +19,7 @@ public class Volleyball extends JavaPlugin implements Listener {
     public void onEnable() {
         plugin = this;
 
-        Message.saveDefaultConfig();
+        MessageConfig.saveDefaultConfig();
 
         Message msg = new Message();
 
