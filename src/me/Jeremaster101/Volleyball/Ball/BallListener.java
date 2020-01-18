@@ -1,5 +1,6 @@
-package me.Jeremaster101.Volleyball;
+package me.Jeremaster101.Volleyball.Ball;
 
+import me.Jeremaster101.Volleyball.Volleyball;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -29,7 +30,7 @@ public class BallListener implements Listener {
             s.getWorld().playSound(s.getLocation(), Sound.ENTITY_CHICKEN_EGG, 2, 0);
             s.setVelocity(e.getDamager().getLocation().getDirection().multiply(0.9).add(new Vector(0, 0.6, 0))
                     .add(e.getDamager().getVelocity().setY(e.getDamager().getVelocity().multiply(2).getY()))
-                    .multiply(Volleyball.plugin.getConfig().getDouble("volleyball-speed")));//todo make ball speed per court
+                    .multiply(Volleyball.getInstance().getConfig().getDouble("volleyball-speed")));//todo make ball speed per court
         }
 
         if (e.getDamager() instanceof Player && e.getEntity().getCustomName() != null && e.getEntity().getCustomName().equals("BALLSTAND")) {
@@ -39,7 +40,7 @@ public class BallListener implements Listener {
                     s.getWorld().playSound(s.getLocation(), Sound.ENTITY_CHICKEN_EGG, 2, 0);
                     s.setVelocity(e.getDamager().getLocation().getDirection().multiply(0.9).add(new Vector(0, 0.6, 0))
                             .add(e.getDamager().getVelocity().setY(e.getDamager().getVelocity().multiply(2).getY()))
-                            .multiply(Volleyball.plugin.getConfig().getDouble("volleyball-speed")));
+                            .multiply(Volleyball.getInstance().getConfig().getDouble("volleyball-speed")));
                     break;
                 }
             }

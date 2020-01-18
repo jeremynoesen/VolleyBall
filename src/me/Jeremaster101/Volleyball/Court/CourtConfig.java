@@ -1,5 +1,6 @@
-package me.Jeremaster101.Volleyball;
+package me.Jeremaster101.Volleyball.Court;
 
+import me.Jeremaster101.Volleyball.Volleyball;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;

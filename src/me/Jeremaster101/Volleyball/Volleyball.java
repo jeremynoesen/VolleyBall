@@ -1,5 +1,8 @@
 package me.Jeremaster101.Volleyball;
 
+import me.Jeremaster101.Volleyball.Ball.BallListener;
+import me.Jeremaster101.Volleyball.Message.Message;
+import me.Jeremaster101.Volleyball.Message.MessageConfig;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -42,6 +45,11 @@ public class Volleyball extends JavaPlugin implements Listener {
     public void onDisable() {
         plugin = null;
     }
+    
+    public static Volleyball getInstance() {
+        return plugin;
+    }
+    
 }
 
 //todo count volleys
