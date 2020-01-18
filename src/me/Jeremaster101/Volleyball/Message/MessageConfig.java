@@ -1,5 +1,6 @@
-package me.Jeremaster101.Volleyball;
+package me.Jeremaster101.Volleyball.Message;
 
+import me.Jeremaster101.Volleyball.Volleyball;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
@@ -36,6 +37,11 @@ public class MessageConfig {
         Message.PREFIX = Message.format(config.getString("PREFIX"));
         Message.ERROR_BALL_OUT = Message.PREFIX + Message.format(config.getString("ERROR_BALL_OUT"));
         Message.ERROR_NOT_ON_COURT = Message.PREFIX + Message.format(config.getString("ERROR_NOT_ON_COURT"));
+        Message.ERROR_NULL_BOUNDS = Message.PREFIX + Message.format(MessageConfig.getConfig().getString("ERROR_NULL_BOUNDS"));
+        Message.ERROR_UNKNOWN_COURT = Message.PREFIX + Message.format(MessageConfig.getConfig().getString("ERROR_UNKNOWN_COURT"));
+        Message.SUCCESS_COURT_REMOVED = Message.PREFIX + Message.format(MessageConfig.getConfig().getString("SUCCESS_COURT_REMOVED"));
+        Message.SUCCESS_SET_COURT_BOUNDS = Message.PREFIX + Message.format(MessageConfig.getConfig().getString("SUCCESS_SET_COURT_BOUNDS"));
+        Message.SUCCESS_COURT_SET = Message.PREFIX + Message.format(MessageConfig.getConfig().getString("SUCCESS_COURT_SET"));
     }
     
     /**

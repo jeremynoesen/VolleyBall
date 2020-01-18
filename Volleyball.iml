@@ -22,7 +22,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Spigot 1.13/plugins/worldedit-bukkit-7.0.0-beta-05.jar!/" />
+          <root url="jar://$USER_HOME$/Spigot 1.13/plugins/worldedit-bukkit-7.1.0-beta-1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
