@@ -1,3 +1,8 @@
 PREFIX: "&8&l[&e&lV&6&lB&8&l] "
 ERROR_BALL_OUT: "&7There is already a ball out!"
 ERROR_NOT_ON_COURT: "&7You must be on the court to serve!"
+ERROR_NULL_BOUNDS: "&7Please make a cuboid selection with WorldEdit!"
+ERROR_UNKNOWN_COURT: "&7Unknown court!"
+SUCCESS_COURT_REMOVED: "&7Court $COURT$ was successfully removed!"
+SUCCESS_SET_COURT_BOUNDS: "&7Set the bounds for court $COURT$!"
+SUCCESS_COURT_SET: "&7Successfully created court $COURT$!"

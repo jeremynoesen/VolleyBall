@@ -1,6 +1,7 @@
-package me.Jeremaster101.Volleyball;
+package me.Jeremaster101.Volleyball.Court;
 
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
+import me.Jeremaster101.Volleyball.Message.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -14,7 +15,6 @@ public class Court {
         if (court != null) {
             this.court = court;
             if (CourtConfig.getConfig().getConfigurationSection(court) == null) {
-                //todo for all config stuff remove the first key, in this case, "courts."
                 
                 WorldEditPlugin worldEdit = (WorldEditPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");//todo make option if there is no worldedit
                 com.sk89q.worldedit.regions.Region selection;
@@ -59,20 +59,25 @@ public class Court {
         }
     }
     
+    boolean exists() {
+        if (CourtConfig.getConfig().get(court) != null)
+            return true;
+        else player.sendMessage(Message.ERROR_UNKNOWN_COURT);
+        return false;
+    }
+    
     public void remove() {
         
-        if (CourtConfig.getConfig().get(court) != null) {
+        if (exists()) {
             CourtConfig.getConfig().set(court, null);
             CourtConfig.saveConfig();
             player.sendMessage(Message.SUCCESS_COURT_REMOVED.replace("$COURT$", court));
-        } else {
-            player.sendMessage(Message.ERROR_UNKNOWN_COURT.replace("$COURT$", court));
         }
     }
     
     public void setBounds() {
         
-        if (CourtConfig.getConfig().get(court) != null) {
+        if (exists()) {
             WorldEditPlugin worldEdit = (WorldEditPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");
             
             com.sk89q.worldedit.regions.Region selection;
@@ -100,28 +105,46 @@ public class Court {
                 CourtConfig.getConfig().set(areaname + ".location.max.z", maxz);
                 CourtConfig.saveConfig();
                 
-                player.sendMessage(Message.SUCCESS_UPDATED_COURT_BOUNDS.replace("$COURT$", court));
+                player.sendMessage(Message.SUCCESS_SET_COURT_BOUNDS.replace("$COURT$", court));
                 
             } else {
                 player.sendMessage(Message.ERROR_NULL_BOUNDS);
             }
-        } else
-            player.sendMessage(Message.ERROR_UNKNOWN_COURT);
+        }
     }
     
     public boolean isEnabled() {
-        if (CourtConfig.getConfig().get(court) != null &&
-                CourtConfig.getConfig().get(court + ".enabled") != null) {
+        if (exists() && CourtConfig.getConfig().get(court + ".enabled") != null) {
             return CourtConfig.getConfig().getBoolean(court + ".enabled");
         }
         return false;
     }
     
     public void setEnabled(boolean enabled) {
-        if (CourtConfig.getConfig().get(court) != null) {
-                CourtConfig.getConfig().set(court + ".enabled", enabled);
-        } else
-            player.sendMessage(Message.ERROR_UNKNOWN_COURT);
+        if (exists()) CourtConfig.getConfig().set(court + ".enabled", enabled);
     }
     
+    public double getSpeed() {
+        if (exists()) {
+        
+        }
+    }
+    
+    public void setSpeed(double speed) {
+        if (exists()) {
+        
+        }
+    }
+    
+    public String getTexture() {
+        if (exists()) {
+        
+        }
+    }
+    
+    public void setTexture(String url) {
+        if (exists()) {
+        
+        }
+    }
 }
