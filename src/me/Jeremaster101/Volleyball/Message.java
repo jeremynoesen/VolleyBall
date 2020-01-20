@@ -1,5 +1,7 @@
-package me.Jeremaster101.Volleyball.Message;
+package me.Jeremaster101.Volleyball;
 
+import me.Jeremaster101.Volleyball.Config.ConfigManager;
+import me.Jeremaster101.Volleyball.Config.ConfigType;
 import me.Jeremaster101.Volleyball.Volleyball;
 import org.bukkit.ChatColor;
 
@@ -7,15 +9,28 @@ import org.bukkit.ChatColor;
  * All messages used within the plugin
  */
 public class Message {
-    public static String PREFIX = format(MessageConfig.getConfig().getString("PREFIX"));
     
-    public static String ERROR_BALL_OUT = PREFIX + format(MessageConfig.getConfig().getString("ERROR_BALL_OUT"));
-    public static String ERROR_NOT_ON_COURT = PREFIX + format(MessageConfig.getConfig().getString("ERROR_NOT_ON_COURT"));
-    public static String ERROR_NULL_BOUNDS = PREFIX + format(MessageConfig.getConfig().getString("ERROR_NULL_BOUNDS"));
-    public static String ERROR_UNKNOWN_COURT = PREFIX + format(MessageConfig.getConfig().getString("ERROR_UNKNOWN_COURT"));
-    public static String SUCCESS_COURT_REMOVED = PREFIX + format(MessageConfig.getConfig().getString("SUCCESS_COURT_REMOVED"));
-    public static String SUCCESS_SET_COURT_BOUNDS = PREFIX + format(MessageConfig.getConfig().getString("SUCCESS_SET_COURT_BOUNDS"));
-    public static String SUCCESS_COURT_SET = PREFIX + format(MessageConfig.getConfig().getString("SUCCESS_COURT_SET"));
+    private static ConfigManager messageConfig = new ConfigManager(ConfigType.MESSAGE);
+    
+    public static String PREFIX;
+    public static String ERROR_BALL_OUT;
+    public static String ERROR_NOT_ON_COURT;
+    public static String ERROR_NULL_BOUNDS;
+    public static String ERROR_UNKNOWN_COURT;
+    public static String SUCCESS_COURT_REMOVED;
+    public static String SUCCESS_SET_COURT_BOUNDS;
+    public static String SUCCESS_COURT_SET;
+    
+    public static void reloadMessages() {
+        PREFIX = format(messageConfig.getConfig().getString("PREFIX"));
+        ERROR_BALL_OUT = PREFIX + format(messageConfig.getConfig().getString("ERROR_BALL_OUT"));
+        ERROR_NOT_ON_COURT = PREFIX + format(messageConfig.getConfig().getString("ERROR_NOT_ON_COURT"));
+        ERROR_NULL_BOUNDS = PREFIX + format(messageConfig.getConfig().getString("ERROR_NULL_BOUNDS"));
+        ERROR_UNKNOWN_COURT = PREFIX + format(messageConfig.getConfig().getString("ERROR_UNKNOWN_COURT"));
+        SUCCESS_COURT_REMOVED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_COURT_REMOVED"));
+        SUCCESS_SET_COURT_BOUNDS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_BOUNDS"));
+        SUCCESS_COURT_SET = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_COURT_SET"));
+    }
     
     public String STARTUP = "\n\n" +
             ChatColor.DARK_GRAY + "███╗" + ChatColor.YELLOW + "██╗   ██╗" + ChatColor.GOLD + "██████╗ " + ChatColor.DARK_GRAY + "███╗" + ChatColor.WHITE + "  Volleyball version " + Volleyball.getInstance().getDescription().getVersion() + " " + "has " + "been enabled!\n" +

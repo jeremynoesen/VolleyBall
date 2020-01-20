@@ -1,8 +1,8 @@
 package me.Jeremaster101.Volleyball;
 
 import me.Jeremaster101.Volleyball.Ball.BallListener;
-import me.Jeremaster101.Volleyball.Message.Message;
-import me.Jeremaster101.Volleyball.Message.MessageConfig;
+import me.Jeremaster101.Volleyball.Config.ConfigManager;
+import me.Jeremaster101.Volleyball.Config.ConfigType;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -21,8 +21,12 @@ public class Volleyball extends JavaPlugin implements Listener {
      */
     public void onEnable() {
         plugin = this;
-
-        MessageConfig.saveDefaultConfig();
+    
+        ConfigManager courtConfig = new ConfigManager(ConfigType.COURT);
+        ConfigManager messageConfig = new ConfigManager(ConfigType.MESSAGE);
+        
+        messageConfig.saveDefaultConfig();
+        courtConfig.saveDefaultConfig();
 
         Message msg = new Message();
 
