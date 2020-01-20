@@ -2,6 +2,8 @@ package me.Jeremaster101.Volleyball.Ball;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
+import me.Jeremaster101.Volleyball.Court.Court;
+import me.Jeremaster101.Volleyball.Court.CourtHandler;
 import me.Jeremaster101.Volleyball.Volleyball;
 import org.apache.commons.codec.binary.Base64;
 import org.bukkit.*;
@@ -33,6 +35,11 @@ public class Ball {
      */
     public Ball(Player player) {
         this.player = player;
+        
+        CourtHandler ch = new CourtHandler();
+    
+        Court court = Court.getCourt(player, ch.getCourt(player));
+        
         slime = player.getLocation().getWorld()
                 .spawn(player.getEyeLocation().add(player.getLocation().getDirection()).subtract(0, 0.25, 0), Slime.class);
         slime.setSize(1);
@@ -43,7 +50,7 @@ public class Ball {
         
         stand = slime.getWorld().spawn(slime.getLocation().subtract(0, 1.5, 0), ArmorStand.class);
         stand.setVisible(false);
-        setTexture(Volleyball.getInstance().getConfig().getString("volleyball-texture"));
+        setTexture(court.getTexture());
         stand.setGravity(false);
         stand.setCustomName("BALLSTAND");
         stand.setCustomNameVisible(false);
