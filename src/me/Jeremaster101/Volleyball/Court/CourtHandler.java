@@ -45,6 +45,33 @@ public class CourtHandler {
     }
     
     /**
+     * check if a location is above a net
+     * @param l location to check
+     * @param court court to use to check
+     * @return true if location is above a net
+     */
+    public boolean isAboveNet(Location l, String court) {
+        
+        try {
+            double maxx = courtConfig.getConfig().getDouble(court + ".net.location.max.x");
+            double maxy = courtConfig.getConfig().getDouble(court + ".net.location.max.y");
+            double maxz = courtConfig.getConfig().getDouble(court + ".net.location.max.z");
+            double minx = courtConfig.getConfig().getDouble(court + ".net.location.min.x");
+            double miny = courtConfig.getConfig().getDouble(court + ".net.location.min.y");
+            double minz = courtConfig.getConfig().getDouble(court + ".net.location.min.z");
+            String world = courtConfig.getConfig().getString(court + ".location.world");
+            double tox = l.getBlock().getLocation().getX();
+            double toy = l.getBlock().getLocation().getY();
+            double toz = l.getBlock().getLocation().getZ();
+            
+            return (l.getWorld().getName().equals(world) && (tox <= maxx) && (tox >= minx) &&
+                    (toy >= miny) && (toz <= maxz) && (toz >= minz));
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    
+    /**
      * @param player player to check for courts
      * @return name of court player is on
      */
