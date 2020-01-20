@@ -24,7 +24,7 @@ public class Court {
             this.court = court;
             if (courtConfig.getConfig().getConfigurationSection(court) == null) {
                 
-                WorldEditPlugin worldEdit = (WorldEditPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");//todo make option if there is no worldedit
+                WorldEditPlugin worldEdit = (WorldEditPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");
                 com.sk89q.worldedit.regions.Region selection;
                 try {
                     selection = worldEdit.getSession(player).getSelection(worldEdit.getSession(player).getSelectionWorld());

@@ -1,5 +1,7 @@
 package me.Jeremaster101.Volleyball.Ball;
 
+import me.Jeremaster101.Volleyball.Court.Court;
+import me.Jeremaster101.Volleyball.Court.CourtHandler;
 import me.Jeremaster101.Volleyball.Volleyball;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -23,24 +25,40 @@ public class BallListener implements Listener {
      */
     @EventHandler
     public void onBallHit(EntityDamageByEntityEvent e) {
+        
         if (e.getDamager() instanceof Player && e.getEntity().getCustomName() != null && e.getEntity()
                 .getCustomName().equals(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "BALL")) {
+    
             e.setCancelled(true);
+            
+            Player player = (Player) e.getDamager();
+            CourtHandler ch = new CourtHandler();
+            
+            Court court = Court.getCourt(player, ch.getCourt(player));
+            
             Entity s = e.getEntity();
             s.getWorld().playSound(s.getLocation(), Sound.ENTITY_CHICKEN_EGG, 2, 0);
             s.setVelocity(e.getDamager().getLocation().getDirection().multiply(0.9).add(new Vector(0, 0.6, 0))
                     .add(e.getDamager().getVelocity().setY(e.getDamager().getVelocity().multiply(2).getY()))
-                    .multiply(Volleyball.getInstance().getConfig().getDouble("volleyball-speed")));//todo make ball speed per court
+                    .multiply(court.getSpeed()));
         }
 
         if (e.getDamager() instanceof Player && e.getEntity().getCustomName() != null && e.getEntity().getCustomName().equals("BALLSTAND")) {
             for (Entity s : e.getEntity().getNearbyEntities(1, 1, 1)) {
                 if (s.getCustomName() != null && s.getCustomName().equals(ChatColor.DARK_GREEN +
                         "" + ChatColor.BOLD + "BALL")) {
+                    
+                    e.setCancelled(true);
+    
+                    Player player = (Player) e.getDamager();
+                    CourtHandler ch = new CourtHandler();
+    
+                    Court court = Court.getCourt(player, ch.getCourt(player));
+                    
                     s.getWorld().playSound(s.getLocation(), Sound.ENTITY_CHICKEN_EGG, 2, 0);
                     s.setVelocity(e.getDamager().getLocation().getDirection().multiply(0.9).add(new Vector(0, 0.6, 0))
                             .add(e.getDamager().getVelocity().setY(e.getDamager().getVelocity().multiply(2).getY()))
-                            .multiply(Volleyball.getInstance().getConfig().getDouble("volleyball-speed")));
+                            .multiply(court.getSpeed()));
                     break;
                 }
             }
