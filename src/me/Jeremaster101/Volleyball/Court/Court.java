@@ -1,8 +1,9 @@
-package me.Jeremaster101.Volleyball;
+package me.Jeremaster101.Volleyball.Court;
 
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import me.Jeremaster101.Volleyball.Config.ConfigManager;
 import me.Jeremaster101.Volleyball.Config.ConfigType;
+import me.Jeremaster101.Volleyball.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -10,7 +11,7 @@ public class Court {
     
     private String court;
     private Player player;
-    private ConfigManager courtConfig = new ConfigManager(ConfigType.COURT);
+    private static ConfigManager courtConfig = new ConfigManager(ConfigType.COURT);
     
     /**
      * Creates a new court region
@@ -48,6 +49,7 @@ public class Court {
                     courtConfig.getConfig().set(courtName + ".location.max.x", maxx);
                     courtConfig.getConfig().set(courtName + ".location.max.y", maxy);
                     courtConfig.getConfig().set(courtName + ".location.max.z", maxz);
+                    courtConfig.getConfig().set(courtName + ".location.world", player.getWorld().getName());
                     courtConfig.saveConfig();
                     
                     player.sendMessage(Message.SUCCESS_COURT_SET.replace("$COURT$", court));
