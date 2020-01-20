@@ -20,6 +20,11 @@ public class Message {
     public static String SUCCESS_COURT_REMOVED;
     public static String SUCCESS_SET_COURT_BOUNDS;
     public static String SUCCESS_COURT_SET;
+    public static String SUCCESS_COURT_ENABLED;
+    public static String ERROR_CANT_ENABLE;
+    public static String SUCCESS_SET_SPEED;
+    public static String SUCCESS_SET_TEXTURE;
+    public static String SUCCESS_COURT_SELECTED;
     
     public static void reloadMessages() {
         PREFIX = format(messageConfig.getConfig().getString("PREFIX"));
@@ -30,6 +35,11 @@ public class Message {
         SUCCESS_COURT_REMOVED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_COURT_REMOVED"));
         SUCCESS_SET_COURT_BOUNDS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_BOUNDS"));
         SUCCESS_COURT_SET = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_COURT_SET"));
+        SUCCESS_COURT_ENABLED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_COURT_ENABLED"));
+        ERROR_CANT_ENABLE = PREFIX + format(messageConfig.getConfig().getString("ERROR_CANT_ENABLE"));
+        SUCCESS_SET_SPEED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_SPEED"));
+        SUCCESS_SET_TEXTURE = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_TEXTURE"));
+        SUCCESS_COURT_SELECTED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_COURT_SELECTED"));
     }
     
     public String STARTUP = "\n\n" +

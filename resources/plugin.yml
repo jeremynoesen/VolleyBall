@@ -4,6 +4,7 @@ description: Simple volleyball ball plugin
 author: Jeremaster101
 main: me.Jeremaster101.Volleyball.Volleyball
 api-version: 1.13
+depends: [WorldEdit]
 commands:
   volleyball:
     description: Spawn a volleyball
