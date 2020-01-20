@@ -112,6 +112,47 @@ public class Court {
             }
             
             if (selection != null) {
+                String courtName = court + ".net";
+                double minx = selection.getMinimumPoint().getX();
+                double miny = selection.getMinimumPoint().getY();
+                double minz = selection.getMinimumPoint().getZ();
+                double maxx = selection.getMaximumPoint().getX();
+                double maxy = selection.getMaximumPoint().getY();
+                double maxz = selection.getMaximumPoint().getZ();
+                
+                courtConfig.getConfig().set(courtName + ".location.min.x", minx);
+                courtConfig.getConfig().set(courtName + ".location.min.y", miny);
+                courtConfig.getConfig().set(courtName + ".location.min.z", minz);
+                courtConfig.getConfig().set(courtName + ".location.max.x", maxx);
+                courtConfig.getConfig().set(courtName + ".location.max.y", maxy);
+                courtConfig.getConfig().set(courtName + ".location.max.z", maxz);
+                courtConfig.saveConfig();
+                
+                player.sendMessage(Message.SUCCESS_SET_NET_BOUNDS.replace("$COURT$", court));
+                
+            } else {
+                player.sendMessage(Message.ERROR_NULL_BOUNDS);
+            }
+        }
+    }
+    
+    /**
+     * set net area with worldedit for a court
+     */
+    public void setNet() {
+        
+        if (exists()) {
+            WorldEditPlugin worldEdit = (WorldEditPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");
+            
+            com.sk89q.worldedit.regions.Region selection;
+            try {
+                selection = worldEdit.getSession(player).getSelection(worldEdit.getSession(player).getSelectionWorld());
+            } catch (Exception e) {
+                player.sendMessage(Message.ERROR_NULL_BOUNDS);
+                return;
+            }
+            
+            if (selection != null) {
                 String areaname = court;
                 double minx = selection.getMinimumPoint().getX();
                 double miny = selection.getMinimumPoint().getY();
