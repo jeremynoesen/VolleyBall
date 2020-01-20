@@ -1,7 +1,6 @@
 package me.Jeremaster101.Volleyball;
 
 import me.Jeremaster101.Volleyball.Ball.Ball;
-import me.Jeremaster101.Volleyball.Message.Message;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
