@@ -2,6 +2,7 @@ package me.Jeremaster101.Volleyball.Ball;
 
 import me.Jeremaster101.Volleyball.Court.Court;
 import me.Jeremaster101.Volleyball.Court.CourtHandler;
+import me.Jeremaster101.Volleyball.Message;
 import me.Jeremaster101.Volleyball.Volleyball;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -16,6 +17,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.util.Vector;
 
 public class BallListener implements Listener {
@@ -99,5 +101,31 @@ public class BallListener implements Listener {
         if (e.getRightClicked() != null && e.getRightClicked() instanceof ArmorStand && e.getRightClicked().getCustomName()
                 != null && e.getRightClicked().getCustomName().equals("BALLSTAND"))
             e.setCancelled(true);
+    }
+    
+    @EventHandler
+    public void onSneak(PlayerToggleSneakEvent e) {
+        Player p = e.getPlayer();
+        CourtHandler ch = new CourtHandler();
+        if(!p.isSneaking()) {
+            if (ch.getCourt(p) != null) {
+        
+                Court court = Court.getCourt(p, ch.getCourt(p));
+        
+                double speed = Volleyball.getInstance().getConfig().getDouble("default-speed");
+                if (court.getSpeed() != 0.0) speed = court.getSpeed();
+        
+                for (Entity all : p.getNearbyEntities(20 * speed, 30 * speed, 20 * speed)) {
+                    if (all.getCustomName() != null && all.getCustomName().equals(ChatColor.DARK_GREEN +
+                            "" + ChatColor.BOLD + "BALL")) {
+                        p.sendMessage(Message.ERROR_BALL_OUT);
+                    }
+                }
+        
+                Ball ball = new Ball(p);
+                ball.serve(court);
+        
+            } else p.sendMessage(Message.ERROR_NOT_ON_COURT);
+        }
     }
 }
