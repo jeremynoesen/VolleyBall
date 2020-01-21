@@ -13,6 +13,9 @@ import org.bukkit.entity.Player;
 
 import java.util.Set;
 
+/**
+ * Court handling
+ */
 public class CourtHandler {
     
     ConfigManager courtConfig = new ConfigManager(ConfigType.COURT);
