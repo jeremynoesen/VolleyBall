@@ -20,6 +20,9 @@ import org.bukkit.util.Vector;
 import java.lang.reflect.Field;
 import java.util.UUID;
 
+/**
+ * Ball creation class
+ */
 public class Ball {
     
     private ArmorStand stand;

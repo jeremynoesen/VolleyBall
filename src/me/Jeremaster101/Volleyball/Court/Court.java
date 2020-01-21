@@ -4,19 +4,24 @@ import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import me.Jeremaster101.Volleyball.Config.ConfigManager;
 import me.Jeremaster101.Volleyball.Config.ConfigType;
 import me.Jeremaster101.Volleyball.Message;
+import me.Jeremaster101.Volleyball.Volleyball;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+/**
+ * Court creation class
+ */
 public class Court {
     
+    private static ConfigManager courtConfig = new ConfigManager(ConfigType.COURT);
     private String court;
     private Player player;
-    private static ConfigManager courtConfig = new ConfigManager(ConfigType.COURT);
     
     /**
      * Creates a new court region
+     *
      * @param player player creating court
-     * @param court court name
+     * @param court  court name
      */
     public Court(Player player, String court) {
         this.player = player;
@@ -61,7 +66,7 @@ public class Court {
     
     /**
      * @param player player to send messages to
-     * @param court court name
+     * @param court  court name
      * @return return court of specified name
      */
     public static Court getCourt(Player player, String court) {
@@ -153,7 +158,7 @@ public class Court {
             }
             
             if (selection != null) {
-                String areaname = court;
+                String courtName = court;
                 double minx = selection.getMinimumPoint().getX();
                 double miny = selection.getMinimumPoint().getY();
                 double minz = selection.getMinimumPoint().getZ();
@@ -161,12 +166,12 @@ public class Court {
                 double maxy = selection.getMaximumPoint().getY();
                 double maxz = selection.getMaximumPoint().getZ();
                 
-                courtConfig.getConfig().set(areaname + ".location.min.x", minx);
-                courtConfig.getConfig().set(areaname + ".location.min.y", miny);
-                courtConfig.getConfig().set(areaname + ".location.min.z", minz);
-                courtConfig.getConfig().set(areaname + ".location.max.x", maxx);
-                courtConfig.getConfig().set(areaname + ".location.max.y", maxy);
-                courtConfig.getConfig().set(areaname + ".location.max.z", maxz);
+                courtConfig.getConfig().set(courtName + ".location.min.x", minx);
+                courtConfig.getConfig().set(courtName + ".location.min.y", miny);
+                courtConfig.getConfig().set(courtName + ".location.min.z", minz);
+                courtConfig.getConfig().set(courtName + ".location.max.x", maxx);
+                courtConfig.getConfig().set(courtName + ".location.max.y", maxy);
+                courtConfig.getConfig().set(courtName + ".location.max.z", maxz);
                 courtConfig.saveConfig();
                 
                 player.sendMessage(Message.SUCCESS_SET_COURT_BOUNDS.replace("$COURT$", court));
@@ -175,6 +180,20 @@ public class Court {
                 player.sendMessage(Message.ERROR_NULL_BOUNDS);
             }
         }
+    }
+    
+    /**
+     * @return true if net region exists
+     */
+    public boolean isNetSet() {
+        
+        return courtConfig.getConfig().get(court + ".location.min.x") != null
+                && courtConfig.getConfig().get(court + ".location.min.y") != null
+                && courtConfig.getConfig().get(court + ".location.min.z") != null
+                && courtConfig.getConfig().get(court + ".location.max.x") != null
+                && courtConfig.getConfig().get(court + ".location.max.y") != null
+                && courtConfig.getConfig().get(court + ".location.max.z") != null;
+        
     }
     
     /**
@@ -189,11 +208,12 @@ public class Court {
     
     /**
      * enable a court if it is all set up
+     *
      * @param enabled true of false
      */
     public void setEnabled(boolean enabled) {
         if (exists()) {
-            if (getSpeed() != 0.0 && getTexture() != null) {
+            if (isNetSet()) {
                 courtConfig.getConfig().set(court + ".enabled", enabled);
                 player.sendMessage(Message.SUCCESS_COURT_ENABLED.replace("$COURT$", court));
             } else {
@@ -209,11 +229,12 @@ public class Court {
         if (exists() && courtConfig.getConfig().get(court + ".speed") != null) {
             return courtConfig.getConfig().getDouble(court + ".speed");
         }
-        return 0;
+        return Volleyball.getInstance().getConfig().getDouble("default-speed");
     }
     
     /**
      * set how fast the ball gets launched on hit
+     *
      * @param speed double speed
      */
     public void setSpeed(double speed) {
@@ -230,7 +251,7 @@ public class Court {
         if (exists() && courtConfig.getConfig().get(court + ".texture") != null) {
             return courtConfig.getConfig().getString(court + ".texture");
         }
-        return null;
+        return Volleyball.getInstance().getConfig().getString("default-texture");
     }
     
     /**
@@ -243,6 +264,13 @@ public class Court {
         }
     }
     
+    public boolean getAnimations() {
+        if (exists()) {
+            return courtConfig.getConfig().getBoolean(court + ".animations");
+        }
+        return Volleyball.getInstance().getConfig().getBoolean("default-animations");
+    }
+    
     public void setAnimations(boolean animations) {
         if (exists()) {
             courtConfig.getConfig().set(court + ".animations", animations);
@@ -250,15 +278,8 @@ public class Court {
         }
     }
     
-    public boolean getAnimations() {
-        if(exists()) {
-            return courtConfig.getConfig().getBoolean(court + ".animations");
-        }
-        return false;
-    }
-    
     public String getName() {
-        if(exists()) return court;
+        if (exists()) return court;
         return null;
     }
 }
