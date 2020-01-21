@@ -50,16 +50,17 @@ public class CourtHandler {
      * @param court court to use to check
      * @return true if location is above a net
      */
-    public boolean isAboveNet(Location l, String court) {
+    public boolean isAboveNet(Location l, Court court) {
+        
+        String courtName = court.getName();
         
         try {
-            double maxx = courtConfig.getConfig().getDouble(court + ".net.location.max.x");
-            double maxy = courtConfig.getConfig().getDouble(court + ".net.location.max.y");
-            double maxz = courtConfig.getConfig().getDouble(court + ".net.location.max.z");
-            double minx = courtConfig.getConfig().getDouble(court + ".net.location.min.x");
-            double miny = courtConfig.getConfig().getDouble(court + ".net.location.min.y");
-            double minz = courtConfig.getConfig().getDouble(court + ".net.location.min.z");
-            String world = courtConfig.getConfig().getString(court + ".location.world");
+            double maxx = courtConfig.getConfig().getDouble(courtName + ".net.location.max.x");
+            double maxz = courtConfig.getConfig().getDouble(courtName + ".net.location.max.z");
+            double minx = courtConfig.getConfig().getDouble(courtName + ".net.location.min.x");
+            double miny = courtConfig.getConfig().getDouble(courtName + ".net.location.min.y");
+            double minz = courtConfig.getConfig().getDouble(courtName + ".net.location.min.z");
+            String world = courtConfig.getConfig().getString(courtName + ".location.world");
             double tox = l.getBlock().getLocation().getX();
             double toy = l.getBlock().getLocation().getY();
             double toz = l.getBlock().getLocation().getZ();

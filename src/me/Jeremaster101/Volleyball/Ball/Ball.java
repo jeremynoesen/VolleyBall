@@ -90,11 +90,22 @@ public class Ball {
         stand.setHelmet(head);
     }
     
+    public boolean volleyed = false;
+    public int volleys = 0;
+    
+    /**
+     * @return times ball has volleyed
+     */
+    public int getVolleys() {
+        return volleys;
+    }
+    
     /**
      * serves the volleyball
      */
     @SuppressWarnings("deprecation")
-    public void serve(boolean animated) {
+    public void serve(Court court) {
+        boolean animated = court.getAnimations();
         if (animated) {
             Location loc = player.getLocation();
             double radius = 0.5;
@@ -113,11 +124,21 @@ public class Ball {
             }
         }
         
+        CourtHandler ch = new CourtHandler();
+        
         task = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(Volleyball.getInstance(), new BukkitRunnable() {
             @Override
             public void run() {
+                
+                if(ch.isAboveNet(slime.getLocation(), court) && !volleyed) {
+                    volleyed = true;
+                    volleys++;
+                } else if (!ch.isAboveNet(slime.getLocation(), court)){
+                    volleyed = false;
+                }
+                
                 slime.setFallDistance(0);
-                slime.getWorld().spawnParticle(Particle.END_ROD, slime.getLocation(), 0, 0, 0, 0, 1);
+                if (animated) slime.getWorld().spawnParticle(Particle.END_ROD, slime.getLocation(), 0, 0, 0, 0, 1);
                 slime.setTarget(null);
                 
                 if (slime.isDead()) {
@@ -139,7 +160,7 @@ public class Ball {
                         @Override
                         public void run() {
                             if (slime.isOnGround() || slime.getLocation().add(0, 0.5, 0).getBlock().getType() != Material.AIR) {
-                                remove(true);
+                                remove(court);
                             }
                         }
                     }.runTaskLater(Volleyball.getInstance(), 5);
@@ -150,10 +171,9 @@ public class Ball {
     
     /**
      * removes the volleyball with or without animations
-     *
-     * @param animated whether to animate the removal or not
      */
-    public void remove(boolean animated) {
+    public void remove(Court court) {
+        boolean animated = court.getAnimations();
         if (animated) {
             end = true;
             double radius = 1;
