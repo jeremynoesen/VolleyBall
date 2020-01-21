@@ -195,9 +195,9 @@ public class Court {
         if (exists()) {
             if (getSpeed() != 0.0 && getTexture() != null) {
                 courtConfig.getConfig().set(court + ".enabled", enabled);
-                player.sendMessage(Message.SUCCESS_COURT_ENABLED);
+                player.sendMessage(Message.SUCCESS_COURT_ENABLED.replace("$COURT$", court));
             } else {
-                player.sendMessage(Message.ERROR_CANT_ENABLE);
+                player.sendMessage(Message.ERROR_CANT_ENABLE.replace("$COURT$", court));
             }
         }
     }
@@ -219,7 +219,7 @@ public class Court {
     public void setSpeed(double speed) {
         if (exists()) {
             courtConfig.getConfig().set(court + ".speed", speed);
-            player.sendMessage(Message.SUCCESS_SET_SPEED);
+            player.sendMessage(Message.SUCCESS_SET_SPEED.replace("$COURT$", court).replace("$SPEED$", Double.toString(speed)));
         }
     }
     
@@ -239,7 +239,26 @@ public class Court {
     public void setTexture(String url) {
         if (exists()) {
             courtConfig.getConfig().set(court + ".texture", url);
-            player.sendMessage(Message.SUCCESS_SET_TEXTURE);
+            player.sendMessage(Message.SUCCESS_SET_TEXTURE.replace("$COURT$", court));
         }
+    }
+    
+    public void setAnimations(boolean animations) {
+        if (exists()) {
+            courtConfig.getConfig().set(court + ".animations", animations);
+            player.sendMessage(Message.SUCCESS_SET_ANIMATIONS.replace("$COURT$", court).replace("$BOOL$", Boolean.toString(animations)));
+        }
+    }
+    
+    public boolean getAnimations() {
+        if(exists()) {
+            return courtConfig.getConfig().getBoolean(court + ".animations");
+        }
+        return false;
+    }
+    
+    public String getName() {
+        if(exists()) return court;
+        return null;
     }
 }

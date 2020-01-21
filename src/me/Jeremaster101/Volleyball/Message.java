@@ -26,6 +26,7 @@ public class Message {
     public static String SUCCESS_SET_TEXTURE;
     public static String SUCCESS_COURT_SELECTED;
     public static String SUCCESS_SET_NET_BOUNDS;
+    public static String SUCCESS_SET_ANIMATIONS;
     
     public static void reloadMessages() {
         PREFIX = format(messageConfig.getConfig().getString("PREFIX"));
@@ -42,6 +43,7 @@ public class Message {
         SUCCESS_SET_TEXTURE = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_TEXTURE"));
         SUCCESS_COURT_SELECTED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_COURT_SELECTED"));
         SUCCESS_SET_NET_BOUNDS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_NET_BOUNDS"));
+        SUCCESS_SET_ANIMATIONS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_ANIMATIONS"));
     }
     
     public String STARTUP = "\n\n" +
