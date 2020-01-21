@@ -4,6 +4,7 @@ import me.Jeremaster101.Volleyball.Ball.BallListener;
 import me.Jeremaster101.Volleyball.Config.ConfigManager;
 import me.Jeremaster101.Volleyball.Config.ConfigType;
 import org.bukkit.event.Listener;
+import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -15,6 +16,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Volleyball extends JavaPlugin implements Listener {
 
     public static Volleyball plugin;
+    
+    private final Permission letter = new Permission("couriernew.letter");
 
     /**
      * runs when the plugin starts

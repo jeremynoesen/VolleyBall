@@ -20,6 +20,9 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.util.Vector;
 
+/**
+ * Listeners related to the ball object
+ */
 public class BallListener implements Listener {
 
     /**
@@ -112,20 +115,20 @@ public class BallListener implements Listener {
         
                 Court court = Court.getCourt(p, ch.getCourt(p));
         
-                double speed = Volleyball.getInstance().getConfig().getDouble("default-speed");
-                if (court.getSpeed() != 0.0) speed = court.getSpeed();
+                double speed = court.getSpeed();
         
                 for (Entity all : p.getNearbyEntities(20 * speed, 30 * speed, 20 * speed)) {
                     if (all.getCustomName() != null && all.getCustomName().equals(ChatColor.DARK_GREEN +
                             "" + ChatColor.BOLD + "BALL")) {
                         p.sendMessage(Message.ERROR_BALL_OUT);
+                        return;
                     }
                 }
         
                 Ball ball = new Ball(p);
                 ball.serve(court);
         
-            } else p.sendMessage(Message.ERROR_NOT_ON_COURT);
+            }
         }
     }
 }
