@@ -56,5 +56,4 @@ public class Volleyball extends JavaPlugin implements Listener {
     
 }
 
-//todo count volleys
 
