@@ -6,6 +6,7 @@ import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.math.BlockVector3;
 import me.Jeremaster101.Volleyball.Config.ConfigManager;
 import me.Jeremaster101.Volleyball.Config.ConfigType;
+import me.Jeremaster101.Volleyball.Config.Configs;
 import me.Jeremaster101.Volleyball.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -18,7 +19,7 @@ import java.util.Set;
  */
 public class CourtHandler {
     
-    ConfigManager courtConfig = new ConfigManager(ConfigType.COURT);
+    ConfigManager courtConfig = Configs.getConfig(ConfigType.COURT);
     
     /**
      * check if a location is on a court
@@ -29,13 +30,13 @@ public class CourtHandler {
     public boolean isOnCourt(Location l, String court) {
         
         try {
-            double maxx = courtConfig.getConfig().getDouble(court + ".location.max.x");
-            double maxy = courtConfig.getConfig().getDouble(court + ".location.max.y");
-            double maxz = courtConfig.getConfig().getDouble(court + ".location.max.z");
-            double minx = courtConfig.getConfig().getDouble(court + ".location.min.x");
-            double miny = courtConfig.getConfig().getDouble(court + ".location.min.y");
-            double minz = courtConfig.getConfig().getDouble(court + ".location.min.z");
-            String world = courtConfig.getConfig().getString(court + ".location.world");
+            double maxx = courtConfig.getConfig().getDouble(court + ".court.max.x");
+            double maxy = courtConfig.getConfig().getDouble(court + ".court.max.y");
+            double maxz = courtConfig.getConfig().getDouble(court + ".court.max.z");
+            double minx = courtConfig.getConfig().getDouble(court + ".court.min.x");
+            double miny = courtConfig.getConfig().getDouble(court + ".court.min.y");
+            double minz = courtConfig.getConfig().getDouble(court + ".court.min.z");
+            String world = courtConfig.getConfig().getString(court + ".court.world");
             double tox = l.getBlock().getLocation().getX();
             double toy = l.getBlock().getLocation().getY();
             double toz = l.getBlock().getLocation().getZ();
@@ -58,12 +59,12 @@ public class CourtHandler {
         String courtName = court.getName();
         
         try {
-            double maxx = courtConfig.getConfig().getDouble(courtName + ".net.location.max.x");
-            double maxz = courtConfig.getConfig().getDouble(courtName + ".net.location.max.z");
-            double minx = courtConfig.getConfig().getDouble(courtName + ".net.location.min.x");
-            double miny = courtConfig.getConfig().getDouble(courtName + ".net.location.min.y");
-            double minz = courtConfig.getConfig().getDouble(courtName + ".net.location.min.z");
-            String world = courtConfig.getConfig().getString(courtName + ".location.world");
+            double maxx = courtConfig.getConfig().getDouble(courtName + ".net.max.x");
+            double maxz = courtConfig.getConfig().getDouble(courtName + ".net.max.z");
+            double minx = courtConfig.getConfig().getDouble(courtName + ".net.min.x");
+            double miny = courtConfig.getConfig().getDouble(courtName + ".net.min.y");
+            double minz = courtConfig.getConfig().getDouble(courtName + ".net.min.z");
+            String world = courtConfig.getConfig().getString(courtName + ".court.world");
             double tox = l.getBlock().getLocation().getX();
             double toy = l.getBlock().getLocation().getY();
             double toz = l.getBlock().getLocation().getZ();
@@ -82,7 +83,6 @@ public class CourtHandler {
     public String getCourt(Player player) {
         
         Set<String> courts = courtConfig.getConfig().getKeys(false);
-        int end = 0;
         for (String court : courts) {
             if (courts.size() > 0) {
                 if (isOnCourt(player.getLocation(), court)) {

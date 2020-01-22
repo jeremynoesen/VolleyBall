@@ -2,6 +2,7 @@ package me.Jeremaster101.Volleyball;
 
 import me.Jeremaster101.Volleyball.Config.ConfigManager;
 import me.Jeremaster101.Volleyball.Config.ConfigType;
+import me.Jeremaster101.Volleyball.Config.Configs;
 import me.Jeremaster101.Volleyball.Volleyball;
 import org.bukkit.ChatColor;
 
@@ -10,7 +11,7 @@ import org.bukkit.ChatColor;
  */
 public class Message {
     
-    private static ConfigManager messageConfig = new ConfigManager(ConfigType.MESSAGE);
+    private static ConfigManager messageConfig = Configs.getConfig(ConfigType.MESSAGE);
     
     public static String PREFIX;
     public static String ERROR_BALL_OUT;
@@ -27,6 +28,8 @@ public class Message {
     public static String SUCCESS_COURT_SELECTED;
     public static String SUCCESS_SET_NET_BOUNDS;
     public static String SUCCESS_SET_ANIMATIONS;
+    public static String ERROR_NO_PERMS;
+    public static String ERROR_UNKNOWN_ARGS;
     
     public static void reloadMessages() {
         PREFIX = format(messageConfig.getConfig().getString("PREFIX"));
@@ -44,6 +47,8 @@ public class Message {
         SUCCESS_COURT_SELECTED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_COURT_SELECTED"));
         SUCCESS_SET_NET_BOUNDS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_NET_BOUNDS"));
         SUCCESS_SET_ANIMATIONS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_ANIMATIONS"));
+        ERROR_NO_PERMS = PREFIX + format(messageConfig.getConfig().getString("ERROR_NO_PERMS"));
+        ERROR_UNKNOWN_ARGS = PREFIX + format(messageConfig.getConfig().getString("ERROR_UNKNOWN_ARGS"));
     }
     
     public String STARTUP = "\n\n" +

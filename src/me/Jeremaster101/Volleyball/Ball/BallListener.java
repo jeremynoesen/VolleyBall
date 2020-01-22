@@ -15,6 +15,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
+import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
@@ -37,6 +38,7 @@ public class BallListener implements Listener {
             e.setCancelled(true);
             
             Player player = (Player) e.getDamager();
+            
             CourtHandler ch = new CourtHandler();
             
             Court court = Court.getCourt(player, ch.getCourt(player));
@@ -48,7 +50,8 @@ public class BallListener implements Listener {
                     .multiply(court.getSpeed()));
         }
 
-        if (e.getDamager() instanceof Player && e.getEntity().getCustomName() != null && e.getEntity().getCustomName().equals("BALLSTAND")) {
+        if (e.getDamager() instanceof Player && e.getEntity().getCustomName() != null &&
+                e.getEntity().getCustomName().equals("BALLSTAND")) {
             for (Entity s : e.getEntity().getNearbyEntities(1, 1, 1)) {
                 if (s.getCustomName() != null && s.getCustomName().equals(ChatColor.DARK_GREEN +
                         "" + ChatColor.BOLD + "BALL")) {
@@ -56,6 +59,7 @@ public class BallListener implements Listener {
                     e.setCancelled(true);
     
                     Player player = (Player) e.getDamager();
+    
                     CourtHandler ch = new CourtHandler();
     
                     Court court = Court.getCourt(player, ch.getCourt(player));
@@ -110,7 +114,7 @@ public class BallListener implements Listener {
     public void onSneak(PlayerToggleSneakEvent e) {
         Player p = e.getPlayer();
         CourtHandler ch = new CourtHandler();
-        if(!p.isSneaking()) {
+        if(p.isSneaking()) {
             if (ch.getCourt(p) != null) {
         
                 Court court = Court.getCourt(p, ch.getCourt(p));
