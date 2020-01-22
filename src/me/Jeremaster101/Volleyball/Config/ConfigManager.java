@@ -16,9 +16,9 @@ import java.util.logging.Level;
  */
 public class ConfigManager {
     
-    private static File configFile;
-    private static YamlConfiguration YMLConfig;
-    private static ConfigType configType;
+    private File configFile;
+    private YamlConfiguration YMLConfig;
+    private ConfigType configType;
     
     public ConfigManager(ConfigType type) {
         configType = type;
@@ -27,7 +27,7 @@ public class ConfigManager {
     /**
      * reloads a configuration file, will load if the file is not loaded. Also saves defaults when they're missing
      */
-    public static void reloadConfig() {
+    public void reloadConfig() {
         if (configFile == null) {
             configFile = configType.getFile();
         }
@@ -47,7 +47,7 @@ public class ConfigManager {
      * reloads config if YMLConfig is null
      * @return YMLConfig YamlConfiguration
      */
-    public static YamlConfiguration getConfig() {
+    public YamlConfiguration getConfig() {
         if (YMLConfig == null) {
             reloadConfig();
         }
@@ -57,7 +57,7 @@ public class ConfigManager {
     /**
      * saves a config file
      */
-    public static void saveConfig() {
+    public void saveConfig() {
         if (YMLConfig == null || configFile == null) {
             return;
         }
@@ -71,7 +71,7 @@ public class ConfigManager {
     /**
      * saves the default config from the plugin jar if the file doesn't exist in the plugin folder
      */
-    public static void saveDefaultConfig() {
+    public void saveDefaultConfig() {
         if (configFile == null) {
             configFile = configType.getFile();
         }

@@ -3,6 +3,7 @@ package me.Jeremaster101.Volleyball;
 import me.Jeremaster101.Volleyball.Ball.BallListener;
 import me.Jeremaster101.Volleyball.Config.ConfigManager;
 import me.Jeremaster101.Volleyball.Config.ConfigType;
+import me.Jeremaster101.Volleyball.Config.Configs;
 import org.bukkit.event.Listener;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.PluginManager;
@@ -17,19 +18,21 @@ public class Volleyball extends JavaPlugin implements Listener {
 
     public static Volleyball plugin;
     
-    private final Permission letter = new Permission("couriernew.letter");
+    private final Permission admin = new Permission("volleyball.admin");
+    
+    ConfigManager courtConfig = Configs.getConfig(ConfigType.COURT);
+    ConfigManager messageConfig = Configs.getConfig(ConfigType.MESSAGE);
 
     /**
      * runs when the plugin starts
      */
     public void onEnable() {
         plugin = this;
-    
-        ConfigManager courtConfig = new ConfigManager(ConfigType.COURT);
-        ConfigManager messageConfig = new ConfigManager(ConfigType.MESSAGE);
         
         messageConfig.saveDefaultConfig();
         courtConfig.saveDefaultConfig();
+        
+        Message.reloadMessages();
 
         Message msg = new Message();
 
@@ -38,6 +41,8 @@ public class Volleyball extends JavaPlugin implements Listener {
         PluginManager pm = getServer().getPluginManager();
 
         pm.registerEvents(new BallListener(), plugin);
+        
+        pm.addPermission(admin);
 
         getCommand("volleyball").setExecutor(new CommandExec());
 
