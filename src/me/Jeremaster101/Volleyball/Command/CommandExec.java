@@ -1,6 +1,7 @@
-package me.Jeremaster101.Volleyball;
+package me.Jeremaster101.Volleyball.Command;
 
 import me.Jeremaster101.Volleyball.Court.Court;
+import me.Jeremaster101.Volleyball.Message;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -22,9 +23,9 @@ public class CommandExec implements CommandExecutor {
                         
                         if(args[0].equalsIgnoreCase("court")) {
                             
-                            if(args[1].equalsIgnoreCase("create")) {
+                            if(args[2].equalsIgnoreCase("create")) {
                                 
-                                Court court = new Court(p, args[2]);
+                                Court court = new Court(p, args[1]);
                                 
                             }
                             
