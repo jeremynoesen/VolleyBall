@@ -23,7 +23,7 @@ import java.util.UUID;
  */
 public class Ball {
     
-    private Zombie stand; //todo fix or replace hitting stands
+    private Villager stand; //todo fix or replace hitting stands
     private Slime slime;
     private boolean end = false;
     private int stop = 0;
@@ -49,8 +49,7 @@ public class Ball {
         loc.setPitch(0);
         slime.teleport(loc);
         
-        stand = slime.getWorld().spawn(slime.getLocation().subtract(0, 1.5, 0), Zombie.class);
-        //stand.setVisible(false);
+        stand = slime.getWorld().spawn(slime.getLocation().subtract(0, 1.5, 0), Villager.class);
         setTexture(court.getTexture());
         stand.setGravity(false);
         stand.setCustomName("BALLSTAND");
@@ -59,7 +58,7 @@ public class Ball {
         stand.setAI(false);
         stand.setCollidable(false);
         stand.setSilent(true);
-        stand.setInvulnerable(true);
+        stand.setInvulnerable(false);
         stand.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 1000000, 1000000, true, true));
         
         slime.setCollidable(false);
@@ -139,6 +138,9 @@ public class Ball {
                 if (ch.isAboveNet(slime.getLocation(), court) && !volleyed) {
                     volleyed = true;
                     volleys++;
+                    for(Player players : ch.getPlayersOnCourt(court)) {
+                        players.sendTitle("", ChatColor.WHITE + Integer.toString(volleys), 0, 10, 10);
+                    }
                 } else if (!ch.isAboveNet(slime.getLocation(), court)) {
                     volleyed = false;
                 }

@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommandTabComplete implements TabCompleter {
+public class CommandTabComplete implements TabCompleter {//todo permissions
     
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
