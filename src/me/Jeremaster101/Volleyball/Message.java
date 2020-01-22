@@ -9,7 +9,7 @@ import org.bukkit.ChatColor;
 /**
  * All messages used within the plugin
  */
-public class Message {
+public class Message { //todo help message and disable messages
     
     private static ConfigManager messageConfig = Configs.getConfig(ConfigType.MESSAGE);
     
