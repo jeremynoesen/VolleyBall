@@ -1,6 +1,8 @@
 package me.Jeremaster101.Volleyball;
 
 import me.Jeremaster101.Volleyball.Ball.BallListener;
+import me.Jeremaster101.Volleyball.Command.CommandExec;
+import me.Jeremaster101.Volleyball.Command.CommandTabComplete;
 import me.Jeremaster101.Volleyball.Config.ConfigManager;
 import me.Jeremaster101.Volleyball.Config.ConfigType;
 import me.Jeremaster101.Volleyball.Config.Configs;
@@ -45,6 +47,7 @@ public class Volleyball extends JavaPlugin implements Listener {
         pm.addPermission(admin);
 
         getCommand("volleyball").setExecutor(new CommandExec());
+        getCommand("volleyball").setTabCompleter(new CommandTabComplete());
 
 
         getConfig().options().copyDefaults(true);
