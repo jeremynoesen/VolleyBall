@@ -23,7 +23,7 @@ import java.util.UUID;
  */
 public class Ball {
     
-    private Villager stand; //todo fix or replace hitting stands
+    private Villager stand;
     private Slime slime;
     private boolean end = false;
     private int stop = 0;
@@ -34,7 +34,7 @@ public class Ball {
      *
      * @param player player to create the ball at
      */
-    public Ball(Player player) { //todo make ball tilt based on y velocity
+    public Ball(Player player) {
         this.player = player;
         
         CourtHandler ch = new CourtHandler();
