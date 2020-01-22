@@ -5,11 +5,9 @@ import com.mojang.authlib.properties.Property;
 import me.Jeremaster101.Volleyball.Court.Court;
 import me.Jeremaster101.Volleyball.Court.CourtHandler;
 import me.Jeremaster101.Volleyball.Volleyball;
-import org.apache.commons.codec.binary.Base64;
 import org.bukkit.*;
-import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Slime;
+import org.bukkit.craftbukkit.libs.org.apache.commons.codec.binary.Base64;
+import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.potion.PotionEffect;
@@ -25,10 +23,10 @@ import java.util.UUID;
  */
 public class Ball {
     
-    private ArmorStand stand;
+    private Zombie stand; //todo fix or replace hitting stands
     private Slime slime;
     private boolean end = false;
-    private int task;
+    private int stop = 0;
     private Player player;
     
     /**
@@ -36,7 +34,7 @@ public class Ball {
      *
      * @param player player to create the ball at
      */
-    public Ball(Player player) {
+    public Ball(Player player) { //todo make ball tilt based on y velocity
         this.player = player;
         
         CourtHandler ch = new CourtHandler();
@@ -51,15 +49,20 @@ public class Ball {
         loc.setPitch(0);
         slime.teleport(loc);
         
-        stand = slime.getWorld().spawn(slime.getLocation().subtract(0, 1.5, 0), ArmorStand.class);
-        stand.setVisible(false);
+        stand = slime.getWorld().spawn(slime.getLocation().subtract(0, 1.5, 0), Zombie.class);
+        //stand.setVisible(false);
         setTexture(court.getTexture());
         stand.setGravity(false);
         stand.setCustomName("BALLSTAND");
         stand.setCustomNameVisible(false);
         stand.setSilent(true);
+        stand.setAI(false);
+        stand.setCollidable(false);
+        stand.setSilent(true);
+        stand.setInvulnerable(true);
+        stand.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 1000000, 1000000, true, true));
         
-        slime.setCollidable(true);
+        slime.setCollidable(false);
         slime.setCustomName(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "BALL");
         slime.setVelocity(player.getLocation().getDirection().multiply(0.1).add(new Vector(0, 1, 0)));
         slime.getWorld().playSound(slime.getLocation(), Sound.ENTITY_ARROW_SHOOT, 2, 0);
@@ -90,7 +93,7 @@ public class Ball {
             e1.printStackTrace();
         }
         head.setItemMeta(headMeta);
-        stand.setHelmet(head);
+        stand.getEquipment().setHelmet(head);
     }
     
     public boolean volleyed = false;
@@ -129,21 +132,21 @@ public class Ball {
         
         CourtHandler ch = new CourtHandler();
         
-        task = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(Volleyball.getInstance(), new BukkitRunnable() {
+        new BukkitRunnable() {
             @Override
             public void run() {
                 
-                if(ch.isAboveNet(slime.getLocation(), court) && !volleyed) {
+                if (ch.isAboveNet(slime.getLocation(), court) && !volleyed) {
                     volleyed = true;
                     volleys++;
-                } else if (!ch.isAboveNet(slime.getLocation(), court)){
+                } else if (!ch.isAboveNet(slime.getLocation(), court)) {
                     volleyed = false;
                 }
                 
                 slime.setFallDistance(0);
                 if (animated) slime.getWorld().spawnParticle(Particle.END_ROD, slime.getLocation(), 0, 0, 0, 0, 1);
                 slime.setTarget(null);
-                
+    
                 if (slime.isDead()) {
                     stand.remove();
                     this.cancel();
@@ -156,20 +159,23 @@ public class Ball {
                     slime.teleport(loc);
                     stand.teleport(slime.getLocation().subtract(0, 1.5, 0));
                 }
-                
+    
                 if (slime.isOnGround() || slime.getLocation().getBlock().getType() != Material.AIR) {
-                    
+        
                     new BukkitRunnable() {
                         @Override
                         public void run() {
                             if (slime.isOnGround() || slime.getLocation().add(0, 0.5, 0).getBlock().getType() != Material.AIR) {
-                                remove(court);
+                                if(stop == 0) {
+                                    remove(court);
+                                }
+                                stop ++;
                             }
                         }
                     }.runTaskLater(Volleyball.getInstance(), 5);
                 }
             }
-        }, 0, 1);
+        }.runTaskTimer(Volleyball.getInstance(), 0, 1);
     }
     
     /**
@@ -221,9 +227,7 @@ public class Ball {
             
             slime.getWorld().playSound(slime.getLocation(), Sound.BLOCK_SAND_PLACE, 2, 1);
             slime.getWorld().playSound(slime.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASEDRUM, 2, 1);
-            Bukkit.getServer().getScheduler().cancelTask(task);
         } else {
-            Bukkit.getServer().getScheduler().cancelTask(task);
             slime.remove();
             stand.remove();
         }

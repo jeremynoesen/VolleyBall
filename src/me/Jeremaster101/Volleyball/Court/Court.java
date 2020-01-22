@@ -3,6 +3,7 @@ package me.Jeremaster101.Volleyball.Court;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import me.Jeremaster101.Volleyball.Config.ConfigManager;
 import me.Jeremaster101.Volleyball.Config.ConfigType;
+import me.Jeremaster101.Volleyball.Config.Configs;
 import me.Jeremaster101.Volleyball.Message;
 import me.Jeremaster101.Volleyball.Volleyball;
 import org.bukkit.Bukkit;
@@ -13,7 +14,7 @@ import org.bukkit.entity.Player;
  */
 public class Court {
     
-    private static ConfigManager courtConfig = new ConfigManager(ConfigType.COURT);
+    private static ConfigManager courtConfig = Configs.getConfig(ConfigType.COURT);
     private String court;
     private Player player;
     
@@ -27,7 +28,8 @@ public class Court {
         this.player = player;
         if (court != null) {
             this.court = court;
-            if (courtConfig.getConfig().getConfigurationSection(court) == null) {
+            
+            if (courtConfig.getConfig().getConfigurationSection(court) == null) { //fix
                 
                 WorldEditPlugin worldEdit = (WorldEditPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");
                 com.sk89q.worldedit.regions.Region selection;
@@ -48,13 +50,13 @@ public class Court {
                     double maxz = selection.getMaximumPoint().getZ();
                     
                     courtConfig.getConfig().set(courtName + ".enabled", false);
-                    courtConfig.getConfig().set(courtName + ".location.min.x", minx);
-                    courtConfig.getConfig().set(courtName + ".location.min.y", miny);
-                    courtConfig.getConfig().set(courtName + ".location.min.z", minz);
-                    courtConfig.getConfig().set(courtName + ".location.max.x", maxx);
-                    courtConfig.getConfig().set(courtName + ".location.max.y", maxy);
-                    courtConfig.getConfig().set(courtName + ".location.max.z", maxz);
-                    courtConfig.getConfig().set(courtName + ".location.world", player.getWorld().getName());
+                    courtConfig.getConfig().set(courtName + ".court.min.x", minx);
+                    courtConfig.getConfig().set(courtName + ".court.min.y", miny);
+                    courtConfig.getConfig().set(courtName + ".court.min.z", minz);
+                    courtConfig.getConfig().set(courtName + ".court.max.x", maxx);
+                    courtConfig.getConfig().set(courtName + ".court.max.y", maxy);
+                    courtConfig.getConfig().set(courtName + ".court.max.z", maxz);
+                    courtConfig.getConfig().set(courtName + ".court.world", player.getWorld().getName());
                     courtConfig.saveConfig();
                     
                     player.sendMessage(Message.SUCCESS_COURT_SET.replace("$COURT$", court));
@@ -117,7 +119,7 @@ public class Court {
             }
             
             if (selection != null) {
-                String courtName = court + ".net";
+                String courtName = court;
                 double minx = selection.getMinimumPoint().getX();
                 double miny = selection.getMinimumPoint().getY();
                 double minz = selection.getMinimumPoint().getZ();
@@ -125,12 +127,12 @@ public class Court {
                 double maxy = selection.getMaximumPoint().getY();
                 double maxz = selection.getMaximumPoint().getZ();
                 
-                courtConfig.getConfig().set(courtName + ".location.min.x", minx);
-                courtConfig.getConfig().set(courtName + ".location.min.y", miny);
-                courtConfig.getConfig().set(courtName + ".location.min.z", minz);
-                courtConfig.getConfig().set(courtName + ".location.max.x", maxx);
-                courtConfig.getConfig().set(courtName + ".location.max.y", maxy);
-                courtConfig.getConfig().set(courtName + ".location.max.z", maxz);
+                courtConfig.getConfig().set(courtName + ".court.min.x", minx);
+                courtConfig.getConfig().set(courtName + ".court.min.y", miny);
+                courtConfig.getConfig().set(courtName + ".court.min.z", minz);
+                courtConfig.getConfig().set(courtName + ".court.max.x", maxx);
+                courtConfig.getConfig().set(courtName + ".court.max.y", maxy);
+                courtConfig.getConfig().set(courtName + ".court.max.z", maxz);
                 courtConfig.saveConfig();
                 
                 player.sendMessage(Message.SUCCESS_SET_NET_BOUNDS.replace("$COURT$", court));
@@ -166,15 +168,15 @@ public class Court {
                 double maxy = selection.getMaximumPoint().getY();
                 double maxz = selection.getMaximumPoint().getZ();
                 
-                courtConfig.getConfig().set(courtName + ".location.min.x", minx);
-                courtConfig.getConfig().set(courtName + ".location.min.y", miny);
-                courtConfig.getConfig().set(courtName + ".location.min.z", minz);
-                courtConfig.getConfig().set(courtName + ".location.max.x", maxx);
-                courtConfig.getConfig().set(courtName + ".location.max.y", maxy);
-                courtConfig.getConfig().set(courtName + ".location.max.z", maxz);
+                courtConfig.getConfig().set(courtName + ".net.min.x", minx);
+                courtConfig.getConfig().set(courtName + ".net.min.y", miny);
+                courtConfig.getConfig().set(courtName + ".net.min.z", minz);
+                courtConfig.getConfig().set(courtName + ".net.max.x", maxx);
+                courtConfig.getConfig().set(courtName + ".net.max.y", maxy);
+                courtConfig.getConfig().set(courtName + ".net.max.z", maxz);
                 courtConfig.saveConfig();
                 
-                player.sendMessage(Message.SUCCESS_SET_COURT_BOUNDS.replace("$COURT$", court));
+                player.sendMessage(Message.SUCCESS_SET_NET_BOUNDS.replace("$COURT$", court));
                 
             } else {
                 player.sendMessage(Message.ERROR_NULL_BOUNDS);
@@ -187,12 +189,14 @@ public class Court {
      */
     public boolean isNetSet() {
         
-        return courtConfig.getConfig().get(court + ".location.min.x") != null
-                && courtConfig.getConfig().get(court + ".location.min.y") != null
-                && courtConfig.getConfig().get(court + ".location.min.z") != null
-                && courtConfig.getConfig().get(court + ".location.max.x") != null
-                && courtConfig.getConfig().get(court + ".location.max.y") != null
-                && courtConfig.getConfig().get(court + ".location.max.z") != null;
+        String courtName = court;
+        
+        return courtConfig.getConfig().get(courtName + ".net.min.x") != null
+                && courtConfig.getConfig().get(courtName + ".net.min.y") != null
+                && courtConfig.getConfig().get(courtName + ".net.min.z") != null
+                && courtConfig.getConfig().get(courtName + ".net.max.x") != null
+                && courtConfig.getConfig().get(courtName + ".net.max.y") != null
+                && courtConfig.getConfig().get(courtName + ".net.max.z") != null;
         
     }
     
@@ -215,6 +219,7 @@ public class Court {
         if (exists()) {
             if (isNetSet()) {
                 courtConfig.getConfig().set(court + ".enabled", enabled);
+                courtConfig.saveConfig();
                 player.sendMessage(Message.SUCCESS_COURT_ENABLED.replace("$COURT$", court));
             } else {
                 player.sendMessage(Message.ERROR_CANT_ENABLE.replace("$COURT$", court));
@@ -226,8 +231,11 @@ public class Court {
      * @return ball speed type double
      */
     public double getSpeed() {
-        if (exists() && courtConfig.getConfig().get(court + ".speed") != null) {
-            return courtConfig.getConfig().getDouble(court + ".speed");
+        if (exists()) {
+            if (courtConfig.getConfig().get(court + ".speed") != null) {
+                return courtConfig.getConfig().getDouble(court + ".speed");
+            } else
+                return Volleyball.getInstance().getConfig().getDouble("default-speed");
         }
         return Volleyball.getInstance().getConfig().getDouble("default-speed");
     }
@@ -240,6 +248,7 @@ public class Court {
     public void setSpeed(double speed) {
         if (exists()) {
             courtConfig.getConfig().set(court + ".speed", speed);
+            courtConfig.saveConfig();
             player.sendMessage(Message.SUCCESS_SET_SPEED.replace("$COURT$", court).replace("$SPEED$", Double.toString(speed)));
         }
     }
@@ -260,20 +269,26 @@ public class Court {
     public void setTexture(String url) {
         if (exists()) {
             courtConfig.getConfig().set(court + ".texture", url);
+            courtConfig.saveConfig();
             player.sendMessage(Message.SUCCESS_SET_TEXTURE.replace("$COURT$", court));
         }
     }
     
     public boolean getAnimations() {
         if (exists()) {
-            return courtConfig.getConfig().getBoolean(court + ".animations");
+            if (courtConfig.getConfig().get(court + ".animations") != null) {
+                return courtConfig.getConfig().getBoolean(court + ".animations");
+            } else {
+                return Volleyball.getInstance().getConfig().getBoolean("default-animations");
+            }
         }
-        return Volleyball.getInstance().getConfig().getBoolean("default-animations");
+        return false;
     }
     
     public void setAnimations(boolean animations) {
         if (exists()) {
             courtConfig.getConfig().set(court + ".animations", animations);
+            courtConfig.saveConfig();
             player.sendMessage(Message.SUCCESS_SET_ANIMATIONS.replace("$COURT$", court).replace("$BOOL$", Boolean.toString(animations)));
         }
     }
