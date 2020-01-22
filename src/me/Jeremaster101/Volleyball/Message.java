@@ -31,7 +31,7 @@ public class Message { //todo help message and disable messages
     public static String ERROR_NO_PERMS;
     public static String ERROR_UNKNOWN_ARGS;
     
-    public static void reloadMessages() {
+    public static void reloadMessages() { //todo rename messages
         PREFIX = format(messageConfig.getConfig().getString("PREFIX"));
         ERROR_BALL_OUT = PREFIX + format(messageConfig.getConfig().getString("ERROR_BALL_OUT"));
         ERROR_NOT_ON_COURT = PREFIX + format(messageConfig.getConfig().getString("ERROR_NOT_ON_COURT"));
