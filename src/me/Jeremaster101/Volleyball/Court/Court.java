@@ -133,6 +133,7 @@ public class Court {
                 courtConfig.getConfig().set(courtName + ".court.max.x", maxx);
                 courtConfig.getConfig().set(courtName + ".court.max.y", maxy);
                 courtConfig.getConfig().set(courtName + ".court.max.z", maxz);
+                courtConfig.getConfig().set(courtName + ".court.world", player.getWorld().getName());
                 courtConfig.saveConfig();
                 
                 player.sendMessage(Message.SUCCESS_SET_NET_BOUNDS.replace("$COURT$", court));
@@ -215,7 +216,7 @@ public class Court {
      *
      * @param enabled true of false
      */
-    public void setEnabled(boolean enabled) {
+    public void setEnabled(boolean enabled) { //todo make functions disable when court disabled
         if (exists()) {
             if (isNetSet()) {
                 courtConfig.getConfig().set(court + ".enabled", enabled);
