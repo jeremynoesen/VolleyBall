@@ -111,6 +111,9 @@ public class BallListener implements Listener {
             e.setCancelled(true);
     }
     
+    /**
+     * Serve the volleyball
+     */
     @EventHandler
     public void onSneak(PlayerToggleSneakEvent e) {
         Player p = e.getPlayer();

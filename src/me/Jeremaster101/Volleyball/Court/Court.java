@@ -216,7 +216,7 @@ public class Court {
      *
      * @param enabled true of false
      */
-    public void setEnabled(boolean enabled) { //todo make functions disable when court disabled
+    public void setEnabled(boolean enabled) {
         if (exists()) {
             if (isNetSet()) {
                 courtConfig.getConfig().set(court + ".enabled", enabled);

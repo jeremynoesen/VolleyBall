@@ -52,6 +52,10 @@ public class CourtHandler {
         }
     }
     
+    /**
+     * @param l location to check
+     * @return true if on any court
+     */
     public boolean isOnCourt(Location l) {
         
         for (String courts : courtConfig.getConfig().getKeys(false)) {
@@ -125,6 +129,10 @@ public class CourtHandler {
         return null;
     }
     
+    /**
+     * @param loc location to check
+     * @return name of court location is in
+     */
     public String getCourt(Location loc) {
         
         Set<String> courts = courtConfig.getConfig().getKeys(false);
