@@ -1,6 +1,6 @@
-package me.Jeremaster101.Volleyball.Config;
+package me.Jeremaster101.VolleyBall.Config;
 
-import me.Jeremaster101.Volleyball.Volleyball;
+import me.Jeremaster101.VolleyBall.VolleyBall;
 
 import java.io.File;
 import java.io.InputStream;
@@ -21,20 +21,20 @@ public enum ConfigType {
      * @return config file of the matching file name
      */
     public File getFile() {
-        return new File(Volleyball.getInstance().getDataFolder(), fileName);
+        return new File(VolleyBall.getInstance().getDataFolder(), fileName);
     }
     
     /**
      * @return input stream of resource from inside plugin jar
      */
     public InputStream getResource() {
-        return Volleyball.getInstance().getResource(fileName);
+        return VolleyBall.getInstance().getResource(fileName);
     }
     
     /**
      * save resource from plugin jar to plugin folder
      */
     public void saveResource() {
-        Volleyball.getInstance().saveResource(fileName, false);
+        VolleyBall.getInstance().saveResource(fileName, false);
     }
 }

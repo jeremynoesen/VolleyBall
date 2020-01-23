@@ -1,11 +1,11 @@
-name: Volleyball
+name: VolleyBall
 version: 1.0.0
-description: Simple volleyball ball plugin
+description: Simple volleyball game plugin
 author: Jeremaster101
-main: me.Jeremaster101.Volleyball.Volleyball
+main: me.Jeremaster101.VolleyBall.VolleyBall
 api-version: 1.13
 depends: [WorldEdit]
 commands:
   volleyball:
-    description: Main Volleyball command. For more, type /volleyball help
+    description: Main VolleyBall command. For more, type /volleyball help
     usage: /<command>
