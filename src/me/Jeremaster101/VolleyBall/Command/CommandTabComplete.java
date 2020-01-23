@@ -60,12 +60,14 @@ public class CommandTabComplete implements TabCompleter {
                             tabList.add("set");
                             tabList.add("select");
                             
-                        } else if (args[2].startsWith("set")) {
-                            
+                        }
+                        
+                        if (args[2].startsWith("set")) {
+    
                             tabList.remove("select");
                             
                         } else if (args[2].startsWith("sel")) {
-                            
+    
                             tabList.remove("set");
                             
                         }
