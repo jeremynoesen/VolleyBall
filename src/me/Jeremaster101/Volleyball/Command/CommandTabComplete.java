@@ -31,13 +31,19 @@ public class CommandTabComplete implements TabCompleter {
                 }
     
                 if (args.length == 3) {
-                    if (args[2].equalsIgnoreCase("")) {
+                    ConfigManager courtConfig = Configs.getConfig(ConfigType.COURT);
+    
+                    if(courtConfig.getConfig().getKeys(false).contains(args[1])) {
+                        if(args[2].equalsIgnoreCase("") || args[2].startsWith("s")) {
+                            tabList.add("set");
+                            tabList.add("select");
+                        } else if(args[2].startsWith("set")) {
+                            tabList.remove("select");
+                        } else if(args[2].startsWith("sel")) {
+                            tabList.remove("set");
+                        }
+                    } else {
                         tabList.add("create");
-                        tabList.add("set");
-                    } else if (args[2].startsWith("c")) {
-                        tabList.add("create");
-                    } else if (args[2].startsWith("s")) {
-                        tabList.add("set");
                     }
                 }
     
