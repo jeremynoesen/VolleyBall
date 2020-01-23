@@ -1,11 +1,11 @@
-package me.Jeremaster101.Volleyball;
+package me.Jeremaster101.VolleyBall;
 
-import me.Jeremaster101.Volleyball.Ball.BallListener;
-import me.Jeremaster101.Volleyball.Command.CommandExec;
-import me.Jeremaster101.Volleyball.Command.CommandTabComplete;
-import me.Jeremaster101.Volleyball.Config.ConfigManager;
-import me.Jeremaster101.Volleyball.Config.ConfigType;
-import me.Jeremaster101.Volleyball.Config.Configs;
+import me.Jeremaster101.VolleyBall.Ball.BallListener;
+import me.Jeremaster101.VolleyBall.Command.CommandExec;
+import me.Jeremaster101.VolleyBall.Command.CommandTabComplete;
+import me.Jeremaster101.VolleyBall.Config.ConfigManager;
+import me.Jeremaster101.VolleyBall.Config.ConfigType;
+import me.Jeremaster101.VolleyBall.Config.Configs;
 import org.bukkit.event.Listener;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.PluginManager;
@@ -16,9 +16,9 @@ import org.bukkit.plugin.java.JavaPlugin;
  *
  * @author Jeremy Noesen
  */
-public class Volleyball extends JavaPlugin implements Listener {
+public class VolleyBall extends JavaPlugin implements Listener {
 
-    public static Volleyball plugin;
+    public static VolleyBall plugin;
     
     private final Permission admin = new Permission("volleyball.admin");
     
@@ -61,7 +61,7 @@ public class Volleyball extends JavaPlugin implements Listener {
         plugin = null;
     }
     
-    public static Volleyball getInstance() {
+    public static VolleyBall getInstance() {
         return plugin;
     }
     

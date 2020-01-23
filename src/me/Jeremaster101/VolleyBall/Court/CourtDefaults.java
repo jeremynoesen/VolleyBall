@@ -1,7 +1,7 @@
-package me.Jeremaster101.Volleyball.Court;
+package me.Jeremaster101.VolleyBall.Court;
 
-import me.Jeremaster101.Volleyball.Message;
-import me.Jeremaster101.Volleyball.Volleyball;
+import me.Jeremaster101.VolleyBall.Message;
+import me.Jeremaster101.VolleyBall.VolleyBall;
 import org.bukkit.entity.Player;
 
 public class CourtDefaults {
@@ -16,7 +16,7 @@ public class CourtDefaults {
      * @return ball speed type double
      */
     public double getSpeed() {
-        return Volleyball.getInstance().getConfig().getDouble("default-speed");
+        return VolleyBall.getInstance().getConfig().getDouble("default-speed");
     }
     
     /**
@@ -25,8 +25,8 @@ public class CourtDefaults {
      * @param speed double speed
      */
     public void setSpeed(double speed) {
-        Volleyball.getInstance().getConfig().set("default-speed", speed);
-        Volleyball.getInstance().saveConfig();
+        VolleyBall.getInstance().getConfig().set("default-speed", speed);
+        VolleyBall.getInstance().saveConfig();
         player.sendMessage(Message.SUCCESS_SET_COURT_SPEED.replace("$COURT$", "defaults").replace("$SPEED$", Double.toString(speed)));
     }
     
@@ -34,25 +34,25 @@ public class CourtDefaults {
      * @return url of head texture
      */
     public String getTexture() {
-        return Volleyball.getInstance().getConfig().getString("default-texture");
+        return VolleyBall.getInstance().getConfig().getString("default-texture");
     }
     
     /**
      * @param url url of head texture
      */
     public void setTexture(String url) {
-        Volleyball.getInstance().getConfig().set("default-texture", url);
-        Volleyball.getInstance().saveConfig();
+        VolleyBall.getInstance().getConfig().set("default-texture", url);
+        VolleyBall.getInstance().saveConfig();
         player.sendMessage(Message.SUCCESS_SET_COURT_TEXTURE.replace("$COURT$", "defaults"));
     }
     
     public boolean getAnimations() {
-        return Volleyball.getInstance().getConfig().getBoolean("default-animations");
+        return VolleyBall.getInstance().getConfig().getBoolean("default-animations");
     }
     
     public void setAnimations(boolean animations) {
-        Volleyball.getInstance().getConfig().set("default-animations", animations);
-        Volleyball.getInstance().saveConfig();
+        VolleyBall.getInstance().getConfig().set("default-animations", animations);
+        VolleyBall.getInstance().saveConfig();
         player.sendMessage(Message.SUCCESS_SET_COURT_ANIMATIONS.replace("$COURT$", "defaults").replace("$BOOL$", Boolean.toString(animations)));
     }
     
