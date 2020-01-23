@@ -30,6 +30,7 @@ public class Message { //todo help message
     public static String ERROR_NO_PERMS;
     public static String ERROR_UNKNOWN_ARGS;
     public static String ERROR_DEFAULT;
+    public static String SUCCESS_RELOADED;
     
     public static void reloadMessages() {
         PREFIX = format(messageConfig.getConfig().getString("PREFIX"));
@@ -50,6 +51,7 @@ public class Message { //todo help message
         ERROR_NO_PERMS = PREFIX + format(messageConfig.getConfig().getString("ERROR_NO_PERMS"));
         ERROR_UNKNOWN_ARGS = PREFIX + format(messageConfig.getConfig().getString("ERROR_UNKNOWN_ARGS"));
         ERROR_DEFAULT = PREFIX + format(messageConfig.getConfig().getString("ERROR_DEFAULT"));
+        SUCCESS_RELOADED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_RELOADED"));
     }
     
     public String STARTUP = "\n\n" +

@@ -1,12 +1,21 @@
 package me.Jeremaster101.VolleyBall.Command;
 
+import me.Jeremaster101.VolleyBall.Config.ConfigType;
+import me.Jeremaster101.VolleyBall.Config.Configs;
 import me.Jeremaster101.VolleyBall.Court.Court;
 import me.Jeremaster101.VolleyBall.Court.CourtHandler;
 import me.Jeremaster101.VolleyBall.Message;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Slime;
+import org.bukkit.entity.Villager;
+import sun.security.krb5.Config;
 
 /**
  * Command class, listens for volleyball command
@@ -28,6 +37,23 @@ public class CommandExec implements CommandExecutor {
                             
                             p.sendMessage(Message.HELP_MAIN);
                             
+                        } else if (args[0].equalsIgnoreCase("reload")) {
+    
+                            Configs.getConfig(ConfigType.COURT).reloadConfig();
+                            Configs.getConfig(ConfigType.MESSAGE).reloadConfig();
+    
+                            for (World world : Bukkit.getWorlds()) {
+                                for (Entity entity : world.getEntities()) {
+                                    if (entity.getCustomName() != null && ((entity instanceof Slime &&
+                                            entity.getCustomName().equalsIgnoreCase(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "BALL")) ||
+                                            (entity instanceof Villager && entity.getCustomName().equalsIgnoreCase("BALLSTAND")))) {
+                                        entity.remove();
+                                    }
+                                }
+                            }
+                            
+                            p.sendMessage(Message.SUCCESS_RELOADED);
+    
                         }
                         
                     } else if (args.length == 2) {

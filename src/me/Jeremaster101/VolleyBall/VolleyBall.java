@@ -6,6 +6,12 @@ import me.Jeremaster101.VolleyBall.Command.CommandTabComplete;
 import me.Jeremaster101.VolleyBall.Config.ConfigManager;
 import me.Jeremaster101.VolleyBall.Config.ConfigType;
 import me.Jeremaster101.VolleyBall.Config.Configs;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.World;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Slime;
+import org.bukkit.entity.Villager;
 import org.bukkit.event.Listener;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.PluginManager;
@@ -52,6 +58,25 @@ public class VolleyBall extends JavaPlugin implements Listener {
 
         getConfig().options().copyDefaults(true);
         saveConfig();
+    
+        int count = 0;
+    
+        plugin.getServer().getConsoleSender().sendMessage(msg.CLEANING);
+    
+        for (World world : Bukkit.getWorlds()) {
+            for (Entity entity : world.getEntities()) {
+                if (entity.getCustomName() != null && ((entity instanceof Slime &&
+                        entity.getCustomName().equalsIgnoreCase(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "BALL")) ||
+                        (entity instanceof Villager && entity.getCustomName().equalsIgnoreCase("BALLSTAND")))) {
+                    entity.remove();
+                    count++;
+                }
+            }
+        }
+    
+        plugin.getServer().getConsoleSender().sendMessage(msg.DONE_CLEANING.replace("$COUNT$",
+                Integer.toString(count)));
+        
     }
 
     /**
