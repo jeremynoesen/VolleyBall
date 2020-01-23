@@ -16,3 +16,4 @@ SUCCESS_SET_COURT_ANIMATIONS: "&7Successfully set animations to &f$BOOL$ &7on co
 ERROR_NO_PERMS: "&7You do not have permission to do this!"
 ERROR_UNKNOWN_ARGS: "&7Unknown arguments!"
 ERROR_DEFAULT: "&7Unable to set default!"
+SUCCESS_RELOADED: "&7Successfully reloaded all configs and removed all volleyballs!"
