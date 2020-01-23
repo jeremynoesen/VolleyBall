@@ -1,10 +1,10 @@
-package me.Jeremaster101.Volleyball.Ball;
+package me.Jeremaster101.VolleyBall.Ball;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import me.Jeremaster101.Volleyball.Court.Court;
-import me.Jeremaster101.Volleyball.Court.CourtHandler;
-import me.Jeremaster101.Volleyball.Volleyball;
+import me.Jeremaster101.VolleyBall.Court.Court;
+import me.Jeremaster101.VolleyBall.Court.CourtHandler;
+import me.Jeremaster101.VolleyBall.VolleyBall;
 import org.bukkit.*;
 import org.bukkit.craftbukkit.libs.org.apache.commons.codec.binary.Base64;
 import org.bukkit.entity.*;
@@ -125,7 +125,7 @@ public class Ball {
                                 (float) (loc.getX() + x), (float) (loc.getY() + finalY * 0.1),
                                 (float) (loc.getZ() + z), 0, 0, 0, 0, 1);
                     }
-                }.runTaskLater(Volleyball.getInstance(), (long) y);
+                }.runTaskLater(VolleyBall.getInstance(), (long) y);
             }
         }
         
@@ -174,10 +174,10 @@ public class Ball {
                                 stop ++;
                             }
                         }
-                    }.runTaskLater(Volleyball.getInstance(), 5);
+                    }.runTaskLater(VolleyBall.getInstance(), 5);
                 }
             }
-        }.runTaskTimer(Volleyball.getInstance(), 0, 1);
+        }.runTaskTimer(VolleyBall.getInstance(), 0, 1);
     }
     
     /**
@@ -204,7 +204,7 @@ public class Ball {
                         loc1.setY(loc1.subtract(0, 0.1 * finalY, 0).getY());
                         stand.teleport(loc1);
                     }
-                }.runTaskLater(Volleyball.getInstance(), (long) y);
+                }.runTaskLater(VolleyBall.getInstance(), (long) y);
             }
             for (double y = 0; y <= 6.28; y += 0.2) {
                 double finalY = y;
@@ -217,7 +217,7 @@ public class Ball {
                                 (float) (loc.getX() + x), (float) (loc.getY() + 0.2),
                                 (float) (loc.getZ() + z), 0, 0, 0, 0, 1);
                     }
-                }.runTaskLater(Volleyball.getInstance(), (long) y);
+                }.runTaskLater(VolleyBall.getInstance(), (long) y);
             }
             new BukkitRunnable() {
                 @Override
@@ -225,7 +225,7 @@ public class Ball {
                     slime.remove();
                     stand.remove();
                 }
-            }.runTaskLater(Volleyball.getInstance(), (long) 6.28);
+            }.runTaskLater(VolleyBall.getInstance(), (long) 6.28);
             
             slime.getWorld().playSound(slime.getLocation(), Sound.BLOCK_SAND_PLACE, 2, 1);
             slime.getWorld().playSound(slime.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASEDRUM, 2, 1);

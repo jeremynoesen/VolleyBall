@@ -1,9 +1,8 @@
-package me.Jeremaster101.Volleyball;
+package me.Jeremaster101.VolleyBall;
 
-import me.Jeremaster101.Volleyball.Config.ConfigManager;
-import me.Jeremaster101.Volleyball.Config.ConfigType;
-import me.Jeremaster101.Volleyball.Config.Configs;
-import me.Jeremaster101.Volleyball.Volleyball;
+import me.Jeremaster101.VolleyBall.Config.ConfigManager;
+import me.Jeremaster101.VolleyBall.Config.ConfigType;
+import me.Jeremaster101.VolleyBall.Config.Configs;
 import org.bukkit.ChatColor;
 
 /**
@@ -54,7 +53,7 @@ public class Message { //todo help message
     }
     
     public String STARTUP = "\n\n" +
-            ChatColor.DARK_GRAY + "███╗" + ChatColor.YELLOW + "██╗   ██╗" + ChatColor.GOLD + "██████╗ " + ChatColor.DARK_GRAY + "███╗" + ChatColor.WHITE + "  Volleyball version " + Volleyball.getInstance().getDescription().getVersion() + " " + "has " + "been enabled!\n" +
+            ChatColor.DARK_GRAY + "███╗" + ChatColor.YELLOW + "██╗   ██╗" + ChatColor.GOLD + "██████╗ " + ChatColor.DARK_GRAY + "███╗" + ChatColor.WHITE + "  Volleyball version " + VolleyBall.getInstance().getDescription().getVersion() + " " + "has " + "been enabled!\n" +
             ChatColor.DARK_GRAY + "██╔╝" + ChatColor.YELLOW + "██║   ██║" + ChatColor.GOLD + "██╔══██╗" + ChatColor.DARK_GRAY + "╚██║" + ChatColor.WHITE + "  Volleyball is written by Jeremaster101 and\n" +
             ChatColor.DARK_GRAY + "██║ " + ChatColor.YELLOW + "██║   ██║" + ChatColor.GOLD + "██████╔╝" + ChatColor.DARK_GRAY + " ██║" + ChatColor.WHITE + "  may not be modified or redistributed without\n" +
             ChatColor.DARK_GRAY + "██║ " + ChatColor.YELLOW + "╚██╗ ██╔╝" + ChatColor.GOLD + "██╔══██╗" + ChatColor.DARK_GRAY + " ██║" + ChatColor.WHITE + "  his consent. For help and support, join the\n" +
@@ -81,5 +80,38 @@ public class Message { //todo help message
     public static String format(String msg) {
         return ChatColor.translateAlternateColorCodes('&', msg);
     }
+    
+    public static String[] HELP_MAIN = new String[]{
+            "",
+            ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "-------------[" + ChatColor.YELLOW +
+                    "" + ChatColor.BOLD + "Volley" + ChatColor.GOLD +
+                    "" + ChatColor.BOLD + "Ball " + ChatColor.GRAY +
+                    "" + ChatColor.BOLD + "Help"
+                    + ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "]-------------",
+            ChatColor.GRAY + "/volleyball court help" + ChatColor.WHITE + ": View court commands",
+            ChatColor.GRAY + "/volleyball reload" + ChatColor.WHITE + ": Reload configurations",
+            ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "---------------------------------------",
+            ""
+    };
+    
+    public static String[] HELP_COURT = new String[]{
+            "",
+            ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "----------[" + ChatColor.YELLOW +
+                    "" + ChatColor.BOLD + "Volley" + ChatColor.GOLD +
+                    "" + ChatColor.BOLD + "Ball " + ChatColor.GRAY +
+                    "" + ChatColor.BOLD + "Court Help"
+                    + ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "]----------",
+            ChatColor.GRAY + "/volleyball court <courtname> create" + ChatColor.WHITE + ": Create a new court",
+            ChatColor.GRAY + "/volleyball court <courtname> remove" + ChatColor.WHITE + ": Remove a court",
+            ChatColor.GRAY + "/volleyball court <courtname> set net" + ChatColor.WHITE + ": Set the net region",
+            ChatColor.GRAY + "/volleyball court <courtname> set bounds" + ChatColor.WHITE + ": Change the court bounds",
+            ChatColor.GRAY + "/volleyball court <courtname> set animations <true/false>" + ChatColor.WHITE + ": Enable ball animations",
+            ChatColor.GRAY + "/volleyball court <courtname> set speed <number>" + ChatColor.WHITE + ": Set ball speed",
+            ChatColor.GRAY + "/volleyball court <courtname> set texture <url>" + ChatColor.WHITE + ": Set ball texture",
+            ChatColor.GRAY + "/volleyball court <courtname> set enabled <true/false>" + ChatColor.WHITE + ": Enable a court",
+            
+            ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "---------------------------------------",
+            ""
+    };
     
 }

@@ -1,11 +1,11 @@
-package me.Jeremaster101.Volleyball.Court;
+package me.Jeremaster101.VolleyBall.Court;
 
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
-import me.Jeremaster101.Volleyball.Config.ConfigManager;
-import me.Jeremaster101.Volleyball.Config.ConfigType;
-import me.Jeremaster101.Volleyball.Config.Configs;
-import me.Jeremaster101.Volleyball.Message;
-import me.Jeremaster101.Volleyball.Volleyball;
+import me.Jeremaster101.VolleyBall.Config.ConfigManager;
+import me.Jeremaster101.VolleyBall.Config.ConfigType;
+import me.Jeremaster101.VolleyBall.Config.Configs;
+import me.Jeremaster101.VolleyBall.Message;
+import me.Jeremaster101.VolleyBall.VolleyBall;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -236,9 +236,9 @@ public class Court {
             if (courtConfig.getConfig().get(court + ".speed") != null) {
                 return courtConfig.getConfig().getDouble(court + ".speed");
             } else
-                return Volleyball.getInstance().getConfig().getDouble("default-speed");
+                return VolleyBall.getInstance().getConfig().getDouble("default-speed");
         }
-        return Volleyball.getInstance().getConfig().getDouble("default-speed");
+        return VolleyBall.getInstance().getConfig().getDouble("default-speed");
     }
     
     /**
@@ -261,7 +261,7 @@ public class Court {
         if (exists() && courtConfig.getConfig().get(court + ".texture") != null) {
             return courtConfig.getConfig().getString(court + ".texture");
         }
-        return Volleyball.getInstance().getConfig().getString("default-texture");
+        return VolleyBall.getInstance().getConfig().getString("default-texture");
     }
     
     /**
@@ -280,7 +280,7 @@ public class Court {
             if (courtConfig.getConfig().get(court + ".animations") != null) {
                 return courtConfig.getConfig().getBoolean(court + ".animations");
             } else {
-                return Volleyball.getInstance().getConfig().getBoolean("default-animations");
+                return VolleyBall.getInstance().getConfig().getBoolean("default-animations");
             }
         }
         return false;

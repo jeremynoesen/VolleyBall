@@ -1,7 +1,7 @@
-package me.Jeremaster101.Volleyball.Config;
+package me.Jeremaster101.VolleyBall.Config;
 
-import me.Jeremaster101.Volleyball.Message;
-import me.Jeremaster101.Volleyball.Volleyball;
+import me.Jeremaster101.VolleyBall.Message;
+import me.Jeremaster101.VolleyBall.VolleyBall;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
@@ -64,7 +64,7 @@ public class ConfigManager {
         try {
             getConfig().save(configFile);
         } catch (IOException ex) {
-            Volleyball.getInstance().getLogger().log(Level.SEVERE, "A config file failed to save!", ex);
+            VolleyBall.getInstance().getLogger().log(Level.SEVERE, "A config file failed to save!", ex);
         }
     }
     
