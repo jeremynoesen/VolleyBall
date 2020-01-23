@@ -9,7 +9,7 @@ import org.bukkit.ChatColor;
 /**
  * All messages used within the plugin
  */
-public class Message { //todo help message and disable messages
+public class Message { //todo help message
     
     private static ConfigManager messageConfig = Configs.getConfig(ConfigType.MESSAGE);
     
@@ -20,18 +20,19 @@ public class Message { //todo help message and disable messages
     public static String ERROR_UNKNOWN_COURT;
     public static String SUCCESS_COURT_REMOVED;
     public static String SUCCESS_SET_COURT_BOUNDS;
-    public static String SUCCESS_COURT_SET;
-    public static String SUCCESS_COURT_ENABLED;
+    public static String SUCCESS_COURT_CREATED;
+    public static String SUCCESS_SET_COURT_ENABLED;
     public static String ERROR_CANT_ENABLE;
-    public static String SUCCESS_SET_SPEED;
-    public static String SUCCESS_SET_TEXTURE;
+    public static String SUCCESS_SET_COURT_SPEED;
+    public static String SUCCESS_SET_COURT_TEXTURE;
     public static String SUCCESS_COURT_SELECTED;
     public static String SUCCESS_SET_NET_BOUNDS;
-    public static String SUCCESS_SET_ANIMATIONS;
+    public static String SUCCESS_SET_COURT_ANIMATIONS;
     public static String ERROR_NO_PERMS;
     public static String ERROR_UNKNOWN_ARGS;
+    public static String ERROR_DEFAULT;
     
-    public static void reloadMessages() { //todo rename messages
+    public static void reloadMessages() {
         PREFIX = format(messageConfig.getConfig().getString("PREFIX"));
         ERROR_BALL_OUT = PREFIX + format(messageConfig.getConfig().getString("ERROR_BALL_OUT"));
         ERROR_NOT_ON_COURT = PREFIX + format(messageConfig.getConfig().getString("ERROR_NOT_ON_COURT"));
@@ -39,16 +40,17 @@ public class Message { //todo help message and disable messages
         ERROR_UNKNOWN_COURT = PREFIX + format(messageConfig.getConfig().getString("ERROR_UNKNOWN_COURT"));
         SUCCESS_COURT_REMOVED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_COURT_REMOVED"));
         SUCCESS_SET_COURT_BOUNDS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_BOUNDS"));
-        SUCCESS_COURT_SET = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_COURT_SET"));
-        SUCCESS_COURT_ENABLED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_COURT_ENABLED"));
+        SUCCESS_COURT_CREATED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_COURT_CREATED"));
+        SUCCESS_SET_COURT_ENABLED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_ENABLED"));
         ERROR_CANT_ENABLE = PREFIX + format(messageConfig.getConfig().getString("ERROR_CANT_ENABLE"));
-        SUCCESS_SET_SPEED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_SPEED"));
-        SUCCESS_SET_TEXTURE = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_TEXTURE"));
+        SUCCESS_SET_COURT_SPEED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_SPEED"));
+        SUCCESS_SET_COURT_TEXTURE = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_TEXTURE"));
         SUCCESS_COURT_SELECTED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_COURT_SELECTED"));
         SUCCESS_SET_NET_BOUNDS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_NET_BOUNDS"));
-        SUCCESS_SET_ANIMATIONS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_ANIMATIONS"));
+        SUCCESS_SET_COURT_ANIMATIONS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_ANIMATIONS"));
         ERROR_NO_PERMS = PREFIX + format(messageConfig.getConfig().getString("ERROR_NO_PERMS"));
         ERROR_UNKNOWN_ARGS = PREFIX + format(messageConfig.getConfig().getString("ERROR_UNKNOWN_ARGS"));
+        ERROR_DEFAULT = PREFIX + format(messageConfig.getConfig().getString("ERROR_DEFAULT"));
     }
     
     public String STARTUP = "\n\n" +
