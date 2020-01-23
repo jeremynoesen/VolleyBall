@@ -8,7 +8,7 @@ import org.bukkit.ChatColor;
 /**
  * All messages used within the plugin
  */
-public class Message { //todo help message
+public class Message {
     
     private static ConfigManager messageConfig = Configs.getConfig(ConfigType.MESSAGE);
     
