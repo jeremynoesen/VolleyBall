@@ -31,10 +31,11 @@ public class CommandTabComplete implements TabCompleter {
                 
                 if (args.length == 0 || args.length == 1) {
                     
-                    if(args[0].equalsIgnoreCase("")) {
+                    if (args[0].equalsIgnoreCase("")) {
                         
                         tabList.add("court");
                         tabList.add("help");
+                        tabList.add("reload");
                         
                     } else if (args[0].startsWith("c")) {
                         
@@ -43,6 +44,9 @@ public class CommandTabComplete implements TabCompleter {
                     } else if (args[0].startsWith("h")) {
                         
                         tabList.add("help");
+                    } else if (args[0].startsWith("r")) {
+                        
+                        tabList.add("reload");
                     }
                     
                 } else if (args.length == 3) {
@@ -70,15 +74,20 @@ public class CommandTabComplete implements TabCompleter {
                         
                         if (args[2].equalsIgnoreCase("")) {
                             
-                            if (!args[1].equalsIgnoreCase("help")  && !args[0].equalsIgnoreCase("help")) tabList.add("create");
+                            if (!args[1].equalsIgnoreCase("help") && !args[0].equalsIgnoreCase("help") &&
+                                    !args[0].equalsIgnoreCase("reload"))
+                                tabList.add("create");
+                            
                             if (courtConfig.getConfig().getKeys(false).contains(args[1])) tabList.add("remove");
                             
                         } else if (args[2].startsWith("c")) {
-    
-                            if (!args[1].equalsIgnoreCase("help")  && !args[0].equalsIgnoreCase("help")) tabList.add("create");
+                            
+                            if (!args[1].equalsIgnoreCase("help") && !args[0].equalsIgnoreCase("help") &&
+                                    !args[0].equalsIgnoreCase("reload"))
+                                tabList.add("create");
                             
                         } else if (args[2].startsWith("r")) {
-    
+                            
                             if (courtConfig.getConfig().getKeys(false).contains(args[1])) tabList.add("remove");
                             
                         }
@@ -93,35 +102,36 @@ public class CommandTabComplete implements TabCompleter {
                     
                     ConfigManager courtConfig = Configs.getConfig(ConfigType.COURT);
                     
-                    if(!args[0].equalsIgnoreCase("help")) {
-    
+                    if (!args[0].equalsIgnoreCase("help") && !args[0].equalsIgnoreCase("reload")) {
+                        
                         if (args[1].equalsIgnoreCase("")) {
-        
+                            
                             tabList.addAll(courtConfig.getConfig().getKeys(false));
                             tabList.add("defaults");
                             tabList.add("help");
-        
+                            
                         }
-    
+                        
                         for (String courts : courtConfig.getConfig().getKeys(false)) {
-        
+                            
                             if (courts.startsWith(args[1])) {
-            
+                                
                                 tabList.add(courts);
-            
+                                
                             }
-        
+                            
                             if (args[1].startsWith("d")) tabList.add("defaults");
                             if (args[1].startsWith("h")) tabList.add("help");
-        
+                            
                         }
-    
+                        
                     }
                     
                 } else if (args.length == 4) {
                     
                     if (!args[2].equalsIgnoreCase("create") && !args[2].equalsIgnoreCase("remove")
-                            && !args[1].equalsIgnoreCase("help") && !args[0].equalsIgnoreCase("help")) {
+                            && !args[1].equalsIgnoreCase("help") && !args[0].equalsIgnoreCase("help")
+                            && !args[0].equalsIgnoreCase("reload")) {
                         
                         if (args[3].equalsIgnoreCase("")) {
                             
@@ -143,7 +153,8 @@ public class CommandTabComplete implements TabCompleter {
                             
                         }
                         
-                        if (!args[1].equalsIgnoreCase("defaults") && !args[1].equalsIgnoreCase("help")  && !args[0].equalsIgnoreCase("help")) {
+                        if (!args[1].equalsIgnoreCase("defaults") && !args[1].equalsIgnoreCase("help")
+                                && !args[0].equalsIgnoreCase("help") && !args[0].equalsIgnoreCase("reload")) {
                             
                             if (args[3].equalsIgnoreCase("")) {
                                 
