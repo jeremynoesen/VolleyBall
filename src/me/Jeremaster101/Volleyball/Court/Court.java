@@ -59,7 +59,7 @@ public class Court {
                     courtConfig.getConfig().set(courtName + ".court.world", player.getWorld().getName());
                     courtConfig.saveConfig();
                     
-                    player.sendMessage(Message.SUCCESS_COURT_SET.replace("$COURT$", court));
+                    player.sendMessage(Message.SUCCESS_COURT_CREATED.replace("$COURT$", court));
                     
                 }
             }
@@ -221,7 +221,7 @@ public class Court {
             if (isNetSet()) {
                 courtConfig.getConfig().set(court + ".enabled", enabled);
                 courtConfig.saveConfig();
-                player.sendMessage(Message.SUCCESS_COURT_ENABLED.replace("$COURT$", court));
+                player.sendMessage(Message.SUCCESS_SET_COURT_ENABLED.replace("$COURT$", court).replace("$BOOL$", Boolean.toString(enabled)));
             } else {
                 player.sendMessage(Message.ERROR_CANT_ENABLE.replace("$COURT$", court));
             }
@@ -250,7 +250,7 @@ public class Court {
         if (exists()) {
             courtConfig.getConfig().set(court + ".speed", speed);
             courtConfig.saveConfig();
-            player.sendMessage(Message.SUCCESS_SET_SPEED.replace("$COURT$", court).replace("$SPEED$", Double.toString(speed)));
+            player.sendMessage(Message.SUCCESS_SET_COURT_SPEED.replace("$COURT$", court).replace("$SPEED$", Double.toString(speed)));
         }
     }
     
@@ -271,7 +271,7 @@ public class Court {
         if (exists()) {
             courtConfig.getConfig().set(court + ".texture", url);
             courtConfig.saveConfig();
-            player.sendMessage(Message.SUCCESS_SET_TEXTURE.replace("$COURT$", court));
+            player.sendMessage(Message.SUCCESS_SET_COURT_TEXTURE.replace("$COURT$", court));
         }
     }
     
@@ -290,7 +290,7 @@ public class Court {
         if (exists()) {
             courtConfig.getConfig().set(court + ".animations", animations);
             courtConfig.saveConfig();
-            player.sendMessage(Message.SUCCESS_SET_ANIMATIONS.replace("$COURT$", court).replace("$BOOL$", Boolean.toString(animations)));
+            player.sendMessage(Message.SUCCESS_SET_COURT_ANIMATIONS.replace("$COURT$", court).replace("$BOOL$", Boolean.toString(animations)));
         }
     }
     

@@ -19,86 +19,103 @@ public class CommandTabComplete implements TabCompleter {
         ArrayList<String> tabList = new ArrayList<>();
         if (sender instanceof Player) {
             Player player = (Player) sender;
-    
+            
             if (player.hasPermission("volleyball.admin")) {
-    
+                
                 for (int i = 0; i < args.length; i++) {
                     args[i] = args[i].toLowerCase();
                 }
-    
+                
                 if (args.length == 0 || args.length == 1) {
                     tabList.add("court");
                 }
-    
+                
                 if (args.length == 3) {
                     ConfigManager courtConfig = Configs.getConfig(ConfigType.COURT);
-    
-                    if(courtConfig.getConfig().getKeys(false).contains(args[1])) {
-                        if(args[2].equalsIgnoreCase("") || args[2].startsWith("s")) {
+                    
+                    if (courtConfig.getConfig().getKeys(false).contains(args[1])) {
+                        if (args[2].equalsIgnoreCase("") || args[2].startsWith("s")) {
                             tabList.add("set");
                             tabList.add("select");
-                        } else if(args[2].startsWith("set")) {
+                        } else if (args[2].startsWith("set")) {
                             tabList.remove("select");
-                        } else if(args[2].startsWith("sel")) {
+                        } else if (args[2].startsWith("sel")) {
                             tabList.remove("set");
                         }
-                    } else {
+                    } else if (!args[1].equalsIgnoreCase("defaults")) {
                         tabList.add("create");
+                    } else if (args[1].equalsIgnoreCase("defaults")) {
+                        tabList.add("set");
                     }
                 }
-    
+                
                 if (args.length == 2) {
-                    if (args[1].equalsIgnoreCase("")) {
-                        ConfigManager courtConfig = Configs.getConfig(ConfigType.COURT);
+                    ConfigManager courtConfig = Configs.getConfig(ConfigType.COURT);
+    
+                    if(args[1].equalsIgnoreCase("")) {
                         tabList.addAll(courtConfig.getConfig().getKeys(false));
-                        for (String courts : courtConfig.getConfig().getKeys(false)) {
-                            if (courts.startsWith(args[1])) {
-                                tabList.add(courts);
+                        tabList.add("defaults");
+                    }
+                    for (String courts : courtConfig.getConfig().getKeys(false)) {
+                        if (courts.startsWith(args[1])) {
+                            tabList.add(courts);
+                        }
+                        if(args[1].startsWith("d")) tabList.add("defaults");
+                    }
+                }
+                
+                if (args.length == 4) {
+                    if (!args[2].equalsIgnoreCase("create")) {
+                        if (args[3].equalsIgnoreCase("")) {
+                            tabList.add("animations");
+                            tabList.add("speed");
+                            tabList.add("texture");
+                        } else if (args[3].startsWith("a")) {
+                            tabList.add("animations");
+                        } else if (args[3].startsWith("b")) {
+                            tabList.add("speed");
+                        } else if (args[3].startsWith("t")) {
+                            tabList.add("texture");
+                        }
+                        
+                        if (!args[1].equalsIgnoreCase("defaults")) {
+                            if (args[3].equalsIgnoreCase("")) {
+                                tabList.add("bounds");
+                                tabList.add("enabled");
+                                tabList.add("net");
+                            } else if (args[3].startsWith("b")) {
+                                tabList.add("bounds");
+                            } else if (args[3].startsWith("e")) {
+                                tabList.add("enabled");
+                            } else if (args[3].startsWith("n")) {
+                                tabList.add("net");
                             }
                         }
+                        
                     }
                 }
-    
-                if (args.length == 4) {
-                    if (args[3].equalsIgnoreCase("")) {
-                        tabList.add("animations");
-                        tabList.add("bounds");
-                        tabList.add("enabled");
-                        tabList.add("net");
-                        tabList.add("speed");
-                        tabList.add("texture");
-                    } else if (args[3].startsWith("a")) {
-                        tabList.add("animations");
-                    } else if (args[3].startsWith("b")) {
-                        tabList.add("bounds");
-                    } else if (args[3].startsWith("e")) {
-                        tabList.add("enabled");
-                    } else if (args[3].startsWith("n")) {
-                        tabList.add("net");
-                    } else if (args[3].startsWith("s")) {
-                        tabList.add("speed");
-                    } else if (args[3].startsWith("t")) {
-                        tabList.add("texture");
-                    }
-                }
-    
+                
                 if (args.length == 5) {
-        
+                    
                     if (args[3].equalsIgnoreCase("animations") || args[3].equalsIgnoreCase("enabled")) {
-            
-                        if (args[4].equalsIgnoreCase("")) {
-                            tabList.add("true");
-                            tabList.add("false");
-                        } else if (args[4].startsWith("t")) {
-                            tabList.add("true");
-                        } else if (args[4].startsWith("f")) {
-                            tabList.add("false");
+                        
+                        if (!args[2].equalsIgnoreCase("create")) {
+                            
+                            if (args[4].equalsIgnoreCase("")) {
+                                tabList.add("true");
+                                tabList.add("false");
+                            } else if (args[4].startsWith("t")) {
+                                tabList.add("true");
+                            } else if (args[4].startsWith("f")) {
+                                tabList.add("false");
+                            }
+                            
                         }
-            
+                        
                     }
                 }
-    
-    
+                
+                
                 return tabList;
             } else player.sendMessage(Message.ERROR_NO_PERMS);
         }
