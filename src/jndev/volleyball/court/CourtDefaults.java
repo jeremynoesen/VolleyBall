@@ -1,7 +1,7 @@
-package me.Jeremaster101.VolleyBall.Court;
+package jndev.volleyball.court;
 
-import me.Jeremaster101.VolleyBall.Message;
-import me.Jeremaster101.VolleyBall.VolleyBall;
+import jndev.volleyball.Message;
+import jndev.volleyball.VolleyBall;
 import org.bukkit.entity.Player;
 
 public class CourtDefaults {

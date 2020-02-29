@@ -1,4 +1,4 @@
-package me.Jeremaster101.VolleyBall.Config;
+package jndev.volleyball.config;
 
 /**
  * initialize all configs

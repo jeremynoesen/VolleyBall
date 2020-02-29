@@ -1,13 +1,13 @@
-package me.Jeremaster101.VolleyBall.Court;
+package jndev.volleyball.court;
 
 import com.sk89q.worldedit.LocalSession;
 import com.sk89q.worldedit.WorldEdit;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.math.BlockVector3;
-import me.Jeremaster101.VolleyBall.Config.ConfigManager;
-import me.Jeremaster101.VolleyBall.Config.ConfigType;
-import me.Jeremaster101.VolleyBall.Config.Configs;
-import me.Jeremaster101.VolleyBall.Message;
+import jndev.volleyball.config.ConfigManager;
+import jndev.volleyball.config.ConfigType;
+import jndev.volleyball.Message;
+import jndev.volleyball.config.Configs;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;

@@ -1,6 +1,6 @@
-package me.Jeremaster101.VolleyBall.Config;
+package jndev.volleyball.config;
 
-import me.Jeremaster101.VolleyBall.VolleyBall;
+import jndev.volleyball.VolleyBall;
 
 import java.io.File;
 import java.io.InputStream;
