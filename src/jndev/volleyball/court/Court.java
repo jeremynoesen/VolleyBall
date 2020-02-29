@@ -1,11 +1,11 @@
-package me.Jeremaster101.VolleyBall.Court;
+package jndev.volleyball.court;
 
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
-import me.Jeremaster101.VolleyBall.Config.ConfigManager;
-import me.Jeremaster101.VolleyBall.Config.ConfigType;
-import me.Jeremaster101.VolleyBall.Config.Configs;
-import me.Jeremaster101.VolleyBall.Message;
-import me.Jeremaster101.VolleyBall.VolleyBall;
+import jndev.volleyball.config.ConfigManager;
+import jndev.volleyball.config.ConfigType;
+import jndev.volleyball.Message;
+import jndev.volleyball.config.Configs;
+import jndev.volleyball.VolleyBall;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -221,7 +221,8 @@ public class Court {
             if (isNetSet()) {
                 courtConfig.getConfig().set(court + ".enabled", enabled);
                 courtConfig.saveConfig();
-                player.sendMessage(Message.SUCCESS_SET_COURT_ENABLED.replace("$COURT$", court).replace("$BOOL$", Boolean.toString(enabled)));
+                player.sendMessage(Message.SUCCESS_SET_COURT_ENABLED.replace("$COURT$", court).replace("$BOOL$",
+                        Boolean.toString(enabled)));
             } else {
                 player.sendMessage(Message.ERROR_CANT_ENABLE.replace("$COURT$", court));
             }
@@ -250,7 +251,8 @@ public class Court {
         if (exists()) {
             courtConfig.getConfig().set(court + ".speed", speed);
             courtConfig.saveConfig();
-            player.sendMessage(Message.SUCCESS_SET_COURT_SPEED.replace("$COURT$", court).replace("$SPEED$", Double.toString(speed)));
+            player.sendMessage(Message.SUCCESS_SET_COURT_SPEED.replace("$COURT$", court).replace("$SPEED$",
+                    Double.toString(speed)));
         }
     }
     
@@ -290,7 +292,8 @@ public class Court {
         if (exists()) {
             courtConfig.getConfig().set(court + ".animations", animations);
             courtConfig.saveConfig();
-            player.sendMessage(Message.SUCCESS_SET_COURT_ANIMATIONS.replace("$COURT$", court).replace("$BOOL$", Boolean.toString(animations)));
+            player.sendMessage(Message.SUCCESS_SET_COURT_ANIMATIONS.replace("$COURT$", court).replace("$BOOL$",
+                    Boolean.toString(animations)));
         }
     }
     
@@ -299,3 +302,4 @@ public class Court {
         return null;
     }
 }
+//todo court list and info commands

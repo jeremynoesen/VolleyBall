@@ -1,10 +1,10 @@
-package me.Jeremaster101.VolleyBall.Ball;
+package jndev.volleyball.ball;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import me.Jeremaster101.VolleyBall.Court.Court;
-import me.Jeremaster101.VolleyBall.Court.CourtHandler;
-import me.Jeremaster101.VolleyBall.VolleyBall;
+import jndev.volleyball.court.Court;
+import jndev.volleyball.court.CourtHandler;
+import jndev.volleyball.VolleyBall;
 import org.bukkit.*;
 import org.bukkit.craftbukkit.libs.org.apache.commons.codec.binary.Base64;
 import org.bukkit.entity.*;

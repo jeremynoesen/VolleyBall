@@ -1,9 +1,9 @@
-package me.Jeremaster101.VolleyBall.Command;
+package jndev.volleyball.command;
 
-import me.Jeremaster101.VolleyBall.Config.ConfigManager;
-import me.Jeremaster101.VolleyBall.Config.ConfigType;
-import me.Jeremaster101.VolleyBall.Config.Configs;
-import me.Jeremaster101.VolleyBall.Message;
+import jndev.volleyball.config.ConfigManager;
+import jndev.volleyball.config.ConfigType;
+import jndev.volleyball.Message;
+import jndev.volleyball.config.Configs;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;

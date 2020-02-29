@@ -1,8 +1,8 @@
-package me.Jeremaster101.VolleyBall;
+package jndev.volleyball;
 
-import me.Jeremaster101.VolleyBall.Config.ConfigManager;
-import me.Jeremaster101.VolleyBall.Config.ConfigType;
-import me.Jeremaster101.VolleyBall.Config.Configs;
+import jndev.volleyball.config.ConfigManager;
+import jndev.volleyball.config.ConfigType;
+import jndev.volleyball.config.Configs;
 import org.bukkit.ChatColor;
 
 /**
