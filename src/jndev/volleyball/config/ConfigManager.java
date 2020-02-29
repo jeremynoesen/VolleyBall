@@ -1,7 +1,7 @@
-package me.Jeremaster101.VolleyBall.Config;
+package jndev.volleyball.config;
 
-import me.Jeremaster101.VolleyBall.Message;
-import me.Jeremaster101.VolleyBall.VolleyBall;
+import jndev.volleyball.Message;
+import jndev.volleyball.VolleyBall;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;

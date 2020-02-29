@@ -1,8 +1,8 @@
-package me.Jeremaster101.VolleyBall.Ball;
+package jndev.volleyball.ball;
 
-import me.Jeremaster101.VolleyBall.Court.Court;
-import me.Jeremaster101.VolleyBall.Court.CourtHandler;
-import me.Jeremaster101.VolleyBall.Message;
+import jndev.volleyball.court.Court;
+import jndev.volleyball.Message;
+import jndev.volleyball.court.CourtHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.entity.ArmorStand;

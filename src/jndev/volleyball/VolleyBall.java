@@ -1,11 +1,11 @@
-package me.Jeremaster101.VolleyBall;
+package jndev.volleyball;
 
-import me.Jeremaster101.VolleyBall.Ball.BallListener;
-import me.Jeremaster101.VolleyBall.Command.CommandExec;
-import me.Jeremaster101.VolleyBall.Command.CommandTabComplete;
-import me.Jeremaster101.VolleyBall.Config.ConfigManager;
-import me.Jeremaster101.VolleyBall.Config.ConfigType;
-import me.Jeremaster101.VolleyBall.Config.Configs;
+import jndev.volleyball.ball.BallListener;
+import jndev.volleyball.command.CommandExec;
+import jndev.volleyball.command.CommandTabComplete;
+import jndev.volleyball.config.ConfigManager;
+import jndev.volleyball.config.ConfigType;
+import jndev.volleyball.config.Configs;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;

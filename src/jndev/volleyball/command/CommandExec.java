@@ -1,10 +1,10 @@
-package me.Jeremaster101.VolleyBall.Command;
+package jndev.volleyball.command;
 
-import me.Jeremaster101.VolleyBall.Config.ConfigType;
-import me.Jeremaster101.VolleyBall.Config.Configs;
-import me.Jeremaster101.VolleyBall.Court.Court;
-import me.Jeremaster101.VolleyBall.Court.CourtHandler;
-import me.Jeremaster101.VolleyBall.Message;
+import jndev.volleyball.config.ConfigType;
+import jndev.volleyball.Message;
+import jndev.volleyball.config.Configs;
+import jndev.volleyball.court.Court;
+import jndev.volleyball.court.CourtHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -15,7 +15,6 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Slime;
 import org.bukkit.entity.Villager;
-import sun.security.krb5.Config;
 
 /**
  * Command class, listens for volleyball command
