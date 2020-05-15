@@ -5,9 +5,7 @@ import jndev.volleyball.Message;
 import jndev.volleyball.court.CourtHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
-import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -30,8 +28,8 @@ public class BallListener implements Listener {
     @EventHandler
     public void onBallHit(EntityDamageByEntityEvent e) {
         
-        if (e.getDamager() instanceof Player && e.getEntity().getCustomName() != null && e.getEntity()
-                .getCustomName().equals(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "BALL")) {
+        if (e.getDamager() instanceof Player && e.getEntity().getName() != null && e.getEntity()
+                .getName().equals(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "BALL")) {
             
             e.setCancelled(true);
             
@@ -50,10 +48,10 @@ public class BallListener implements Listener {
                     .multiply(court.getSpeed()));
         }
         
-        if (e.getDamager() instanceof Player && e.getEntity().getCustomName() != null &&
-                e.getEntity().getCustomName().equals("BALLSTAND")) {
+        if (e.getDamager() instanceof Player && e.getEntity().getName() != null &&
+                e.getEntity().getName().equals(ChatColor.BLACK + "BALL")) {
             for (Entity s : e.getEntity().getNearbyEntities(1, 1, 1)) {
-                if (s.getCustomName() != null && s.getCustomName().equals(ChatColor.DARK_GREEN +
+                if (s.getName() != null && s.getName().equals(ChatColor.DARK_GREEN +
                         "" + ChatColor.BOLD + "BALL")) {
                     
                     e.setCancelled(true);
@@ -74,6 +72,13 @@ public class BallListener implements Listener {
                 }
             }
         }
+        
+        if((e.getEntity() instanceof Zombie && e.getEntity().getName() != null &&
+                e.getEntity().getName().equals(ChatColor.BLACK + "BALL")) ||
+                (e.getEntity() instanceof Slime && e.getEntity().getName() != null &&
+                e.getEntity().getName().equals(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "BALL"))) {
+            e.setCancelled(true);
+        }
     }
     
     /**
@@ -91,14 +96,15 @@ public class BallListener implements Listener {
     }
     
     /**
-     * block the slime from targetting players in survival mode
+     * block the slime and zombie from targetting players in survival mode
      */
     
     @EventHandler
     public void onEntityTarget(EntityTargetEvent e) {
         Entity s = e.getEntity();
-        if (s.getCustomName() != null && s.getCustomName().equals(ChatColor.DARK_GREEN +
-                "" + ChatColor.BOLD + "BALL") && e.getTarget() instanceof Player) e.setCancelled(true);
+        if (s.getName() != null && (s.getName().equals(ChatColor.DARK_GREEN +
+                "" + ChatColor.BOLD + "BALL") || s.getName().equals(ChatColor.BLACK + "BALL")))
+            e.setCancelled(true);
     }
     
     /**
@@ -107,8 +113,8 @@ public class BallListener implements Listener {
     @EventHandler
     public void onEntityInteract(PlayerInteractAtEntityEvent e) {
         Player p = e.getPlayer();
-        if (e.getRightClicked() != null && e.getRightClicked() instanceof ArmorStand && e.getRightClicked().getCustomName()
-                != null && e.getRightClicked().getCustomName().equals("BALLSTAND"))
+        if (e.getRightClicked() != null && e.getRightClicked() instanceof Zombie && e.getRightClicked().getName()
+                != null && e.getRightClicked().getName().equals(ChatColor.BLACK + "BALL"))
             e.setCancelled(true);
     }
     
@@ -129,7 +135,7 @@ public class BallListener implements Listener {
                     double speed = court.getSpeed();
                     
                     for (Entity all : p.getNearbyEntities(20 * speed, 30 * speed, 20 * speed)) {
-                        if (all.getCustomName() != null && all.getCustomName().equals(ChatColor.DARK_GREEN +
+                        if (all.getName() != null && all.getName().equals(ChatColor.DARK_GREEN +
                                 "" + ChatColor.BOLD + "BALL")) {
                             p.sendMessage(Message.ERROR_BALL_OUT);
                             return;
@@ -152,8 +158,8 @@ public class BallListener implements Listener {
     @EventHandler
     public void onBallDeath(EntityDeathEvent e) {
         Entity s = e.getEntity();
-        if (s.getCustomName() != null && s.getCustomName().equals(ChatColor.DARK_GREEN +
-                "" + ChatColor.BOLD + "BALL")) {
+        if (s.getName() != null && (s.getName().equals(ChatColor.DARK_GREEN +
+                "" + ChatColor.BOLD + "BALL") || s.getName().equals(ChatColor.BLACK + "BALL"))) {
             e.getDrops().clear();
         }
     }
