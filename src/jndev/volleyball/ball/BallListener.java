@@ -12,6 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -140,6 +141,20 @@ public class BallListener implements Listener {
                     
                 }
             }
+        }
+    }
+    
+    /**
+     * prevent ball from dropping anything
+     *
+     * @param e entity death event
+     */
+    @EventHandler
+    public void onBallDeath(EntityDeathEvent e) {
+        Entity s = e.getEntity();
+        if (s.getCustomName() != null && s.getCustomName().equals(ChatColor.DARK_GREEN +
+                "" + ChatColor.BOLD + "BALL")) {
+            e.getDrops().clear();
         }
     }
 }
