@@ -83,7 +83,7 @@ public class CommandTabComplete implements TabCompleter {
                         if (args[2].equalsIgnoreCase("")) {
                             
                             if (!args[1].equalsIgnoreCase("help") && !args[0].equalsIgnoreCase("help") &&
-                                    !args[0].equalsIgnoreCase("reload"))
+                                    !args[0].equalsIgnoreCase("reload") && !args[1].equalsIgnoreCase("list"))
                                 tabList.add("create");
                             
                             if (courtConfig.getConfig().getKeys(false).contains(args[1])) tabList.add("remove");
@@ -91,7 +91,7 @@ public class CommandTabComplete implements TabCompleter {
                         } else if (args[2].startsWith("c")) {
                             
                             if (!args[1].equalsIgnoreCase("help") && !args[0].equalsIgnoreCase("help") &&
-                                    !args[0].equalsIgnoreCase("reload"))
+                                    !args[0].equalsIgnoreCase("reload") && !args[1].equalsIgnoreCase("list"))
                                 tabList.add("create");
                             
                         } else if (args[2].startsWith("r")) {
@@ -121,6 +121,7 @@ public class CommandTabComplete implements TabCompleter {
                             tabList.addAll(courtConfig.getConfig().getKeys(false));
                             tabList.add("defaults");
                             tabList.add("help");
+                            tabList.add("list");
                             
                         }
                         
@@ -134,7 +135,8 @@ public class CommandTabComplete implements TabCompleter {
                             
                             if (args[1].startsWith("d")) tabList.add("defaults");
                             if (args[1].startsWith("h")) tabList.add("help");
-                            
+                            if (args[1].startsWith("l")) tabList.add("list");
+    
                         }
                         
                     }
@@ -143,7 +145,8 @@ public class CommandTabComplete implements TabCompleter {
                     
                     if (!args[2].equalsIgnoreCase("create") && !args[2].equalsIgnoreCase("remove")
                             && !args[1].equalsIgnoreCase("help") && !args[0].equalsIgnoreCase("help")
-                            && !args[0].equalsIgnoreCase("reload") && !args[2].equalsIgnoreCase("info")) {
+                            && !args[0].equalsIgnoreCase("reload") && !args[2].equalsIgnoreCase("info")
+                            && !args[1].equalsIgnoreCase("list")) {
                         
                         if (args[3].equalsIgnoreCase("")) {
                             
@@ -166,7 +169,8 @@ public class CommandTabComplete implements TabCompleter {
                         }
                         
                         if (!args[1].equalsIgnoreCase("defaults") && !args[1].equalsIgnoreCase("help")
-                                && !args[0].equalsIgnoreCase("help") && !args[0].equalsIgnoreCase("reload")) {
+                                && !args[0].equalsIgnoreCase("help") && !args[0].equalsIgnoreCase("reload")
+                                && !args[1].equalsIgnoreCase("list")) {
                             
                             if (args[3].equalsIgnoreCase("")) {
                                 
