@@ -2,7 +2,7 @@ name: VolleyBall
 version: 1.0.0
 description: Simple volleyball game plugin
 author: Jeremaster101
-main: me.Jeremaster101.VolleyBall.VolleyBall
+main: jndev.volleyball.VolleyBall
 api-version: 1.13
 depends: [WorldEdit]
 commands:

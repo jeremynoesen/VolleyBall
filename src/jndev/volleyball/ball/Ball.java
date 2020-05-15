@@ -28,6 +28,8 @@ public class Ball {
     private boolean end = false;
     private int stop = 0;
     private Player player;
+    public boolean volleyed = false;
+    public int volleys = 0;
     
     /**
      * Creates a new ball
@@ -38,7 +40,7 @@ public class Ball {
         this.player = player;
         
         CourtHandler ch = new CourtHandler();
-    
+        
         Court court = Court.getCourt(player, ch.getCourt(player));
         
         slime = player.getLocation().getWorld()
@@ -95,9 +97,6 @@ public class Ball {
         stand.getEquipment().setHelmet(head);
     }
     
-    public boolean volleyed = false;
-    public int volleys = 0;
-    
     /**
      * @return times ball has volleyed
      */
@@ -138,7 +137,7 @@ public class Ball {
                 if (ch.isAboveNet(slime.getLocation(), court) && !volleyed) {
                     volleyed = true;
                     volleys++;
-                    for(Player players : ch.getPlayersOnCourt(court)) {
+                    for (Player players : ch.getPlayersOnCourt(court)) {
                         players.sendTitle("", ChatColor.WHITE + Integer.toString(volleys), 0, 10, 10);
                     }
                 } else if (!ch.isAboveNet(slime.getLocation(), court)) {
@@ -148,7 +147,7 @@ public class Ball {
                 slime.setFallDistance(0);
                 if (animated) slime.getWorld().spawnParticle(Particle.END_ROD, slime.getLocation(), 0, 0, 0, 0, 1);
                 slime.setTarget(null);
-    
+                
                 if (slime.isDead()) {
                     stand.remove();
                     this.cancel();
@@ -161,20 +160,20 @@ public class Ball {
                     slime.teleport(loc);
                     stand.teleport(slime.getLocation().subtract(0, 1.5, 0));
                 }
-    
+                
                 if (slime.isOnGround() || slime.getLocation().getBlock().getType() != Material.AIR) {
-        
+                    
                     new BukkitRunnable() {
                         @Override
                         public void run() {
                             if (slime.isOnGround() || slime.getLocation().add(0, 0.5, 0).getBlock().getType() != Material.AIR) {
-                                if(stop == 0) {
+                                if (stop == 0) {
                                     remove(court);
                                 }
-                                stop ++;
+                                stop++;
                             }
                         }
-                    }.runTaskLater(VolleyBall.getInstance(), 5);
+                    }.runTaskLater(VolleyBall.getInstance(), 0);
                 }
             }
         }.runTaskTimer(VolleyBall.getInstance(), 0, 1);
