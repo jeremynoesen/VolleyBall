@@ -31,6 +31,7 @@ public class Message {
     public static String ERROR_UNKNOWN_ARGS;
     public static String ERROR_DEFAULT;
     public static String SUCCESS_RELOADED;
+    public static String COURT_INFO;
     
     public static void reloadMessages() {
         PREFIX = format(messageConfig.getConfig().getString("PREFIX"));
@@ -52,6 +53,7 @@ public class Message {
         ERROR_UNKNOWN_ARGS = PREFIX + format(messageConfig.getConfig().getString("ERROR_UNKNOWN_ARGS"));
         ERROR_DEFAULT = PREFIX + format(messageConfig.getConfig().getString("ERROR_DEFAULT"));
         SUCCESS_RELOADED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_RELOADED"));
+        COURT_INFO = PREFIX + format(messageConfig.getConfig().getString("COURT_INFO"));
     }
     
     public String STARTUP = "\n\n" +
