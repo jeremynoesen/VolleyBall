@@ -23,8 +23,8 @@ import java.util.UUID;
  */
 public class Ball {
     
-    private Villager stand;
-    private Slime slime;
+    private Zombie ballTexture;
+    private Slime ballPhysics;
     private boolean end = false;
     private int stop = 0;
     private Player player;
@@ -43,35 +43,36 @@ public class Ball {
         
         Court court = Court.getCourt(player, ch.getCourt(player));
         
-        slime = player.getLocation().getWorld()
+        ballPhysics = player.getLocation().getWorld()
                 .spawn(player.getEyeLocation().add(player.getLocation().getDirection()).subtract(0, 0.25, 0), Slime.class);
-        slime.setSize(1);
-        Location loc = slime.getLocation();
+        ballPhysics.setSize(1);
+        Location loc = ballPhysics.getLocation();
         loc.setYaw(0);
         loc.setPitch(0);
-        slime.teleport(loc);
+        ballPhysics.teleport(loc);
         
-        stand = slime.getWorld().spawn(slime.getLocation().subtract(0, 1.5, 0), Villager.class);
+        ballTexture = ballPhysics.getWorld().spawn(ballPhysics.getLocation().subtract(0, 1.5, 0), Zombie.class);
         setTexture(court.getTexture());
-        stand.setGravity(false);
-        stand.setCustomName("BALLSTAND");
-        stand.setCustomNameVisible(false);
-        stand.setSilent(true);
-        stand.setAI(false);
-        stand.setCollidable(false);
-        stand.setSilent(true);
-        stand.setInvulnerable(false);
-        stand.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 1000000, 1000000, true, true));
+        ballTexture.setGravity(false);
+        ballTexture.setCustomName(ChatColor.BLACK + "BALL");
+        ballTexture.setCustomNameVisible(false);
+        ballTexture.setSilent(true);
+        ballTexture.setAI(false);
+        ballTexture.setCollidable(false);
+        ballTexture.setSilent(true);
+        ballTexture.setInvulnerable(true);
+        ballTexture.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 1000000, 1000000, true, true));
         
-        slime.setCollidable(false);
-        slime.setCustomName(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "BALL");
-        slime.setVelocity(player.getLocation().getDirection().multiply(0.1).add(new Vector(0, 1, 0)));
-        slime.getWorld().playSound(slime.getLocation(), Sound.ENTITY_ARROW_SHOOT, 2, 0);
-        slime.setCustomNameVisible(false);
-        slime.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 100000, 1, true, false));
-        slime.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100000, 255, true, false));
-        slime.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 100000, 255, true, false));
-        slime.setSilent(true);
+        ballPhysics.setCollidable(false);
+        ballPhysics.setCustomName(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "BALL");
+        ballPhysics.setVelocity(player.getLocation().getDirection().multiply(0.1).add(new Vector(0, 1, 0)));
+        ballPhysics.getWorld().playSound(ballPhysics.getLocation(), Sound.ENTITY_ARROW_SHOOT, 2, 0);
+        ballPhysics.setCustomNameVisible(false);
+        ballPhysics.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 100000, 1, true, false));
+        ballPhysics.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100000, 255, true, false));
+        ballPhysics.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 100000, 255, true, false));
+        ballPhysics.setSilent(true);
+        ballPhysics.setInvulnerable(true);
     }
     
     /**
@@ -94,7 +95,7 @@ public class Ball {
             e1.printStackTrace();
         }
         head.setItemMeta(headMeta);
-        stand.getEquipment().setHelmet(head);
+        ballTexture.getEquipment().setHelmet(head);
     }
     
     /**
@@ -134,46 +135,46 @@ public class Ball {
             @Override
             public void run() {
                 
-                if (ch.isAboveNet(slime.getLocation(), court) && !volleyed) {
+                if (ch.isAboveNet(ballPhysics.getLocation(), court) && !volleyed) {
                     volleyed = true;
                     volleys++;
                     for (Player players : ch.getPlayersOnCourt(court)) {
                         players.sendTitle("", ChatColor.WHITE + Integer.toString(volleys), 0, 10, 10);
                     }
-                } else if (!ch.isAboveNet(slime.getLocation(), court)) {
+                } else if (!ch.isAboveNet(ballPhysics.getLocation(), court)) {
                     volleyed = false;
                 }
                 
-                slime.setFallDistance(0);
-                if (animated) slime.getWorld().spawnParticle(Particle.END_ROD, slime.getLocation(), 0, 0, 0, 0, 1);
-                slime.setTarget(null);
+                ballPhysics.setFallDistance(0);
+                if (animated) ballPhysics.getWorld().spawnParticle(Particle.END_ROD, ballPhysics.getLocation(), 0, 0, 0, 0, 1);
+                ballPhysics.setTarget(null);
                 
-                if (slime.isDead()) {
-                    stand.remove();
+                if (ballPhysics.isDead()) {
+                    ballTexture.remove();
                     this.cancel();
                 }
-                stand.setFallDistance(0);
+                ballTexture.setFallDistance(0);
                 if (!end) {
-                    Location loc = slime.getLocation();
+                    Location loc = ballPhysics.getLocation();
                     loc.setPitch(0);
                     loc.setYaw(0);
-                    slime.teleport(loc);
-                    stand.teleport(slime.getLocation().subtract(0, 1.5, 0));
+                    ballPhysics.teleport(loc);
+                    ballTexture.teleport(ballPhysics.getLocation().subtract(0, 1.5, 0));
                 }
                 
-                if (slime.isOnGround() || slime.getLocation().getBlock().getType() != Material.AIR) {
+                if (ballPhysics.isOnGround() || ballPhysics.getLocation().getBlock().getType() != Material.AIR) {
                     
                     new BukkitRunnable() {
                         @Override
                         public void run() {
-                            if (slime.isOnGround() || slime.getLocation().add(0, 0.5, 0).getBlock().getType() != Material.AIR) {
+                            if (ballPhysics.isOnGround() || ballPhysics.getLocation().add(0, 0.5, 0).getBlock().getType() != Material.AIR) {
                                 if (stop == 0) {
                                     remove(court);
                                 }
                                 stop++;
                             }
                         }
-                    }.runTaskLater(VolleyBall.getInstance(), 0);
+                    }.runTaskLater(VolleyBall.getInstance(), 4);
                 }
             }
         }.runTaskTimer(VolleyBall.getInstance(), 0, 1);
@@ -187,7 +188,7 @@ public class Ball {
         if (animated) {
             end = true;
             double radius = 1;
-            Location loc = slime.getLocation();
+            Location loc = ballPhysics.getLocation();
             for (double y = 0; y <= 6.28; y += 0.2) {
                 double finalY = y;
                 new BukkitRunnable() {
@@ -195,13 +196,13 @@ public class Ball {
                     public void run() {
                         double x = (radius - 0.14 * finalY) * Math.cos(finalY);
                         double z = (radius - 0.14 * finalY) * Math.sin(finalY);
-                        slime.getWorld().spawnParticle(Particle.CRIT_MAGIC,
+                        ballPhysics.getWorld().spawnParticle(Particle.CRIT_MAGIC,
                                 (float) (loc.getX() + x), (float) (loc.getY() + 0.2),
                                 (float) (loc.getZ() + z), 0, 0, 0, 0, 1);
-                        Location loc1 = stand.getLocation();
+                        Location loc1 = ballTexture.getLocation();
                         loc1.setYaw((float) finalY * 20);
                         loc1.setY(loc1.subtract(0, 0.1 * finalY, 0).getY());
-                        stand.teleport(loc1);
+                        ballTexture.teleport(loc1);
                     }
                 }.runTaskLater(VolleyBall.getInstance(), (long) y);
             }
@@ -212,7 +213,7 @@ public class Ball {
                     public void run() {
                         double x = (radius - 0.14 * finalY) * Math.cos(finalY + 3.14159);
                         double z = (radius - 0.14 * finalY) * Math.sin(finalY + 3.14159);
-                        slime.getWorld().spawnParticle(Particle.CRIT_MAGIC,
+                        ballPhysics.getWorld().spawnParticle(Particle.CRIT_MAGIC,
                                 (float) (loc.getX() + x), (float) (loc.getY() + 0.2),
                                 (float) (loc.getZ() + z), 0, 0, 0, 0, 1);
                     }
@@ -221,16 +222,16 @@ public class Ball {
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    slime.remove();
-                    stand.remove();
+                    ballPhysics.remove();
+                    ballTexture.remove();
                 }
             }.runTaskLater(VolleyBall.getInstance(), (long) 6.28);
             
-            slime.getWorld().playSound(slime.getLocation(), Sound.BLOCK_SAND_PLACE, 2, 1);
-            slime.getWorld().playSound(slime.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASEDRUM, 2, 1);
+            ballPhysics.getWorld().playSound(ballPhysics.getLocation(), Sound.BLOCK_SAND_PLACE, 2, 1);
+            ballPhysics.getWorld().playSound(ballPhysics.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASEDRUM, 2, 1);
         } else {
-            slime.remove();
-            stand.remove();
+            ballPhysics.remove();
+            ballTexture.remove();
         }
     }
 }
