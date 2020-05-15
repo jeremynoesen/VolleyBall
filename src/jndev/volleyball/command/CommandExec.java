@@ -89,6 +89,12 @@ public class CommandExec implements CommandExecutor {
                                     ch.selectCourt(p, args[1]);
                                     
                                 }
+    
+                                if (args[2].equalsIgnoreCase("info")) {
+    
+                                    p.sendMessage(Court.getCourt(p, args[1]).toString());
+                                    
+                                }
                                 
                             } else p.sendMessage(Message.ERROR_DEFAULT);
                             
