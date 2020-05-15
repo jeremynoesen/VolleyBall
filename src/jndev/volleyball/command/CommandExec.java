@@ -34,10 +34,10 @@ public class CommandExec implements CommandExecutor {
                             p.sendMessage(Message.HELP_MAIN);
                             
                         } else if (args[0].equalsIgnoreCase("reload")) {
-    
+                            
                             Configs.getConfig(ConfigType.COURT).reloadConfig();
                             Configs.getConfig(ConfigType.MESSAGE).reloadConfig();
-    
+                            
                             for (World world : Bukkit.getWorlds()) {
                                 for (Entity entity : world.getEntities()) {
                                     if (entity.getName() != null && ((entity instanceof Slime &&
@@ -49,16 +49,24 @@ public class CommandExec implements CommandExecutor {
                             }
                             
                             p.sendMessage(Message.SUCCESS_RELOADED);
-    
+                            
                         }
                         
                     } else if (args.length == 2) {
                         
-                        if(args[0].equalsIgnoreCase("court")) {
+                        if (args[0].equalsIgnoreCase("court")) {
                             
-                            if(args[1].equalsIgnoreCase("help")) {
+                            if (args[1].equalsIgnoreCase("help")) {
                                 
                                 p.sendMessage(Message.HELP_COURT);
+                                
+                            }
+                            
+                            if (args[1].equalsIgnoreCase("list")) {
+                                
+                                p.sendMessage(Message.COURT_LIST.replace("$COURTS$",
+                                        Configs.getConfig(ConfigType.COURT).getConfig().getKeys(false)
+                                                .toString().replace("[", "").replace("]", "")));
                                 
                             }
                             
@@ -73,7 +81,15 @@ public class CommandExec implements CommandExecutor {
                                 
                                 if (args[2].equalsIgnoreCase("create")) {
                                     
-                                    Court court = new Court(p, args[1]);
+                                    if(!args[1].equalsIgnoreCase("list") && !args[1].equalsIgnoreCase("defaults")) {
+    
+                                        Court court = new Court(p, args[1]);
+    
+                                    } else {
+                                        
+                                        p.sendMessage(Message.ERROR_DEFAULT);
+                                        
+                                    }
                                     
                                 }
                                 
@@ -89,9 +105,9 @@ public class CommandExec implements CommandExecutor {
                                     ch.selectCourt(p, args[1]);
                                     
                                 }
-    
+                                
                                 if (args[2].equalsIgnoreCase("info")) {
-    
+                                    
                                     p.sendMessage(Court.getCourt(p, args[1]).toString());
                                     
                                 }
