@@ -301,5 +301,45 @@ public class Court {
         if (exists()) return court;
         return null;
     }
+    
+    @Override
+    public String toString() {
+        return Message.COURT_INFO
+                .replace("$NAME$", court)
+                .replace("$ENABLED$", Boolean.toString(isEnabled()))
+                .replace("$ANIMATIONS$", Boolean.toString(getAnimations()))
+                .replace("$SPEED$", Double.toString(getSpeed()))
+                .replace("$TEXTURE$", getTexture())
+                .replace("$BOUNDS$",
+                        "(" +
+                                courtConfig.getConfig().getDouble(court + ".court.min.x") +
+                                "," +
+                                courtConfig.getConfig().getDouble(court + ".court.min.y") +
+                                "," +
+                                courtConfig.getConfig().getDouble(court + ".court.min.z") +
+                                ") to (" +
+                                courtConfig.getConfig().getDouble(court + ".court.max.x") +
+                                "," +
+                                courtConfig.getConfig().getDouble(court + ".court.max.y") +
+                                "," +
+                                courtConfig.getConfig().getDouble(court + ".court.max.z") +
+                                ")")
+                .replace("$NET$",
+                        "(" +
+                                courtConfig.getConfig().getDouble(court + ".net.min.x") +
+                                "," +
+                                courtConfig.getConfig().getDouble(court + ".net.min.y") +
+                                "," +
+                                courtConfig.getConfig().getDouble(court + ".net.min.z") +
+                                ") to (" +
+                                courtConfig.getConfig().getDouble(court + ".net.max.x") +
+                                "," +
+                                courtConfig.getConfig().getDouble(court + ".net.max.y") +
+                                "," +
+                                courtConfig.getConfig().getDouble(court + ".net.max.z") +
+                                ")")
+                .replace("$WORLD$", courtConfig.getConfig().getString(court + ".court.world"));
+        
+    }
 }
 //todo court list and info commands
