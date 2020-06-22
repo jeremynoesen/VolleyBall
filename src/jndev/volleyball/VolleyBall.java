@@ -6,6 +6,7 @@ import jndev.volleyball.command.CommandTabComplete;
 import jndev.volleyball.config.ConfigManager;
 import jndev.volleyball.config.ConfigType;
 import jndev.volleyball.config.Configs;
+import jndev.volleyball.court.CourtLoader;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -20,7 +21,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 /**
  * Main class for the plugin. registers commands and listeners
  *
- * @author Jeremy Noesen
+ * @author JNDev
  */
 public class VolleyBall extends JavaPlugin implements Listener {
 
@@ -41,10 +42,8 @@ public class VolleyBall extends JavaPlugin implements Listener {
         courtConfig.saveDefaultConfig();
         
         Message.reloadMessages();
-
-        Message msg = new Message();
-
-        plugin.getServer().getConsoleSender().sendMessage(msg.STARTUP);
+        
+        plugin.getServer().getConsoleSender().sendMessage(Message.STARTUP);
 
         PluginManager pm = getServer().getPluginManager();
 
@@ -61,7 +60,7 @@ public class VolleyBall extends JavaPlugin implements Listener {
     
         int count = 0;
     
-        plugin.getServer().getConsoleSender().sendMessage(msg.CLEANING);
+        plugin.getServer().getConsoleSender().sendMessage(Message.CLEANING);
     
         for (World world : Bukkit.getWorlds()) {
             for (Entity entity : world.getEntities()) {
@@ -74,8 +73,10 @@ public class VolleyBall extends JavaPlugin implements Listener {
             }
         }
     
-        plugin.getServer().getConsoleSender().sendMessage(msg.DONE_CLEANING.replace("$COUNT$",
+        plugin.getServer().getConsoleSender().sendMessage(Message.DONE_CLEANING.replace("$COUNT$",
                 Integer.toString(count)));
+    
+        CourtLoader.loadAll();
         
     }
 

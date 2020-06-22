@@ -2,7 +2,7 @@ package jndev.volleyball.ball;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import jndev.volleyball.court.Court;
+import jndev.volleyball.court.OldCourt;
 import jndev.volleyball.court.CourtHandler;
 import jndev.volleyball.VolleyBall;
 import org.bukkit.*;
@@ -41,7 +41,7 @@ public class Ball {
         
         CourtHandler ch = new CourtHandler();
         
-        Court court = Court.getCourt(player, ch.getCourt(player));
+        OldCourt court = OldCourt.getCourt(player, ch.getCourt(player));
         
         ballPhysics = player.getLocation().getWorld()
                 .spawn(player.getEyeLocation().add(player.getLocation().getDirection()).subtract(0, 0.25, 0), Slime.class);
@@ -109,7 +109,7 @@ public class Ball {
      * serves the volleyball
      */
     @SuppressWarnings("deprecation")
-    public void serve(Court court) {
+    public void serve(OldCourt court) {
         boolean animated = court.getAnimations();
         if (animated) {
             Location loc = player.getLocation();
@@ -174,7 +174,7 @@ public class Ball {
                                 stop++;
                             }
                         }
-                    }.runTaskLater(VolleyBall.getInstance(), 4);
+                    }.runTaskLater(VolleyBall.getInstance(), 3);
                 }
             }
         }.runTaskTimer(VolleyBall.getInstance(), 0, 1);
@@ -183,7 +183,7 @@ public class Ball {
     /**
      * removes the volleyball with or without animations
      */
-    public void remove(Court court) {
+    public void remove(OldCourt court) {
         boolean animated = court.getAnimations();
         if (animated) {
             end = true;
