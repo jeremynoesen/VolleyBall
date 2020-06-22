@@ -187,6 +187,15 @@ public class Court {
     }
     
     /**
+     * set the world the court is in
+     *
+     * @param world world
+     */
+    public void setWorld(World world) {
+        this.world = world;
+    }
+    
+    /**
      * get the speed modifier for the court's ball
      *
      * @return speed of ball
@@ -320,12 +329,12 @@ public class Court {
      */
     public boolean contains(Location l) {
         try {
-            double maxx = bounds[0][0];
-            double maxy = bounds[0][1];
-            double maxz = bounds[0][2];
-            double minx = bounds[1][0];
-            double miny = bounds[1][1];
-            double minz = bounds[1][2];
+            double minx = bounds[0][0];
+            double miny = bounds[0][1];
+            double minz = bounds[0][2];
+            double maxx = bounds[1][0];
+            double maxy = bounds[1][1];
+            double maxz = bounds[1][2];
             double tox = l.getBlock().getLocation().getX();
             double toy = l.getBlock().getLocation().getY();
             double toz = l.getBlock().getLocation().getZ();
@@ -335,6 +344,25 @@ public class Court {
         } catch (Exception e) {
             return false;
         }
+    }
+    
+    /**
+     * get a list of all players on the specified court
+     *
+     * @return list of players on court
+     */
+    public ArrayList<Player> getPlayersOnCourt() {
+        ArrayList<Player> players = new ArrayList<>();
+        
+        if (world != null)
+            for (Player worldPlayer : world.getPlayers()) {
+                if (!worldPlayer.isOnline()) continue;
+                if (contains(worldPlayer.getLocation())) {
+                    players.add(worldPlayer);
+                }
+            }
+        
+        return players;
     }
     
     /**
@@ -348,24 +376,6 @@ public class Court {
     }
     
     /**
-     * get a list of all players on the specified court
-     *
-     * @return list of players on court
-     */
-    public List<Player> getPlayersOnCourt() {
-        List<Player> players = new ArrayList<>();
-        
-        for (Player playersInWorld : world.getPlayers()) {
-            if (!playersInWorld.isOnline()) continue;
-            if (contains(playersInWorld.getLocation())) {
-                players.add(playersInWorld);
-            }
-        }
-        
-        return players;
-    }
-    
-    /**
      * check if a location is above a net
      *
      * @param l location to check
@@ -374,11 +384,11 @@ public class Court {
     public boolean isAboveNet(Location l) {
         
         try {
-            double maxx = net[0][1];
-            double maxz = net[0][2];
-            double minx = net[1][0];
-            double miny = net[1][1];
-            double minz = net[1][2];
+            double maxx = net[1][0];
+            double maxz = net[1][2];
+            double minx = net[0][0];
+            double miny = net[0][1];
+            double minz = net[0][2];
             double tox = l.getBlock().getLocation().getX();
             double toy = l.getBlock().getLocation().getY();
             double toz = l.getBlock().getLocation().getZ();

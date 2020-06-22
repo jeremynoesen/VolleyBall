@@ -14,7 +14,7 @@ public class Courts {
      * @param l location to check
      * @return true if on any court
      */
-    public boolean isOnCourt(Location l) {
+    public static boolean isOnCourt(Location l) {
         
         for (Court court : Court.getCourts().values()) {
             if (court.contains(l)) return true;
@@ -30,10 +30,10 @@ public class Courts {
      * @param player player to check for courts
      * @return court player is on
      */
-    public Court getCourt(Player player) {
+    public static Court getCourt(Player player) {
         
         for (Court court : Court.getCourts().values()) {
-            if (court.getPlayersOnCourt().contains(player)) {
+            if (court.contains(player)) {
                 return court;
             }
         }
@@ -46,7 +46,7 @@ public class Courts {
      * @param loc location to check
      * @return court location is in
      */
-    public Court getCourt(Location loc) {
+    public static Court getCourt(Location loc) {
         
         for (Court court : Court.getCourts().values()) {
             if (court.contains(loc)) {

@@ -66,9 +66,7 @@ public class Ball {
     public Ball(Player player) {
         this.player = player;
         
-        Courts ch = new Courts();
-        
-        court = ch.getCourt(player);
+        court = Courts.getCourt(player);
         
         ballPhysics = player.getLocation().getWorld()
                 .spawn(player.getEyeLocation().add(player.getLocation().getDirection()).subtract(0, 0.25, 0), Slime.class);
@@ -88,6 +86,13 @@ public class Ball {
         ballTexture.setCollidable(false);
         ballTexture.setSilent(true);
         ballTexture.setInvulnerable(true);
+        ballTexture.getEquipment().setItemInMainHand(new ItemStack(Material.AIR, 1));
+        ballTexture.getEquipment().setItemInOffHand(new ItemStack(Material.AIR, 1));
+        ballTexture.getEquipment().setChestplate(new ItemStack(Material.AIR, 1));
+        ballTexture.getEquipment().setLeggings(new ItemStack(Material.AIR, 1));
+        ballTexture.getEquipment().setBoots(new ItemStack(Material.AIR, 1));
+    
+    
         ballTexture.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 1000000, 1000000, true, true));
         
         ballPhysics.setCollidable(false);
@@ -186,16 +191,14 @@ public class Ball {
                     ballPhysics.teleport(loc);
                     ballTexture.teleport(ballPhysics.getLocation().subtract(0, 1.5, 0));
                 }
-                
-                if (ballPhysics.isOnGround() || ballPhysics.getLocation().getBlock().getType() != Material.AIR) {
+    
+                if (ballPhysics.isOnGround() || ballPhysics.getLocation().add(0, 0.5, 0).getBlock().getType() != Material.AIR) {
                     
                     new BukkitRunnable() {
                         @Override
                         public void run() {
                             if (ballPhysics.isOnGround() || ballPhysics.getLocation().add(0, 0.5, 0).getBlock().getType() != Material.AIR) {
-                                remove();
-                                this.cancel();
-                                super.cancel();
+                                if (!end) remove();
                             }
                         }
                     }.runTaskLater(VolleyBall.getInstance(), 3);
