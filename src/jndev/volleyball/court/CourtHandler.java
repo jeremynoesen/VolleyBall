@@ -90,7 +90,7 @@ public class CourtHandler {
      * @param court court to use to check
      * @return true if location is above a net
      */
-    public boolean isAboveNet(Location l, Court court) {
+    public boolean isAboveNet(Location l, OldCourt court) {
         
         String courtName = court.getName();
         
@@ -174,7 +174,7 @@ public class CourtHandler {
         }
     }
     
-    public List<Player> getPlayersOnCourt(Court court) {
+    public List<Player> getPlayersOnCourt(OldCourt court) {
         String name = court.getName();
         List<Player> players = new ArrayList<>();
         
