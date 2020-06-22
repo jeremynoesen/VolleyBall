@@ -3,7 +3,6 @@ package jndev.volleyball;
 import jndev.volleyball.ball.BallListener;
 import jndev.volleyball.command.CommandExec;
 import jndev.volleyball.command.CommandTabComplete;
-import jndev.volleyball.config.ConfigManager;
 import jndev.volleyball.config.ConfigType;
 import jndev.volleyball.config.Configs;
 import jndev.volleyball.court.CourtLoader;
@@ -25,21 +24,16 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class VolleyBall extends JavaPlugin implements Listener {
 
-    public static VolleyBall plugin;
+    private static VolleyBall plugin;
     
-    private final Permission admin = new Permission("volleyball.admin");
-    
-    ConfigManager courtConfig = Configs.getConfig(ConfigType.COURT);
-    ConfigManager messageConfig = Configs.getConfig(ConfigType.MESSAGE);
-
     /**
      * runs when the plugin starts
      */
     public void onEnable() {
         plugin = this;
-        
-        messageConfig.saveDefaultConfig();
-        courtConfig.saveDefaultConfig();
+    
+        Configs.getConfig(ConfigType.MESSAGE).saveDefaultConfig();
+        Configs.getConfig(ConfigType.COURT).saveDefaultConfig();
         
         Message.reloadMessages();
         
@@ -49,14 +43,10 @@ public class VolleyBall extends JavaPlugin implements Listener {
 
         pm.registerEvents(new BallListener(), plugin);
         
-        pm.addPermission(admin);
+        pm.addPermission(new Permission("volleybal.admin"));
 
         getCommand("volleyball").setExecutor(new CommandExec());
         getCommand("volleyball").setTabCompleter(new CommandTabComplete());
-
-
-        getConfig().options().copyDefaults(true);
-        saveConfig();
     
         int count = 0;
     
