@@ -35,11 +35,9 @@ public class BallListener implements Listener {
             
             Player player = (Player) e.getDamager();
             
-            Courts ch = new Courts();
+            if (Courts.getCourt(player) == null) return;
             
-            if (ch.getCourt(player) == null) return;
-            
-            Court court = ch.getCourt(player);
+            Court court = Courts.getCourt(player);
             
             Entity s = e.getEntity();
             s.getWorld().playSound(s.getLocation(), Sound.ENTITY_CHICKEN_EGG, 2, 0);
@@ -58,11 +56,9 @@ public class BallListener implements Listener {
                     
                     Player player = (Player) e.getDamager();
                     
-                    Courts ch = new Courts();
+                    if (Courts.getCourt(player) == null) return;
                     
-                    if (ch.getCourt(player) == null) return;
-                    
-                    Court court = ch.getCourt(player);
+                    Court court = Courts.getCourt(player);
                     
                     s.getWorld().playSound(s.getLocation(), Sound.ENTITY_CHICKEN_EGG, 2, 0);
                     s.setVelocity(e.getDamager().getLocation().getDirection().multiply(0.9).add(new Vector(0, 0.6, 0))
@@ -88,9 +84,8 @@ public class BallListener implements Listener {
     public void onInteract(PlayerInteractEvent e) {
         Player p = e.getPlayer();
         Action a = e.getAction();
-        Courts ch = new Courts();
         if (a == Action.LEFT_CLICK_BLOCK) {
-            if (ch.isOnCourt(e.getClickedBlock().getLocation()) && ch.getCourt(e.getClickedBlock().getLocation()).isEnabled())
+            if (Courts.isOnCourt(e.getClickedBlock().getLocation()) && Courts.getCourt(e.getClickedBlock().getLocation()).isEnabled())
                 e.setCancelled(true);
         }
     }
@@ -123,11 +118,10 @@ public class BallListener implements Listener {
     @EventHandler
     public void onSneak(PlayerToggleSneakEvent e) {
         Player p = e.getPlayer();
-        Courts ch = new Courts();
         if (p.isSneaking()) {
-            if (ch.getCourt(p) != null) {
+            if (Courts.getCourt(p) != null) {
                 
-                Court court = ch.getCourt(p);
+                Court court = Courts.getCourt(p);
                 
                 if (court.isEnabled()) {
                     
