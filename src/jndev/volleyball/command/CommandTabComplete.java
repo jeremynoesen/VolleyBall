@@ -2,6 +2,7 @@ package jndev.volleyball.command;
 
 import jndev.volleyball.Message;
 import jndev.volleyball.court.Court;
+import jndev.volleyball.court.Courts;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -62,7 +63,7 @@ public class CommandTabComplete implements TabCompleter {
                     
                 } else if (args.length == 3) {
                     
-                    Set<String> courts = Court.getCourts().keySet();
+                    Set<String> courts = Courts.getAll().keySet();
                     
                     if (courts.contains(args[1])) {
                         
@@ -115,7 +116,7 @@ public class CommandTabComplete implements TabCompleter {
                     
                 } else if (args.length == 2) {
     
-                    Set<String> courts = Court.getCourts().keySet();
+                    Set<String> courts = Courts.getAll().keySet();
     
                     if (!args[0].equalsIgnoreCase("help") && !args[0].equalsIgnoreCase("reload")) {
                         

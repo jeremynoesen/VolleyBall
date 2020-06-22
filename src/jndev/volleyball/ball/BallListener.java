@@ -35,9 +35,9 @@ public class BallListener implements Listener {
             
             Player player = (Player) e.getDamager();
             
-            if (Courts.getCourt(player) == null) return;
+            if (Courts.get(player) == null) return;
             
-            Court court = Courts.getCourt(player);
+            Court court = Courts.get(player);
             
             Entity s = e.getEntity();
             s.getWorld().playSound(s.getLocation(), Sound.ENTITY_CHICKEN_EGG, 2, 0);
@@ -56,9 +56,9 @@ public class BallListener implements Listener {
                     
                     Player player = (Player) e.getDamager();
                     
-                    if (Courts.getCourt(player) == null) return;
+                    if (Courts.get(player) == null) return;
                     
-                    Court court = Courts.getCourt(player);
+                    Court court = Courts.get(player);
                     
                     s.getWorld().playSound(s.getLocation(), Sound.ENTITY_CHICKEN_EGG, 2, 0);
                     s.setVelocity(e.getDamager().getLocation().getDirection().multiply(0.9).add(new Vector(0, 0.6, 0))
@@ -85,7 +85,7 @@ public class BallListener implements Listener {
         Player p = e.getPlayer();
         Action a = e.getAction();
         if (a == Action.LEFT_CLICK_BLOCK) {
-            if (Courts.isOnCourt(e.getClickedBlock().getLocation()) && Courts.getCourt(e.getClickedBlock().getLocation()).isEnabled())
+            if (Courts.isOnCourt(e.getClickedBlock().getLocation()) && Courts.get(e.getClickedBlock().getLocation()).isEnabled())
                 e.setCancelled(true);
         }
     }
@@ -119,9 +119,9 @@ public class BallListener implements Listener {
     public void onSneak(PlayerToggleSneakEvent e) {
         Player p = e.getPlayer();
         if (p.isSneaking()) {
-            if (Courts.getCourt(p) != null) {
+            if (Courts.get(p) != null) {
                 
-                Court court = Courts.getCourt(p);
+                Court court = Courts.get(p);
                 
                 if (court.isEnabled()) {
                     

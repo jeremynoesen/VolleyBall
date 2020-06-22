@@ -101,19 +101,19 @@ public class CommandExec implements CommandExecutor {
                             
                             if (args[2].equalsIgnoreCase("remove")) {
                                 
-                                Court.getCourt(args[1]).remove();
+                                Courts.remove(args[1]);
                                 
                             }
                             
                             if (args[2].equalsIgnoreCase("select")) {
                                 
-                                Court.getCourt(args[1]).select(p);
+                                Courts.get(args[1]).select(p);
                                 
                             }
                             
                             if (args[2].equalsIgnoreCase("info")) {
                                 
-                                p.sendMessage(Court.getCourt(args[1]).toString());
+                                p.sendMessage(Courts.get(args[1]).toString());
                                 
                             }
                             
@@ -127,11 +127,11 @@ public class CommandExec implements CommandExecutor {
                                 
                                 if (args[3].equalsIgnoreCase("net")) {
                                     
-                                    Court.getCourt(args[1]).setNet(p);
+                                    Courts.get(args[1]).setNet(p);
                                     
                                 } else if (args[3].equalsIgnoreCase("bounds")) {
                                     
-                                    Court.getCourt(args[1]).setBounds(p);
+                                    Courts.get(args[1]).setBounds(p);
                                     
                                 }
                                 
@@ -147,19 +147,19 @@ public class CommandExec implements CommandExecutor {
                                 
                                 if (args[3].equalsIgnoreCase("speed")) {
                                     
-                                    Court.getCourt(args[1]).setSpeed(Double.parseDouble(args[4]));
+                                    Courts.get(args[1]).setSpeed(Double.parseDouble(args[4]));
                                     
                                 } else if (args[3].equalsIgnoreCase("texture")) {
                                     
-                                    Court.getCourt(args[1]).setTexture(args[4]);
+                                    Courts.get(args[1]).setTexture(args[4]);
                                     
                                 } else if (args[3].equalsIgnoreCase("animations")) {
                                     
-                                    Court.getCourt(args[1]).setAnimations(Boolean.parseBoolean(args[4]));
+                                    Courts.get(args[1]).setAnimations(Boolean.parseBoolean(args[4]));
                                     
                                 } else if (args[3].equalsIgnoreCase("enabled")) {
                                     
-                                    Court.getCourt(args[1]).setEnabled(Boolean.parseBoolean(args[4]));
+                                    Courts.get(args[1]).setEnabled(Boolean.parseBoolean(args[4]));
                                     
                                 }
                                 

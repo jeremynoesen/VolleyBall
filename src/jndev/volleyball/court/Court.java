@@ -13,18 +13,11 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * volleyball court with customizable ball stats and court size
  */
 public class Court {
-    
-    /**
-     * all loaded courts
-     */
-    private static final HashMap<String, Court> courts = new HashMap<>();
     
     /**
      * name of the court
@@ -86,28 +79,7 @@ public class Court {
         bounds = new double[2][3];
         net = new double[2][3];
         ball = null;
-        courts.put(name, this);
-    }
-    
-    /**
-     * get a court by name
-     *
-     * @param name name of court
-     * @return court if it exists
-     */
-    public static Court getCourt(String name) {
-        if (courts.containsKey(name))
-            return courts.get(name);
-        return null;
-    }
-    
-    /**
-     * get the hashmap of all the courts that are loaded
-     *
-     * @return hashmap of courts
-     */
-    public static HashMap<String, Court> getCourts() {
-        return courts;
+        Courts.add(this, name);
     }
     
     /**
@@ -125,9 +97,9 @@ public class Court {
      * @param name new name
      */
     public void setName(String name) {
-        remove();
+        Courts.remove(this);
         this.name = name;
-        courts.put(name, this);
+        Courts.add(this, name);
     }
     
     /**
@@ -319,13 +291,6 @@ public class Court {
         } else {
             player.sendMessage(Message.ERROR_NULL_BOUNDS);
         }
-    }
-    
-    /**
-     * remove a court
-     */
-    public void remove() {
-        courts.remove(name);
     }
     
     /**
