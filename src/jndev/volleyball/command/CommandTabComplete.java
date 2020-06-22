@@ -1,9 +1,7 @@
 package jndev.volleyball.command;
 
-import jndev.volleyball.config.ConfigManager;
-import jndev.volleyball.config.ConfigType;
 import jndev.volleyball.Message;
-import jndev.volleyball.config.Configs;
+import jndev.volleyball.court.Court;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -11,6 +9,7 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class CommandTabComplete implements TabCompleter {
     
@@ -51,9 +50,9 @@ public class CommandTabComplete implements TabCompleter {
                     
                 } else if (args.length == 3) {
                     
-                    ConfigManager courtConfig = Configs.getConfig(ConfigType.COURT);
+                    Set<String> courts = Court.getCourts().keySet();
                     
-                    if (courtConfig.getConfig().getKeys(false).contains(args[1])) {
+                    if (courts.contains(args[1])) {
                         
                         if (args[2].equalsIgnoreCase("")) {
                             
@@ -78,7 +77,7 @@ public class CommandTabComplete implements TabCompleter {
                             
                         }
                         
-                    } else if (!args[1].equalsIgnoreCase("defaults")) {
+                    } else {
                         
                         if (args[2].equalsIgnoreCase("")) {
                             
@@ -86,7 +85,7 @@ public class CommandTabComplete implements TabCompleter {
                                     !args[0].equalsIgnoreCase("reload") && !args[1].equalsIgnoreCase("list"))
                                 tabList.add("create");
                             
-                            if (courtConfig.getConfig().getKeys(false).contains(args[1])) tabList.add("remove");
+                            if (courts.contains(args[1])) tabList.add("remove");
                             
                         } else if (args[2].startsWith("c")) {
                             
@@ -96,44 +95,34 @@ public class CommandTabComplete implements TabCompleter {
                             
                         } else if (args[2].startsWith("r")) {
                             
-                            if (courtConfig.getConfig().getKeys(false).contains(args[1])) tabList.add("remove");
+                            if (courts.contains(args[1])) tabList.add("remove");
                             
                         }
-                        
-                    } else if (args[1].equalsIgnoreCase("defaults")) {
-                        
-                        tabList.add("set");
-                        tabList.add("info");
-                        
-                        if (args[2].startsWith("s")) tabList.remove("info");
-                        if (args[2].startsWith("i")) tabList.remove("set");
                         
                     }
                     
                 } else if (args.length == 2) {
-                    
-                    ConfigManager courtConfig = Configs.getConfig(ConfigType.COURT);
-                    
+    
+                    Set<String> courts = Court.getCourts().keySet();
+    
                     if (!args[0].equalsIgnoreCase("help") && !args[0].equalsIgnoreCase("reload")) {
                         
                         if (args[1].equalsIgnoreCase("")) {
                             
-                            tabList.addAll(courtConfig.getConfig().getKeys(false));
-                            tabList.add("defaults");
+                            tabList.addAll(courts);
                             tabList.add("help");
                             tabList.add("list");
                             
                         }
                         
-                        for (String courts : courtConfig.getConfig().getKeys(false)) {
+                        for (String court : courts) {
                             
-                            if (courts.startsWith(args[1])) {
+                            if (court.startsWith(args[1])) {
                                 
-                                tabList.add(courts);
+                                tabList.add(court);
                                 
                             }
                             
-                            if (args[1].startsWith("d")) tabList.add("defaults");
                             if (args[1].startsWith("h")) tabList.add("help");
                             if (args[1].startsWith("l")) tabList.add("list");
     
@@ -168,7 +157,7 @@ public class CommandTabComplete implements TabCompleter {
                             
                         }
                         
-                        if (!args[1].equalsIgnoreCase("defaults") && !args[1].equalsIgnoreCase("help")
+                        if (!args[1].equalsIgnoreCase("help")
                                 && !args[0].equalsIgnoreCase("help") && !args[0].equalsIgnoreCase("reload")
                                 && !args[1].equalsIgnoreCase("list")) {
                             

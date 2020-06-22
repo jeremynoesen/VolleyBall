@@ -1,6 +1,6 @@
 package jndev.volleyball.ball;
 
-import jndev.volleyball.court.OldCourt;
+import jndev.volleyball.court.Court;
 import jndev.volleyball.Message;
 import jndev.volleyball.court.CourtHandler;
 import org.bukkit.ChatColor;
@@ -39,7 +39,7 @@ public class BallListener implements Listener {
             
             if (ch.getCourt(player) == null) return;
             
-            OldCourt court = OldCourt.getCourt(player, ch.getCourt(player));
+            Court court = ch.getCourt(player);
             
             Entity s = e.getEntity();
             s.getWorld().playSound(s.getLocation(), Sound.ENTITY_CHICKEN_EGG, 2, 0);
@@ -62,7 +62,7 @@ public class BallListener implements Listener {
                     
                     if (ch.getCourt(player) == null) return;
                     
-                    OldCourt court = OldCourt.getCourt(player, ch.getCourt(player));
+                    Court court = ch.getCourt(player);
                     
                     s.getWorld().playSound(s.getLocation(), Sound.ENTITY_CHICKEN_EGG, 2, 0);
                     s.setVelocity(e.getDamager().getLocation().getDirection().multiply(0.9).add(new Vector(0, 0.6, 0))
@@ -90,7 +90,7 @@ public class BallListener implements Listener {
         Action a = e.getAction();
         CourtHandler ch = new CourtHandler();
         if (a == Action.LEFT_CLICK_BLOCK) {
-            if (ch.isOnCourt(e.getClickedBlock().getLocation()) && OldCourt.getCourt(p, ch.getCourt(e.getClickedBlock().getLocation())).isEnabled())
+            if (ch.isOnCourt(e.getClickedBlock().getLocation()) && ch.getCourt(e.getClickedBlock().getLocation()).isEnabled())
                 e.setCancelled(true);
         }
     }
@@ -128,7 +128,7 @@ public class BallListener implements Listener {
         if (p.isSneaking()) {
             if (ch.getCourt(p) != null) {
                 
-                OldCourt court = OldCourt.getCourt(p, ch.getCourt(p));
+                Court court = ch.getCourt(p);
                 
                 if (court.isEnabled()) {
                     
