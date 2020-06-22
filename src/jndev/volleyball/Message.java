@@ -34,6 +34,9 @@ public class Message {
     public static String COURT_INFO;
     public static String COURT_LIST;
     
+    /**
+     * reload all messages from file
+     */
     public static void reloadMessages() {
         PREFIX = format(messageConfig.getConfig().getString("PREFIX"));
         ERROR_BALL_OUT = PREFIX + format(messageConfig.getConfig().getString("ERROR_BALL_OUT"));

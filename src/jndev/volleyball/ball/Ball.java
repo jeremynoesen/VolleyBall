@@ -23,19 +23,40 @@ import java.util.UUID;
  */
 public class Ball {
     
+    /**
+     * entity responsible for wearing the player head and making the ball hitbox larger
+     */
     private Zombie ballTexture;
     
+    /**
+     * entity used for the ball physics
+     */
     private Slime ballPhysics;
     
+    /**
+     * whether the ball removal has been started or not
+     */
     private boolean end = false;
     
-    private int stop = 0;
-    
+    /**
+     * player serving this ball
+     */
     private Player player;
     
-    public boolean volleyed = false;
+    /**
+     * whether the ball has gone over the net or not
+     */
+    private boolean volleyed = false;
     
-    public int volleys = 0;
+    /**
+     * number of times the ball has gone over the net
+     */
+    private int volleys = 0;
+    
+    /**
+     * court this ball is on
+     */
+    private Court court;
     
     /**
      * Creates a new ball
@@ -47,7 +68,7 @@ public class Ball {
         
         CourtHandler ch = new CourtHandler();
         
-        Court court = ch.getCourt(player);
+        court = ch.getCourt(player);
         
         ballPhysics = player.getLocation().getWorld()
                 .spawn(player.getEyeLocation().add(player.getLocation().getDirection()).subtract(0, 0.25, 0), Slime.class);
@@ -114,7 +135,7 @@ public class Ball {
     /**
      * serves the volleyball
      */
-    public void serve(Court court) {
+    public void serve() {
         boolean animated = court.hasAnimations();
         if (animated) {
             Location loc = player.getLocation();
@@ -151,7 +172,8 @@ public class Ball {
                 }
                 
                 ballPhysics.setFallDistance(0);
-                if (animated) ballPhysics.getWorld().spawnParticle(Particle.END_ROD, ballPhysics.getLocation(), 0, 0, 0, 0, 1);
+                if (animated)
+                    ballPhysics.getWorld().spawnParticle(Particle.END_ROD, ballPhysics.getLocation(), 0, 0, 0, 0, 1);
                 ballPhysics.setTarget(null);
                 
                 if (ballPhysics.isDead()) {
@@ -173,10 +195,9 @@ public class Ball {
                         @Override
                         public void run() {
                             if (ballPhysics.isOnGround() || ballPhysics.getLocation().add(0, 0.5, 0).getBlock().getType() != Material.AIR) {
-                                if (stop == 0) {
-                                    remove(court);
-                                }
-                                stop++;
+                                remove();
+                                this.cancel();
+                                super.cancel();
                             }
                         }
                     }.runTaskLater(VolleyBall.getInstance(), 3);
@@ -188,7 +209,7 @@ public class Ball {
     /**
      * removes the volleyball with or without animations
      */
-    public void remove(Court court) {
+    public void remove() {
         boolean animated = court.hasAnimations();
         if (animated) {
             end = true;

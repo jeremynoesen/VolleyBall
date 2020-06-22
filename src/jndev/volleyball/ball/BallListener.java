@@ -98,7 +98,6 @@ public class BallListener implements Listener {
     /**
      * block the slime and zombie from targetting players in survival mode
      */
-    
     @EventHandler
     public void onEntityTarget(EntityTargetEvent e) {
         Entity s = e.getEntity();
@@ -143,7 +142,7 @@ public class BallListener implements Listener {
                     }
                     
                     Ball ball = new Ball(p);
-                    ball.serve(court);
+                    ball.serve();
                     
                 }
             }

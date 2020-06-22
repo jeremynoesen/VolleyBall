@@ -6,6 +6,7 @@ import jndev.volleyball.command.CommandTabComplete;
 import jndev.volleyball.config.ConfigType;
 import jndev.volleyball.config.Configs;
 import jndev.volleyball.court.CourtLoader;
+import jndev.volleyball.court.CourtSaver;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -23,11 +24,14 @@ import org.bukkit.plugin.java.JavaPlugin;
  * @author JNDev
  */
 public class VolleyBall extends JavaPlugin implements Listener {
-
+    
+    /**
+     * instance of the plugin
+     */
     private static VolleyBall plugin;
     
     /**
-     * runs when the plugin starts
+     * load files, courts, messages, and delete leftover ball entities
      */
     public void onEnable() {
         plugin = this;
@@ -71,12 +75,18 @@ public class VolleyBall extends JavaPlugin implements Listener {
     }
 
     /**
-     * runs when the plugin stops
+     * disables the plugin and save courts
      */
     public void onDisable() {
+        CourtSaver.saveAll();
         plugin = null;
     }
     
+    /**
+     * get the plugin instance
+     *
+     * @return plugin instance
+     */
     public static VolleyBall getInstance() {
         return plugin;
     }
