@@ -18,6 +18,15 @@ import org.bukkit.entity.*;
  */
 public class CommandExec implements CommandExecutor {
     
+    /**
+     * method to make the volleyball commands work
+     *
+     * @param sender command sender
+     * @param command command
+     * @param label part of command immediately followed by /
+     * @param args command arguments
+     * @return true
+     */
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         
         if (sender instanceof Player) {

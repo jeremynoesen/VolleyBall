@@ -5,7 +5,14 @@ package jndev.volleyball.config;
  */
 public class Configs {
     
+    /**
+     * court config instance
+     */
     private static ConfigManager court = new ConfigManager(ConfigType.COURT);
+    
+    /**
+     * message config instance
+     */
     private static ConfigManager message = new ConfigManager(ConfigType.MESSAGE);
     
     /**

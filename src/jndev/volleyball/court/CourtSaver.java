@@ -4,16 +4,30 @@ import jndev.volleyball.config.ConfigManager;
 import jndev.volleyball.config.ConfigType;
 import jndev.volleyball.config.Configs;
 
+/**
+ * class dedicated to saving courts to file
+ */
 public class CourtSaver {
     
+    /**
+     * court config instance
+     */
     private static ConfigManager courtConfig = Configs.getConfig(ConfigType.COURT);
     
+    /**
+     * save all courts to file
+     */
     public static void saveAll() {
         for(Court court : Court.getCourts().values()) {
             saveCourt(court);
         }
     }
     
+    /**
+     * save a court to file
+     *
+     * @param court court to save
+     */
     private static void saveCourt(Court court) {
         String name = court.getName();
     

@@ -46,6 +46,8 @@ public class CourtHandler {
     }
     
     /**
+     * check if a location is on any court
+     *
      * @param l location to check
      * @return true if on any court
      */
@@ -88,6 +90,8 @@ public class CourtHandler {
     }
     
     /**
+     * get the court the player is on
+     *
      * @param player player to check for courts
      * @return court player is on
      */
@@ -102,6 +106,8 @@ public class CourtHandler {
     }
     
     /**
+     * get the court a location is in
+     *
      * @param loc location to check
      * @return court location is in
      */
@@ -141,6 +147,12 @@ public class CourtHandler {
         }
     }
     
+    /**
+     * get a list of all players on the specified court
+     *
+     * @param court court to get players form
+     * @return list of players on court
+     */
     public List<Player> getPlayersOnCourt(Court court) {
         List<Player> players = new ArrayList<>();
         

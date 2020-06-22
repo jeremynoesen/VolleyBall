@@ -11,14 +11,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * class to enable tab complete functionality for the volleyball commands
+ */
 public class CommandTabComplete implements TabCompleter {
     
+    /**
+     * method to implement the tab list for volleyball command
+     *
+     * @param sender command sender
+     * @param command command
+     * @param label command label followed after the /
+     * @param args command arguments
+     * @return tab list
+     */
     @Override
-    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         
         ArrayList<String> tabList = new ArrayList<>();
         
-        if (sender instanceof Player) {
+        if (sender instanceof Player && label.equalsIgnoreCase("volleyball")) {
             
             Player player = (Player) sender;
             

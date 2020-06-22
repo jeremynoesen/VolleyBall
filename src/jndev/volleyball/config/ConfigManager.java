@@ -16,10 +16,26 @@ import java.util.logging.Level;
  */
 public class ConfigManager {
     
+    /**
+     * file used for the config
+     */
     private File configFile;
+    
+    /**
+     * file loaded as YAML config file
+     */
     private YamlConfiguration YMLConfig;
+    
+    /**
+     * type of config
+     */
     private ConfigType configType;
     
+    /**
+     * create a new config with the specified type
+     *
+     * @param type config type
+     */
     public ConfigManager(ConfigType type) {
         configType = type;
     }
