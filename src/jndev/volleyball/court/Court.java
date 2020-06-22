@@ -17,7 +17,7 @@ public class Court {
     /**
      * all loaded courts
      */
-    private static HashMap<String, Court> courts = new HashMap<>();
+    private static final HashMap<String, Court> courts = new HashMap<>();
     
     /**
      * name of the court
