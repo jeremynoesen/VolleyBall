@@ -58,24 +58,17 @@ public class Message {
         COURT_LIST = PREFIX + format(messageConfig.getConfig().getString("COURT_LIST"));
     }
     
-    public String STARTUP = "\n\n" +
+    public static String STARTUP = "\n\n" +
             ChatColor.DARK_GRAY + "███╗" + ChatColor.YELLOW + "██╗   ██╗" + ChatColor.GOLD + "██████╗ " + ChatColor.DARK_GRAY + "███╗" + ChatColor.WHITE + "  Volleyball version " + VolleyBall.getInstance().getDescription().getVersion() + " " + "has " + "been enabled!\n" +
             ChatColor.DARK_GRAY + "██╔╝" + ChatColor.YELLOW + "██║   ██║" + ChatColor.GOLD + "██╔══██╗" + ChatColor.DARK_GRAY + "╚██║" + ChatColor.WHITE + "  Volleyball is written by Jeremaster101 and\n" +
             ChatColor.DARK_GRAY + "██║ " + ChatColor.YELLOW + "██║   ██║" + ChatColor.GOLD + "██████╔╝" + ChatColor.DARK_GRAY + " ██║" + ChatColor.WHITE + "  may not be modified or redistributed without\n" +
             ChatColor.DARK_GRAY + "██║ " + ChatColor.YELLOW + "╚██╗ ██╔╝" + ChatColor.GOLD + "██╔══██╗" + ChatColor.DARK_GRAY + " ██║" + ChatColor.WHITE + "  his consent. For help and support, join the\n" +
             ChatColor.DARK_GRAY + "███╗" + ChatColor.YELLOW + " ╚████╔╝ " + ChatColor.GOLD + "██████╔╝" + ChatColor.DARK_GRAY + "███║" + ChatColor.WHITE + "  support discord group: https://discord.gg/WhmQYR\n" +
             ChatColor.DARK_GRAY + "╚══╝" + ChatColor.YELLOW + "  ╚═══╝  " + ChatColor.GOLD + "╚═════╝ " + ChatColor.DARK_GRAY + "╚══╝" + ChatColor.WHITE + "  Thank you for choosing Volleyball!\n";
-    String CLEANING = PREFIX + ChatColor.GRAY + "Deleting leftover volleyball entities...";
-    String DONE_CLEANING =
+    public static String CLEANING = PREFIX + ChatColor.GRAY + "Deleting leftover volleyball entities...";
+    public static String DONE_CLEANING =
             PREFIX + ChatColor.GRAY + "Successfully deleted " + ChatColor.WHITE + "$COUNT$" + ChatColor.GRAY +
                     " volleyball entities!";
-    String[] HELP = new String[]{
-            "",
-            format("\n&8&l---------[&e&lVollay&6&lball &7&lHelp&8&l]---------"),
-            ChatColor.GRAY + "/volleyball | /vb" + ChatColor.WHITE + ": Serve a volleyball",
-            ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "----------------------------------",
-            ""
-    };
     
     /**
      * Apply color codes and line breaks to a message
@@ -95,7 +88,7 @@ public class Message {
                     "" + ChatColor.BOLD + "Help"
                     + ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "]-------------",
             ChatColor.GRAY + "/volleyball court help" + ChatColor.WHITE + ": View court commands",
-            ChatColor.GRAY + "/volleyball reload" + ChatColor.WHITE + ": Reload configurations",
+            ChatColor.GRAY + "/volleyball reload" + ChatColor.WHITE + ": Reload plugin and configs",
             ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "---------------------------------------",
             ""
     };
@@ -107,8 +100,10 @@ public class Message {
                     "" + ChatColor.BOLD + "Ball " + ChatColor.GRAY +
                     "" + ChatColor.BOLD + "Court Help"
                     + ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "]----------",
+            ChatColor.GRAY + "/volleyball court list" + ChatColor.WHITE + ": List all courts",
             ChatColor.GRAY + "/volleyball court <courtname> create" + ChatColor.WHITE + ": Create a new court",
             ChatColor.GRAY + "/volleyball court <courtname> remove" + ChatColor.WHITE + ": Remove a court",
+            ChatColor.GRAY + "/volleyball court <courtname> info" + ChatColor.WHITE + ": Get court info",
             ChatColor.GRAY + "/volleyball court <courtname> set net" + ChatColor.WHITE + ": Set the net region",
             ChatColor.GRAY + "/volleyball court <courtname> set bounds" + ChatColor.WHITE + ": Change the court bounds",
             ChatColor.GRAY + "/volleyball court <courtname> set animations <true/false>" + ChatColor.WHITE + ": Enable ball animations",
