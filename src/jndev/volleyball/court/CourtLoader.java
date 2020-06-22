@@ -4,17 +4,31 @@ import jndev.volleyball.config.ConfigManager;
 import jndev.volleyball.config.ConfigType;
 import jndev.volleyball.config.Configs;
 
+/**
+ * class dedicated to loading a court from file
+ */
 public class CourtLoader {
     
+    /**
+     * court config instance
+     */
     private static ConfigManager courtConfig = Configs.getConfig(ConfigType.COURT);
     
     
+    /**
+     * load all courts in file
+     */
     public static void loadAll() {
         for (String name : courtConfig.getConfig().getKeys(false)) {
             loadCourt(name);
         }
     }
     
+    /**
+     * load one court by name
+     *
+     * @param name name of court to load
+     */
     private static void loadCourt(String name) {
         Court court = new Court(name);
             court.setAnimations(courtConfig.getConfig().getBoolean(name + ".animations"));

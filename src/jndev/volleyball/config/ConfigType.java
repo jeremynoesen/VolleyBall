@@ -11,8 +11,14 @@ import java.io.InputStream;
 public enum ConfigType {
     COURT("courts.yml"), MESSAGE("messages.yml");
     
+    /**
+     * config type file name
+     */
     public String fileName;
     
+    /**
+     * @param file file name associated with the type
+     */
     ConfigType(String file) {
         this.fileName = file;
     }
