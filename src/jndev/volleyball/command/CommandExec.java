@@ -4,7 +4,7 @@ import jndev.volleyball.config.ConfigType;
 import jndev.volleyball.Message;
 import jndev.volleyball.config.Configs;
 import jndev.volleyball.court.Court;
-import jndev.volleyball.court.CourtHandler;
+import jndev.volleyball.court.Courts;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -107,8 +107,8 @@ public class CommandExec implements CommandExecutor {
                             
                             if (args[2].equalsIgnoreCase("select")) {
                                 
-                                CourtHandler ch = new CourtHandler();
-                                ch.selectCourt(p, Court.getCourt(args[1]));
+                                Courts ch = new Courts();
+                                Court.getCourt(args[1]).select(p);
                                 
                             }
                             

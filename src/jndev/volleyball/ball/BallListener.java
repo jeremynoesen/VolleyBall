@@ -2,7 +2,7 @@ package jndev.volleyball.ball;
 
 import jndev.volleyball.court.Court;
 import jndev.volleyball.Message;
-import jndev.volleyball.court.CourtHandler;
+import jndev.volleyball.court.Courts;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.entity.*;
@@ -35,7 +35,7 @@ public class BallListener implements Listener {
             
             Player player = (Player) e.getDamager();
             
-            CourtHandler ch = new CourtHandler();
+            Courts ch = new Courts();
             
             if (ch.getCourt(player) == null) return;
             
@@ -58,7 +58,7 @@ public class BallListener implements Listener {
                     
                     Player player = (Player) e.getDamager();
                     
-                    CourtHandler ch = new CourtHandler();
+                    Courts ch = new Courts();
                     
                     if (ch.getCourt(player) == null) return;
                     
@@ -88,7 +88,7 @@ public class BallListener implements Listener {
     public void onInteract(PlayerInteractEvent e) {
         Player p = e.getPlayer();
         Action a = e.getAction();
-        CourtHandler ch = new CourtHandler();
+        Courts ch = new Courts();
         if (a == Action.LEFT_CLICK_BLOCK) {
             if (ch.isOnCourt(e.getClickedBlock().getLocation()) && ch.getCourt(e.getClickedBlock().getLocation()).isEnabled())
                 e.setCancelled(true);
@@ -123,7 +123,7 @@ public class BallListener implements Listener {
     @EventHandler
     public void onSneak(PlayerToggleSneakEvent e) {
         Player p = e.getPlayer();
-        CourtHandler ch = new CourtHandler();
+        Courts ch = new Courts();
         if (p.isSneaking()) {
             if (ch.getCourt(p) != null) {
                 

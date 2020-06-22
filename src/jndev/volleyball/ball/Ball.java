@@ -3,7 +3,7 @@ package jndev.volleyball.ball;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import jndev.volleyball.court.Court;
-import jndev.volleyball.court.CourtHandler;
+import jndev.volleyball.court.Courts;
 import jndev.volleyball.VolleyBall;
 import org.bukkit.*;
 import org.bukkit.craftbukkit.libs.org.apache.commons.codec.binary.Base64;
@@ -66,7 +66,7 @@ public class Ball {
     public Ball(Player player) {
         this.player = player;
         
-        CourtHandler ch = new CourtHandler();
+        Courts ch = new Courts();
         
         court = ch.getCourt(player);
         
@@ -155,19 +155,17 @@ public class Ball {
             }
         }
         
-        CourtHandler ch = new CourtHandler();
-        
         new BukkitRunnable() {
             @Override
             public void run() {
                 
-                if (ch.isAboveNet(ballPhysics.getLocation(), court) && !volleyed) {
+                if (court.isAboveNet(ballPhysics.getLocation()) && !volleyed) {
                     volleyed = true;
                     volleys++;
-                    for (Player players : ch.getPlayersOnCourt(court)) {
+                    for (Player players : court.getPlayersOnCourt()) {
                         players.sendTitle("", ChatColor.WHITE + Integer.toString(volleys), 0, 10, 10);
                     }
-                } else if (!ch.isAboveNet(ballPhysics.getLocation(), court)) {
+                } else if (!court.isAboveNet(ballPhysics.getLocation())) {
                     volleyed = false;
                 }
                 

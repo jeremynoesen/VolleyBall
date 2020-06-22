@@ -1,13 +1,19 @@
 package jndev.volleyball.court;
 
+import com.sk89q.worldedit.LocalSession;
+import com.sk89q.worldedit.WorldEdit;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
+import com.sk89q.worldedit.math.BlockVector3;
 import jndev.volleyball.Message;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * volleyball court with customizable ball stats and court size
@@ -304,6 +310,106 @@ public class Court {
      */
     public void remove() {
         courts.remove(name);
+    }
+    
+    /**
+     * check if a location is on a court
+     *
+     * @param l location to check
+     * @return true if location is in a court region
+     */
+    public boolean contains(Location l) {
+        try {
+            double maxx = bounds[0][0];
+            double maxy = bounds[0][1];
+            double maxz = bounds[0][2];
+            double minx = bounds[1][0];
+            double miny = bounds[1][1];
+            double minz = bounds[1][2];
+            double tox = l.getBlock().getLocation().getX();
+            double toy = l.getBlock().getLocation().getY();
+            double toz = l.getBlock().getLocation().getZ();
+            
+            return (l.getWorld().equals(world) && (tox <= maxx) && (tox >= minx) && (toy <= maxy) &&
+                    (toy >= miny) && (toz <= maxz) && (toz >= minz));
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    
+    /**
+     * check if a player is in a court
+     *
+     * @param player player to see if court contains
+     * @return true if player is on court
+     */
+    public boolean contains(Player player) {
+        return getPlayersOnCourt().contains(player);
+    }
+    
+    /**
+     * get a list of all players on the specified court
+     *
+     * @return list of players on court
+     */
+    public List<Player> getPlayersOnCourt() {
+        List<Player> players = new ArrayList<>();
+        
+        for (Player playersInWorld : world.getPlayers()) {
+            if (!playersInWorld.isOnline()) continue;
+            if (contains(playersInWorld.getLocation())) {
+                players.add(playersInWorld);
+            }
+        }
+        
+        return players;
+    }
+    
+    /**
+     * check if a location is above a net
+     *
+     * @param l location to check
+     * @return true if location is above a net
+     */
+    public boolean isAboveNet(Location l) {
+        
+        try {
+            double maxx = net[0][1];
+            double maxz = net[0][2];
+            double minx = net[1][0];
+            double miny = net[1][1];
+            double minz = net[1][2];
+            double tox = l.getBlock().getLocation().getX();
+            double toy = l.getBlock().getLocation().getY();
+            double toz = l.getBlock().getLocation().getZ();
+            
+            return (l.getWorld().equals(world) && (tox <= maxx) && (tox >= minx) &&
+                    (toy >= miny) && (toz <= maxz) && (toz >= minz));
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    
+    /**
+     * select a court with worldedit
+     *
+     * @param player player to do the selecting
+     */
+    public void select(Player player) {
+        
+        try {
+            BlockVector3 min = BlockVector3.at(bounds[0][0], bounds[0][1], bounds[0][2]);
+            BlockVector3 max = BlockVector3.at(bounds[1][0], bounds[1][1], bounds[1][2]);
+            
+            com.sk89q.worldedit.entity.Player weplayer = BukkitAdapter.adapt(player);
+            LocalSession ls = WorldEdit.getInstance().getSessionManager().get(weplayer);
+            ls.getRegionSelector(BukkitAdapter.adapt(world)).selectPrimary(max, null);
+            ls.getRegionSelector(BukkitAdapter.adapt(world)).selectSecondary(min, null);
+            
+            player.sendMessage(Message.SUCCESS_COURT_SELECTED.replace("$COURT$", name));
+        } catch (Exception e) {
+            player.sendMessage(Message.ERROR_UNKNOWN_COURT.replace("$COURT$", name));
+        }
     }
     
     /**
