@@ -141,6 +141,7 @@ public class Ball {
      * serves the volleyball
      */
     public void serve() {
+        court.setBall(this);
         boolean animated = court.hasAnimations();
         if (animated) {
             Location loc = player.getLocation();
@@ -181,6 +182,7 @@ public class Ball {
                 
                 if (ballPhysics.isDead()) {
                     ballTexture.remove();
+                    court.setBall(null);
                     this.cancel();
                 }
                 ballTexture.setFallDistance(0);
@@ -211,6 +213,7 @@ public class Ball {
      * removes the volleyball with or without animations
      */
     public void remove() {
+        court.setBall(null);
         boolean animated = court.hasAnimations();
         if (animated) {
             end = true;

@@ -6,6 +6,7 @@ import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldedit.math.BlockVector3;
 import jndev.volleyball.Message;
+import jndev.volleyball.ball.Ball;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -66,6 +67,11 @@ public class Court {
     private double[][] net;
     
     /**
+     * ball used in court
+     */
+    private Ball ball;
+    
+    /**
      * create a court with default values with the specified name
      *
      * @param name court name
@@ -79,6 +85,7 @@ public class Court {
         world = null;
         bounds = new double[2][3];
         net = new double[2][3];
+        ball = null;
         courts.put(name, this);
     }
     
@@ -443,5 +450,23 @@ public class Court {
                                 net[1][0] + "," + net[1][1] + "," + net[1][2] + ")")
                 .replace("$WORLD$", world.getName());
         
+    }
+    
+    /**
+     * get the ball on the court
+     *
+     * @return ball on court
+     */
+    public Ball getBall() {
+        return ball;
+    }
+    
+    /**
+     * set the current ball
+     *
+     * @param ball ball
+     */
+    public void setBall(Ball ball) {
+        this.ball = ball;
     }
 }
