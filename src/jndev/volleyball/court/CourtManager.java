@@ -1,8 +1,10 @@
 package jndev.volleyball.court;
 
+import jndev.volleyball.VolleyBall;
 import jndev.volleyball.config.ConfigManager;
 import jndev.volleyball.config.ConfigType;
 import jndev.volleyball.config.Configs;
+import org.bukkit.Bukkit;
 
 /**
  * class dedicated to loading and saving courts from and to file
@@ -35,7 +37,7 @@ public class CourtManager {
         court.setEnabled(courtConfig.getConfig().getBoolean(name + ".enabled"));
         court.setSpeed(courtConfig.getConfig().getDouble(name + ".speed"));
         court.setTexture(courtConfig.getConfig().getString(name + ".texture"));
-        if (courtConfig.getConfig().get(name + ".bounds") != null) {
+        if (courtConfig.getConfig().get(name + ".court") != null) {
             double[][] bounds = new double[2][3];
             bounds[0][0] = courtConfig.getConfig().getDouble(name + ".court.min.x");
             bounds[0][1] = courtConfig.getConfig().getDouble(name + ".court.min.y");
@@ -43,7 +45,9 @@ public class CourtManager {
             bounds[1][0] = courtConfig.getConfig().getDouble(name + ".court.max.x");
             bounds[1][1] = courtConfig.getConfig().getDouble(name + ".court.max.y");
             bounds[1][2] = courtConfig.getConfig().getDouble(name + ".court.max.z");
+            String world = courtConfig.getConfig().getString(name + ".world");
             court.setBounds(bounds);
+            court.setWorld(VolleyBall.getInstance().getServer().getWorld(world));
         }
         if (courtConfig.getConfig().get(name + ".net") != null) {
             double[][] net = new double[2][3];
@@ -90,6 +94,7 @@ public class CourtManager {
             courtConfig.getConfig().set(name + ".court.max.x", bounds[1][0]);
             courtConfig.getConfig().set(name + ".court.max.y", bounds[1][1]);
             courtConfig.getConfig().set(name + ".court.max.z", bounds[1][2]);
+            courtConfig.getConfig().set(name + ".world", court.getWorld().getName());
         }
         if (court.getNet() != null) {
             double[][] net = court.getNet();

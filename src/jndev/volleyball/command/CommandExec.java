@@ -107,7 +107,6 @@ public class CommandExec implements CommandExecutor {
                             
                             if (args[2].equalsIgnoreCase("select")) {
                                 
-                                Courts ch = new Courts();
                                 Court.getCourt(args[1]).select(p);
                                 
                             }

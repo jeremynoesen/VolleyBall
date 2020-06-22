@@ -39,14 +39,16 @@ public class VolleyBall extends JavaPlugin implements Listener {
         Configs.getConfig(ConfigType.COURT).saveDefaultConfig();
         
         Message.reloadMessages();
-        
+    
+        CourtManager.loadAll();
+    
         plugin.getServer().getConsoleSender().sendMessage(Message.STARTUP);
 
         PluginManager pm = getServer().getPluginManager();
 
         pm.registerEvents(new BallListener(), plugin);
         
-        pm.addPermission(new Permission("volleybal.admin"));
+        pm.addPermission(new Permission("volleyball.admin"));
 
         getCommand("volleyball").setExecutor(new CommandExec());
         getCommand("volleyball").setTabCompleter(new CommandTabComplete());
@@ -68,9 +70,6 @@ public class VolleyBall extends JavaPlugin implements Listener {
     
         plugin.getServer().getConsoleSender().sendMessage(Message.DONE_CLEANING.replace("$COUNT$",
                 Integer.toString(count)));
-    
-        CourtManager.loadAll();
-        
     }
 
     /**
