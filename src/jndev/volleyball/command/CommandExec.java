@@ -3,7 +3,7 @@ package jndev.volleyball.command;
 import jndev.volleyball.config.ConfigType;
 import jndev.volleyball.Message;
 import jndev.volleyball.config.Configs;
-import jndev.volleyball.court.OldCourt;
+import jndev.volleyball.court.Court;
 import jndev.volleyball.court.CourtHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -83,7 +83,7 @@ public class CommandExec implements CommandExecutor {
                                     
                                     if(!args[1].equalsIgnoreCase("list") && !args[1].equalsIgnoreCase("defaults")) {
     
-                                        OldCourt court = new OldCourt(p, args[1]);
+                                        new Court(args[1]);
     
                                     } else {
                                         
@@ -95,20 +95,20 @@ public class CommandExec implements CommandExecutor {
                                 
                                 if (args[2].equalsIgnoreCase("remove")) {
                                     
-                                    OldCourt.getCourt(p, args[1]).remove();
+                                    Court.getCourt(args[1]).remove();
                                     
                                 }
                                 
                                 if (args[2].equalsIgnoreCase("select")) {
                                     
                                     CourtHandler ch = new CourtHandler();
-                                    ch.selectCourt(p, args[1]);
+                                    ch.selectCourt(p, Court.getCourt(args[1]));
                                     
                                 }
                                 
                                 if (args[2].equalsIgnoreCase("info")) {
                                     
-                                    p.sendMessage(OldCourt.getCourt(p, args[1]).toString());
+                                    p.sendMessage(Court.getCourt(args[1]).toString());
                                     
                                 }
                                 
@@ -126,11 +126,11 @@ public class CommandExec implements CommandExecutor {
                                     
                                     if (args[3].equalsIgnoreCase("net")) {
                                         
-                                        OldCourt.getCourt(p, args[1]).setNet();
+                                        Court.getCourt(args[1]).setNet(p);
                                         
                                     } else if (args[3].equalsIgnoreCase("bounds")) {
                                         
-                                        OldCourt.getCourt(p, args[1]).setBounds();
+                                        Court.getCourt(args[1]).setBounds(p);
                                         
                                     }
                                 } else p.sendMessage(Message.ERROR_DEFAULT);
@@ -147,21 +147,21 @@ public class CommandExec implements CommandExecutor {
                                 
                                 if (args[3].equalsIgnoreCase("speed")) {
                                     
-                                    OldCourt.getCourt(p, args[1]).setSpeed(Double.parseDouble(args[4]));
+                                    Court.getCourt(args[1]).setSpeed(Double.parseDouble(args[4]));
                                     
                                 } else if (args[3].equalsIgnoreCase("texture")) {
                                     
-                                    OldCourt.getCourt(p, args[1]).setTexture(args[4]);
+                                    Court.getCourt(args[1]).setTexture(args[4]);
                                     
                                 } else if (args[3].equalsIgnoreCase("animations")) {
                                     
-                                    OldCourt.getCourt(p, args[1]).setAnimations(Boolean.parseBoolean(args[4]));
+                                    Court.getCourt(args[1]).setAnimations(Boolean.parseBoolean(args[4]));
                                     
                                 } else if (args[3].equalsIgnoreCase("enabled")) {
                                     
                                     if (!args[1].equals("defaults")) {
                                         
-                                        OldCourt.getCourt(p, args[1]).setEnabled(Boolean.parseBoolean(args[4]));
+                                        Court.getCourt(args[1]).setEnabled(Boolean.parseBoolean(args[4]));
                                         
                                     } else p.sendMessage(Message.ERROR_DEFAULT);
                                     

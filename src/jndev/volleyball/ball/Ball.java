@@ -2,7 +2,7 @@ package jndev.volleyball.ball;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import jndev.volleyball.court.OldCourt;
+import jndev.volleyball.court.Court;
 import jndev.volleyball.court.CourtHandler;
 import jndev.volleyball.VolleyBall;
 import org.bukkit.*;
@@ -24,11 +24,17 @@ import java.util.UUID;
 public class Ball {
     
     private Zombie ballTexture;
+    
     private Slime ballPhysics;
+    
     private boolean end = false;
+    
     private int stop = 0;
+    
     private Player player;
+    
     public boolean volleyed = false;
+    
     public int volleys = 0;
     
     /**
@@ -41,7 +47,7 @@ public class Ball {
         
         CourtHandler ch = new CourtHandler();
         
-        OldCourt court = OldCourt.getCourt(player, ch.getCourt(player));
+        Court court = ch.getCourt(player);
         
         ballPhysics = player.getLocation().getWorld()
                 .spawn(player.getEyeLocation().add(player.getLocation().getDirection()).subtract(0, 0.25, 0), Slime.class);
@@ -108,9 +114,8 @@ public class Ball {
     /**
      * serves the volleyball
      */
-    @SuppressWarnings("deprecation")
-    public void serve(OldCourt court) {
-        boolean animated = court.getAnimations();
+    public void serve(Court court) {
+        boolean animated = court.hasAnimations();
         if (animated) {
             Location loc = player.getLocation();
             double radius = 0.5;
@@ -183,8 +188,8 @@ public class Ball {
     /**
      * removes the volleyball with or without animations
      */
-    public void remove(OldCourt court) {
-        boolean animated = court.getAnimations();
+    public void remove(Court court) {
+        boolean animated = court.hasAnimations();
         if (animated) {
             end = true;
             double radius = 1;
