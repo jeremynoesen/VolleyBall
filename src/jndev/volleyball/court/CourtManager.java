@@ -61,6 +61,10 @@ public class CourtManager {
      * save all courts to file
      */
     public static void saveAll() {
+        for(String key : courtConfig.getConfig().getKeys(false)) {
+            courtConfig.getConfig().set(key, null);
+        }
+        
         for(Court court : Court.getCourts().values()) {
             saveCourt(court);
         }

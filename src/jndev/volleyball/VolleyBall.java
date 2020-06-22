@@ -5,8 +5,7 @@ import jndev.volleyball.command.CommandExec;
 import jndev.volleyball.command.CommandTabComplete;
 import jndev.volleyball.config.ConfigType;
 import jndev.volleyball.config.Configs;
-import jndev.volleyball.court.CourtLoader;
-import jndev.volleyball.court.CourtSaver;
+import jndev.volleyball.court.CourtManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -70,7 +69,7 @@ public class VolleyBall extends JavaPlugin implements Listener {
         plugin.getServer().getConsoleSender().sendMessage(Message.DONE_CLEANING.replace("$COUNT$",
                 Integer.toString(count)));
     
-        CourtLoader.loadAll();
+        CourtManager.loadAll();
         
     }
 
@@ -78,7 +77,7 @@ public class VolleyBall extends JavaPlugin implements Listener {
      * disables the plugin and save courts
      */
     public void onDisable() {
-        CourtSaver.saveAll();
+        CourtManager.saveAll();
         plugin = null;
     }
     
