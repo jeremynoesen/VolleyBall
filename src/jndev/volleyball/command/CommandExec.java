@@ -76,43 +76,38 @@ public class CommandExec implements CommandExecutor {
                         
                         if (args[0].equalsIgnoreCase("court")) {
                             
-                            if (!args[1].equals("defaults")) {
+                            if (args[2].equalsIgnoreCase("create")) {
                                 
-                                
-                                if (args[2].equalsIgnoreCase("create")) {
+                                if (!args[1].equalsIgnoreCase("list") && !args[1].equalsIgnoreCase("defaults")) {
                                     
-                                    if(!args[1].equalsIgnoreCase("list") && !args[1].equalsIgnoreCase("defaults")) {
-    
-                                        new Court(args[1]);
-    
-                                    } else {
-                                        
-                                        p.sendMessage(Message.ERROR_DEFAULT);
-                                        
-                                    }
+                                    new Court(args[1]);
+                                    
+                                } else {
+                                    
+                                    p.sendMessage(Message.ERROR_DEFAULT);
                                     
                                 }
                                 
-                                if (args[2].equalsIgnoreCase("remove")) {
-                                    
-                                    Court.getCourt(args[1]).remove();
-                                    
-                                }
+                            }
+                            
+                            if (args[2].equalsIgnoreCase("remove")) {
                                 
-                                if (args[2].equalsIgnoreCase("select")) {
-                                    
-                                    CourtHandler ch = new CourtHandler();
-                                    ch.selectCourt(p, Court.getCourt(args[1]));
-                                    
-                                }
+                                Court.getCourt(args[1]).remove();
                                 
-                                if (args[2].equalsIgnoreCase("info")) {
-                                    
-                                    p.sendMessage(Court.getCourt(args[1]).toString());
-                                    
-                                }
+                            }
+                            
+                            if (args[2].equalsIgnoreCase("select")) {
                                 
-                            } else p.sendMessage(Message.ERROR_DEFAULT);
+                                CourtHandler ch = new CourtHandler();
+                                ch.selectCourt(p, Court.getCourt(args[1]));
+                                
+                            }
+                            
+                            if (args[2].equalsIgnoreCase("info")) {
+                                
+                                p.sendMessage(Court.getCourt(args[1]).toString());
+                                
+                            }
                             
                         }
                         
@@ -122,18 +117,15 @@ public class CommandExec implements CommandExecutor {
                             
                             if (args[2].equalsIgnoreCase("set")) {
                                 
-                                if (!args[1].equals("defaults")) {
+                                if (args[3].equalsIgnoreCase("net")) {
                                     
-                                    if (args[3].equalsIgnoreCase("net")) {
-                                        
-                                        Court.getCourt(args[1]).setNet(p);
-                                        
-                                    } else if (args[3].equalsIgnoreCase("bounds")) {
-                                        
-                                        Court.getCourt(args[1]).setBounds(p);
-                                        
-                                    }
-                                } else p.sendMessage(Message.ERROR_DEFAULT);
+                                    Court.getCourt(args[1]).setNet(p);
+                                    
+                                } else if (args[3].equalsIgnoreCase("bounds")) {
+                                    
+                                    Court.getCourt(args[1]).setBounds(p);
+                                    
+                                }
                                 
                             }
                             
@@ -159,11 +151,7 @@ public class CommandExec implements CommandExecutor {
                                     
                                 } else if (args[3].equalsIgnoreCase("enabled")) {
                                     
-                                    if (!args[1].equals("defaults")) {
-                                        
-                                        Court.getCourt(args[1]).setEnabled(Boolean.parseBoolean(args[4]));
-                                        
-                                    } else p.sendMessage(Message.ERROR_DEFAULT);
+                                    Court.getCourt(args[1]).setEnabled(Boolean.parseBoolean(args[4]));
                                     
                                 }
                                 

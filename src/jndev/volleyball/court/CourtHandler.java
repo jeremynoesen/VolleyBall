@@ -4,18 +4,13 @@ import com.sk89q.worldedit.LocalSession;
 import com.sk89q.worldedit.WorldEdit;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.math.BlockVector3;
-import jndev.volleyball.config.ConfigManager;
-import jndev.volleyball.config.ConfigType;
 import jndev.volleyball.Message;
-import jndev.volleyball.config.Configs;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Court handling
