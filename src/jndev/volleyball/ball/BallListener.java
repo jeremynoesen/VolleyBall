@@ -69,10 +69,10 @@ public class BallListener implements Listener {
             }
         }
         
-        if((e.getEntity() instanceof Zombie && e.getEntity().getName() != null &&
+        if ((e.getEntity() instanceof Zombie && e.getEntity().getName() != null &&
                 e.getEntity().getName().equals(ChatColor.BLACK + "BALL")) ||
                 (e.getEntity() instanceof Slime && e.getEntity().getName() != null &&
-                e.getEntity().getName().equals(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "BALL"))) {
+                        e.getEntity().getName().equals(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "BALL"))) {
             e.setCancelled(true);
         }
     }
@@ -127,17 +127,13 @@ public class BallListener implements Listener {
                     
                     double speed = court.getSpeed();
                     
-                    for (Entity all : p.getNearbyEntities(20 * speed, 30 * speed, 20 * speed)) {
-                        if (all.getName() != null && all.getName().equals(ChatColor.DARK_GREEN +
-                                "" + ChatColor.BOLD + "BALL")) {
-                            p.sendMessage(Message.ERROR_BALL_OUT);
-                            return;
-                        }
+                    if (court.getBall() != null) {
+                        p.sendMessage(Message.ERROR_BALL_OUT);
+                        return;
                     }
                     
                     Ball ball = new Ball(p);
                     ball.serve();
-                    
                 }
             }
         }
