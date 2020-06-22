@@ -69,7 +69,7 @@ public class CourtManager {
             courtConfig.getConfig().set(key, null);
         }
         
-        for(Court court : Court.getCourts().values()) {
+        for(Court court : Courts.getAll().values()) {
             saveCourt(court);
         }
     }

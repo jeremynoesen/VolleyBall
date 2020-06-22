@@ -66,7 +66,7 @@ public class Ball {
     public Ball(Player player) {
         this.player = player;
         
-        court = Courts.getCourt(player);
+        court = Courts.get(player);
         
         ballPhysics = player.getLocation().getWorld()
                 .spawn(player.getEyeLocation().add(player.getLocation().getDirection()).subtract(0, 0.25, 0), Slime.class);
