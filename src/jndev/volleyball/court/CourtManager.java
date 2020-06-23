@@ -47,7 +47,7 @@ public class CourtManager {
             bounds[1][2] = courtConfig.getConfig().getDouble(name + ".court.max.z");
             String world = courtConfig.getConfig().getString(name + ".world");
             court.setBounds(bounds);
-            court.setWorld(VolleyBall.getInstance().getServer().getWorld(world));
+            court.setWorld(Bukkit.getServer().getWorld(world));
         }
         if (courtConfig.getConfig().get(name + ".net") != null) {
             double[][] net = new double[2][3];

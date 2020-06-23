@@ -91,10 +91,8 @@ public class CommandExec implements CommandExecutor {
                                     }
                                     break;
                                 case "select":
-                                    if (args.length > 2 && Courts.get(args[2]) != null) {
+                                    if (args.length > 2) {
                                         Courts.get(args[2]).select(player);
-                                        player.sendMessage(Message.SUCCESS_COURT_SELECTED
-                                                .replace("$COURT$", args[2]));
                                     } else {
                                         player.sendMessage(Message.ERROR_UNKNOWN_COURT);
                                     }
@@ -113,20 +111,16 @@ public class CommandExec implements CommandExecutor {
                                             switch (args[3].toLowerCase()) {
                                                 case "net":
                                                     court.setNet(player);
-                                                    player.sendMessage(Message.SUCCESS_SET_NET_BOUNDS
-                                                            .replace("$COURT$", args[2]));
                                                     break;
                                                 case "bounds":
                                                     court.setBounds(player);
-                                                    player.sendMessage(Message.SUCCESS_SET_COURT_BOUNDS
-                                                            .replace("$COURT$", args[2]));
                                                     break;
                                                 case "speed":
                                                     try {
                                                         double speed = Double.parseDouble(args[4]);
                                                         court.setSpeed(speed);
                                                         player.sendMessage(Message.SUCCESS_SET_COURT_SPEED
-                                                                .replace("$COURT$", args[2])
+                                                                .replace("$COURT$", args[1])
                                                                 .replace("$SPEED$", args[4]));
                                                     } catch (NumberFormatException e) {
                                                         player.sendMessage(Message.ERROR_UNKNOWN_ARGS);
@@ -135,37 +129,45 @@ public class CommandExec implements CommandExecutor {
                                                 case "texture":
                                                     court.setTexture(args[4]);
                                                     player.sendMessage(Message.SUCCESS_SET_COURT_TEXTURE
-                                                            .replace("$COURT$", args[2])
+                                                            .replace("$COURT$", args[1])
                                                             .replace("$URL$", args[4]));
                                                     break;
                                                 case "animations":
                                                     boolean animations = Boolean.parseBoolean(args[4]);
                                                     court.setAnimations(animations);
                                                     player.sendMessage(Message.SUCCESS_SET_COURT_ANIMATIONS
-                                                            .replace("$COURT$", args[2])
-                                                            .replace("$BOOL", Boolean.toString(animations)));
+                                                            .replace("$COURT$", args[1])
+                                                            .replace("$BOOL$", Boolean.toString(animations)));
                                                     break;
                                                 case "enabled":
                                                     boolean enabled = Boolean.parseBoolean(args[4]);
                                                     court.setEnabled(enabled);
                                                     player.sendMessage(Message.SUCCESS_SET_COURT_ENABLED
-                                                            .replace("$COURT$", args[2])
-                                                            .replace("$BOOL", Boolean.toString(enabled)));
+                                                            .replace("$COURT$", args[1])
+                                                            .replace("$BOOL$", Boolean.toString(enabled)));
                                                     break;
                                                 case "name":
                                                     court.setName(args[4]);
                                                     player.sendMessage(Message.SUCCESS_SET_COURT_NAME
-                                                            .replace("$OLD$", args[2])
+                                                            .replace("$OLD$", args[1])
                                                             .replace("$NEW$", args[4]));
                                                     break;
+                                                default:
+                                                    player.sendMessage(Message.ERROR_UNKNOWN_ARGS);
                                             }
                                         } else {
                                             player.sendMessage(Message.ERROR_UNKNOWN_ARGS);
                                         }
+                                    } else {
+                                        player.sendMessage(Message.ERROR_UNKNOWN_ARGS);
                                     }
                             }
+                        } else {
+                            player.sendMessage(Message.ERROR_UNKNOWN_ARGS);
                         }
                         break;
+                    default:
+                        player.sendMessage(Message.ERROR_UNKNOWN_ARGS);
                 }
             }
         }
