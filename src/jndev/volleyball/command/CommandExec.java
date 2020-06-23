@@ -81,6 +81,15 @@ public class CommandExec implements CommandExecutor {
                                         player.sendMessage(Message.ERROR_UNKNOWN_COURT);
                                     }
                                     break;
+                                case "remove":
+                                    if (args.length > 2 && Courts.get(args[2]) != null) {
+                                        Courts.remove(args[1]);
+                                        player.sendMessage(Message.SUCCESS_COURT_REMOVED
+                                                .replace("$COURT$", args[2]));
+                                    } else {
+                                        player.sendMessage(Message.ERROR_UNKNOWN_COURT);
+                                    }
+                                    break;
                                 default:
                                     if (args.length > 4) {
                                         Court court = Courts.get(args[1]);
@@ -132,11 +141,6 @@ public class CommandExec implements CommandExecutor {
                                                     player.sendMessage(Message.SUCCESS_SET_COURT_NAME
                                                             .replace("$OLD$", args[2])
                                                             .replace("$NEW$", args[4]));
-                                                    break;
-                                                case "remove":
-                                                    Courts.remove(args[1]);
-                                                    player.sendMessage(Message.SUCCESS_COURT_REMOVED
-                                                            .replace("$COURT$", args[2]));
                                                     break;
                                             }
                                         } else {
