@@ -91,6 +91,7 @@ public class Ball {
         ballPhysics.setInvulnerable(true);
         
         ballTexture = ballPhysics.getWorld().spawn(ballPhysics.getLocation().subtract(0, 1.5, 0), Zombie.class);
+        ballTexture.getEquipment().clear();
         setTexture(court.getTexture());
         ballTexture.setGravity(false);
         ballTexture.setCustomName(ChatColor.BLACK + "BALL");
@@ -101,13 +102,7 @@ public class Ball {
         ballTexture.setSilent(true);
         ballTexture.setInvulnerable(true);
         ballTexture.setBaby(false);
-        ballTexture.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 1000000, 1000000, true, true));
-        ballTexture.getEquipment().setItemInMainHand(new ItemStack(Material.AIR));
-        ballTexture.getEquipment().setItemInOffHand(new ItemStack(Material.AIR));
-        ballTexture.getEquipment().setChestplate(new ItemStack(Material.AIR));
-        ballTexture.getEquipment().setLeggings(new ItemStack(Material.AIR));
-        ballTexture.getEquipment().setBoots(new ItemStack(Material.AIR));
-        
+        ballTexture.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 1000000, 1000000, true, false));
     }
     
     /**
