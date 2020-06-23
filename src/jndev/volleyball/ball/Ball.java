@@ -193,13 +193,13 @@ public class Ball {
                 if (restricted) {
                     Vector vec = ballPhysics.getVelocity();
                     Location loc = ballPhysics.getLocation();
-                    if (loc.getBlock().getX() < court.getBounds()[0][0]) ballPhysics.setVelocity(vec.setX(-vec.getX()));
-                    if (loc.getBlock().getX() > court.getBounds()[1][0]) ballPhysics.setVelocity(vec.setX(-vec.getX()));
+                    if (loc.getBlock().getX() < court.getBounds()[0][0] || loc.getBlock().getX() > court.getBounds()[1][0])
+                        ballPhysics.setVelocity(vec.setX(-vec.getX()));
                     if (loc.getBlock().getY() < court.getBounds()[0][1]) ballPhysics.setVelocity(vec.setY(-vec.getY()));
                     if (loc.getBlock().getY() > court.getBounds()[1][1])
-                        ballPhysics.setVelocity(vec.setY(-vec.getY() * 1.1));
-                    if (loc.getBlock().getZ() < court.getBounds()[0][2]) ballPhysics.setVelocity(vec.setZ(-vec.getZ()));
-                    if (loc.getBlock().getZ() > court.getBounds()[1][2]) ballPhysics.setVelocity(vec.setZ(-vec.getZ()));
+                        ballPhysics.setVelocity(vec.setY(-vec.getY() * 1.25));
+                    if (loc.getBlock().getZ() < court.getBounds()[0][2] || loc.getBlock().getZ() > court.getBounds()[1][2])
+                        ballPhysics.setVelocity(vec.setZ(-vec.getZ()));
                 }
                 
                 if (ballPhysics.isDead()) {
