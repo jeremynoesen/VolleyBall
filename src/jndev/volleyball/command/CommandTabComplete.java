@@ -1,7 +1,6 @@
 package jndev.volleyball.command;
 
 import jndev.volleyball.Message;
-import jndev.volleyball.court.Court;
 import jndev.volleyball.court.Courts;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -20,16 +19,18 @@ public class CommandTabComplete implements TabCompleter {
     /**
      * method to implement the tab list for volleyball command
      *
-     * @param sender command sender
+     * @param sender  command sender
      * @param command command
-     * @param label command label followed after the /
-     * @param args command arguments
+     * @param label   command label followed after the /
+     * @param args    command arguments
      * @return tab list
      */
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         
         ArrayList<String> tabList = new ArrayList<>();
+        
+        Set<String> courts = Courts.getAll().keySet();
         
         if (sender instanceof Player && label.equalsIgnoreCase("volleyball")) {
             
@@ -49,84 +50,29 @@ public class CommandTabComplete implements TabCompleter {
                         tabList.add("help");
                         tabList.add("reload");
                         
-                    } else if (args[0].startsWith("c")) {
-                        
-                        tabList.add("court");
-                        
-                    } else if (args[0].startsWith("h")) {
-                        
-                        tabList.add("help");
-                    } else if (args[0].startsWith("r")) {
-                        
-                        tabList.add("reload");
-                    }
-                    
-                } else if (args.length == 3) {
-                    
-                    Set<String> courts = Courts.getAll().keySet();
-                    
-                    if (courts.contains(args[1])) {
-                        
-                        if (args[2].equalsIgnoreCase("")) {
-                            
-                            tabList.add("set");
-                            tabList.add("select");
-                            tabList.add("info");
-                            
-                        } else if (args[2].startsWith("s")) {
-                            tabList.add("set");
-                            tabList.add("select");
-                        } else if (args[2].startsWith("i")) {
-                            tabList.add("info");
-                        }
-                        
-                        if (args[2].startsWith("set")) {
-                            
-                            tabList.remove("select");
-                            
-                        } else if (args[2].startsWith("sel")) {
-                            
-                            tabList.remove("set");
-                            
-                        }
-                        
-                    } else {
-                        
-                        if (args[2].equalsIgnoreCase("")) {
-                            
-                            if (!args[1].equalsIgnoreCase("help") && !args[0].equalsIgnoreCase("help") &&
-                                    !args[0].equalsIgnoreCase("reload") && !args[1].equalsIgnoreCase("list"))
-                                tabList.add("create");
-                            
-                            if (courts.contains(args[1])) tabList.add("remove");
-                            
-                        } else if (args[2].startsWith("c")) {
-                            
-                            if (!args[1].equalsIgnoreCase("help") && !args[0].equalsIgnoreCase("help") &&
-                                    !args[0].equalsIgnoreCase("reload") && !args[1].equalsIgnoreCase("list"))
-                                tabList.add("create");
-                            
-                        } else if (args[2].startsWith("r")) {
-                            
-                            if (courts.contains(args[1])) tabList.add("remove");
-                            
-                        }
-                        
-                    }
+                    } else if (args[0].startsWith("c")) tabList.add("court");
+                    else if (args[0].startsWith("h")) tabList.add("help");
+                    else if (args[0].startsWith("r")) tabList.add("reload");
                     
                 } else if (args.length == 2) {
-    
-                    Set<String> courts = Courts.getAll().keySet();
-    
-                    if (!args[0].equalsIgnoreCase("help") && !args[0].equalsIgnoreCase("reload")) {
+                    
+                    if (args[0].equalsIgnoreCase("court")) {
                         
                         if (args[1].equalsIgnoreCase("")) {
                             
-                            tabList.addAll(courts);
                             tabList.add("help");
                             tabList.add("list");
+                            tabList.add("create");
+                            tabList.add("remove");
+                            tabList.add("select");
+                            tabList.add("info");
                             
-                        }
+                        } else if (args[1].startsWith("h")) tabList.add("help");
+                        else if (args[1].startsWith("l")) tabList.add("list");
+                        else if (args[1].startsWith("c")) tabList.add("create");
+                        else if (args[1].startsWith("r")) tabList.add("remove");
+                        else if (args[1].startsWith("s")) tabList.add("select");
+                        else if (args[1].startsWith("i")) tabList.add("info");
                         
                         for (String court : courts) {
                             
@@ -136,25 +82,43 @@ public class CommandTabComplete implements TabCompleter {
                                 
                             }
                             
-                            if (args[1].startsWith("h")) tabList.add("help");
-                            if (args[1].startsWith("l")) tabList.add("list");
-    
                         }
                         
                     }
                     
+                } else if (args.length == 3) {
+                    
+                    if (courts.contains(args[1])) {
+                        
+                        tabList.add("set");
+                        
+                    } else if (args[1].equalsIgnoreCase("create") || args[1].equalsIgnoreCase("remove") ||
+                            args[1].equalsIgnoreCase("select") || args[1].equalsIgnoreCase("info")) {
+                        
+                        for (String court : courts) {
+                            
+                            if (court.startsWith(args[1])) {
+                                
+                                tabList.add(court);
+                                
+                            }
+                            
+                        }
+                    }
+                    
                 } else if (args.length == 4) {
                     
-                    if (!args[2].equalsIgnoreCase("create") && !args[2].equalsIgnoreCase("remove")
-                            && !args[1].equalsIgnoreCase("help") && !args[0].equalsIgnoreCase("help")
-                            && !args[0].equalsIgnoreCase("reload") && !args[2].equalsIgnoreCase("info")
-                            && !args[1].equalsIgnoreCase("list")) {
+                    if (args[2].equalsIgnoreCase("set")) {
                         
                         if (args[3].equalsIgnoreCase("")) {
                             
                             tabList.add("animations");
                             tabList.add("speed");
                             tabList.add("texture");
+                            tabList.add("bounds");
+                            tabList.add("enabled");
+                            tabList.add("net");
+                            tabList.add("name");
                             
                         } else if (args[3].startsWith("a")) {
                             
@@ -168,31 +132,21 @@ public class CommandTabComplete implements TabCompleter {
                             
                             tabList.add("texture");
                             
-                        }
-                        
-                        if (!args[1].equalsIgnoreCase("help")
-                                && !args[0].equalsIgnoreCase("help") && !args[0].equalsIgnoreCase("reload")
-                                && !args[1].equalsIgnoreCase("list")) {
+                        } else if (args[3].startsWith("b")) {
                             
-                            if (args[3].equalsIgnoreCase("")) {
-                                
-                                tabList.add("bounds");
-                                tabList.add("enabled");
-                                tabList.add("net");
-                                
-                            } else if (args[3].startsWith("b")) {
-                                
-                                tabList.add("bounds");
-                                
-                            } else if (args[3].startsWith("e")) {
-                                
-                                tabList.add("enabled");
-                                
-                            } else if (args[3].startsWith("n")) {
-                                
-                                tabList.add("net");
-                                
-                            }
+                            tabList.add("bounds");
+                            
+                        } else if (args[3].startsWith("e")) {
+                            
+                            tabList.add("enabled");
+                            
+                        } else if (args[3].startsWith("n")) {
+                            
+                            tabList.add("net");
+                            tabList.add("name");
+                            
+                            if (args[3].startsWith("ne")) tabList.remove("name");
+                            if (args[3].startsWith("na")) tabList.remove("net");
                             
                         }
                         
@@ -202,23 +156,18 @@ public class CommandTabComplete implements TabCompleter {
                     
                     if (args[3].equalsIgnoreCase("animations") || args[3].equalsIgnoreCase("enabled")) {
                         
-                        if (!args[2].equalsIgnoreCase("create") && !args[2].equalsIgnoreCase("remove")
-                                && !args[2].equalsIgnoreCase("info")) {
+                        if (args[4].equalsIgnoreCase("")) {
                             
-                            if (args[4].equalsIgnoreCase("")) {
-                                
-                                tabList.add("true");
-                                tabList.add("false");
-                                
-                            } else if (args[4].startsWith("t")) {
-                                
-                                tabList.add("true");
-                                
-                            } else if (args[4].startsWith("f")) {
-                                
-                                tabList.add("false");
-                                
-                            }
+                            tabList.add("true");
+                            tabList.add("false");
+                            
+                        } else if (args[4].startsWith("t")) {
+                            
+                            tabList.add("true");
+                            
+                        } else if (args[4].startsWith("f")) {
+                            
+                            tabList.add("false");
                             
                         }
                         
