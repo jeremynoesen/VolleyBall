@@ -100,12 +100,14 @@ public class Ball {
         ballTexture.setCollidable(false);
         ballTexture.setSilent(true);
         ballTexture.setInvulnerable(true);
-        ballTexture.getEquipment().getItemInMainHand().setAmount(0);
-        ballTexture.getEquipment().getItemInOffHand().setAmount(0);
-        ballTexture.getEquipment().getChestplate().setAmount(0);
-        ballTexture.getEquipment().getLeggings().setAmount(0);
-        ballTexture.getEquipment().getBoots().setAmount(0);
+        ballTexture.setBaby(false);
         ballTexture.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 1000000, 1000000, true, true));
+        ballTexture.getEquipment().setItemInMainHand(new ItemStack(Material.AIR));
+        ballTexture.getEquipment().setItemInOffHand(new ItemStack(Material.AIR));
+        ballTexture.getEquipment().setChestplate(new ItemStack(Material.AIR));
+        ballTexture.getEquipment().setLeggings(new ItemStack(Material.AIR));
+        ballTexture.getEquipment().setBoots(new ItemStack(Material.AIR));
+        
     }
     
     /**
