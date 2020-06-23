@@ -125,15 +125,13 @@ public class BallListener implements Listener {
                 
                 if (court.isEnabled()) {
                     
-                    double speed = court.getSpeed();
-                    
-                    if (court.getBall() != null) {
+                    if (court.getBall() != null && court.getBall().isOut()) {
                         p.sendMessage(Message.ERROR_BALL_OUT);
                         return;
+                    } else {
+                        Ball ball = new Ball(p);
+                        ball.serve();
                     }
-                    
-                    Ball ball = new Ball(p);
-                    ball.serve();
                 }
             }
         }

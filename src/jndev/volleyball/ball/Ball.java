@@ -36,7 +36,7 @@ public class Ball {
     /**
      * whether the ball removal has been started or not
      */
-    private boolean end = false;
+    private boolean end;
     
     /**
      * player serving this ball
@@ -46,12 +46,12 @@ public class Ball {
     /**
      * whether the ball has gone over the net or not
      */
-    private boolean volleyed = false;
+    private boolean volleyed;
     
     /**
      * number of times the ball has gone over the net
      */
-    private int volleys = 0;
+    private int volleys;
     
     /**
      * court this ball is on
@@ -66,6 +66,10 @@ public class Ball {
     public Ball(Player player) {
         this.player = player;
         
+        end = false;
+        volleyed = false;
+        volleys = 0;
+        
         court = Courts.get(player);
         
         ballPhysics = player.getLocation().getWorld()
@@ -75,6 +79,16 @@ public class Ball {
         loc.setYaw(0);
         loc.setPitch(0);
         ballPhysics.teleport(loc);
+        ballPhysics.setCollidable(false);
+        ballPhysics.setCustomName(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "BALL");
+        ballPhysics.setVelocity(player.getLocation().getDirection().multiply(0.1).add(new Vector(0, 1, 0)));
+        ballPhysics.getWorld().playSound(ballPhysics.getLocation(), Sound.ENTITY_ARROW_SHOOT, 2, 0);
+        ballPhysics.setCustomNameVisible(false);
+        ballPhysics.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 100000, 1, true, false));
+        ballPhysics.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100000, 255, true, false));
+        ballPhysics.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 100000, 255, true, false));
+        ballPhysics.setSilent(true);
+        ballPhysics.setInvulnerable(true);
         
         ballTexture = ballPhysics.getWorld().spawn(ballPhysics.getLocation().subtract(0, 1.5, 0), Zombie.class);
         setTexture(court.getTexture());
@@ -86,25 +100,12 @@ public class Ball {
         ballTexture.setCollidable(false);
         ballTexture.setSilent(true);
         ballTexture.setInvulnerable(true);
-        ballTexture.getEquipment().setItemInMainHand(new ItemStack(Material.AIR, 1));
-        ballTexture.getEquipment().setItemInOffHand(new ItemStack(Material.AIR, 1));
-        ballTexture.getEquipment().setChestplate(new ItemStack(Material.AIR, 1));
-        ballTexture.getEquipment().setLeggings(new ItemStack(Material.AIR, 1));
-        ballTexture.getEquipment().setBoots(new ItemStack(Material.AIR, 1));
-    
-    
+        ballTexture.getEquipment().getItemInMainHand().setAmount(0);
+        ballTexture.getEquipment().getItemInOffHand().setAmount(0);
+        ballTexture.getEquipment().getChestplate().setAmount(0);
+        ballTexture.getEquipment().getLeggings().setAmount(0);
+        ballTexture.getEquipment().getBoots().setAmount(0);
         ballTexture.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 1000000, 1000000, true, true));
-        
-        ballPhysics.setCollidable(false);
-        ballPhysics.setCustomName(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "BALL");
-        ballPhysics.setVelocity(player.getLocation().getDirection().multiply(0.1).add(new Vector(0, 1, 0)));
-        ballPhysics.getWorld().playSound(ballPhysics.getLocation(), Sound.ENTITY_ARROW_SHOOT, 2, 0);
-        ballPhysics.setCustomNameVisible(false);
-        ballPhysics.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 100000, 1, true, false));
-        ballPhysics.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100000, 255, true, false));
-        ballPhysics.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 100000, 255, true, false));
-        ballPhysics.setSilent(true);
-        ballPhysics.setInvulnerable(true);
     }
     
     /**
@@ -131,6 +132,8 @@ public class Ball {
     }
     
     /**
+     * get the number of volleys done with the ball
+     *
      * @return times ball has volleyed
      */
     public int getVolleys() {
@@ -165,6 +168,10 @@ public class Ball {
             @Override
             public void run() {
                 
+                ballPhysics.setTarget(null);
+                ballPhysics.setFallDistance(0);
+                ballTexture.setFallDistance(0);
+                
                 if (court.isAboveNet(ballPhysics.getLocation()) && !volleyed) {
                     volleyed = true;
                     volleys++;
@@ -175,17 +182,16 @@ public class Ball {
                     volleyed = false;
                 }
                 
-                ballPhysics.setFallDistance(0);
-                if (animated)
+                if (animated) {
                     ballPhysics.getWorld().spawnParticle(Particle.END_ROD, ballPhysics.getLocation(), 0, 0, 0, 0, 1);
                 ballPhysics.setTarget(null);
                 
                 if (ballPhysics.isDead()) {
                     ballTexture.remove();
-                    court.setBall(null);
+                    end = true;
                     this.cancel();
                 }
-                ballTexture.setFallDistance(0);
+                
                 if (!end) {
                     Location loc = ballPhysics.getLocation();
                     loc.setPitch(0);
@@ -193,7 +199,7 @@ public class Ball {
                     ballPhysics.teleport(loc);
                     ballTexture.teleport(ballPhysics.getLocation().subtract(0, 1.5, 0));
                 }
-    
+                
                 if (ballPhysics.isOnGround() || ballPhysics.getLocation().add(0, 0.5, 0).getBlock().getType() != Material.AIR) {
                     
                     new BukkitRunnable() {
@@ -213,7 +219,6 @@ public class Ball {
      * removes the volleyball with or without animations
      */
     public void remove() {
-        court.setBall(null);
         boolean animated = court.hasAnimations();
         if (animated) {
             end = true;
@@ -264,4 +269,14 @@ public class Ball {
             ballTexture.remove();
         }
     }
+    
+    /**
+     * check if the ball is out
+     *
+     * @return true if ball is out
+     */
+    public boolean isOut() {
+        return !end;
+    }
+    
 }
