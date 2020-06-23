@@ -27,9 +27,10 @@ public class Message {
     public static String SUCCESS_COURT_SELECTED;
     public static String SUCCESS_SET_NET_BOUNDS;
     public static String SUCCESS_SET_COURT_ANIMATIONS;
+    public static String SUCCESS_SET_COURT_NAME;
     public static String ERROR_NO_PERMS;
     public static String ERROR_UNKNOWN_ARGS;
-    public static String ERROR_DEFAULT;
+    public static String ERROR_COURT_EXISTS;
     public static String SUCCESS_RELOADED;
     public static String COURT_INFO;
     public static String COURT_LIST;
@@ -53,8 +54,10 @@ public class Message {
         SUCCESS_COURT_SELECTED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_COURT_SELECTED"));
         SUCCESS_SET_NET_BOUNDS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_NET_BOUNDS"));
         SUCCESS_SET_COURT_ANIMATIONS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_ANIMATIONS"));
+        SUCCESS_SET_COURT_NAME = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_NAME"));
         ERROR_NO_PERMS = PREFIX + format(messageConfig.getConfig().getString("ERROR_NO_PERMS"));
         ERROR_UNKNOWN_ARGS = PREFIX + format(messageConfig.getConfig().getString("ERROR_UNKNOWN_ARGS"));
+        ERROR_COURT_EXISTS = PREFIX + format(messageConfig.getConfig().getString("ERROR_COURT_EXISTS"));
         SUCCESS_RELOADED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_RELOADED"));
         COURT_INFO = PREFIX + format(messageConfig.getConfig().getString("COURT_INFO"));
         COURT_LIST = PREFIX + format(messageConfig.getConfig().getString("COURT_LIST"));
@@ -62,11 +65,11 @@ public class Message {
     
     public static String STARTUP = "\n\n" +
             ChatColor.DARK_GRAY + "███╗" + ChatColor.YELLOW + "██╗   ██╗" + ChatColor.GOLD + "██████╗ " + ChatColor.DARK_GRAY + "███╗" + ChatColor.WHITE + "  Volleyball version " + VolleyBall.getInstance().getDescription().getVersion() + " " + "has " + "been enabled!\n" +
-            ChatColor.DARK_GRAY + "██╔╝" + ChatColor.YELLOW + "██║   ██║" + ChatColor.GOLD + "██╔══██╗" + ChatColor.DARK_GRAY + "╚██║" + ChatColor.WHITE + "  Volleyball is written by Jeremaster101 and\n" +
-            ChatColor.DARK_GRAY + "██║ " + ChatColor.YELLOW + "██║   ██║" + ChatColor.GOLD + "██████╔╝" + ChatColor.DARK_GRAY + " ██║" + ChatColor.WHITE + "  may not be modified or redistributed without\n" +
+            ChatColor.DARK_GRAY + "██╔╝" + ChatColor.YELLOW + "██║   ██║" + ChatColor.GOLD + "██╔══██╗" + ChatColor.DARK_GRAY + "╚██║" + ChatColor.WHITE + "  Volleyball is written by Jeremaster101 (JNDev) and\n" +
+            ChatColor.DARK_GRAY + "██║ " + ChatColor.YELLOW + "██║   ██║" + ChatColor.GOLD + "██████╔╝" + ChatColor.DARK_GRAY + " ██║" + ChatColor.WHITE + "  may not be modified and redistributed without\n" +
             ChatColor.DARK_GRAY + "██║ " + ChatColor.YELLOW + "╚██╗ ██╔╝" + ChatColor.GOLD + "██╔══██╗" + ChatColor.DARK_GRAY + " ██║" + ChatColor.WHITE + "  his consent. For help and support, join the\n" +
             ChatColor.DARK_GRAY + "███╗" + ChatColor.YELLOW + " ╚████╔╝ " + ChatColor.GOLD + "██████╔╝" + ChatColor.DARK_GRAY + "███║" + ChatColor.WHITE + "  support discord group: https://discord.gg/WhmQYR\n" +
-            ChatColor.DARK_GRAY + "╚══╝" + ChatColor.YELLOW + "  ╚═══╝  " + ChatColor.GOLD + "╚═════╝ " + ChatColor.DARK_GRAY + "╚══╝" + ChatColor.WHITE + "  Thank you for choosing Volleyball!\n";
+            ChatColor.DARK_GRAY + "╚══╝" + ChatColor.YELLOW + "  ╚═══╝  " + ChatColor.GOLD + "╚═════╝ " + ChatColor.DARK_GRAY + "╚══╝" + ChatColor.WHITE + "  Thank you for using Volleyball!\n";
     public static String CLEANING = PREFIX + ChatColor.GRAY + "Deleting leftover volleyball entities...";
     public static String DONE_CLEANING =
             PREFIX + ChatColor.GRAY + "Successfully deleted " + ChatColor.WHITE + "$COUNT$" + ChatColor.GRAY +
