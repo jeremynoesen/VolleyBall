@@ -160,6 +160,7 @@ public class CommandExec implements CommandExecutor {
                                                     player.sendMessage(Message.SUCCESS_SET_COURT_RESTRICTIONS
                                                             .replace("$COURT$", args[1])
                                                             .replace("$BOOL$", Boolean.toString(restrictions)));
+                                                    break;
                                                 default:
                                                     player.sendMessage(Message.ERROR_UNKNOWN_ARGS);
                                             }
