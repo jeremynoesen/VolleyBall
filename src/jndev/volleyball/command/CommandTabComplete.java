@@ -119,6 +119,7 @@ public class CommandTabComplete implements TabCompleter {
                             tabList.add("enabled");
                             tabList.add("net");
                             tabList.add("name");
+                            tabList.add("restrictions");
                             
                         } else if (args[3].startsWith("a")) {
                             
@@ -148,13 +149,18 @@ public class CommandTabComplete implements TabCompleter {
                             if (args[3].startsWith("ne")) tabList.remove("name");
                             if (args[3].startsWith("na")) tabList.remove("net");
                             
+                        } else if (args[3].startsWith("r")) {
+                            
+                            tabList.add("restrictions");
+                            
                         }
                         
                     }
                     
                 } else if (args.length == 5) {
                     
-                    if (args[3].equalsIgnoreCase("animations") || args[3].equalsIgnoreCase("enabled")) {
+                    if (args[3].equalsIgnoreCase("animations") || args[3].equalsIgnoreCase("enabled") ||
+                    args[3].equalsIgnoreCase("restrictions")) {
                         
                         if (args[4].equalsIgnoreCase("")) {
                             
