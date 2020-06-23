@@ -90,6 +90,15 @@ public class CommandExec implements CommandExecutor {
                                         player.sendMessage(Message.ERROR_UNKNOWN_COURT);
                                     }
                                     break;
+                                case "select":
+                                    if (args.length > 2 && Courts.get(args[2]) != null) {
+                                        Courts.get(args[2]).select(player);
+                                        player.sendMessage(Message.SUCCESS_COURT_SELECTED
+                                                .replace("$COURT$", args[2]));
+                                    } else {
+                                        player.sendMessage(Message.ERROR_UNKNOWN_COURT);
+                                    }
+                                    break;
                                 default:
                                     if (args.length > 4) {
                                         Court court = Courts.get(args[1]);
