@@ -16,6 +16,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 /**
  * Main class for the plugin. registers commands and listeners
@@ -39,9 +40,7 @@ public class VolleyBall extends JavaPlugin implements Listener {
         Configs.getConfig(ConfigType.COURT).saveDefaultConfig();
         
         Message.reloadMessages();
-    
-        CourtManager.loadAll();
-    
+        
         plugin.getServer().getConsoleSender().sendMessage(Message.STARTUP);
 
         PluginManager pm = getServer().getPluginManager();
@@ -70,6 +69,13 @@ public class VolleyBall extends JavaPlugin implements Listener {
     
         plugin.getServer().getConsoleSender().sendMessage(Message.DONE_CLEANING.replace("$COUNT$",
                 Integer.toString(count)));
+    
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                CourtManager.loadAll();
+            }
+        }.runTaskLater(plugin, 2);
     }
 
     /**
