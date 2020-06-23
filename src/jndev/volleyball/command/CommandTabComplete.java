@@ -92,7 +92,7 @@ public class CommandTabComplete implements TabCompleter {
                         
                         tabList.add("set");
                         
-                    } else if (args[1].equalsIgnoreCase("create") || args[1].equalsIgnoreCase("remove") ||
+                    } else if (args[1].equalsIgnoreCase("remove") ||
                             args[1].equalsIgnoreCase("select") || args[1].equalsIgnoreCase("info")) {
                         
                         for (String court : courts) {
