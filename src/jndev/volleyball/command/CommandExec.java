@@ -42,6 +42,7 @@ public class CommandExec implements CommandExecutor {
                         player.sendMessage(Message.HELP_MAIN);
                         break;
                     case "reload":
+                        CourtManager.saveAll();
                         Configs.getConfig(ConfigType.COURT).reloadConfig();
                         Configs.getConfig(ConfigType.MESSAGE).reloadConfig();
                         CourtManager.loadAll();
@@ -105,7 +106,8 @@ public class CommandExec implements CommandExecutor {
                                     }
                                     break;
                                 default:
-                                    if (args.length > 4) {
+                                    if (args.length > 4 || (args.length > 3 && (args[3].equalsIgnoreCase("net") ||
+                                            args[3].equalsIgnoreCase("bounds")))) {
                                         Court court = Courts.get(args[1]);
                                         if (court != null && args[2].equalsIgnoreCase("set")) {
                                             switch (args[3].toLowerCase()) {
@@ -152,6 +154,12 @@ public class CommandExec implements CommandExecutor {
                                                             .replace("$OLD$", args[1])
                                                             .replace("$NEW$", args[4]));
                                                     break;
+                                                case "restrictions":
+                                                    boolean restrictions = Boolean.parseBoolean(args[4]);
+                                                    court.setRestrictions(restrictions);
+                                                    player.sendMessage(Message.SUCCESS_SET_COURT_RESTRICTIONS
+                                                            .replace("$COURT$", args[1])
+                                                            .replace("$BOOL$", Boolean.toString(restrictions)));
                                                 default:
                                                     player.sendMessage(Message.ERROR_UNKNOWN_ARGS);
                                             }

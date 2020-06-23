@@ -146,6 +146,8 @@ public class Ball {
     public void serve() {
         court.setBall(this);
         boolean animated = court.hasAnimations();
+        boolean restricted = court.hasRestrictions();
+        
         if (animated) {
             Location loc = player.getLocation();
             double radius = 0.5;
@@ -184,7 +186,19 @@ public class Ball {
                 
                 if (animated) {
                     ballPhysics.getWorld().spawnParticle(Particle.END_ROD, ballPhysics.getLocation(), 0, 0, 0, 0, 1);
-                ballPhysics.setTarget(null);
+                }
+                
+                if (restricted) {
+                    Vector vec = ballPhysics.getVelocity();
+                    Location loc = ballPhysics.getLocation();
+                    if (loc.getBlock().getX() < court.getBounds()[0][0]) ballPhysics.setVelocity(vec.setX(-vec.getX()));
+                    if (loc.getBlock().getX() > court.getBounds()[1][0]) ballPhysics.setVelocity(vec.setX(-vec.getX()));
+                    if (loc.getBlock().getY() < court.getBounds()[0][1]) ballPhysics.setVelocity(vec.setY(-vec.getY()));
+                    if (loc.getBlock().getY() > court.getBounds()[1][1])
+                        ballPhysics.setVelocity(vec.setY(-vec.getY() * 1.1));
+                    if (loc.getBlock().getZ() < court.getBounds()[0][2]) ballPhysics.setVelocity(vec.setZ(-vec.getZ()));
+                    if (loc.getBlock().getZ() > court.getBounds()[1][2]) ballPhysics.setVelocity(vec.setZ(-vec.getZ()));
+                }
                 
                 if (ballPhysics.isDead()) {
                     ballTexture.remove();
