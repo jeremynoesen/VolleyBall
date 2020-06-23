@@ -70,8 +70,8 @@ public class CommandExec implements CommandExecutor {
                                 case "create":
                                     if (args.length > 2) {
                                         if (Courts.get(args[2]) != null && !args[2].equalsIgnoreCase("create")
-                                        && !args[2].equalsIgnoreCase("help") && !args[2].equalsIgnoreCase("list")
-                                        && !args[2].equalsIgnoreCase("remove")) {
+                                                && !args[2].equalsIgnoreCase("help") && !args[2].equalsIgnoreCase("list")
+                                                && !args[2].equalsIgnoreCase("remove")) {
                                             new Court(args[2]);
                                             player.sendMessage(Message.SUCCESS_COURT_CREATED.replace("$COURT$", args[2]));
                                         } else {
@@ -81,49 +81,62 @@ public class CommandExec implements CommandExecutor {
                                         player.sendMessage(Message.ERROR_UNKNOWN_COURT);
                                     }
                                     break;
-                                case "remove":
-                                    if (args.length > 2) {
-                                        if (Courts.get(args[2]) != null) {
-                                            Courts.remove(args[2]);
-                                            player.sendMessage(Message.SUCCESS_COURT_REMOVED.replace("$COURT$", args[2]));
-                                        } else {
-                                            player.sendMessage(Message.ERROR_UNKNOWN_COURT);
-                                        }
-                                    } else {
-                                        player.sendMessage(Message.ERROR_UNKNOWN_ARGS);
-                                    }
                                 default:
                                     if (args.length > 4) {
                                         Court court = Courts.get(args[1]);
-                                        if(court != null && args[2].equalsIgnoreCase("set")) {
+                                        if (court != null && args[2].equalsIgnoreCase("set")) {
                                             switch (args[3].toLowerCase()) {
                                                 case "net":
-                                                    Courts.get(args[1]).setNet(player);
-                                                    player.sendMessage(Message.SUCCESS_SET_NET_BOUNDS.replace("$COURT$", args[2]));
+                                                    court.setNet(player);
+                                                    player.sendMessage(Message.SUCCESS_SET_NET_BOUNDS
+                                                            .replace("$COURT$", args[2]));
                                                     break;
                                                 case "bounds":
-                                                    Courts.get(args[1]).setBounds(player);
-                                                    player.sendMessage(Message.SUCCESS_SET_COURT_BOUNDS.replace("$COURT$", args[2]));
+                                                    court.setBounds(player);
+                                                    player.sendMessage(Message.SUCCESS_SET_COURT_BOUNDS
+                                                            .replace("$COURT$", args[2]));
                                                     break;
                                                 case "speed":
-                                                    Courts.get(args[1]).setSpeed(Double.parseDouble(args[4]));
-                                                    player.sendMessage(Message.SUCCESS_SET_COURT_SPEED.replace("$COURT$", args[2]));
+                                                    try {
+                                                        double speed = Double.parseDouble(args[4]);
+                                                        court.setSpeed(speed);
+                                                        player.sendMessage(Message.SUCCESS_SET_COURT_SPEED
+                                                                .replace("$COURT$", args[2])
+                                                                .replace("$SPEED$", args[4]));
+                                                    } catch (NumberFormatException e) {
+                                                        player.sendMessage(Message.ERROR_UNKNOWN_ARGS);
+                                                    }
                                                     break;
                                                 case "texture":
-                                                    Courts.get(args[1]).setTexture(args[4]);
-                                                    player.sendMessage(Message.SUCCESS_SET_COURT_TEXTURE.replace("$COURT$", args[2]));
+                                                    court.setTexture(args[4]);
+                                                    player.sendMessage(Message.SUCCESS_SET_COURT_TEXTURE
+                                                            .replace("$COURT$", args[2])
+                                                            .replace("$URL$", args[4]));
                                                     break;
                                                 case "animations":
-                                                    Courts.get(args[1]).setAnimations(Boolean.parseBoolean(args[4]));
-                                                    player.sendMessage(Message.SUCCESS_SET_COURT_ANIMATIONS.replace("$COURT$", args[2]));
+                                                    boolean animations = Boolean.parseBoolean(args[4]);
+                                                    court.setAnimations(animations);
+                                                    player.sendMessage(Message.SUCCESS_SET_COURT_ANIMATIONS
+                                                            .replace("$COURT$", args[2])
+                                                            .replace("$BOOL", Boolean.toString(animations)));
                                                     break;
                                                 case "enabled":
-                                                    Courts.get(args[1]).setEnabled(Boolean.parseBoolean(args[4]));
-                                                    player.sendMessage(Message.SUCCESS_SET_COURT_ENABLED.replace("$COURT$", args[2]));
+                                                    boolean enabled = Boolean.parseBoolean(args[4]);
+                                                    court.setEnabled(enabled);
+                                                    player.sendMessage(Message.SUCCESS_SET_COURT_ENABLED
+                                                            .replace("$COURT$", args[2])
+                                                            .replace("$BOOL", Boolean.toString(enabled)));
                                                     break;
                                                 case "name":
-                                                    Courts.get(args[1]).setName(args[4]);
-                                                    player.sendMessage(Message.SUCCESS_SET_COURT_NAME.replace("$COURT$", args[2]));
+                                                    court.setName(args[4]);
+                                                    player.sendMessage(Message.SUCCESS_SET_COURT_NAME
+                                                            .replace("$OLD$", args[2])
+                                                            .replace("$NEW$", args[4]));
+                                                    break;
+                                                case "remove":
+                                                    Courts.remove(args[1]);
+                                                    player.sendMessage(Message.SUCCESS_COURT_REMOVED
+                                                            .replace("$COURT$", args[2]));
                                                     break;
                                             }
                                         } else {
