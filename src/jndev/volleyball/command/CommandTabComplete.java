@@ -97,7 +97,7 @@ public class CommandTabComplete implements TabCompleter {
                         
                         for (String court : courts) {
                             
-                            if (court.startsWith(args[1])) {
+                            if (court.startsWith(args[2])) {
                                 
                                 tabList.add(court);
                                 
