@@ -108,16 +108,18 @@ public class Message {
                     "" + ChatColor.BOLD + "Court Help"
                     + ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "]----------",
             ChatColor.GRAY + "/volleyball court list" + ChatColor.WHITE + ": List all courts",
-            ChatColor.GRAY + "/volleyball court <courtname> create" + ChatColor.WHITE + ": Create a new court",
-            ChatColor.GRAY + "/volleyball court <courtname> remove" + ChatColor.WHITE + ": Remove a court",
-            ChatColor.GRAY + "/volleyball court <courtname> info" + ChatColor.WHITE + ": Get court info",
-            ChatColor.GRAY + "/volleyball court <courtname> set net" + ChatColor.WHITE + ": Set the net region",
-            ChatColor.GRAY + "/volleyball court <courtname> set bounds" + ChatColor.WHITE + ": Change the court bounds",
-            ChatColor.GRAY + "/volleyball court <courtname> set animations <true/false>" + ChatColor.WHITE + ": Enable ball animations",
-            ChatColor.GRAY + "/volleyball court <courtname> set speed <number>" + ChatColor.WHITE + ": Set ball speed",
-            ChatColor.GRAY + "/volleyball court <courtname> set texture <url>" + ChatColor.WHITE + ": Set ball texture",
-            ChatColor.GRAY + "/volleyball court <courtname> set enabled <true/false>" + ChatColor.WHITE + ": Enable a court",
-            
+            ChatColor.GRAY + "/volleyball court create <name>" + ChatColor.WHITE + ": Create a new court",
+            ChatColor.GRAY + "/volleyball court remove <name>" + ChatColor.WHITE + ": Remove a court",
+            ChatColor.GRAY + "/volleyball court info <name>" + ChatColor.WHITE + ": Get court info",
+            ChatColor.GRAY + "/volleyball court select <name>" + ChatColor.WHITE + ": Select court with worldedit",
+            ChatColor.GRAY + "/volleyball court <name> set net" + ChatColor.WHITE + ": Set the net region",
+            ChatColor.GRAY + "/volleyball court <name> set bounds" + ChatColor.WHITE + ": Change the court bounds",
+            ChatColor.GRAY + "/volleyball court <name> set animations <true/false>" + ChatColor.WHITE + ": Enable ball animations",
+            ChatColor.GRAY + "/volleyball court <name> set restrictions <true/false>" + ChatColor.WHITE + ": Enable ball restrictions",
+            ChatColor.GRAY + "/volleyball court <name> set speed <number>" + ChatColor.WHITE + ": Set ball speed",
+            ChatColor.GRAY + "/volleyball court <name> set texture <url>" + ChatColor.WHITE + ": Set ball texture",
+            ChatColor.GRAY + "/volleyball court <name> set name <newname>" + ChatColor.WHITE + ": Change court name",
+            ChatColor.GRAY + "/volleyball court <name> set enabled <true/false>" + ChatColor.WHITE + ": Enable a court",
             ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "---------------------------------------",
             ""
     };
