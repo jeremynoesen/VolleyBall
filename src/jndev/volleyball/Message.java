@@ -28,6 +28,7 @@ public class Message {
     public static String SUCCESS_SET_NET_BOUNDS;
     public static String SUCCESS_SET_COURT_ANIMATIONS;
     public static String SUCCESS_SET_COURT_NAME;
+    public static String SUCCESS_SET_COURT_RESTRICTIONS;
     public static String ERROR_NO_PERMS;
     public static String ERROR_UNKNOWN_ARGS;
     public static String ERROR_COURT_EXISTS;
@@ -55,6 +56,7 @@ public class Message {
         SUCCESS_SET_NET_BOUNDS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_NET_BOUNDS"));
         SUCCESS_SET_COURT_ANIMATIONS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_ANIMATIONS"));
         SUCCESS_SET_COURT_NAME = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_NAME"));
+        SUCCESS_SET_COURT_RESTRICTIONS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_RESTRICTIONS"));
         ERROR_NO_PERMS = PREFIX + format(messageConfig.getConfig().getString("ERROR_NO_PERMS"));
         ERROR_UNKNOWN_ARGS = PREFIX + format(messageConfig.getConfig().getString("ERROR_UNKNOWN_ARGS"));
         ERROR_COURT_EXISTS = PREFIX + format(messageConfig.getConfig().getString("ERROR_COURT_EXISTS"));

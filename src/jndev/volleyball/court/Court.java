@@ -35,6 +35,11 @@ public class Court {
     private boolean animations;
     
     /**
+     * whether the court will keep the ball within the bounds
+     */
+    private boolean restrictions;
+    
+    /**
      * player head texture for the ball
      */
     private String texture;
@@ -73,6 +78,7 @@ public class Court {
         this.name = name;
         enabled = false;
         animations = true;
+        restrictions = true;
         speed = 1;
         texture = "http://textures.minecraft.net/texture/9b2513c8d08c60ad3785d3a9a651b7329c5f26937aca2fc8dfaf3441c9bd9da2";
         world = null;
@@ -433,5 +439,23 @@ public class Court {
      */
     public void setBall(Ball ball) {
         this.ball = ball;
+    }
+    
+    /**
+     * check if the court has ball restrictions to keep the ball in bounds
+     *
+     * @return true if court has restrictions
+     */
+    public boolean hasRestrictions() {
+        return restrictions;
+    }
+    
+    /**
+     * enable or disable court ball restrictions
+     *
+     * @param restrictions true to enable
+     */
+    public void setRestrictions(boolean restrictions) {
+        this.restrictions = restrictions;
     }
 }
