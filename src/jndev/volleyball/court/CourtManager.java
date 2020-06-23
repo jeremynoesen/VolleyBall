@@ -33,10 +33,16 @@ public class CourtManager {
      */
     private static void loadCourt(String name) {
         Court court = new Court(name);
-        court.setAnimations(courtConfig.getConfig().getBoolean(name + ".animations"));
-        court.setEnabled(courtConfig.getConfig().getBoolean(name + ".enabled"));
-        court.setSpeed(courtConfig.getConfig().getDouble(name + ".speed"));
-        court.setTexture(courtConfig.getConfig().getString(name + ".texture"));
+        if (courtConfig.getConfig().get(name + ".animations") != null)
+            court.setAnimations(courtConfig.getConfig().getBoolean(name + ".animations"));
+        if (courtConfig.getConfig().get(name + ".enabled") != null)
+            court.setEnabled(courtConfig.getConfig().getBoolean(name + ".enabled"));
+        if (courtConfig.getConfig().get(name + ".speed") != null)
+            court.setSpeed(courtConfig.getConfig().getDouble(name + ".speed"));
+        if (courtConfig.getConfig().get(name + ".texture") != null)
+            court.setTexture(courtConfig.getConfig().getString(name + ".texture"));
+        if (courtConfig.getConfig().get(name + ".restrictions") != null)
+            court.setRestrictions(courtConfig.getConfig().getBoolean(name + ".restrictions"));
         if (courtConfig.getConfig().get(name + ".court") != null) {
             double[][] bounds = new double[2][3];
             bounds[0][0] = courtConfig.getConfig().getDouble(name + ".court.min.x");
@@ -65,11 +71,11 @@ public class CourtManager {
      * save all courts to file
      */
     public static void saveAll() {
-        for(String key : courtConfig.getConfig().getKeys(false)) {
+        for (String key : courtConfig.getConfig().getKeys(false)) {
             courtConfig.getConfig().set(key, null);
         }
         
-        for(Court court : Courts.getAll().values()) {
+        for (Court court : Courts.getAll().values()) {
             saveCourt(court);
         }
     }
@@ -86,6 +92,7 @@ public class CourtManager {
         courtConfig.getConfig().set(name + ".enabled", court.isEnabled());
         courtConfig.getConfig().set(name + ".speed", court.getSpeed());
         courtConfig.getConfig().set(name + ".texture", court.getTexture());
+        courtConfig.getConfig().set(name + ".restrictions", court.hasRestrictions());
         if (court.getBounds() != null) {
             double[][] bounds = court.getBounds();
             courtConfig.getConfig().set(name + ".court.min.x", bounds[0][0]);
