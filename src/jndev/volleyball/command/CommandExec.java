@@ -72,7 +72,8 @@ public class CommandExec implements CommandExecutor {
                                     if (args.length > 2) {
                                         if (Courts.get(args[2]) != null && !args[2].equalsIgnoreCase("create")
                                                 && !args[2].equalsIgnoreCase("help") && !args[2].equalsIgnoreCase("list")
-                                                && !args[2].equalsIgnoreCase("remove")) {
+                                                && !args[2].equalsIgnoreCase("remove") && !args[2].equalsIgnoreCase("select") &&
+                                                !args[2].equalsIgnoreCase("info")) {
                                             new Court(args[2]);
                                             player.sendMessage(Message.SUCCESS_COURT_CREATED.replace("$COURT$", args[2]));
                                         } else {
