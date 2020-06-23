@@ -410,6 +410,7 @@ public class Court {
         return Message.COURT_INFO
                 .replace("$NAME$", name)
                 .replace("$ENABLED$", Boolean.toString(isEnabled()))
+                .replace("$RESTRICTIONS$", Boolean.toString(hasRestrictions()))
                 .replace("$ANIMATIONS$", Boolean.toString(hasAnimations()))
                 .replace("$SPEED$", Double.toString(getSpeed()))
                 .replace("$TEXTURE$", getTexture())
