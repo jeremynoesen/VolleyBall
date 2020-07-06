@@ -125,7 +125,7 @@ public class CommandTabComplete implements TabCompleter {
                             
                             tabList.add("animations");
                             
-                        } else if (args[3].startsWith("b")) {
+                        } else if (args[3].startsWith("s")) {
                             
                             tabList.add("speed");
                             
