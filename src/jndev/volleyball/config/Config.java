@@ -14,7 +14,7 @@ import java.util.logging.Level;
 /**
  * class used to manage all config files in plugin
  */
-public class ConfigManager {
+public class Config {
     
     /**
      * file used for the config
@@ -36,7 +36,7 @@ public class ConfigManager {
      *
      * @param type config type
      */
-    public ConfigManager(ConfigType type) {
+    public Config(ConfigType type) {
         configType = type;
     }
     

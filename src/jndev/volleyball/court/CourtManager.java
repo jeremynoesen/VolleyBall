@@ -1,10 +1,9 @@
 package jndev.volleyball.court;
 
 import jndev.volleyball.VolleyBall;
-import jndev.volleyball.config.ConfigManager;
+import jndev.volleyball.config.Config;
 import jndev.volleyball.config.ConfigType;
 import jndev.volleyball.config.Configs;
-import org.bukkit.Bukkit;
 
 /**
  * class dedicated to loading and saving courts from and to file
@@ -14,7 +13,7 @@ public class CourtManager {
     /**
      * court config instance
      */
-    private static ConfigManager courtConfig = Configs.getConfig(ConfigType.COURT);
+    private static Config courtConfig = Configs.getConfig(ConfigType.COURT);
     
     
     /**

@@ -1,6 +1,6 @@
 package jndev.volleyball;
 
-import jndev.volleyball.config.ConfigManager;
+import jndev.volleyball.config.Config;
 import jndev.volleyball.config.ConfigType;
 import jndev.volleyball.config.Configs;
 import org.bukkit.ChatColor;
@@ -10,7 +10,7 @@ import org.bukkit.ChatColor;
  */
 public class Message {
     
-    private static ConfigManager messageConfig = Configs.getConfig(ConfigType.MESSAGE);
+    private static Config messageConfig = Configs.getConfig(ConfigType.MESSAGE);
     
     public static String PREFIX;
     public static String ERROR_BALL_OUT;
