@@ -47,8 +47,23 @@ public class VolleyBall extends JavaPlugin implements Listener {
 
         pm.registerEvents(new BallListener(), plugin);
         
-        pm.addPermission(new Permission("volleyball.admin"));
-
+        pm.addPermission(new Permission("volleyball.help"));
+        pm.addPermission(new Permission("volleyball.reload"));
+        pm.addPermission(new Permission("volleyball.court.create"));
+        pm.addPermission(new Permission("volleyball.court.remove"));
+        pm.addPermission(new Permission("volleyball.court.info"));
+        pm.addPermission(new Permission("volleyball.court.list"));
+        pm.addPermission(new Permission("volleyball.court.select"));
+        pm.addPermission(new Permission("volleyball.court.help"));
+        pm.addPermission(new Permission("volleyball.court.set.animations"));
+        pm.addPermission(new Permission("volleyball.court.set.speed"));
+        pm.addPermission(new Permission("volleyball.court.set.texture"));
+        pm.addPermission(new Permission("volleyball.court.set.bounds"));
+        pm.addPermission(new Permission("volleyball.court.set.enabled"));
+        pm.addPermission(new Permission("volleyball.court.set.net"));
+        pm.addPermission(new Permission("volleyball.court.set.name"));
+        pm.addPermission(new Permission("volleyball.court.set.restrictions"));
+    
         getCommand("volleyball").setExecutor(new CommandExec());
         getCommand("volleyball").setTabCompleter(new CommandTabComplete());
     

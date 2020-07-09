@@ -1,6 +1,5 @@
 package jndev.volleyball.command;
 
-import jndev.volleyball.Message;
 import jndev.volleyball.court.Courts;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -36,44 +35,50 @@ public class CommandTabComplete implements TabCompleter {
             
             Player player = (Player) sender;
             
-            if (player.hasPermission("volleyball.admin")) {
+            for (int i = 0; i < args.length; i++) args[i] = args[i].toLowerCase();
+            
+            if (args.length == 0 || args.length == 1) {
                 
-                for (int i = 0; i < args.length; i++) {
-                    args[i] = args[i].toLowerCase();
-                }
-                
-                if (args.length == 0 || args.length == 1) {
+                if (args[0].equalsIgnoreCase("")) {
                     
-                    if (args[0].equalsIgnoreCase("")) {
+                    tabList.add("court");
+                    if (player.hasPermission("volleyball.help")) tabList.add("help");
+                    if (player.hasPermission("volleyball.reload")) tabList.add("reload");
+                    
+                } else if (args[0].startsWith("c")) tabList.add("court");
+                else if (args[0].startsWith("h") && player.hasPermission("volleyball.help")) tabList.add("help");
+                else if (args[0].startsWith("r") && player.hasPermission("volleyball.reload")) tabList.add("reload");
+                
+            } else if (args.length == 2) {
+                
+                if (args[0].equalsIgnoreCase("court")) {
+                    
+                    if (args[1].equalsIgnoreCase("")) {
                         
-                        tabList.add("court");
+                        if (player.hasPermission("volleyball.court.help")) tabList.add("help");
+                        if (player.hasPermission("volleyball.court.list")) tabList.add("list");
+                        if (player.hasPermission("volleyball.court.create")) tabList.add("create");
+                        if (player.hasPermission("volleyball.court.remove")) tabList.add("remove");
+                        if (player.hasPermission("volleyball.court.select")) tabList.add("select");
+                        if (player.hasPermission("volleyball.court.info")) tabList.add("info");
+                        
+                    } else if (args[1].startsWith("h") && player.hasPermission("volleyball.court.help"))
                         tabList.add("help");
-                        tabList.add("reload");
-                        
-                    } else if (args[0].startsWith("c")) tabList.add("court");
-                    else if (args[0].startsWith("h")) tabList.add("help");
-                    else if (args[0].startsWith("r")) tabList.add("reload");
+                    else if (args[1].startsWith("l") && player.hasPermission("volleyball.court.list"))
+                        tabList.add("list");
+                    else if (args[1].startsWith("c") && player.hasPermission("volleyball.court.create"))
+                        tabList.add("create");
+                    else if (args[1].startsWith("r") && player.hasPermission("volleyball.court.remove"))
+                        tabList.add("remove");
+                    else if (args[1].startsWith("s") && player.hasPermission("volleyball.court.select"))
+                        tabList.add("select");
+                    else if (args[1].startsWith("i") && player.hasPermission("volleyball.court.info"))
+                        tabList.add("info");
                     
-                } else if (args.length == 2) {
-                    
-                    if (args[0].equalsIgnoreCase("court")) {
-                        
-                        if (args[1].equalsIgnoreCase("")) {
-                            
-                            tabList.add("help");
-                            tabList.add("list");
-                            tabList.add("create");
-                            tabList.add("remove");
-                            tabList.add("select");
-                            tabList.add("info");
-                            
-                        } else if (args[1].startsWith("h")) tabList.add("help");
-                        else if (args[1].startsWith("l")) tabList.add("list");
-                        else if (args[1].startsWith("c")) tabList.add("create");
-                        else if (args[1].startsWith("r")) tabList.add("remove");
-                        else if (args[1].startsWith("s")) tabList.add("select");
-                        else if (args[1].startsWith("i")) tabList.add("info");
-                        
+                    if (player.hasPermission("volleyball.court.create") ||
+                            player.hasPermission("volleyball.court.remove") ||
+                            player.hasPermission("volleyball.court.select") ||
+                            player.hasPermission("volleyball.court.info"))
                         for (String court : courts) {
                             
                             if (court.startsWith(args[1])) {
@@ -83,107 +88,109 @@ public class CommandTabComplete implements TabCompleter {
                             }
                             
                         }
-                        
-                    }
                     
-                } else if (args.length == 3) {
+                }
+                
+            } else if (args.length == 3) {
+                
+                if (courts.contains(args[1])) {
                     
-                    if (courts.contains(args[1])) {
-                        
-                        tabList.add("set");
-                        
-                    } else if (args[1].equalsIgnoreCase("remove") ||
-                            args[1].equalsIgnoreCase("select") || args[1].equalsIgnoreCase("info")) {
-                        
-                        for (String court : courts) {
-                            
-                            if (court.startsWith(args[2])) {
-                                
-                                tabList.add(court);
-                                
-                            }
-                            
-                        }
-                    }
+                    tabList.add("set");
                     
-                } else if (args.length == 4) {
+                } else if ((args[1].equalsIgnoreCase("remove") && player.hasPermission("volleyball.court.remove")) ||
+                        (args[1].equalsIgnoreCase("select") && player.hasPermission("volleyball.court.select")) ||
+                        (args[1].equalsIgnoreCase("info") && player.hasPermission("volleyball.court.info"))) {
                     
-                    if (args[2].equalsIgnoreCase("set")) {
+                    for (String court : courts) {
                         
-                        if (args[3].equalsIgnoreCase("")) {
+                        if (court.startsWith(args[2])) {
                             
-                            tabList.add("animations");
-                            tabList.add("speed");
-                            tabList.add("texture");
-                            tabList.add("bounds");
-                            tabList.add("enabled");
-                            tabList.add("net");
-                            tabList.add("name");
-                            tabList.add("restrictions");
-                            
-                        } else if (args[3].startsWith("a")) {
-                            
-                            tabList.add("animations");
-                            
-                        } else if (args[3].startsWith("s")) {
-                            
-                            tabList.add("speed");
-                            
-                        } else if (args[3].startsWith("t")) {
-                            
-                            tabList.add("texture");
-                            
-                        } else if (args[3].startsWith("b")) {
-                            
-                            tabList.add("bounds");
-                            
-                        } else if (args[3].startsWith("e")) {
-                            
-                            tabList.add("enabled");
-                            
-                        } else if (args[3].startsWith("n")) {
-                            
-                            tabList.add("net");
-                            tabList.add("name");
-                            
-                            if (args[3].startsWith("ne")) tabList.remove("name");
-                            if (args[3].startsWith("na")) tabList.remove("net");
-                            
-                        } else if (args[3].startsWith("r")) {
-                            
-                            tabList.add("restrictions");
+                            tabList.add(court);
                             
                         }
                         
                     }
+                }
+                
+            } else if (args.length == 4) {
+                
+                if (args[2].equalsIgnoreCase("set")) {
                     
-                } else if (args.length == 5) {
-                    
-                    if (args[3].equalsIgnoreCase("animations") || args[3].equalsIgnoreCase("enabled") ||
-                    args[3].equalsIgnoreCase("restrictions")) {
+                    if (args[3].equalsIgnoreCase("")) {
                         
-                        if (args[4].equalsIgnoreCase("")) {
-                            
-                            tabList.add("true");
-                            tabList.add("false");
-                            
-                        } else if (args[4].startsWith("t")) {
-                            
-                            tabList.add("true");
-                            
-                        } else if (args[4].startsWith("f")) {
-                            
-                            tabList.add("false");
-                            
-                        }
+                        if (player.hasPermission("volleyball.court.set.animations")) tabList.add("animations");
+                        if (player.hasPermission("volleyball.court.set.speed")) tabList.add("speed");
+                        if (player.hasPermission("volleyball.court.set.texture")) tabList.add("texture");
+                        if (player.hasPermission("volleyball.court.set.bounds")) tabList.add("bounds");
+                        if (player.hasPermission("volleyball.court.set.enabled")) tabList.add("enabled");
+                        if (player.hasPermission("volleyball.court.set.net")) tabList.add("net");
+                        if (player.hasPermission("volleyball.court.set.name")) tabList.add("name");
+                        if (player.hasPermission("volleyball.court.set.restrictions")) tabList.add("restrictions");
+                        
+                    } else if (args[3].startsWith("a") && player.hasPermission("volleyball.court.set.animations")) {
+                        
+                        tabList.add("animations");
+                        
+                    } else if (args[3].startsWith("s") && player.hasPermission("volleyball.court.set.speed")) {
+                        
+                        tabList.add("speed");
+                        
+                    } else if (args[3].startsWith("t") && player.hasPermission("volleyball.court.set.texture")) {
+                        
+                        tabList.add("texture");
+                        
+                    } else if (args[3].startsWith("b") && player.hasPermission("volleyball.court.set.bounds")) {
+                        
+                        tabList.add("bounds");
+                        
+                    } else if (args[3].startsWith("e") && player.hasPermission("volleyball.court.set.enabled")) {
+                        
+                        tabList.add("enabled");
+                        
+                    } else if (args[3].startsWith("n")) {
+                        
+                        if (player.hasPermission("volleyball.court.set.net")) tabList.add("net");
+                        if (player.hasPermission("volleyball.court.set.name")) tabList.add("name");
+                        
+                        if (args[3].startsWith("ne") && player.hasPermission("volleyball.court.set.name"))
+                            tabList.remove("name");
+                        if (args[3].startsWith("na") && player.hasPermission("volleyball.court.set.net"))
+                            tabList.remove("net");
+                        
+                    } else if (args[3].startsWith("r") && player.hasPermission("volleyball.court.set.restrictions")) {
+                        
+                        tabList.add("restrictions");
                         
                     }
                     
                 }
                 
-                return tabList;
+            } else if (args.length == 5) {
                 
-            } else player.sendMessage(Message.ERROR_NO_PERMS);
+                if ((args[3].equalsIgnoreCase("animations") && player.hasPermission("volleyball.court.set.animations")) ||
+                        (args[3].equalsIgnoreCase("enabled") && player.hasPermission("volleyball.court.set.enabled")) ||
+                        (args[3].equalsIgnoreCase("restrictions") && player.hasPermission("volleyball.court.set.restrictions"))) {
+                    
+                    if (args[4].equalsIgnoreCase("")) {
+                        
+                        tabList.add("true");
+                        tabList.add("false");
+                        
+                    } else if (args[4].startsWith("t")) {
+                        
+                        tabList.add("true");
+                        
+                    } else if (args[4].startsWith("f")) {
+                        
+                        tabList.add("false");
+                        
+                    }
+                    
+                }
+                
+            }
+            
+            return tabList;
             
         }
         
