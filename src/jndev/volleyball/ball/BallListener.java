@@ -11,7 +11,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
@@ -69,10 +68,8 @@ public class BallListener implements Listener {
             }
         }
         
-        if ((e.getEntity() instanceof Zombie && e.getEntity().getName() != null &&
-                e.getEntity().getName().equals(ChatColor.BLACK + "BALL")) ||
-                (e.getEntity() instanceof Slime && e.getEntity().getName() != null &&
-                        e.getEntity().getName().equals(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "BALL"))) {
+        if (e.getEntity() instanceof ArmorStand && e.getEntity().getName() != null &&
+                e.getEntity().getName().equals(ChatColor.BLACK + "BALL")) {
             e.setCancelled(true);
         }
     }
@@ -82,23 +79,37 @@ public class BallListener implements Listener {
      */
     @EventHandler
     public void onInteract(PlayerInteractEvent e) {
-        Player p = e.getPlayer();
-        Action a = e.getAction();
-        if (a == Action.LEFT_CLICK_BLOCK) {
-            if (Courts.isOnCourt(e.getClickedBlock().getLocation()) && Courts.get(e.getClickedBlock().getLocation()).isEnabled())
+        Player player = e.getPlayer();
+        Action action = e.getAction();
+        if (action == Action.LEFT_CLICK_BLOCK) {
+            if (Courts.isOnCourt(e.getClickedBlock().getLocation()) && Courts.get(e.getClickedBlock().getLocation()).isEnabled()) {
                 e.setCancelled(true);
+            }
+            hitBall(player);
+        } else if (action == Action.LEFT_CLICK_AIR) {
+            hitBall(player);
         }
     }
     
     /**
-     * block the slime and zombie from targetting players in survival mode
+     * make a player hit the nearest ball
+     *
+     * @param player player hitting
      */
-    @EventHandler
-    public void onEntityTarget(EntityTargetEvent e) {
-        Entity s = e.getEntity();
-        if (s.getName() != null && (s.getName().equals(ChatColor.DARK_GREEN +
-                "" + ChatColor.BOLD + "BALL") || s.getName().equals(ChatColor.BLACK + "BALL")))
-            e.setCancelled(true);
+    private void hitBall(Player player) {
+        if(Courts.isOnCourt(player.getLocation())) {
+            Court court = Courts.get(player);
+
+            for(Entity s : player.getNearbyEntities(1, 1, 1)) {
+                if (s.getName() != null && s.getName().equals(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "BALL")) {
+                    s.getWorld().playSound(s.getLocation(), Sound.ENTITY_CHICKEN_EGG, 2, 0);
+                    s.setVelocity(player.getLocation().getDirection().multiply(0.9).add(new Vector(0, 0.6, 0))
+                            .add(player.getVelocity().setY(player.getVelocity().multiply(2).getY()))
+                            .multiply(court.getSpeed()));
+                    break;
+                }
+            }
+        }
     }
     
     /**
@@ -107,8 +118,8 @@ public class BallListener implements Listener {
     @EventHandler
     public void onEntityInteract(PlayerInteractAtEntityEvent e) {
         Player p = e.getPlayer();
-        if (e.getRightClicked() != null && e.getRightClicked() instanceof Zombie && e.getRightClicked().getName()
-                != null && e.getRightClicked().getName().equals(ChatColor.BLACK + "BALL"))
+        if (e.getRightClicked() != null && e.getRightClicked() instanceof ArmorStand && e.getRightClicked().getName()
+                != null && e.getRightClicked().getName().equals(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "BALL"))
             e.setCancelled(true);
     }
     
@@ -145,8 +156,7 @@ public class BallListener implements Listener {
     @EventHandler
     public void onBallDeath(EntityDeathEvent e) {
         Entity s = e.getEntity();
-        if (s.getName() != null && (s.getName().equals(ChatColor.DARK_GREEN +
-                "" + ChatColor.BOLD + "BALL") || s.getName().equals(ChatColor.BLACK + "BALL"))) {
+        if (s.getName() != null && (s.getName().equals(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "BALL"))) {
             e.getDrops().clear();
         }
     }
