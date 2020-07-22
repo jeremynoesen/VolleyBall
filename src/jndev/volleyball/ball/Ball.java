@@ -10,9 +10,8 @@ import org.bukkit.craftbukkit.libs.org.apache.commons.codec.binary.Base64;
 import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.EulerAngle;
 import org.bukkit.util.Vector;
 
 import java.lang.reflect.Field;
@@ -24,14 +23,9 @@ import java.util.UUID;
 public class Ball {
     
     /**
-     * entity responsible for wearing the player head and making the ball hitbox larger
+     * armorstand to make ball physics and wear the head
      */
-    private Zombie ballTexture;
-    
-    /**
-     * entity used for the ball physics
-     */
-    private Slime ballPhysics;
+    private ArmorStand ball;
     
     /**
      * whether the ball removal has been started or not
@@ -65,44 +59,26 @@ public class Ball {
      */
     public Ball(Player player) {
         this.player = player;
+        this.end = false;
+        this.volleyed = false;
+        this.volleys = 0;
+        this.court = Courts.get(player);
+        this.ball = player.getLocation().getWorld()
+                .spawn(player.getEyeLocation().add(player.getLocation().getDirection().setY(0)), ArmorStand.class);
         
-        end = false;
-        volleyed = false;
-        volleys = 0;
-        
-        court = Courts.get(player);
-        
-        ballPhysics = player.getLocation().getWorld()
-                .spawn(player.getEyeLocation().add(player.getLocation().getDirection()).subtract(0, 0.25, 0), Slime.class);
-        ballPhysics.setSize(1);
-        Location loc = ballPhysics.getLocation();
-        loc.setYaw(0);
-        loc.setPitch(0);
-        ballPhysics.teleport(loc);
-        ballPhysics.setCollidable(false);
-        ballPhysics.setCustomName(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "BALL");
-        ballPhysics.setVelocity(player.getLocation().getDirection().multiply(0.1).add(new Vector(0, 1, 0)));
-        ballPhysics.getWorld().playSound(ballPhysics.getLocation(), Sound.ENTITY_ARROW_SHOOT, 2, 0);
-        ballPhysics.setCustomNameVisible(false);
-        ballPhysics.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 100000, 1, true, false));
-        ballPhysics.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100000, 255, true, false));
-        ballPhysics.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 100000, 255, true, false));
-        ballPhysics.setSilent(true);
-        ballPhysics.setInvulnerable(true);
-        
-        ballTexture = ballPhysics.getWorld().spawn(ballPhysics.getLocation().subtract(0, 1.5, 0), Zombie.class);
-        ballTexture.getEquipment().clear();
+        ball.setSmall(true);
+        ball.setHeadPose(new EulerAngle(0, 0, 0));
+        ball.setBodyPose(new EulerAngle(0, 0, 0));
+        ball.setCollidable(false);
+        ball.setCustomName(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "BALL");
+        ball.getWorld().playSound(ball.getLocation(), Sound.ENTITY_ARROW_SHOOT, 2, 0);
+        ball.setCustomNameVisible(false);
+        ball.setSilent(true);
+        ball.setInvulnerable(true);
+        ball.setVisible(false);
+        ball.setBasePlate(false);
+        ball.setGravity(true);
         setTexture(court.getTexture());
-        ballTexture.setGravity(false);
-        ballTexture.setCustomName(ChatColor.BLACK + "BALL");
-        ballTexture.setCustomNameVisible(false);
-        ballTexture.setSilent(true);
-        ballTexture.setAI(false);
-        ballTexture.setCollidable(false);
-        ballTexture.setSilent(true);
-        ballTexture.setInvulnerable(true);
-        ballTexture.setBaby(false);
-        ballTexture.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 1000000, 1000000, true, false));
     }
     
     /**
@@ -125,7 +101,7 @@ public class Ball {
             e1.printStackTrace();
         }
         head.setItemMeta(headMeta);
-        ballTexture.getEquipment().setHelmet(head);
+        ball.getEquipment().setHelmet(head);
     }
     
     /**
@@ -145,10 +121,12 @@ public class Ball {
         boolean animated = court.hasAnimations();
         boolean restricted = court.hasRestrictions();
         
+        ball.setVelocity(player.getLocation().getDirection().multiply(0.1).add(new Vector(0, 1 * court.getSpeed(), 0)));
+        
         if (animated) {
             Location loc = player.getLocation();
             double radius = 0.5;
-            for (double y = 0; y <= 10; y += 0.2) {
+            for (double y = 0; y <= 10; y += 0.5) {
                 double finalY = y;
                 new BukkitRunnable() {
                     @Override
@@ -167,56 +145,50 @@ public class Ball {
             @Override
             public void run() {
                 
-                ballPhysics.setTarget(null);
-                ballPhysics.setFallDistance(0);
-                ballTexture.setFallDistance(0);
+                ball.setFallDistance(0);
                 
-                if (court.isAboveNet(ballPhysics.getLocation()) && !volleyed) {
+                if (court.isAboveNet(ball.getLocation()) && !volleyed) {
                     volleyed = true;
                     volleys++;
                     for (Player players : court.getPlayersOnCourt()) {
                         players.sendTitle("", ChatColor.WHITE + Integer.toString(volleys), 0, 10, 10);
                     }
-                } else if (!court.isAboveNet(ballPhysics.getLocation())) {
+                } else if (!court.isAboveNet(ball.getLocation())) {
                     volleyed = false;
                 }
                 
                 if (animated) {
-                    ballPhysics.getWorld().spawnParticle(Particle.END_ROD, ballPhysics.getLocation(), 0, 0, 0, 0, 1);
+                    ball.getWorld().spawnParticle(Particle.END_ROD, ball.getLocation(), 0, 0, 0, 0, 1);
                 }
                 
                 if (restricted) {
-                    Vector vec = ballPhysics.getVelocity();
-                    Location loc = ballPhysics.getLocation();
+                    Vector vec = ball.getVelocity();
+                    Location loc = ball.getLocation();
                     if (loc.getBlock().getX() < court.getBounds()[0][0] || loc.getBlock().getX() > court.getBounds()[1][0])
-                        ballPhysics.setVelocity(vec.setX(-vec.getX()));
-                    if (loc.getBlock().getY() < court.getBounds()[0][1]) ballPhysics.setVelocity(vec.setY(-vec.getY()));
+                        ball.setVelocity(vec.setX(-vec.getX()));
+                    if (loc.getBlock().getY() < court.getBounds()[0][1]) ball.setVelocity(vec.setY(-vec.getY()));
                     if (loc.getBlock().getY() > court.getBounds()[1][1])
-                        ballPhysics.setVelocity(vec.setY(-vec.getY() * 1.25));
+                        ball.setVelocity(vec.setY(-vec.getY() * 1.25));
                     if (loc.getBlock().getZ() < court.getBounds()[0][2] || loc.getBlock().getZ() > court.getBounds()[1][2])
-                        ballPhysics.setVelocity(vec.setZ(-vec.getZ()));
+                        ball.setVelocity(vec.setZ(-vec.getZ()));
                 }
                 
-                if (ballPhysics.isDead()) {
-                    ballTexture.remove();
+                if (ball.isDead()) {
                     end = true;
                     this.cancel();
                 }
                 
                 if (!end) {
-                    Location loc = ballPhysics.getLocation();
-                    loc.setPitch(0);
-                    loc.setYaw(0);
-                    ballPhysics.teleport(loc);
-                    ballTexture.teleport(ballPhysics.getLocation().subtract(0, 1.5, 0));
+                    ball.setHeadPose(new EulerAngle(0, 0, 0));
+                    ball.setBodyPose(new EulerAngle(0, 0, 0));
                 }
                 
-                if (ballPhysics.isOnGround() || ballPhysics.getLocation().add(0, 0.5, 0).getBlock().getType() != Material.AIR) {
+                if (ball.isOnGround() || ball.getLocation().add(0, 0.5, 0).getBlock().getType() != Material.AIR) {
                     
                     new BukkitRunnable() {
                         @Override
                         public void run() {
-                            if (ballPhysics.isOnGround() || ballPhysics.getLocation().add(0, 0.5, 0).getBlock().getType() != Material.AIR) {
+                            if (ball.isOnGround() || ball.getLocation().add(0, 0.5, 0).getBlock().getType() != Material.AIR) {
                                 if (!end) remove();
                             }
                         }
@@ -234,21 +206,21 @@ public class Ball {
         if (animated) {
             end = true;
             double radius = 1;
-            Location loc = ballPhysics.getLocation();
-            for (double y = 0; y <= 6.28; y += 0.2) {
+            Location loc = ball.getLocation();
+            for (double y = 0; y <= 6.28; y += 1.04) {
                 double finalY = y;
                 new BukkitRunnable() {
                     @Override
                     public void run() {
                         double x = (radius - 0.14 * finalY) * Math.cos(finalY);
                         double z = (radius - 0.14 * finalY) * Math.sin(finalY);
-                        ballPhysics.getWorld().spawnParticle(Particle.CRIT_MAGIC,
+                        ball.getWorld().spawnParticle(Particle.CRIT_MAGIC,
                                 (float) (loc.getX() + x), (float) (loc.getY() + 0.2),
                                 (float) (loc.getZ() + z), 0, 0, 0, 0, 1);
-                        Location loc1 = ballTexture.getLocation();
+                        Location loc1 = ball.getLocation();
                         loc1.setYaw((float) finalY * 20);
                         loc1.setY(loc1.subtract(0, 0.1 * finalY, 0).getY());
-                        ballTexture.teleport(loc1);
+                        ball.teleport(loc1);
                     }
                 }.runTaskLater(VolleyBall.getInstance(), (long) y);
             }
@@ -259,7 +231,7 @@ public class Ball {
                     public void run() {
                         double x = (radius - 0.14 * finalY) * Math.cos(finalY + 3.14159);
                         double z = (radius - 0.14 * finalY) * Math.sin(finalY + 3.14159);
-                        ballPhysics.getWorld().spawnParticle(Particle.CRIT_MAGIC,
+                        ball.getWorld().spawnParticle(Particle.CRIT_MAGIC,
                                 (float) (loc.getX() + x), (float) (loc.getY() + 0.2),
                                 (float) (loc.getZ() + z), 0, 0, 0, 0, 1);
                     }
@@ -268,16 +240,14 @@ public class Ball {
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    ballPhysics.remove();
-                    ballTexture.remove();
+                    ball.remove();
                 }
             }.runTaskLater(VolleyBall.getInstance(), (long) 6.28);
             
-            ballPhysics.getWorld().playSound(ballPhysics.getLocation(), Sound.BLOCK_SAND_PLACE, 2, 1);
-            ballPhysics.getWorld().playSound(ballPhysics.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASEDRUM, 2, 1);
+            ball.getWorld().playSound(ball.getLocation(), Sound.BLOCK_SAND_PLACE, 2, 1);
+            ball.getWorld().playSound(ball.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASEDRUM, 2, 1);
         } else {
-            ballPhysics.remove();
-            ballTexture.remove();
+            ball.remove();
         }
     }
     
