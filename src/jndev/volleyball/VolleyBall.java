@@ -9,9 +9,8 @@ import jndev.volleyball.court.CourtManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Slime;
-import org.bukkit.entity.Zombie;
 import org.bukkit.event.Listener;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.PluginManager;
@@ -67,27 +66,26 @@ public class VolleyBall extends JavaPlugin implements Listener {
         getCommand("volleyball").setExecutor(new CommandExec());
         getCommand("volleyball").setTabCompleter(new CommandTabComplete());
     
-        int count = 0;
-    
-        plugin.getServer().getConsoleSender().sendMessage(Message.CLEANING);
-    
-        for (World world : Bukkit.getWorlds()) {
-            for (Entity entity : world.getEntities()) {
-                if (entity.getName() != null && ((entity instanceof Slime &&
-                        entity.getName().equalsIgnoreCase(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "BALL")) ||
-                        (entity instanceof Zombie && entity.getName().equalsIgnoreCase(ChatColor.BLACK + "BALL")))) {
-                    entity.remove();
-                    count++;
-                }
-            }
-        }
-    
-        plugin.getServer().getConsoleSender().sendMessage(Message.DONE_CLEANING.replace("$COUNT$",
-                Integer.toString(count)));
-    
         new BukkitRunnable() {
             @Override
             public void run() {
+                int count = 0;
+    
+                for (World world : Bukkit.getWorlds()) {
+                    for (Entity entity : world.getEntities()) {
+                        if (entity.getName() != null && entity instanceof ArmorStand &&
+                                entity.getName().equalsIgnoreCase(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "BALL")) {
+                            entity.remove();
+                            count++;
+                        }
+                    }
+                }
+    
+                plugin.getServer().getConsoleSender().sendMessage(Message.CLEANING);
+    
+                plugin.getServer().getConsoleSender().sendMessage(Message.DONE_CLEANING.replace("$COUNT$",
+                        Integer.toString(count)));
+                
                 CourtManager.loadAll();
             }
         }.runTaskLater(plugin, 2);
