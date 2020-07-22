@@ -12,10 +12,7 @@ import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Slime;
-import org.bukkit.entity.Zombie;
+import org.bukkit.entity.*;
 
 /**
  * Command class, listens for volleyball command
@@ -51,9 +48,8 @@ public class CommandExec implements CommandExecutor {
                                 CourtManager.loadAll();
                                 for (World world : Bukkit.getWorlds()) {
                                     for (Entity entity : world.getEntities()) {
-                                        if (entity.getName() != null && ((entity instanceof Slime &&
-                                                entity.getName().equalsIgnoreCase(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "BALL")) ||
-                                                (entity instanceof Zombie && entity.getName().equalsIgnoreCase(ChatColor.BLACK + "BALL")))) {
+                                        if (entity.getName() != null && entity instanceof ArmorStand &&
+                                                entity.getName().equalsIgnoreCase(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "BALL")) {
                                             entity.remove();
                                         }
                                     }
