@@ -25,7 +25,7 @@ public class Ball {
     /**
      * armorstand to make ball physics and wear the head
      */
-    private ArmorStand ball;
+    private final ArmorStand ball;
     
     /**
      * whether the ball removal has been started or not
@@ -35,7 +35,7 @@ public class Ball {
     /**
      * player serving this ball
      */
-    private Player player;
+    private final Player player;
     
     /**
      * whether the ball has gone over the net or not
@@ -50,7 +50,7 @@ public class Ball {
     /**
      * court this ball is on
      */
-    private Court court;
+    private final Court court;
     
     /**
      * Creates a new ball
@@ -92,7 +92,7 @@ public class Ball {
         GameProfile profile = new GameProfile(UUID.randomUUID(), null);
         byte[] encodedData = Base64.encodeBase64(String.format("{textures:{SKIN:{url:\"%s\"}}}", url).getBytes());
         profile.getProperties().put("textures", new Property("textures", new String(encodedData)));
-        Field profileField = null;
+        Field profileField;
         try {
             profileField = headMeta.getClass().getDeclaredField("profile");
             profileField.setAccessible(true);
