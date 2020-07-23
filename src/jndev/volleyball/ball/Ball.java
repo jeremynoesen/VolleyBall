@@ -11,7 +11,6 @@ import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.EulerAngle;
 import org.bukkit.util.Vector;
 
 import java.lang.reflect.Field;
@@ -63,12 +62,15 @@ public class Ball {
         this.volleyed = false;
         this.volleys = 0;
         this.court = Courts.get(player);
+        
+        Location loc = player.getEyeLocation().add(player.getLocation().getDirection().setY(-0.5));
+        loc.setPitch(0);
+        loc.setYaw(0);
+        
         this.ball = player.getLocation().getWorld()
-                .spawn(player.getEyeLocation().add(player.getLocation().getDirection().setY(0)), ArmorStand.class);
+                .spawn(loc, ArmorStand.class);
         
         ball.setSmall(true);
-        ball.setHeadPose(new EulerAngle(0, 0, 0));
-        ball.setBodyPose(new EulerAngle(0, 0, 0));
         ball.setCollidable(false);
         ball.setCustomName(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "BALL");
         ball.getWorld().playSound(ball.getLocation(), Sound.ENTITY_ARROW_SHOOT, 2, 0);
@@ -121,23 +123,17 @@ public class Ball {
         boolean animated = court.hasAnimations();
         boolean restricted = court.hasRestrictions();
         
-        ball.setVelocity(player.getLocation().getDirection().multiply(0.1).add(new Vector(0, 1 * court.getSpeed(), 0)));
+        ball.setVelocity(player.getLocation().getDirection().multiply(0.05).add(new Vector(0, 0.75 * court.getSpeed(), 0)));
         
         if (animated) {
             Location loc = player.getLocation();
             double radius = 0.5;
-            for (double y = 0; y <= 10; y += 0.5) {
-                double finalY = y;
-                new BukkitRunnable() {
-                    @Override
-                    public void run() {
-                        double x = (radius + 0.05 * finalY) * Math.cos(finalY);
-                        double z = (radius + 0.05 * finalY) * Math.sin(finalY);
-                        player.getWorld().spawnParticle(Particle.VILLAGER_HAPPY,
-                                (float) (loc.getX() + x), (float) (loc.getY() + finalY * 0.1),
-                                (float) (loc.getZ() + z), 0, 0, 0, 0, 1);
-                    }
-                }.runTaskLater(VolleyBall.getInstance(), (long) y);
+            for (double y = 0; y <= Math.PI * 2; y += 0.175) {
+                double x = radius * Math.cos(y);
+                double z = radius * Math.sin((Math.PI * 2) - y);
+                player.getWorld().spawnParticle(Particle.TOTEM,
+                        (float) (loc.getX() + x), (float) (loc.getY() + 2),
+                        (float) (loc.getZ() + z), 0, 0, 0, 0, 1);
             }
         }
         
@@ -158,7 +154,8 @@ public class Ball {
                 }
                 
                 if (animated) {
-                    ball.getWorld().spawnParticle(Particle.END_ROD, ball.getLocation(), 0, 0, 0, 0, 1);
+                    ball.getWorld().spawnParticle(Particle.CRIT,
+                            ball.getLocation().add(new Vector(0, 0.75, 0)), 0, 0, 0, 0, 1);
                 }
                 
                 if (restricted) {
@@ -176,11 +173,6 @@ public class Ball {
                 if (ball.isDead()) {
                     end = true;
                     this.cancel();
-                }
-                
-                if (!end) {
-                    ball.setHeadPose(new EulerAngle(0, 0, 0));
-                    ball.setBodyPose(new EulerAngle(0, 0, 0));
                 }
                 
                 if (ball.isOnGround() || ball.getLocation().add(0, 0.5, 0).getBlock().getType() != Material.AIR) {
@@ -214,8 +206,8 @@ public class Ball {
                     public void run() {
                         double x = (radius - 0.14 * finalY) * Math.cos(finalY);
                         double z = (radius - 0.14 * finalY) * Math.sin(finalY);
-                        ball.getWorld().spawnParticle(Particle.CRIT_MAGIC,
-                                (float) (loc.getX() + x), (float) (loc.getY() + 0.2),
+                        ball.getWorld().spawnParticle(Particle.CLOUD,
+                                (float) (loc.getX() + x), (float) (loc.getY() + 0.3),
                                 (float) (loc.getZ() + z), 0, 0, 0, 0, 1);
                         Location loc1 = ball.getLocation();
                         loc1.setYaw((float) finalY * 20);
@@ -231,8 +223,8 @@ public class Ball {
                     public void run() {
                         double x = (radius - 0.14 * finalY) * Math.cos(finalY + 3.14159);
                         double z = (radius - 0.14 * finalY) * Math.sin(finalY + 3.14159);
-                        ball.getWorld().spawnParticle(Particle.CRIT_MAGIC,
-                                (float) (loc.getX() + x), (float) (loc.getY() + 0.2),
+                        ball.getWorld().spawnParticle(Particle.CLOUD,
+                                (float) (loc.getX() + x), (float) (loc.getY() + 0.3),
                                 (float) (loc.getZ() + z), 0, 0, 0, 0, 1);
                     }
                 }.runTaskLater(VolleyBall.getInstance(), (long) y);
