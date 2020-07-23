@@ -63,7 +63,7 @@ public class Ball {
         this.volleys = 0;
         this.court = Courts.get(player);
         
-        Location loc = player.getEyeLocation().add(player.getLocation().getDirection().setY(-0.5));
+        Location loc = player.getEyeLocation().add(player.getLocation().getDirection().multiply(0.75).setY(-0.5));
         loc.setPitch(0);
         loc.setYaw(0);
         
