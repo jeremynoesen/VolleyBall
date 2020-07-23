@@ -9,7 +9,6 @@ import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -20,59 +19,6 @@ import org.bukkit.util.Vector;
  * Listeners related to the ball object
  */
 public class BallListener implements Listener {
-    
-    /**
-     * test when a player hits the volleyball so the ball can be launched in that direction
-     */
-    @EventHandler
-    public void onBallHit(EntityDamageByEntityEvent e) {
-        
-        if (e.getDamager() instanceof Player && e.getEntity().getName() != null && e.getEntity()
-                .getName().equals(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "BALL")) {
-            
-            e.setCancelled(true);
-            
-            Player player = (Player) e.getDamager();
-            
-            if (Courts.get(player) == null) return;
-            
-            Court court = Courts.get(player);
-            
-            Entity s = e.getEntity();
-            s.getWorld().playSound(s.getLocation(), Sound.ENTITY_CHICKEN_EGG, 2, 0);
-            s.setVelocity(e.getDamager().getLocation().getDirection().multiply(0.9).add(new Vector(0, 0.6, 0))
-                    .add(e.getDamager().getVelocity().setY(e.getDamager().getVelocity().multiply(2).getY()))
-                    .multiply(court.getSpeed()));
-        }
-        
-        if (e.getDamager() instanceof Player && e.getEntity().getName() != null &&
-                e.getEntity().getName().equals(ChatColor.BLACK + "BALL")) {
-            for (Entity s : e.getEntity().getNearbyEntities(1, 1, 1)) {
-                if (s.getName() != null && s.getName().equals(ChatColor.DARK_GREEN +
-                        "" + ChatColor.BOLD + "BALL")) {
-                    
-                    e.setCancelled(true);
-                    
-                    Player player = (Player) e.getDamager();
-                    
-                    if (Courts.get(player) == null) return;
-                    
-                    Court court = Courts.get(player);
-                    
-                    s.getWorld().playSound(s.getLocation(), Sound.ENTITY_CHICKEN_EGG, 2, 0);
-                    s.setVelocity(e.getDamager().getLocation().getDirection().multiply(0.9).add(new Vector(0, 0.6, 0))
-                            .add(e.getDamager().getVelocity().setY(e.getDamager().getVelocity().multiply(2).getY()))
-                            .multiply(court.getSpeed()));
-                    break;
-                }
-            }
-        }
-        
-        if (e.getEntity() instanceof ArmorStand && e.getEntity().getName() != null &&
-                e.getEntity().getName().equals(ChatColor.BLACK + "BALL")) {
-            e.setCancelled(true);
-        }
-    }
     
     /**
      * protect the court from breaking
