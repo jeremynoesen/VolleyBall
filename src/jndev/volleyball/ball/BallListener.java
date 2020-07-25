@@ -61,8 +61,9 @@ public class BallListener implements Listener {
             for (Entity s : player.getNearbyEntities(1, 1, 1)) {
                 if (Balls.isBall(s) && court.getBall().isOut()) {
                     s.getWorld().playSound(s.getLocation(), Sound.ENTITY_CHICKEN_EGG, 2, 0);
-                    s.setVelocity(player.getLocation().getDirection().setY(Math.abs(player.getLocation().getDirection().getY())).normalize()
-                            .add(player.getVelocity().multiply(0.25)).multiply(court.getSpeed()));
+                    s.setVelocity(player.getLocation().getDirection().setY(Math.abs(player.getLocation().getDirection().getY()))
+                            .normalize().add(player.getVelocity().multiply(0.25)).multiply(court.getSpeed())
+                            .add(new Vector(0, Math.max(0, player.getEyeHeight() - s.getLocation().getY()), 0)));
                     break;
                 }
             }
