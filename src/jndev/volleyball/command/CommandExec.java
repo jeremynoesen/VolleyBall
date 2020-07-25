@@ -1,13 +1,13 @@
 package jndev.volleyball.command;
 
 import jndev.volleyball.Message;
+import jndev.volleyball.ball.Balls;
 import jndev.volleyball.config.ConfigType;
 import jndev.volleyball.config.Configs;
 import jndev.volleyball.court.Court;
 import jndev.volleyball.court.CourtManager;
 import jndev.volleyball.court.Courts;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -48,8 +48,7 @@ public class CommandExec implements CommandExecutor {
                                 CourtManager.loadAll();
                                 for (World world : Bukkit.getWorlds()) {
                                     for (Entity entity : world.getEntities()) {
-                                        if (entity.getName() != null && entity instanceof ArmorStand &&
-                                                entity.getName().equalsIgnoreCase(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "BALL")) {
+                                        if (Balls.isBall(entity)) {
                                             entity.remove();
                                         }
                                     }
