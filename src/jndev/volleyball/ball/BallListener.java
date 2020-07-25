@@ -3,7 +3,6 @@ package jndev.volleyball.ball;
 import jndev.volleyball.court.Court;
 import jndev.volleyball.Message;
 import jndev.volleyball.court.Courts;
-import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -43,11 +42,11 @@ public class BallListener implements Listener {
      * @param player player hitting
      */
     private void hitBall(Player player) {
-        if(Courts.isOnCourt(player.getLocation())) {
+        if (Courts.isOnCourt(player.getLocation())) {
             Court court = Courts.get(player);
-
-            for(Entity s : player.getNearbyEntities(1, 1, 1)) {
-                if (s.getName() != null && s.getName().equals(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "BALL")) {
+            
+            for (Entity s : player.getNearbyEntities(1, 1, 1)) {
+                if (Balls.isBall(s)) {
                     s.getWorld().playSound(s.getLocation(), Sound.ENTITY_CHICKEN_EGG, 2, 0);
                     s.setVelocity(player.getLocation().getDirection().multiply(0.9).add(new Vector(0, 0.6, 0))
                             .add(player.getVelocity().setY(player.getVelocity().multiply(2).getY()))
@@ -63,9 +62,7 @@ public class BallListener implements Listener {
      */
     @EventHandler
     public void onEntityInteract(PlayerInteractAtEntityEvent e) {
-        Player p = e.getPlayer();
-        if (e.getRightClicked() != null && e.getRightClicked() instanceof ArmorStand && e.getRightClicked().getName()
-                != null && e.getRightClicked().getName().equals(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "BALL"))
+        if (e.getRightClicked() != null && Balls.isBall(e.getRightClicked()))
             e.setCancelled(true);
     }
     
@@ -102,7 +99,7 @@ public class BallListener implements Listener {
     @EventHandler
     public void onBallDeath(EntityDeathEvent e) {
         Entity s = e.getEntity();
-        if (s.getName() != null && (s.getName().equals(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "BALL"))) {
+        if (Balls.isBall(s)) {
             e.getDrops().clear();
         }
     }

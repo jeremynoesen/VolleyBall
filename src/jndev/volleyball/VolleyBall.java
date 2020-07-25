@@ -1,6 +1,7 @@
 package jndev.volleyball;
 
 import jndev.volleyball.ball.BallListener;
+import jndev.volleyball.ball.Balls;
 import jndev.volleyball.command.CommandExec;
 import jndev.volleyball.command.CommandTabComplete;
 import jndev.volleyball.config.ConfigType;
@@ -73,8 +74,7 @@ public class VolleyBall extends JavaPlugin implements Listener {
     
                 for (World world : Bukkit.getWorlds()) {
                     for (Entity entity : world.getEntities()) {
-                        if (entity.getName() != null && entity instanceof ArmorStand &&
-                                entity.getName().equalsIgnoreCase(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "BALL")) {
+                        if (Balls.isBall(entity)) {
                             entity.remove();
                             count++;
                         }
