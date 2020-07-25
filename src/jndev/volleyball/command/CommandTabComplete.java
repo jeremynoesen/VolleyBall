@@ -35,8 +35,6 @@ public class CommandTabComplete implements TabCompleter {
             
             Player player = (Player) sender;
             
-            for (int i = 0; i < args.length; i++) args[i] = args[i].toLowerCase();
-            
             if (args.length == 0 || args.length == 1) {
                 
                 if (args[0].equalsIgnoreCase("")) {
