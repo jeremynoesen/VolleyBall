@@ -209,7 +209,7 @@ public class Ball {
                         ball.getWorld().spawnParticle(Particle.CLOUD,
                                 (float) (loc.getX() + x), (float) (loc.getY() + 0.3),
                                 (float) (loc.getZ() + z), 0, 0, 0, 0, 1);
-                        Location loc1 = ball.getLocation();
+                        Location loc1 = loc;
                         loc1.setYaw((float) finalY * 20);
                         loc1.setY(loc1.subtract(0, 0.1 * finalY, 0).getY());
                         ball.teleport(loc1);
