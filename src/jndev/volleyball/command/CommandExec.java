@@ -91,7 +91,7 @@ public class CommandExec implements CommandExecutor {
                                     case "remove":
                                         if (player.hasPermission("volleyball.court.remove")) {
                                             if (args.length > 2 && Courts.get(args[2]) != null) {
-                                                Courts.remove(args[1]);
+                                                Courts.remove(args[2]);
                                                 player.sendMessage(Message.SUCCESS_COURT_REMOVED
                                                         .replace("$COURT$", args[2]));
                                             } else {
