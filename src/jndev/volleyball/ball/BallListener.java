@@ -46,6 +46,11 @@ public class BallListener implements Listener {
             hitBall(player);
         } else if (action == Action.LEFT_CLICK_AIR) {
             hitBall(player);
+        } else if (action == Action.RIGHT_CLICK_BLOCK) {
+            if ((Courts.isOnCourt(e.getClickedBlock().getLocation()) || Courts.isOnCourt(player.getLocation())) &&
+                    Courts.get(e.getClickedBlock().getLocation()).isEnabled()) {
+                e.setCancelled(true);
+            }
         }
     }
     
