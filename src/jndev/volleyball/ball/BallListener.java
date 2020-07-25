@@ -39,7 +39,8 @@ public class BallListener implements Listener {
         Player player = e.getPlayer();
         Action action = e.getAction();
         if (action == Action.LEFT_CLICK_BLOCK) {
-            if (Courts.isOnCourt(e.getClickedBlock().getLocation()) && Courts.get(e.getClickedBlock().getLocation()).isEnabled()) {
+            if ((Courts.isOnCourt(e.getClickedBlock().getLocation()) || Courts.isOnCourt(player.getLocation())) &&
+                    Courts.get(e.getClickedBlock().getLocation()).isEnabled()) {
                 e.setCancelled(true);
             }
             hitBall(player);
