@@ -8,6 +8,7 @@ import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -18,6 +19,17 @@ import org.bukkit.util.Vector;
  * Listeners related to the ball object
  */
 public class BallListener implements Listener {
+    
+    /**
+     * prevent the armor stand from breaking when hurt by players or mobs
+     *
+     * @param e entity damage by entity event
+     */
+    @EventHandler
+    public void onHit(EntityDamageByEntityEvent e) {
+        if (Balls.isBall(e.getEntity()))
+            e.setCancelled(true);
+    }
     
     /**
      * protect the court from breaking
