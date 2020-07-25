@@ -6,6 +6,7 @@ import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldedit.math.BlockVector3;
 import jndev.volleyball.Message;
+import jndev.volleyball.VolleyBall;
 import jndev.volleyball.ball.Ball;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -81,9 +82,24 @@ public class Court {
         restrictions = true;
         speed = 1;
         texture = "http://textures.minecraft.net/texture/9b2513c8d08c60ad3785d3a9a651b7329c5f26937aca2fc8dfaf3441c9bd9da2";
-        world = null;
+        world = VolleyBall.getInstance().getServer().getWorlds().get(0);
+        
         bounds = new double[2][3];
+        bounds[0][0] = 0;
+        bounds[0][1] = 0;
+        bounds[0][2] = 0;
+        bounds[1][0] = 0;
+        bounds[1][1] = 0;
+        bounds[1][2] = 0;
+        
         net = new double[2][3];
+        net[0][0] = 0;
+        net[0][1] = 0;
+        net[0][2] = 0;
+        net[1][0] = 0;
+        net[1][1] = 0;
+        net[1][2] = 0;
+        
         ball = null;
         Courts.add(this, name);
     }
@@ -414,13 +430,13 @@ public class Court {
                 .replace("$ANIMATIONS$", Boolean.toString(hasAnimations()))
                 .replace("$SPEED$", Double.toString(getSpeed()))
                 .replace("$TEXTURE$", getTexture())
+                .replace("$WORLD$", world.getName())
                 .replace("$BOUNDS$",
                         "(" + bounds[0][0] + "," + bounds[0][1] + "," + bounds[0][2] + ") to (" +
                                 bounds[1][0] + "," + bounds[1][1] + "," + bounds[1][2] + ")")
                 .replace("$NET$",
                         "(" + net[0][0] + "," + net[0][1] + "," + net[0][2] + ") to (" +
-                                net[1][0] + "," + net[1][1] + "," + net[1][2] + ")")
-                .replace("$WORLD$", world.getName());
+                                net[1][0] + "," + net[1][1] + "," + net[1][2] + ")");
         
     }
     
