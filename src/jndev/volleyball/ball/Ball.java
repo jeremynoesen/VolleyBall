@@ -123,7 +123,7 @@ public class Ball {
         boolean animated = court.hasAnimations();
         boolean restricted = court.hasRestrictions();
         
-        ball.setVelocity(player.getLocation().getDirection().multiply(0.05).add(new Vector(0, 0.75 * court.getSpeed(), 0)));
+        ball.setVelocity(player.getLocation().getDirection().multiply(0.05).add(new Vector(0, 0.75 + (0.1 * court.getSpeed()), 0)));
         
         if (animated) {
             Location loc = player.getLocation();
