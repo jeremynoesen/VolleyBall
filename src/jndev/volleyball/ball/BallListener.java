@@ -60,9 +60,8 @@ public class BallListener implements Listener {
             for (Entity s : player.getNearbyEntities(1, 1, 1)) {
                 if (Balls.isBall(s)) {
                     s.getWorld().playSound(s.getLocation(), Sound.ENTITY_CHICKEN_EGG, 2, 0);
-                    s.setVelocity(player.getLocation().getDirection().multiply(0.9).add(new Vector(0, 0.6, 0))
-                            .add(player.getVelocity().setY(player.getVelocity().multiply(2).getY()))
-                            .multiply(court.getSpeed()));
+                    s.setVelocity(player.getLocation().getDirection().setY(Math.abs(player.getLocation().getDirection().getY())).normalize()
+                            .add(player.getVelocity().multiply(0.25)).multiply(court.getSpeed()));
                     break;
                 }
             }
