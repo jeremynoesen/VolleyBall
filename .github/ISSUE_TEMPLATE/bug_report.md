@@ -19,5 +19,11 @@ A clear and concise description of what you expected to happen.
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
+**Server Info**
+Please provide details about your server, such as:
+- Server version
+- Server Type
+- Other installed plugins
+
 **Additional context**
 Add any other context about the problem here.
