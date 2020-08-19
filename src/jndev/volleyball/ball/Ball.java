@@ -67,8 +67,7 @@ public class Ball {
         loc.setPitch(0);
         loc.setYaw(0);
         
-        this.ball = player.getLocation().getWorld()
-                .spawn(loc, ArmorStand.class);
+        this.ball = player.getLocation().getWorld().spawn(loc, ArmorStand.class);
         
         ball.setSmall(true);
         ball.setCollidable(false);

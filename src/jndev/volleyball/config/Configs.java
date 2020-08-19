@@ -8,12 +8,12 @@ public class Configs {
     /**
      * court config instance
      */
-    private static Config court = new Config(ConfigType.COURT);
+    private static final Config court = new Config(ConfigType.COURT);
     
     /**
      * message config instance
      */
-    private static Config message = new Config(ConfigType.MESSAGE);
+    private static final Config message = new Config(ConfigType.MESSAGE);
     
     /**
      * @param type config type

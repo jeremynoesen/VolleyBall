@@ -13,7 +13,8 @@ public class Courts {
     /**
      * can't make instance of this class
      */
-    private Courts() {}
+    private Courts() {
+    }
     
     /**
      * all loaded courts
@@ -45,7 +46,7 @@ public class Courts {
      * add a court to the court hashmap
      *
      * @param court court
-     * @param name court name
+     * @param name  court name
      */
     public static void add(Court court, String name) {
         courts.put(name, court);
@@ -57,7 +58,7 @@ public class Courts {
      * @param court court to remove
      */
     public static void remove(Court court) {
-        if (courts.values().contains(court))
+        if (courts.containsValue(court))
             courts.remove(court.getName());
     }
     
@@ -67,8 +68,7 @@ public class Courts {
      * @param name name of court to remove
      */
     public static void remove(String name) {
-        if (courts.keySet().contains(name))
-            courts.remove(name);
+        courts.remove(name);
     }
     
     /**

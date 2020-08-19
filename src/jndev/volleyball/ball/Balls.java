@@ -16,9 +16,7 @@ public class Balls {
      * @return true if the entity is a ball
      */
     public static boolean isBall(Entity entity) {
-        return entity != null &&
-                entity instanceof ArmorStand &&
-                entity.getName() != null &&
+        return entity instanceof ArmorStand &&
                 entity.getName().equals(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "BALL");
     }
     

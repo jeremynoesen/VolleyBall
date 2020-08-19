@@ -10,7 +10,7 @@ import org.bukkit.ChatColor;
  */
 public class Message {
     
-    private static Config messageConfig = Configs.getConfig(ConfigType.MESSAGE);
+    private static final Config messageConfig = Configs.getConfig(ConfigType.MESSAGE);
     
     public static String PREFIX;
     public static String ERROR_BALL_OUT;
@@ -18,14 +18,13 @@ public class Message {
     public static String ERROR_NULL_BOUNDS;
     public static String ERROR_UNKNOWN_COURT;
     public static String SUCCESS_COURT_REMOVED;
-    public static String SUCCESS_SET_COURT_BOUNDS;
+    public static String SUCCESS_SET_BOUNDS;
     public static String SUCCESS_COURT_CREATED;
     public static String SUCCESS_SET_COURT_ENABLED;
     public static String ERROR_CANT_ENABLE;
     public static String SUCCESS_SET_COURT_SPEED;
     public static String SUCCESS_SET_COURT_TEXTURE;
     public static String SUCCESS_COURT_SELECTED;
-    public static String SUCCESS_SET_NET_BOUNDS;
     public static String SUCCESS_SET_COURT_ANIMATIONS;
     public static String SUCCESS_SET_COURT_NAME;
     public static String SUCCESS_SET_COURT_RESTRICTIONS;
@@ -46,14 +45,13 @@ public class Message {
         ERROR_NULL_BOUNDS = PREFIX + format(messageConfig.getConfig().getString("ERROR_NULL_BOUNDS"));
         ERROR_UNKNOWN_COURT = PREFIX + format(messageConfig.getConfig().getString("ERROR_UNKNOWN_COURT"));
         SUCCESS_COURT_REMOVED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_COURT_REMOVED"));
-        SUCCESS_SET_COURT_BOUNDS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_BOUNDS"));
+        SUCCESS_SET_BOUNDS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_BOUNDS"));
         SUCCESS_COURT_CREATED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_COURT_CREATED"));
         SUCCESS_SET_COURT_ENABLED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_ENABLED"));
         ERROR_CANT_ENABLE = PREFIX + format(messageConfig.getConfig().getString("ERROR_CANT_ENABLE"));
         SUCCESS_SET_COURT_SPEED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_SPEED"));
         SUCCESS_SET_COURT_TEXTURE = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_TEXTURE"));
         SUCCESS_COURT_SELECTED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_COURT_SELECTED"));
-        SUCCESS_SET_NET_BOUNDS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_NET_BOUNDS"));
         SUCCESS_SET_COURT_ANIMATIONS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_ANIMATIONS"));
         SUCCESS_SET_COURT_NAME = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_NAME"));
         SUCCESS_SET_COURT_RESTRICTIONS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_RESTRICTIONS"));

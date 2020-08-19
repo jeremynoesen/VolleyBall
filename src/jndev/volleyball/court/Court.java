@@ -224,20 +224,11 @@ public class Court {
     }
     
     /**
-     * set the court bounds
-     *
-     * @param bounds 2D array bounds
-     */
-    public void setBounds(double[][] bounds) {
-        this.bounds = bounds;
-    }
-    
-    /**
-     * set court bounds using worldedit
+     * set bounds using worldedit
      *
      * @param player worldedit player
      */
-    public void setBounds(Player player) {
+    private void setBounds(Player player, double[][] bounds) {
         WorldEditPlugin worldEdit = (WorldEditPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");
         
         com.sk89q.worldedit.regions.Region selection;
@@ -258,11 +249,29 @@ public class Court {
             world = BukkitAdapter.adapt(selection.getWorld());
             
             
-            player.sendMessage(Message.SUCCESS_SET_COURT_BOUNDS.replace("$COURT$", name));
+            player.sendMessage(Message.SUCCESS_SET_BOUNDS.replace("$COURT$", name));
             
         } else {
             player.sendMessage(Message.ERROR_NULL_BOUNDS);
         }
+    }
+    
+    /**
+     * set the court bounds
+     *
+     * @param bounds 2D array bounds
+     */
+    public void setBounds(double[][] bounds) {
+        this.bounds = bounds;
+    }
+    
+    /**
+     * set court bounds using worldedit
+     *
+     * @param player worldedit player
+     */
+    public void setBounds(Player player) {
+        setBounds(player, bounds);
     }
     
     /**
@@ -289,30 +298,7 @@ public class Court {
      * @param player worldedit player
      */
     public void setNet(Player player) {
-        WorldEditPlugin worldEdit = (WorldEditPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");
-        
-        com.sk89q.worldedit.regions.Region selection;
-        try {
-            selection = worldEdit.getSession(player).getSelection(worldEdit.getSession(player).getSelectionWorld());
-        } catch (Exception e) {
-            player.sendMessage(Message.ERROR_NULL_BOUNDS);
-            return;
-        }
-        
-        if (selection != null) {
-            net[0][0] = selection.getMinimumPoint().getX();
-            net[0][1] = selection.getMinimumPoint().getY();
-            net[0][2] = selection.getMinimumPoint().getZ();
-            net[1][0] = selection.getMaximumPoint().getX();
-            net[1][1] = selection.getMaximumPoint().getY();
-            net[1][2] = selection.getMaximumPoint().getZ();
-            
-            
-            player.sendMessage(Message.SUCCESS_SET_NET_BOUNDS.replace("$COURT$", name));
-            
-        } else {
-            player.sendMessage(Message.ERROR_NULL_BOUNDS);
-        }
+        setBounds(player, net);
     }
     
     /**

@@ -13,7 +13,7 @@ public class CourtManager {
     /**
      * court config instance
      */
-    private static Config courtConfig = Configs.getConfig(ConfigType.COURT);
+    private static final Config courtConfig = Configs.getConfig(ConfigType.COURT);
     
     
     /**
