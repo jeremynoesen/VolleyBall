@@ -1,10 +1,11 @@
 package jndev.volleyball.ball;
 
-import jndev.volleyball.court.Court;
 import jndev.volleyball.Message;
+import jndev.volleyball.court.Court;
 import jndev.volleyball.court.Courts;
 import org.bukkit.Sound;
-import org.bukkit.entity.*;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
