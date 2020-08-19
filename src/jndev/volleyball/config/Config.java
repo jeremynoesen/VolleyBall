@@ -29,7 +29,7 @@ public class Config {
     /**
      * type of config
      */
-    private ConfigType configType;
+    private final ConfigType configType;
     
     /**
      * create a new config with the specified type
@@ -56,11 +56,12 @@ public class Config {
         YMLConfig.options().copyDefaults(true);
         saveConfig();
         
-        if(configType == ConfigType.MESSAGE) Message.reloadMessages();
+        if (configType == ConfigType.MESSAGE) Message.reloadMessages();
     }
     
     /**
      * reloads config if YMLConfig is null
+     *
      * @return YMLConfig YamlConfiguration
      */
     public YamlConfiguration getConfig() {
