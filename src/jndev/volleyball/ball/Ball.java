@@ -19,6 +19,8 @@ import java.util.UUID;
 
 /**
  * Ball creation class
+ *
+ * @author Jeremy Noesen
  */
 public class Ball {
     

@@ -7,6 +7,8 @@ import java.io.InputStream;
 
 /**
  * enum to make getting separate configs easier
+ *
+ * @author Jeremy Noesen
  */
 public enum ConfigType {
     COURT("courts.yml"), MESSAGE("messages.yml");

@@ -7,6 +7,8 @@ import jndev.volleyball.config.Configs;
 
 /**
  * class dedicated to loading and saving courts from and to file
+ *
+ * @author Jeremy Noesen
  */
 public class CourtManager {
     

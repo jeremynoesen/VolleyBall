@@ -2,6 +2,8 @@ package jndev.volleyball.config;
 
 /**
  * initialize all configs
+ *
+ * @author Jeremy Noesen
  */
 public class Configs {
     

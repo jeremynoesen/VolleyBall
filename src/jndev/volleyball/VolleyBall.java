@@ -19,7 +19,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 /**
  * Main class for the plugin. registers commands and listeners
  *
- * @author JNDev
+ * @author Jeremy Noesen
  */
 public class VolleyBall extends JavaPlugin implements Listener {
     

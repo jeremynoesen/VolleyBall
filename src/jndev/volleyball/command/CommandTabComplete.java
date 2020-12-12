@@ -12,6 +12,8 @@ import java.util.Set;
 
 /**
  * class to enable tab complete functionality for the volleyball commands
+ *
+ * @author Jeremy Noesen
  */
 public class CommandTabComplete implements TabCompleter {
     

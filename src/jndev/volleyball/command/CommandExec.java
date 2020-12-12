@@ -17,6 +17,8 @@ import org.bukkit.entity.Player;
 
 /**
  * Command class, listens for volleyball command
+ *
+ * @author Jeremy Noesen
  */
 public class CommandExec implements CommandExecutor {
     
