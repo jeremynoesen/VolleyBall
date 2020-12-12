@@ -6,6 +6,8 @@ import org.bukkit.entity.Entity;
 
 /**
  * class to deal with ball checking
+ *
+ * @author Jeremy Noesen
  */
 public class Balls {
     

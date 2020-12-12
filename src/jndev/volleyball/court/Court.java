@@ -17,6 +17,8 @@ import java.util.ArrayList;
 
 /**
  * volleyball court with customizable ball stats and court size
+ *
+ * @author Jeremy Noesen
  */
 public class Court {
     

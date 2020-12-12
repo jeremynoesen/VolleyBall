@@ -18,6 +18,8 @@ import org.bukkit.util.Vector;
 
 /**
  * Listeners related to the ball object
+ *
+ * @author Jeremy Noesen
  */
 public class BallListener implements Listener {
     

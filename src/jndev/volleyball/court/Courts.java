@@ -7,6 +7,8 @@ import java.util.HashMap;
 
 /**
  * Court handling
+ *
+ * @author Jeremy Noesen
  */
 public class Courts {
     
