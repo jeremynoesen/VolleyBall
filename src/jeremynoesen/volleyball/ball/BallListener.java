@@ -1,8 +1,8 @@
-package jndev.volleyball.ball;
+package jeremynoesen.volleyball.ball;
 
-import jndev.volleyball.Message;
-import jndev.volleyball.court.Court;
-import jndev.volleyball.court.Courts;
+import jeremynoesen.volleyball.Message;
+import jeremynoesen.volleyball.court.Court;
+import jeremynoesen.volleyball.court.Courts;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;

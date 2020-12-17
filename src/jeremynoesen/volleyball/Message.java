@@ -1,8 +1,8 @@
-package jndev.volleyball;
+package jeremynoesen.volleyball;
 
-import jndev.volleyball.config.Config;
-import jndev.volleyball.config.ConfigType;
-import jndev.volleyball.config.Configs;
+import jeremynoesen.volleyball.config.Config;
+import jeremynoesen.volleyball.config.ConfigType;
+import jeremynoesen.volleyball.config.Configs;
 import org.bukkit.ChatColor;
 
 /**

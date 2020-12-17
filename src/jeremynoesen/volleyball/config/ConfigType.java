@@ -1,6 +1,6 @@
-package jndev.volleyball.config;
+package jeremynoesen.volleyball.config;
 
-import jndev.volleyball.VolleyBall;
+import jeremynoesen.volleyball.VolleyBall;
 
 import java.io.File;
 import java.io.InputStream;

@@ -1,10 +1,10 @@
-package jndev.volleyball.ball;
+package jeremynoesen.volleyball.ball;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import jndev.volleyball.VolleyBall;
-import jndev.volleyball.court.Court;
-import jndev.volleyball.court.Courts;
+import jeremynoesen.volleyball.VolleyBall;
+import jeremynoesen.volleyball.court.Court;
+import jeremynoesen.volleyball.court.Courts;
 import org.bukkit.*;
 import org.bukkit.craftbukkit.libs.org.apache.commons.codec.binary.Base64;
 import org.bukkit.entity.ArmorStand;

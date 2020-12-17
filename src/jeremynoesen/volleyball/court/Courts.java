@@ -1,4 +1,4 @@
-package jndev.volleyball.court;
+package jeremynoesen.volleyball.court;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;

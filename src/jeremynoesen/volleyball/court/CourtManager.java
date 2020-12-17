@@ -1,9 +1,9 @@
-package jndev.volleyball.court;
+package jeremynoesen.volleyball.court;
 
-import jndev.volleyball.VolleyBall;
-import jndev.volleyball.config.Config;
-import jndev.volleyball.config.ConfigType;
-import jndev.volleyball.config.Configs;
+import jeremynoesen.volleyball.VolleyBall;
+import jeremynoesen.volleyball.config.Config;
+import jeremynoesen.volleyball.config.ConfigType;
+import jeremynoesen.volleyball.config.Configs;
 
 /**
  * class dedicated to loading and saving courts from and to file

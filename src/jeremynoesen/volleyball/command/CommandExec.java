@@ -1,12 +1,12 @@
-package jndev.volleyball.command;
+package jeremynoesen.volleyball.command;
 
-import jndev.volleyball.Message;
-import jndev.volleyball.ball.Balls;
-import jndev.volleyball.config.ConfigType;
-import jndev.volleyball.config.Configs;
-import jndev.volleyball.court.Court;
-import jndev.volleyball.court.CourtManager;
-import jndev.volleyball.court.Courts;
+import jeremynoesen.volleyball.Message;
+import jeremynoesen.volleyball.ball.Balls;
+import jeremynoesen.volleyball.config.ConfigType;
+import jeremynoesen.volleyball.config.Configs;
+import jeremynoesen.volleyball.court.Court;
+import jeremynoesen.volleyball.court.CourtManager;
+import jeremynoesen.volleyball.court.Courts;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.command.Command;

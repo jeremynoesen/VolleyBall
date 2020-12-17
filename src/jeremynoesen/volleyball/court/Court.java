@@ -1,13 +1,13 @@
-package jndev.volleyball.court;
+package jeremynoesen.volleyball.court;
 
 import com.sk89q.worldedit.LocalSession;
 import com.sk89q.worldedit.WorldEdit;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldedit.math.BlockVector3;
-import jndev.volleyball.Message;
-import jndev.volleyball.VolleyBall;
-import jndev.volleyball.ball.Ball;
+import jeremynoesen.volleyball.Message;
+import jeremynoesen.volleyball.VolleyBall;
+import jeremynoesen.volleyball.ball.Ball;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
