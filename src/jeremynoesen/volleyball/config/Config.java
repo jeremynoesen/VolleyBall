@@ -1,7 +1,7 @@
-package jndev.volleyball.config;
+package jeremynoesen.volleyball.config;
 
-import jndev.volleyball.Message;
-import jndev.volleyball.VolleyBall;
+import jeremynoesen.volleyball.Message;
+import jeremynoesen.volleyball.VolleyBall;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;

@@ -1,4 +1,4 @@
-package jndev.volleyball.config;
+package jeremynoesen.volleyball.config;
 
 /**
  * initialize all configs

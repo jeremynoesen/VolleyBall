@@ -1,4 +1,4 @@
-package jndev.volleyball.ball;
+package jeremynoesen.volleyball.ball;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.ArmorStand;
