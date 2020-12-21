@@ -65,17 +65,8 @@ public class Message {
         COURT_LIST = PREFIX + format(messageConfig.getConfig().getString("COURT_LIST"));
     }
     
-    public static String STARTUP = "\n\n" +
-            ChatColor.DARK_GRAY + "███╗" + ChatColor.YELLOW + "██╗   ██╗" + ChatColor.GOLD + "██████╗ " + ChatColor.DARK_GRAY + "███╗" + ChatColor.WHITE + "  Volleyball version " + VolleyBall.getInstance().getDescription().getVersion() + " " + "has " + "been enabled!\n" +
-            ChatColor.DARK_GRAY + "██╔╝" + ChatColor.YELLOW + "██║   ██║" + ChatColor.GOLD + "██╔══██╗" + ChatColor.DARK_GRAY + "╚██║" + ChatColor.WHITE + "  Volleyball is written by Jeremaster101 (JNDev) and\n" +
-            ChatColor.DARK_GRAY + "██║ " + ChatColor.YELLOW + "██║   ██║" + ChatColor.GOLD + "██████╔╝" + ChatColor.DARK_GRAY + " ██║" + ChatColor.WHITE + "  may not be modified and redistributed without\n" +
-            ChatColor.DARK_GRAY + "██║ " + ChatColor.YELLOW + "╚██╗ ██╔╝" + ChatColor.GOLD + "██╔══██╗" + ChatColor.DARK_GRAY + " ██║" + ChatColor.WHITE + "  his consent. For help and support, join the\n" +
-            ChatColor.DARK_GRAY + "███╗" + ChatColor.YELLOW + " ╚████╔╝ " + ChatColor.GOLD + "██████╔╝" + ChatColor.DARK_GRAY + "███║" + ChatColor.WHITE + "  support discord group: https://discord.gg/WhmQYR\n" +
-            ChatColor.DARK_GRAY + "╚══╝" + ChatColor.YELLOW + "  ╚═══╝  " + ChatColor.GOLD + "╚═════╝ " + ChatColor.DARK_GRAY + "╚══╝" + ChatColor.WHITE + "  Thank you for using Volleyball!\n";
-    public static String CLEANING = PREFIX + ChatColor.GRAY + "Deleting leftover volleyball entities...";
-    public static String DONE_CLEANING =
-            PREFIX + ChatColor.GRAY + "Successfully deleted " + ChatColor.WHITE + "$COUNT$" + ChatColor.GRAY +
-                    " volleyball entities!";
+    public static String STARTUP = PREFIX + ChatColor.WHITE + "Volleyball version " +
+            VolleyBall.getInstance().getDescription().getVersion() + " " + "has " + "been enabled!\n";
     
     /**
      * Apply color codes and line breaks to a message
