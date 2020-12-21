@@ -33,6 +33,7 @@ public class Message {
     public static String SUCCESS_RELOADED;
     public static String COURT_INFO;
     public static String COURT_LIST;
+    public static String STARTUP = PREFIX + ChatColor.WHITE + "VolleyBall version " + VolleyBall.getInstance().getDescription().getVersion() + " has been enabled!";
     
     /**
      * reload all messages from file
@@ -61,8 +62,6 @@ public class Message {
         COURT_INFO = PREFIX + format(messageConfig.getConfig().getString("COURT_INFO"));
         COURT_LIST = PREFIX + format(messageConfig.getConfig().getString("COURT_LIST"));
     }
-    
-    public static String STARTUP = "Volleyball version " + VolleyBall.getInstance().getDescription().getVersion() + " " + "has " + "been enabled!\n";
     
     /**
      * Apply color codes and line breaks to a message
