@@ -8,6 +8,7 @@ import jeremynoesen.volleyball.court.Courts;
 import org.bukkit.*;
 import org.bukkit.craftbukkit.libs.org.apache.commons.codec.binary.Base64;
 import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
@@ -15,6 +16,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import java.lang.reflect.Field;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -23,6 +26,11 @@ import java.util.UUID;
  * @author Jeremy Noesen
  */
 public class Ball {
+    
+    /**
+     * list of all alive ball entities
+     */
+    private static Set<Entity> balls = new HashSet<>();
     
     /**
      * armorstand to make ball physics and wear the head
@@ -71,6 +79,7 @@ public class Ball {
         loc.setYaw(0);
         
         this.ball = player.getLocation().getWorld().spawn(loc, ArmorStand.class);
+        balls.add(ball);
         
         ball.setSmall(true);
         ball.setCollidable(false);
@@ -234,6 +243,7 @@ public class Ball {
             new BukkitRunnable() {
                 @Override
                 public void run() {
+                    balls.remove(ball);
                     ball.remove();
                 }
             }.runTaskLater(VolleyBall.getInstance(), (long) 6.28);
@@ -241,6 +251,7 @@ public class Ball {
             ball.getWorld().playSound(ball.getLocation(), Sound.BLOCK_SAND_PLACE, 2, 1);
             ball.getWorld().playSound(ball.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASEDRUM, 2, 1);
         } else {
+            balls.remove(ball);
             ball.remove();
         }
     }
@@ -252,6 +263,15 @@ public class Ball {
      */
     public boolean isOut() {
         return !end;
+    }
+    
+    /**
+     * get the set of all alive ball entities
+     *
+     * @return set of alive ball entities
+     */
+    public static Set<Entity> getBalls() {
+        return balls;
     }
     
 }
