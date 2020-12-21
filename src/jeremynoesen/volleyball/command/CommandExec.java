@@ -4,8 +4,7 @@ import jeremynoesen.volleyball.Message;
 import jeremynoesen.volleyball.ball.Ball;
 import jeremynoesen.volleyball.Config;
 import jeremynoesen.volleyball.court.Court;
-import jeremynoesen.volleyball.court.CourtManager;
-import jeremynoesen.volleyball.court.Courts;
+import jeremynoesen.volleyball.court.CourtIO;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -42,10 +41,10 @@ public class CommandExec implements CommandExecutor {
                             break;
                         case "reload":
                             if (player.hasPermission("volleyball.reload")) {
-                                CourtManager.saveAll();
-                                Config.COURT.reloadConfig();
-                                Config.MESSAGE.reloadConfig();
-                                CourtManager.loadAll();
+                                CourtIO.saveAll();
+                                Config.getCourtConfig().reloadConfig();
+                                Config.getMessageConfig().reloadConfig();
+                                CourtIO.loadAll();
                                 for(Entity ball : Ball.getBalls()) {
                                     ball.remove();
                                     Ball.getBalls().remove(ball);
@@ -64,14 +63,14 @@ public class CommandExec implements CommandExecutor {
                                     case "list":
                                         if (player.hasPermission("volleyball.court.list"))
                                             player.sendMessage(Message.COURT_LIST.replace("$COURTS$",
-                                                    Courts.getAll().keySet().toString()
+                                                    Court.getCourts().keySet().toString()
                                                             .replace("[", "").replace("]", "")));
                                         else player.sendMessage(Message.ERROR_NO_PERMS);
                                         break;
                                     case "create":
                                         if (player.hasPermission("volleyball.court.create")) {
                                             if (args.length > 2) {
-                                                if (Courts.get(args[2]) == null && !args[2].equalsIgnoreCase("create")
+                                                if (Court.getCourts().get(args[2]) == null && !args[2].equalsIgnoreCase("create")
                                                         && !args[2].equalsIgnoreCase("help") && !args[2].equalsIgnoreCase("list")
                                                         && !args[2].equalsIgnoreCase("remove") && !args[2].equalsIgnoreCase("select") &&
                                                         !args[2].equalsIgnoreCase("info")) {
@@ -87,8 +86,8 @@ public class CommandExec implements CommandExecutor {
                                         break;
                                     case "remove":
                                         if (player.hasPermission("volleyball.court.remove")) {
-                                            if (args.length > 2 && Courts.get(args[2]) != null) {
-                                                Courts.remove(args[2]);
+                                            if (args.length > 2 && Court.getCourts().get(args[2]) != null) {
+                                                Court.getCourts().remove(args[2]);
                                                 player.sendMessage(Message.SUCCESS_COURT_REMOVED
                                                         .replace("$COURT$", args[2]));
                                             } else {
@@ -99,7 +98,7 @@ public class CommandExec implements CommandExecutor {
                                     case "select":
                                         if (player.hasPermission("volleyball.court.select")) {
                                             if (args.length > 2) {
-                                                Courts.get(args[2]).select(player);
+                                                Court.getCourts().get(args[2]).select(player);
                                             } else {
                                                 player.sendMessage(Message.ERROR_UNKNOWN_COURT);
                                             }
@@ -107,8 +106,8 @@ public class CommandExec implements CommandExecutor {
                                         break;
                                     case "info":
                                         if (player.hasPermission("volleyball.court.info")) {
-                                            if (args.length > 2 && Courts.get(args[2]) != null) {
-                                                player.sendMessage(Courts.get(args[2]).toString());
+                                            if (args.length > 2 && Court.getCourts().get(args[2]) != null) {
+                                                player.sendMessage(Court.getCourts().get(args[2]).toString());
                                             } else {
                                                 player.sendMessage(Message.ERROR_UNKNOWN_COURT);
                                             }
@@ -117,7 +116,7 @@ public class CommandExec implements CommandExecutor {
                                     default:
                                         if (args.length > 4 || (args.length > 3 && (args[3].equalsIgnoreCase("net") ||
                                                 args[3].equalsIgnoreCase("bounds")))) {
-                                            Court court = Courts.get(args[1]);
+                                            Court court = Court.getCourts().get(args[1]);
                                             if (court != null && args[2].equalsIgnoreCase("set")) {
                                                 switch (args[3].toLowerCase()) {
                                                     case "net":

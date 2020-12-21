@@ -1,6 +1,6 @@
 package jeremynoesen.volleyball.command;
 
-import jeremynoesen.volleyball.court.Courts;
+import jeremynoesen.volleyball.court.Court;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -31,7 +31,7 @@ public class CommandTabComplete implements TabCompleter {
         
         ArrayList<String> tabList = new ArrayList<>();
         
-        Set<String> courts = Courts.getAll().keySet();
+        Set<String> courts = Court.getCourts().keySet();
         
         if (sender instanceof Player && (label.equalsIgnoreCase("volleyball") || label.equalsIgnoreCase("vb"))) {
             

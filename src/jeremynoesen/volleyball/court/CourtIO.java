@@ -8,12 +8,12 @@ import jeremynoesen.volleyball.Config;
  *
  * @author Jeremy Noesen
  */
-public class CourtManager {
+public class CourtIO {
     
     /**
      * court config instance
      */
-    private static final Config courtConfig = Config.COURT;
+    private static final Config courtConfig = Config.getCourtConfig();
     
     
     /**
@@ -74,7 +74,7 @@ public class CourtManager {
             courtConfig.getConfig().set(key, null);
         }
         
-        for (Court court : Courts.getAll().values()) {
+        for (Court court : Court.getCourts().values()) {
             saveCourt(court);
         }
     }

@@ -14,6 +14,7 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * volleyball court with customizable ball stats and court size
@@ -21,6 +22,11 @@ import java.util.ArrayList;
  * @author Jeremy Noesen
  */
 public class Court {
+    
+    /**
+     * all loaded courts
+     */
+    private static HashMap<String, Court> courts = new HashMap<>();
     
     /**
      * name of the court
@@ -103,7 +109,16 @@ public class Court {
         net[1][2] = 0;
         
         ball = null;
-        Courts.add(this, name);
+        courts.put(name, this);
+    }
+    
+    /**
+     * get all loaded courts
+     *
+     * @return hashmap of loaded courts
+     */
+    public static HashMap<String, Court> getCourts() {
+        return courts;
     }
     
     /**
@@ -121,9 +136,9 @@ public class Court {
      * @param name new name
      */
     public void setName(String name) {
-        Courts.remove(this);
+        courts.remove(this.name);
         this.name = name;
-        Courts.add(this, name);
+        courts.put(name, this);
     }
     
     /**
@@ -462,5 +477,53 @@ public class Court {
      */
     public void setRestrictions(boolean restrictions) {
         this.restrictions = restrictions;
+    }
+    
+    /**
+     * check if a location is on any court
+     *
+     * @param l location to check
+     * @return true if on any court
+     */
+    public static boolean isOnCourt(Location l) {
+        
+        for (Court court : courts.values()) {
+            if (court.contains(l)) return true;
+        }
+        
+        return false;
+        
+    }
+    
+    /**
+     * get the court the player is on
+     *
+     * @param player player to check for courts
+     * @return court player is on
+     */
+    public static Court get(Player player) {
+        
+        for (Court court : courts.values()) {
+            if (court.contains(player)) {
+                return court;
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * get the court a location is in
+     *
+     * @param loc location to check
+     * @return court location is in
+     */
+    public static Court get(Location loc) {
+        
+        for (Court court : courts.values()) {
+            if (court.contains(loc)) {
+                return court;
+            }
+        }
+        return null;
     }
 }

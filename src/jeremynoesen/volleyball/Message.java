@@ -9,7 +9,7 @@ import org.bukkit.ChatColor;
  */
 public class Message {
     
-    private static final Config messageConfig = Config.MESSAGE;
+    private static final Config messageConfig = Config.getMessageConfig();
     
     public static String PREFIX;
     public static String ERROR_BALL_OUT;
