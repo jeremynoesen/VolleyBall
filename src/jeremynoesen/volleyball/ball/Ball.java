@@ -83,7 +83,6 @@ public class Ball {
         
         ball.setSmall(true);
         ball.setCollidable(false);
-        ball.setCustomName(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "BALL");
         ball.getWorld().playSound(ball.getLocation(), Sound.ENTITY_ARROW_SHOOT, 2, 0);
         ball.setCustomNameVisible(false);
         ball.setSilent(true);
@@ -115,15 +114,6 @@ public class Ball {
         }
         head.setItemMeta(headMeta);
         ball.getEquipment().setHelmet(head);
-    }
-    
-    /**
-     * get the number of volleys done with the ball
-     *
-     * @return times ball has volleyed
-     */
-    public int getVolleys() {
-        return volleys;
     }
     
     /**
