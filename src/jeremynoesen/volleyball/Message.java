@@ -65,8 +65,7 @@ public class Message {
         COURT_LIST = PREFIX + format(messageConfig.getConfig().getString("COURT_LIST"));
     }
     
-    public static String STARTUP = PREFIX + ChatColor.WHITE + "Volleyball version " +
-            VolleyBall.getInstance().getDescription().getVersion() + " " + "has " + "been enabled!\n";
+    public static String STARTUP = "Volleyball version " + VolleyBall.getInstance().getDescription().getVersion() + " " + "has " + "been enabled!\n";
     
     /**
      * Apply color codes and line breaks to a message
