@@ -1,7 +1,7 @@
 package jeremynoesen.volleyball.command;
 
 import jeremynoesen.volleyball.Message;
-import jeremynoesen.volleyball.ball.Balls;
+import jeremynoesen.volleyball.ball.Ball;
 import jeremynoesen.volleyball.config.ConfigType;
 import jeremynoesen.volleyball.config.Configs;
 import jeremynoesen.volleyball.court.Court;
@@ -49,12 +49,9 @@ public class CommandExec implements CommandExecutor {
                                 Configs.getConfig(ConfigType.COURT).reloadConfig();
                                 Configs.getConfig(ConfigType.MESSAGE).reloadConfig();
                                 CourtManager.loadAll();
-                                for (World world : Bukkit.getWorlds()) {
-                                    for (Entity entity : world.getEntities()) {
-                                        if (Balls.isBall(entity)) {
-                                            entity.remove();
-                                        }
-                                    }
+                                for(Entity ball : Ball.getBalls()) {
+                                    ball.remove();
+                                    Ball.getBalls().remove(ball);
                                 }
                                 player.sendMessage(Message.SUCCESS_RELOADED);
                             } else player.sendMessage(Message.ERROR_NO_PERMS);

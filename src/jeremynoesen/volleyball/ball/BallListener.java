@@ -30,7 +30,7 @@ public class BallListener implements Listener {
      */
     @EventHandler
     public void onHit(EntityDamageByEntityEvent e) {
-        if (Balls.isBall(e.getEntity()))
+        if (Ball.getBalls().contains(e.getEntity()))
             e.setCancelled(true);
     }
     
@@ -67,7 +67,7 @@ public class BallListener implements Listener {
             Court court = Courts.get(player);
             
             for (Entity s : player.getNearbyEntities(1, 1, 1)) {
-                if (Balls.isBall(s) && court.getBall().isOut()) {
+                if (Ball.getBalls().contains(s) && court.getBall().isOut()) {
                     s.getWorld().playSound(s.getLocation(), Sound.ENTITY_CHICKEN_EGG, 2, 0);
                     s.setVelocity(player.getLocation().getDirection().setY(Math.abs(player.getLocation().getDirection().getY()))
                             .normalize().add(player.getVelocity().multiply(0.25)).multiply(court.getSpeed())
@@ -83,7 +83,7 @@ public class BallListener implements Listener {
      */
     @EventHandler
     public void onEntityInteract(PlayerInteractAtEntityEvent e) {
-        if (e.getRightClicked() != null && Balls.isBall(e.getRightClicked()))
+        if (e.getRightClicked() != null && Ball.getBalls().contains(e.getRightClicked()))
             e.setCancelled(true);
     }
     
@@ -120,7 +120,7 @@ public class BallListener implements Listener {
     @EventHandler
     public void onBallDeath(EntityDeathEvent e) {
         Entity s = e.getEntity();
-        if (Balls.isBall(s)) {
+        if (Ball.getBalls().contains(s)) {
             e.getDrops().clear();
         }
     }
