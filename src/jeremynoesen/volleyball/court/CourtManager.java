@@ -1,9 +1,7 @@
 package jeremynoesen.volleyball.court;
 
 import jeremynoesen.volleyball.VolleyBall;
-import jeremynoesen.volleyball.config.Config;
-import jeremynoesen.volleyball.config.ConfigType;
-import jeremynoesen.volleyball.config.Configs;
+import jeremynoesen.volleyball.Config;
 
 /**
  * class dedicated to loading and saving courts from and to file
@@ -15,7 +13,7 @@ public class CourtManager {
     /**
      * court config instance
      */
-    private static final Config courtConfig = Configs.getConfig(ConfigType.COURT);
+    private static final Config courtConfig = Config.COURT;
     
     
     /**

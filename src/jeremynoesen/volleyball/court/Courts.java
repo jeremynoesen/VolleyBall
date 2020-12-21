@@ -13,12 +13,6 @@ import java.util.HashMap;
 public class Courts {
     
     /**
-     * can't make instance of this class
-     */
-    private Courts() {
-    }
-    
-    /**
      * all loaded courts
      */
     private static final HashMap<String, Court> courts = new HashMap<>();
