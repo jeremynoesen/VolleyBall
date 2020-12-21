@@ -1,21 +1,19 @@
 package jeremynoesen.volleyball.court;
 
 import jeremynoesen.volleyball.VolleyBall;
-import jeremynoesen.volleyball.config.Config;
-import jeremynoesen.volleyball.config.ConfigType;
-import jeremynoesen.volleyball.config.Configs;
+import jeremynoesen.volleyball.Config;
 
 /**
  * class dedicated to loading and saving courts from and to file
  *
  * @author Jeremy Noesen
  */
-public class CourtManager {
+public class CourtIO {
     
     /**
      * court config instance
      */
-    private static final Config courtConfig = Configs.getConfig(ConfigType.COURT);
+    private static final Config courtConfig = Config.getCourtConfig();
     
     
     /**
@@ -76,7 +74,7 @@ public class CourtManager {
             courtConfig.getConfig().set(key, null);
         }
         
-        for (Court court : Courts.getAll().values()) {
+        for (Court court : Court.getCourts().values()) {
             saveCourt(court);
         }
     }

@@ -1,7 +1,5 @@
-package jeremynoesen.volleyball.config;
+package jeremynoesen.volleyball;
 
-import jeremynoesen.volleyball.Message;
-import jeremynoesen.volleyball.VolleyBall;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
@@ -19,6 +17,16 @@ import java.util.logging.Level;
 public class Config {
     
     /**
+     * court config instance
+     */
+    private static Config court = new Config("courts.yml");
+    
+    /**
+     * message config instance
+     */
+    private static Config message = new Config("messages.yml");
+    
+    /**
      * file used for the config
      */
     private File configFile;
@@ -29,17 +37,36 @@ public class Config {
     private YamlConfiguration YMLConfig;
     
     /**
-     * type of config
+     * config file name
      */
-    private final ConfigType configType;
+    private final String filename;
     
     /**
      * create a new config with the specified type
      *
-     * @param type config type
+     * @param filename config file name
      */
-    public Config(ConfigType type) {
-        configType = type;
+    public Config(String filename) {
+        this.filename = filename;
+        configFile = new File(VolleyBall.getInstance().getDataFolder(), filename);
+    }
+    
+    /**
+     * get the court config
+     *
+     * @return court config instance
+     */
+    public static Config getCourtConfig() {
+        return court;
+    }
+    
+    /**
+     * get the message config
+     *
+     * @return message config instance
+     */
+    public static Config getMessageConfig() {
+        return message;
     }
     
     /**
@@ -47,18 +74,19 @@ public class Config {
      */
     public void reloadConfig() {
         if (configFile == null) {
-            configFile = configType.getFile();
+            configFile = new File(VolleyBall.getInstance().getDataFolder(), filename);
         }
         
         YMLConfig = YamlConfiguration.loadConfiguration(configFile);
         
-        Reader defConfigStream = new InputStreamReader(configType.getResource(), StandardCharsets.UTF_8);
+        Reader defConfigStream = new InputStreamReader(
+                VolleyBall.getInstance().getResource(filename), StandardCharsets.UTF_8);
         YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
         YMLConfig.setDefaults(defConfig);
         YMLConfig.options().copyDefaults(true);
         saveConfig();
         
-        if (configType == ConfigType.MESSAGE) Message.reloadMessages();
+        if (filename.equals("messages.yml")) Message.reloadMessages();
     }
     
     /**
@@ -92,10 +120,10 @@ public class Config {
      */
     public void saveDefaultConfig() {
         if (configFile == null) {
-            configFile = configType.getFile();
+            configFile = new File(VolleyBall.getInstance().getDataFolder(), filename);
         }
         if (!configFile.exists()) {
-            configType.saveResource();
+            VolleyBall.getInstance().saveResource(filename, false);
             YMLConfig = YamlConfiguration.loadConfiguration(configFile);
         }
     }

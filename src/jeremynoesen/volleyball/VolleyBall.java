@@ -1,14 +1,10 @@
 package jeremynoesen.volleyball;
 
+import jeremynoesen.volleyball.ball.Ball;
 import jeremynoesen.volleyball.ball.BallListener;
-import jeremynoesen.volleyball.ball.Balls;
 import jeremynoesen.volleyball.command.CommandExec;
 import jeremynoesen.volleyball.command.CommandTabComplete;
-import jeremynoesen.volleyball.config.ConfigType;
-import jeremynoesen.volleyball.config.Configs;
-import jeremynoesen.volleyball.court.CourtManager;
-import org.bukkit.Bukkit;
-import org.bukkit.World;
+import jeremynoesen.volleyball.court.CourtIO;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.Listener;
 import org.bukkit.permissions.Permission;
@@ -33,13 +29,11 @@ public class VolleyBall extends JavaPlugin implements Listener {
      */
     public void onEnable() {
         plugin = this;
-        
-        Configs.getConfig(ConfigType.MESSAGE).saveDefaultConfig();
-        Configs.getConfig(ConfigType.COURT).saveDefaultConfig();
+    
+        Config.getMessageConfig().saveDefaultConfig();
+        Config.getCourtConfig().saveDefaultConfig();
         
         Message.reloadMessages();
-        
-        plugin.getServer().getConsoleSender().sendMessage(Message.STARTUP);
         
         PluginManager pm = getServer().getPluginManager();
         
@@ -64,27 +58,11 @@ public class VolleyBall extends JavaPlugin implements Listener {
         
         getCommand("volleyball").setExecutor(new CommandExec());
         getCommand("volleyball").setTabCompleter(new CommandTabComplete());
-        
+    
         new BukkitRunnable() {
             @Override
             public void run() {
-                int count = 0;
-                
-                for (World world : Bukkit.getWorlds()) {
-                    for (Entity entity : world.getEntities()) {
-                        if (Balls.isBall(entity)) {
-                            entity.remove();
-                            count++;
-                        }
-                    }
-                }
-                
-                plugin.getServer().getConsoleSender().sendMessage(Message.CLEANING);
-                
-                plugin.getServer().getConsoleSender().sendMessage(Message.DONE_CLEANING.replace("$COUNT$",
-                        Integer.toString(count)));
-                
-                CourtManager.loadAll();
+                CourtIO.loadAll();
             }
         }.runTaskLater(plugin, 2);
     }
@@ -93,7 +71,11 @@ public class VolleyBall extends JavaPlugin implements Listener {
      * disables the plugin and save courts
      */
     public void onDisable() {
-        CourtManager.saveAll();
+        CourtIO.saveAll();
+        for(Entity ball : Ball.getBalls()) {
+            ball.remove();
+            Ball.getBalls().remove(ball);
+        }
         plugin = null;
     }
     

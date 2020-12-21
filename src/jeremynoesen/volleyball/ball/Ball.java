@@ -4,10 +4,10 @@ import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import jeremynoesen.volleyball.VolleyBall;
 import jeremynoesen.volleyball.court.Court;
-import jeremynoesen.volleyball.court.Courts;
 import org.bukkit.*;
 import org.bukkit.craftbukkit.libs.org.apache.commons.codec.binary.Base64;
 import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
@@ -15,6 +15,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import java.lang.reflect.Field;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -23,6 +25,11 @@ import java.util.UUID;
  * @author Jeremy Noesen
  */
 public class Ball {
+    
+    /**
+     * list of all alive ball entities
+     */
+    private static Set<Entity> balls = new HashSet<>();
     
     /**
      * armorstand to make ball physics and wear the head
@@ -64,17 +71,17 @@ public class Ball {
         this.end = false;
         this.volleyed = false;
         this.volleys = 0;
-        this.court = Courts.get(player);
+        this.court = Court.get(player);
         
         Location loc = player.getEyeLocation().add(player.getLocation().getDirection().multiply(0.75).setY(-0.5));
         loc.setPitch(0);
         loc.setYaw(0);
         
         this.ball = player.getLocation().getWorld().spawn(loc, ArmorStand.class);
+        balls.add(ball);
         
         ball.setSmall(true);
         ball.setCollidable(false);
-        ball.setCustomName(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "BALL");
         ball.getWorld().playSound(ball.getLocation(), Sound.ENTITY_ARROW_SHOOT, 2, 0);
         ball.setCustomNameVisible(false);
         ball.setSilent(true);
@@ -106,15 +113,6 @@ public class Ball {
         }
         head.setItemMeta(headMeta);
         ball.getEquipment().setHelmet(head);
-    }
-    
-    /**
-     * get the number of volleys done with the ball
-     *
-     * @return times ball has volleyed
-     */
-    public int getVolleys() {
-        return volleys;
     }
     
     /**
@@ -234,6 +232,7 @@ public class Ball {
             new BukkitRunnable() {
                 @Override
                 public void run() {
+                    balls.remove(ball);
                     ball.remove();
                 }
             }.runTaskLater(VolleyBall.getInstance(), (long) 6.28);
@@ -241,6 +240,7 @@ public class Ball {
             ball.getWorld().playSound(ball.getLocation(), Sound.BLOCK_SAND_PLACE, 2, 1);
             ball.getWorld().playSound(ball.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASEDRUM, 2, 1);
         } else {
+            balls.remove(ball);
             ball.remove();
         }
     }
@@ -252,6 +252,15 @@ public class Ball {
      */
     public boolean isOut() {
         return !end;
+    }
+    
+    /**
+     * get the set of all alive ball entities
+     *
+     * @return set of alive ball entities
+     */
+    public static Set<Entity> getBalls() {
+        return balls;
     }
     
 }
