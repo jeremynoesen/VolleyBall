@@ -35,8 +35,6 @@ public class VolleyBall extends JavaPlugin implements Listener {
         
         Message.reloadMessages();
         
-        plugin.getServer().getConsoleSender().sendMessage(Message.STARTUP);
-        
         PluginManager pm = getServer().getPluginManager();
         
         pm.registerEvents(new BallListener(), plugin);

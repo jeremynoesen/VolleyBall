@@ -33,7 +33,6 @@ public class Message {
     public static String SUCCESS_RELOADED;
     public static String COURT_INFO;
     public static String COURT_LIST;
-    public static String STARTUP = PREFIX + ChatColor.WHITE + "VolleyBall version " + VolleyBall.getInstance().getDescription().getVersion() + " has been enabled!";
     
     /**
      * reload all messages from file
