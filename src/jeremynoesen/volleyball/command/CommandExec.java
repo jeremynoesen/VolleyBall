@@ -2,13 +2,10 @@ package jeremynoesen.volleyball.command;
 
 import jeremynoesen.volleyball.Message;
 import jeremynoesen.volleyball.ball.Ball;
-import jeremynoesen.volleyball.config.ConfigType;
-import jeremynoesen.volleyball.config.Configs;
+import jeremynoesen.volleyball.Config;
 import jeremynoesen.volleyball.court.Court;
 import jeremynoesen.volleyball.court.CourtManager;
 import jeremynoesen.volleyball.court.Courts;
-import org.bukkit.Bukkit;
-import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -46,8 +43,8 @@ public class CommandExec implements CommandExecutor {
                         case "reload":
                             if (player.hasPermission("volleyball.reload")) {
                                 CourtManager.saveAll();
-                                Configs.getConfig(ConfigType.COURT).reloadConfig();
-                                Configs.getConfig(ConfigType.MESSAGE).reloadConfig();
+                                Config.COURT.reloadConfig();
+                                Config.MESSAGE.reloadConfig();
                                 CourtManager.loadAll();
                                 for(Entity ball : Ball.getBalls()) {
                                     ball.remove();

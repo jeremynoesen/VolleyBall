@@ -1,8 +1,5 @@
 package jeremynoesen.volleyball;
 
-import jeremynoesen.volleyball.config.Config;
-import jeremynoesen.volleyball.config.ConfigType;
-import jeremynoesen.volleyball.config.Configs;
 import org.bukkit.ChatColor;
 
 /**
@@ -12,7 +9,7 @@ import org.bukkit.ChatColor;
  */
 public class Message {
     
-    private static final Config messageConfig = Configs.getConfig(ConfigType.MESSAGE);
+    private static final Config messageConfig = Config.MESSAGE;
     
     public static String PREFIX;
     public static String ERROR_BALL_OUT;

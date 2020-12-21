@@ -4,11 +4,7 @@ import jeremynoesen.volleyball.ball.Ball;
 import jeremynoesen.volleyball.ball.BallListener;
 import jeremynoesen.volleyball.command.CommandExec;
 import jeremynoesen.volleyball.command.CommandTabComplete;
-import jeremynoesen.volleyball.config.ConfigType;
-import jeremynoesen.volleyball.config.Configs;
 import jeremynoesen.volleyball.court.CourtManager;
-import org.bukkit.Bukkit;
-import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.Listener;
 import org.bukkit.permissions.Permission;
@@ -33,9 +29,9 @@ public class VolleyBall extends JavaPlugin implements Listener {
      */
     public void onEnable() {
         plugin = this;
-        
-        Configs.getConfig(ConfigType.MESSAGE).saveDefaultConfig();
-        Configs.getConfig(ConfigType.COURT).saveDefaultConfig();
+    
+        Config.MESSAGE.saveDefaultConfig();
+        Config.COURT.saveDefaultConfig();
         
         Message.reloadMessages();
         
