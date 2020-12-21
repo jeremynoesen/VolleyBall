@@ -19,12 +19,12 @@ public class Config {
     /**
      * court config instance
      */
-    public static final Config COURT = new Config("courts.yml");
+    private static Config court = new Config("courts.yml");
     
     /**
      * message config instance
      */
-    public static final Config MESSAGE = new Config("messages.yml");
+    private static Config message = new Config("messages.yml");
     
     /**
      * file used for the config
@@ -49,6 +49,24 @@ public class Config {
     public Config(String filename) {
         this.filename = filename;
         configFile = new File(VolleyBall.getInstance().getDataFolder(), filename);
+    }
+    
+    /**
+     * get the court config
+     *
+     * @return court config instance
+     */
+    public static Config getCourtConfig() {
+        return court;
+    }
+    
+    /**
+     * get the message config
+     *
+     * @return message config instance
+     */
+    public static Config getMessageConfig() {
+        return message;
     }
     
     /**

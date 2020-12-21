@@ -4,7 +4,7 @@ import jeremynoesen.volleyball.ball.Ball;
 import jeremynoesen.volleyball.ball.BallListener;
 import jeremynoesen.volleyball.command.CommandExec;
 import jeremynoesen.volleyball.command.CommandTabComplete;
-import jeremynoesen.volleyball.court.CourtManager;
+import jeremynoesen.volleyball.court.CourtIO;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.Listener;
 import org.bukkit.permissions.Permission;
@@ -30,8 +30,8 @@ public class VolleyBall extends JavaPlugin implements Listener {
     public void onEnable() {
         plugin = this;
     
-        Config.MESSAGE.saveDefaultConfig();
-        Config.COURT.saveDefaultConfig();
+        Config.getMessageConfig().saveDefaultConfig();
+        Config.getCourtConfig().saveDefaultConfig();
         
         Message.reloadMessages();
         
@@ -64,7 +64,7 @@ public class VolleyBall extends JavaPlugin implements Listener {
         new BukkitRunnable() {
             @Override
             public void run() {
-                CourtManager.loadAll();
+                CourtIO.loadAll();
             }
         }.runTaskLater(plugin, 2);
     }
@@ -73,7 +73,7 @@ public class VolleyBall extends JavaPlugin implements Listener {
      * disables the plugin and save courts
      */
     public void onDisable() {
-        CourtManager.saveAll();
+        CourtIO.saveAll();
         for(Entity ball : Ball.getBalls()) {
             ball.remove();
             Ball.getBalls().remove(ball);
