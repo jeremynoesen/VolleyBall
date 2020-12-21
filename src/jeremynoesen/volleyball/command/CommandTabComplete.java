@@ -33,7 +33,7 @@ public class CommandTabComplete implements TabCompleter {
         
         Set<String> courts = Courts.getAll().keySet();
         
-        if (sender instanceof Player && label.equalsIgnoreCase("volleyball")) {
+        if (sender instanceof Player && (label.equalsIgnoreCase("volleyball") || label.equalsIgnoreCase("vb"))) {
             
             Player player = (Player) sender;
             
