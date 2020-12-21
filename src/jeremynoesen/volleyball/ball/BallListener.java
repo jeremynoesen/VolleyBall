@@ -2,7 +2,6 @@ package jeremynoesen.volleyball.ball;
 
 import jeremynoesen.volleyball.Message;
 import jeremynoesen.volleyball.court.Court;
-import jeremynoesen.volleyball.court.Courts;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -30,7 +29,7 @@ public class BallListener implements Listener {
      */
     @EventHandler
     public void onHit(EntityDamageByEntityEvent e) {
-        if (Balls.isBall(e.getEntity()))
+        if (Ball.getBalls().contains(e.getEntity()))
             e.setCancelled(true);
     }
     
@@ -42,16 +41,16 @@ public class BallListener implements Listener {
         Player player = e.getPlayer();
         Action action = e.getAction();
         if (action == Action.LEFT_CLICK_BLOCK) {
-            if ((Courts.isOnCourt(e.getClickedBlock().getLocation()) && Courts.get(e.getClickedBlock().getLocation()).isEnabled()) ||
-                    (Courts.isOnCourt(player.getLocation()) && Courts.get(player.getLocation()).isEnabled())) {
+            if ((Court.isOnCourt(e.getClickedBlock().getLocation()) && Court.get(e.getClickedBlock().getLocation()).isEnabled()) ||
+                    (Court.isOnCourt(player.getLocation()) && Court.get(player.getLocation()).isEnabled())) {
                 e.setCancelled(true);
             }
             hitBall(player);
         } else if (action == Action.LEFT_CLICK_AIR) {
             hitBall(player);
         } else if (action == Action.RIGHT_CLICK_BLOCK) {
-            if ((Courts.isOnCourt(e.getClickedBlock().getLocation()) && Courts.get(e.getClickedBlock().getLocation()).isEnabled()) ||
-                    (Courts.isOnCourt(player.getLocation()) && Courts.get(player.getLocation()).isEnabled())) {
+            if ((Court.isOnCourt(e.getClickedBlock().getLocation()) && Court.get(e.getClickedBlock().getLocation()).isEnabled()) ||
+                    (Court.isOnCourt(player.getLocation()) && Court.get(player.getLocation()).isEnabled())) {
                 e.setCancelled(true);
             }
         }
@@ -63,11 +62,11 @@ public class BallListener implements Listener {
      * @param player player hitting
      */
     private void hitBall(Player player) {
-        if (Courts.isOnCourt(player.getLocation())) {
-            Court court = Courts.get(player);
+        if (Court.isOnCourt(player.getLocation())) {
+            Court court = Court.get(player);
             
             for (Entity s : player.getNearbyEntities(1, 1, 1)) {
-                if (Balls.isBall(s) && court.getBall().isOut()) {
+                if (Ball.getBalls().contains(s) && court.getBall().isOut()) {
                     s.getWorld().playSound(s.getLocation(), Sound.ENTITY_CHICKEN_EGG, 2, 0);
                     s.setVelocity(player.getLocation().getDirection().setY(Math.abs(player.getLocation().getDirection().getY()))
                             .normalize().add(player.getVelocity().multiply(0.25)).multiply(court.getSpeed())
@@ -83,7 +82,7 @@ public class BallListener implements Listener {
      */
     @EventHandler
     public void onEntityInteract(PlayerInteractAtEntityEvent e) {
-        if (e.getRightClicked() != null && Balls.isBall(e.getRightClicked()))
+        if (e.getRightClicked() != null && Ball.getBalls().contains(e.getRightClicked()))
             e.setCancelled(true);
     }
     
@@ -94,9 +93,9 @@ public class BallListener implements Listener {
     public void onSneak(PlayerToggleSneakEvent e) {
         Player p = e.getPlayer();
         if (p.isSneaking()) {
-            if (Courts.get(p) != null) {
+            if (Court.get(p) != null) {
                 
-                Court court = Courts.get(p);
+                Court court = Court.get(p);
                 
                 if (court.isEnabled()) {
                     
@@ -120,7 +119,7 @@ public class BallListener implements Listener {
     @EventHandler
     public void onBallDeath(EntityDeathEvent e) {
         Entity s = e.getEntity();
-        if (Balls.isBall(s)) {
+        if (Ball.getBalls().contains(s)) {
             e.getDrops().clear();
         }
     }
