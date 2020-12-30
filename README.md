@@ -70,6 +70,9 @@ Do not modify the courts config, as you can possibly break your saved courts!
 
 For the message configuration, you can use color codes. You can also use the placeholders used per message, as shown in the default configuration. The messages and their names should explain what they are used for.
 
+## Demonstration
+![Demonstration](demo.gif)
+
 ## Troubleshooting
 Ball not spawning?
 - If you are using world guard, enable armor stand spawning in the region the court is in. 
