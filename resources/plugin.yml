@@ -4,7 +4,7 @@ description: Simple volleyball game plugin
 author: Jeremaster101
 main: jeremynoesen.volleyball.VolleyBall
 api-version: 1.13
-depends: [WorldEdit]
+depend: [WorldEdit]
 commands:
   volleyball:
     description: Main VolleyBall command. For more, type /volleyball help
