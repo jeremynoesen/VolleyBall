@@ -13,3 +13,8 @@ out/
 *.tar.gz
 *.rar
 hs_err_pid*
+gradlew.bat
+gradlew
+gradle
+.gradle
+build
