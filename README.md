@@ -73,6 +73,9 @@ For the message configuration, you can use color codes. You can also use the pla
 ## Demonstration
 ![Demonstration](demo.gif)
 
+## Building
+There is an included `build.gradle` to allow you to import the project into your IDE. To work fully, you will need your own Spigot jar, version 1.16.1 for WorldEdit compatibility. This is required due to using NMS code, which the Spigot gradle repo does not include. I have commented where you need to change `build.gradle` to allow using the external jar.
+
 ## Troubleshooting
 Ball not spawning?
 - If you are using world guard, enable armor stand spawning in the region the court is in. 

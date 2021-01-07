@@ -1,0 +1,17 @@
+plugins {
+    id 'java'
+}
+
+group 'jeremynoesen.volleyball'
+version '1.1.4'
+compileJava.options.encoding = 'UTF-8'
+
+repositories {
+    mavenCentral()
+    maven { url = 'https://maven.enginehub.org/repo/' }
+}
+
+dependencies {
+    implementation files('/Users/jeremy/Downloads/spigot-1.16.1.jar') //replace with path to Spigot jar
+    implementation 'com.sk89q.worldedit:worldedit-bukkit:7.3.0-SNAPSHOT'
+}
