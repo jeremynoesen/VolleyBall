@@ -71,7 +71,12 @@ Do not modify the courts config, as you can possibly break your saved courts!
 For the message configuration, you can use color codes. You can also use the placeholders used per message, as shown in the default configuration. The messages and their names should explain what they are used for.
 
 ## Demonstration
+
+<div align="center">
+
 ![Demonstration](demo.gif)
+
+</div>
 
 ## Building
 There is an included `build.gradle` to allow you to import the project into your IDE. To work fully, you will need your own Spigot jar, version 1.16.1 for WorldEdit compatibility. This is required due to using NMS code, which the Spigot gradle repo does not include. I have commented where you need to change `build.gradle` to allow using the external jar.
@@ -84,5 +89,3 @@ Ball not spawning?
 
 ## Notice
 This project is no longer in development.
-
-
