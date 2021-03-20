@@ -1,4 +1,4 @@
-<img src="Logo.png" align="right" alt="Logo" title="Logo" width="200" height="200" />
+<img src="img/Logo.png" align="right" alt="Logo" title="Logo" width="200" height="200" />
 
 # VolleyBall
 
@@ -72,7 +72,7 @@ For the message configuration, you can use color codes. You can also use the pla
 
 ## Demonstration
 
-<div align="center" ><img src="demo.gif" alt="Demonstration" title="Demonstration" /></div>
+<div align="center" ><img src="img/demo.gif" alt="Demonstration" title="Demonstration" /></div>
 
 ## Building
 There is an included `build.gradle` to allow you to import the project into your IDE. To work fully, you will need your own Spigot jar, version 1.16.1 for WorldEdit compatibility. This is required due to using NMS code, which the Spigot gradle repo does not include. I have commented where you need to change `build.gradle` to allow using the external jar.
