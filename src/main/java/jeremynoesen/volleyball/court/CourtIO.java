@@ -73,10 +73,10 @@ public class CourtIO {
         for (String key : courtConfig.getConfig().getKeys(false)) {
             courtConfig.getConfig().set(key, null);
         }
-        
         for (Court court : Court.getCourts().values()) {
             saveCourt(court);
         }
+        courtConfig.saveConfig();
     }
     
     /**
@@ -111,9 +111,5 @@ public class CourtIO {
             courtConfig.getConfig().set(name + ".net.max.y", net[1][1]);
             courtConfig.getConfig().set(name + ".net.max.z", net[1][2]);
         }
-        
-        courtConfig.saveConfig();
-        
     }
-    
 }
