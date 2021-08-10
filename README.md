@@ -31,9 +31,9 @@ VolleyBall was originally written for a tropical island themed event on a Minecr
 - Try to keep the ball from hitting the ground and get it over the net
 
 ## Requirements
-- Spigot 1.13 - 1.16
-- Java 8
-- WorldEdit
+- Spigot or Paper 1.13 - 1.17
+- Java 8 or higher
+- WorldEdit 7.3.0
 
 ## Installation
 To install the plugin, download the latest release, put it in your server plugins folder, and start or restart your server. This will generate the necessary files for configuration of the plugin, located in `plugins/VolleyBall`.
