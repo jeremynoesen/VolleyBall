@@ -10,7 +10,6 @@ VolleyBall was originally written for a tropical island themed event on a Minecr
 
 ## Usage
 
-### Commands
 - `/volleyball help` and `/volleyball court help` - Show the help messages
 - `/volleyball reload` - Reload all configs and delete volleyball entities
 - `/volleyball court create <name>` - Create a new court using a world edit selection
@@ -25,24 +24,6 @@ VolleyBall was originally written for a tropical island themed event on a Minecr
 - `/volleyball court <name> set texture <url>` - Set the ball texture based on a Minecraft skin texture url
 - `/volleyball court <name> set speed <number>` - Set the ball speed, default is 1.0
 - `/volleyball court <name> set name <newname>` - Change a court's name
-
-### Permissions
-- `volleyball.help` - Allow using the main help command
-- `volleyball.reload` - Allow reloading the plugin
-- `volleyball.court.create` - Allow creating a court
-- `volleyball.court.remove` - Allow removing a court
-- `volleyball.court.info` - Allow seeing info about courts
-- `volleyball.court.list` - Allow seeing the list of courts
-- `volleyball.court.select` - Allow selecting a court
-- `volleyball.court.help` - Allow seeing court help
-- `volleyball.court.set.animations` - Allow setting ball animations
-- `volleyball.court.set.speed` - Allow setting ball speed
-- `volleyball.court.set.texture` - Allow setting ball texture
-- `volleyball.court.set.bounds` - Allow setting court bounds
-- `volleyball.court.set.enabled` - Allow setting court enabled
-- `volleyball.court.set.net` - Allow setting net
-- `volleyball.court.set.name` - Allow setting court name
-- `volleyball.court.set.restrictions` - Allow ball setting restrictions
 
 ### Playing
 - Press and release your sneak key to serve the ball when on a court
@@ -69,6 +50,24 @@ There is no main configuration, all configuring is done in-game.
 Do not modify the courts config, as you can possibly break your saved courts!
 
 For the message configuration, you can use color codes. You can also use the placeholders used per message, as shown in the default configuration. The messages and their names should explain what they are used for.
+
+### Permissions
+- `volleyball.help` - Allow using the main help command
+- `volleyball.reload` - Allow reloading the plugin
+- `volleyball.court.create` - Allow creating a court
+- `volleyball.court.remove` - Allow removing a court
+- `volleyball.court.info` - Allow seeing info about courts
+- `volleyball.court.list` - Allow seeing the list of courts
+- `volleyball.court.select` - Allow selecting a court
+- `volleyball.court.help` - Allow seeing court help
+- `volleyball.court.set.animations` - Allow setting ball animations
+- `volleyball.court.set.speed` - Allow setting ball speed
+- `volleyball.court.set.texture` - Allow setting ball texture
+- `volleyball.court.set.bounds` - Allow setting court bounds
+- `volleyball.court.set.enabled` - Allow setting court enabled
+- `volleyball.court.set.net` - Allow setting net
+- `volleyball.court.set.name` - Allow setting court name
+- `volleyball.court.set.restrictions` - Allow ball setting restrictions
 
 ## Demonstration
 
