@@ -147,7 +147,7 @@ public class Ball {
                     volleyed = true;
                     volleys++;
                     for (Player players : court.getPlayersOnCourt()) {
-                        players.sendTitle("", ChatColor.WHITE + Integer.toString(volleys), 0, 10, 10);
+                        players.sendTitle(" ", ChatColor.WHITE + Integer.toString(volleys), 0, 10, 10);
                     }
                 } else if (!court.isAboveNet(ball.getLocation())) {
                     volleyed = false;
