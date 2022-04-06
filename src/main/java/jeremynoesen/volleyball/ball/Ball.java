@@ -153,7 +153,7 @@ public class Ball {
                     volleyed = false;
                 }
                 
-                if (animated) {
+                if (animated && !end) {
                     ball.getWorld().spawnParticle(Particle.CRIT,
                             ball.getLocation().add(new Vector(0, 0.75, 0)), 0, 0, 0, 0, 1);
                 }
@@ -168,6 +168,13 @@ public class Ball {
                         ball.setVelocity(vec.setY(-vec.getY() * 1.25));
                     if (loc.getBlock().getZ() < court.getBounds()[0][2] || loc.getBlock().getZ() > court.getBounds()[1][2])
                         ball.setVelocity(vec.setZ(-vec.getZ()));
+                }
+
+                if (!end) {
+                    double rotation = Math.toDegrees(Math.atan(ball.getVelocity().getZ() / ball.getVelocity().getX()));
+                    Location lookLoc = ball.getLocation();
+                    lookLoc.setYaw((float) rotation);
+                    if (rotation <= 360) ball.teleport(lookLoc);
                 }
                 
                 if (ball.isDead()) {
@@ -198,7 +205,7 @@ public class Ball {
         if (animated) {
             end = true;
             double radius = 1;
-            Location loc = ball.getLocation();
+            Location loc = ball.getLocation().clone();
             for (double y = 0; y <= 6.28; y += 1.04) {
                 double finalY = y;
                 new BukkitRunnable() {
@@ -209,13 +216,13 @@ public class Ball {
                         ball.getWorld().spawnParticle(Particle.CLOUD,
                                 (float) (loc.getX() + x), (float) (loc.getY() + 0.3),
                                 (float) (loc.getZ() + z), 0, 0, 0, 0, 1);
-                        Location loc1 = loc;
-                        loc1.setYaw((float) finalY * 20);
-                        loc1.setY(loc1.subtract(0, 0.1 * finalY, 0).getY());
-                        ball.teleport(loc1);
+                        loc.setYaw((float) finalY * 20);
+                        loc.setY(loc.subtract(0, 0.1 * finalY, 0).getY());
+                        ball.teleport(loc);
                     }
                 }.runTaskLater(VolleyBall.getInstance(), (long) y);
             }
+            Location loc1 = ball.getLocation().clone();
             for (double y = 0; y <= 6.28; y += 0.2) {
                 double finalY = y;
                 new BukkitRunnable() {
@@ -224,8 +231,8 @@ public class Ball {
                         double x = (radius - 0.14 * finalY) * Math.cos(finalY + 3.14159);
                         double z = (radius - 0.14 * finalY) * Math.sin(finalY + 3.14159);
                         ball.getWorld().spawnParticle(Particle.CLOUD,
-                                (float) (loc.getX() + x), (float) (loc.getY() + 0.3),
-                                (float) (loc.getZ() + z), 0, 0, 0, 0, 1);
+                                (float) (loc1.getX() + x), (float) (loc1.getY() + 0.3),
+                                (float) (loc1.getZ() + z), 0, 0, 0, 0, 1);
                     }
                 }.runTaskLater(VolleyBall.getInstance(), (long) y);
             }
