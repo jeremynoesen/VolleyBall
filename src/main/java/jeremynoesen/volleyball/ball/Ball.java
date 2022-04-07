@@ -173,7 +173,7 @@ public class Ball {
                 if (!end) {
                     double rotation = Math.toDegrees(Math.atan(ball.getVelocity().getZ() / ball.getVelocity().getX()));
                     Location lookLoc = ball.getLocation();
-                    lookLoc.setYaw((float) rotation);
+                    lookLoc.setYaw((float) rotation - 90);
                     if (rotation <= 360) ball.teleport(lookLoc);
                 }
                 
