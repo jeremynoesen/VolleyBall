@@ -25,42 +25,42 @@ import java.util.UUID;
  * @author Jeremy Noesen
  */
 public class Ball {
-    
+
     /**
      * list of all alive ball entities
      */
     private static Set<Entity> balls = new HashSet<>();
-    
+
     /**
      * armorstand to make ball physics and wear the head
      */
     private final ArmorStand ball;
-    
+
     /**
      * whether the ball removal has been started or not
      */
     private boolean end;
-    
+
     /**
      * player serving this ball
      */
     private final Player player;
-    
+
     /**
      * whether the ball has gone over the net or not
      */
     private boolean volleyed;
-    
+
     /**
      * number of times the ball has gone over the net
      */
     private int volleys;
-    
+
     /**
      * court this ball is on
      */
     private final Court court;
-    
+
     /**
      * Creates a new ball
      *
@@ -72,14 +72,12 @@ public class Ball {
         this.volleyed = false;
         this.volleys = 0;
         this.court = Court.get(player);
-        
+
         Location loc = player.getEyeLocation().add(player.getLocation().getDirection().multiply(0.75).setY(-0.5));
-        loc.setPitch(0);
-        loc.setYaw(0);
-        
+
         this.ball = player.getLocation().getWorld().spawn(loc, ArmorStand.class);
         balls.add(ball);
-        
+
         ball.setSmall(true);
         ball.setCollidable(false);
         ball.getWorld().playSound(ball.getLocation(), Sound.ENTITY_ARROW_SHOOT, 2, 0);
@@ -91,7 +89,7 @@ public class Ball {
         ball.setGravity(true);
         setTexture(court.getTexture());
     }
-    
+
     /**
      * @param url link to the player skin to get the skull from
      */
@@ -114,7 +112,7 @@ public class Ball {
         head.setItemMeta(headMeta);
         ball.getEquipment().setHelmet(head);
     }
-    
+
     /**
      * serves the volleyball
      */
@@ -122,9 +120,9 @@ public class Ball {
         court.setBall(this);
         boolean animated = court.hasAnimations();
         boolean restricted = court.hasRestrictions();
-        
+
         ball.setVelocity(player.getLocation().getDirection().multiply(0.05).add(new Vector(0, 0.5 + (0.1 * court.getSpeed()), 0)));
-        
+
         if (animated) {
             Location loc = player.getLocation();
             double radius = 0.5;
@@ -136,13 +134,13 @@ public class Ball {
                         (float) (loc.getZ() + z), 0, 0, 0, 0, 1);
             }
         }
-        
+
         new BukkitRunnable() {
             @Override
             public void run() {
-                
+
                 ball.setFallDistance(0);
-                
+
                 if (court.isAboveNet(ball.getLocation()) && !volleyed) {
                     volleyed = true;
                     volleys++;
@@ -152,12 +150,12 @@ public class Ball {
                 } else if (!court.isAboveNet(ball.getLocation())) {
                     volleyed = false;
                 }
-                
+
                 if (animated && !end) {
                     ball.getWorld().spawnParticle(Particle.CRIT,
                             ball.getLocation().add(new Vector(0, 0.75, 0)), 0, 0, 0, 0, 1);
                 }
-                
+
                 if (restricted) {
                     Vector vec = ball.getVelocity();
                     Location loc = ball.getLocation();
@@ -171,19 +169,21 @@ public class Ball {
                 }
 
                 if (!end) {
-                    double rotation = Math.toDegrees(Math.atan(ball.getVelocity().getZ() / ball.getVelocity().getX()));
-                    Location lookLoc = ball.getLocation();
-                    lookLoc.setYaw((float) rotation - 90);
-                    if (rotation <= 360) ball.teleport(lookLoc);
+                    double rotation = Math.toDegrees(Math.atan2(ball.getVelocity().getZ(), ball.getVelocity().getX()));
+                    if (Double.isFinite(rotation)) {
+                        Location lookLoc = ball.getLocation();
+                        lookLoc.setYaw((float) rotation - 90);
+                        ball.teleport(lookLoc);
+                    }
                 }
-                
+
                 if (ball.isDead()) {
                     end = true;
                     this.cancel();
                 }
-                
+
                 if (ball.isOnGround() || ball.getLocation().add(0, 0.5, 0).getBlock().getType() != Material.AIR) {
-                    
+
                     new BukkitRunnable() {
                         @Override
                         public void run() {
@@ -196,7 +196,7 @@ public class Ball {
             }
         }.runTaskTimer(VolleyBall.getInstance(), 0, 1);
     }
-    
+
     /**
      * removes the volleyball with or without animations
      */
@@ -243,7 +243,7 @@ public class Ball {
                     ball.remove();
                 }
             }.runTaskLater(VolleyBall.getInstance(), (long) 6.28);
-            
+
             ball.getWorld().playSound(ball.getLocation(), Sound.BLOCK_SAND_PLACE, 2, 1);
             ball.getWorld().playSound(ball.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASEDRUM, 2, 1);
         } else {
@@ -251,7 +251,7 @@ public class Ball {
             ball.remove();
         }
     }
-    
+
     /**
      * check if the ball is out
      *
@@ -260,7 +260,7 @@ public class Ball {
     public boolean isOut() {
         return !end;
     }
-    
+
     /**
      * get the set of all alive ball entities
      *
@@ -269,5 +269,5 @@ public class Ball {
     public static Set<Entity> getBalls() {
         return balls;
     }
-    
+
 }
