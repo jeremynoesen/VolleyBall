@@ -76,18 +76,17 @@ public class Ball {
         Location loc = player.getEyeLocation().add(player.getLocation().getDirection().multiply(0.75).setY(-0.5));
 
         this.ball = player.getLocation().getWorld().spawn(loc, ArmorStand.class);
-        balls.add(ball);
-
         ball.setSmall(true);
-        ball.setCollidable(false);
-        ball.getWorld().playSound(ball.getLocation(), Sound.ENTITY_ARROW_SHOOT, 2, 0);
-        ball.setCustomNameVisible(false);
         ball.setSilent(true);
         ball.setInvulnerable(true);
         ball.setVisible(false);
         ball.setBasePlate(false);
-        ball.setGravity(true);
         setTexture(court.getTexture());
+
+        balls.add(ball);
+
+        ball.getWorld().playSound(ball.getLocation(), Sound.ENTITY_ARROW_SHOOT, 2, 0);
+
     }
 
     /**
