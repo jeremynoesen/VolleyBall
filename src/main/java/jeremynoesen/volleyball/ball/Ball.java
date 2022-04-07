@@ -205,6 +205,7 @@ public class Ball {
             end = true;
             double radius = 1;
             Location loc = ball.getLocation().clone();
+            float originalYaw = loc.getYaw();
             for (double y = 0; y <= 6.28; y += 1.04) {
                 double finalY = y;
                 new BukkitRunnable() {
@@ -215,7 +216,7 @@ public class Ball {
                         ball.getWorld().spawnParticle(Particle.CLOUD,
                                 (float) (loc.getX() + x), (float) (loc.getY() + 0.3),
                                 (float) (loc.getZ() + z), 0, 0, 0, 0, 1);
-                        loc.setYaw((float) finalY * 20);
+                        loc.setYaw(((float) finalY * 20) + originalYaw);
                         loc.setY(loc.subtract(0, 0.1 * finalY, 0).getY());
                         ball.teleport(loc);
                     }
