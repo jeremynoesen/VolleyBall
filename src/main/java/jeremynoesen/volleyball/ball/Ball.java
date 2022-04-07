@@ -160,12 +160,11 @@ public class Ball {
                     Vector vec = ball.getVelocity();
                     Location loc = ball.getLocation();
                     if (loc.getBlock().getX() < court.getBounds()[0][0] || loc.getBlock().getX() > court.getBounds()[1][0])
-                        ball.setVelocity(vec.setX(-vec.getX()));
-                    if (loc.getBlock().getY() < court.getBounds()[0][1]) ball.setVelocity(vec.setY(-vec.getY()));
-                    if (loc.getBlock().getY() > court.getBounds()[1][1])
+                        ball.setVelocity(vec.setX(-vec.getX() * 1.25));
+                    if (loc.getBlock().getY() < court.getBounds()[0][1] || loc.getBlock().getY() > court.getBounds()[1][1])
                         ball.setVelocity(vec.setY(-vec.getY() * 1.25));
                     if (loc.getBlock().getZ() < court.getBounds()[0][2] || loc.getBlock().getZ() > court.getBounds()[1][2])
-                        ball.setVelocity(vec.setZ(-vec.getZ()));
+                        ball.setVelocity(vec.setZ(-vec.getZ() * 1.25));
                 }
 
                 if (!end) {
