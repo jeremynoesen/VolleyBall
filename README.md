@@ -31,7 +31,7 @@ VolleyBall was originally written for a tropical island themed event on a Minecr
 - Try to keep the ball from hitting the ground and get it over the net
 
 ## Requirements
-- Spigot 1.13 - 1.18 (Paper not supported)
+- Spigot or Paper 1.13 - 1.18
 - Java 8 or higher
 - WorldEdit 7.2.8
 
