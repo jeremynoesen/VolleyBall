@@ -168,11 +168,7 @@ public class Ball {
 
                 if (!end) {
                     double rotation = Math.toDegrees(Math.atan2(ball.getVelocity().getZ(), ball.getVelocity().getX()));
-                    if (Double.isFinite(rotation)) {
-                        Location lookLoc = ball.getLocation();
-                        lookLoc.setYaw((float) rotation - 90);
-                        ball.teleport(lookLoc);
-                    }
+                    if (Double.isFinite(rotation)) ball.setRotation((float) rotation - 90, 0);
                 }
 
                 if (ball.isDead()) {
