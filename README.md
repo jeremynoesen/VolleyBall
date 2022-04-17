@@ -36,7 +36,9 @@ VolleyBall was originally written for a tropical island themed event on a Minecr
 - WorldEdit 7.2.8
 
 ## Installation
-To install the plugin, download the latest release, put it in your server plugins folder, and start or restart your server. This will generate the necessary files for configuration of the plugin, located in `plugins/VolleyBall`.
+1. Download the latest release.
+2. Put the jar in your plugins folder.
+3. Start or restart your server.
 
 ## Configuration
 There is no main configuration, all configuring is done in-game.
@@ -74,7 +76,15 @@ For the message configuration, you can use color codes. You can also use the pla
 <div align="center" ><img src="img/demo.gif" alt="Demonstration" title="Demonstration" /></div>
 
 ## Building
-There is an included `build.gradle` to allow you to import the project into your IDE. To work fully, you will need your own Spigot 1.13.2 jar. This is required due to using NMS code, which the Spigot gradle repo does not include. I have commented where you need to change `build.gradle` to allow using the external jar. With this, you can run `./gradlew shadowJar` to generate `/build/libs/VolleyBall.jar`.
+Due to the fact that this plugin uses some NMS code, the build instructions are a little more complicated than usual:
+
+1. Clone or download this repository.
+2. Download a copy of the Spigot 1.13.2 jar.
+3. Modify `build.gradle` to link to this Spigot jar.
+4. Run `./gradlew shadowJar` in the directory of the project.
+5. `/build/libs/VolleyBall.jar` should have been generated.
+
+You can also grab `VolleyBall.jar` from the latest releases.
 
 ## Troubleshooting
 Ball not spawning?
