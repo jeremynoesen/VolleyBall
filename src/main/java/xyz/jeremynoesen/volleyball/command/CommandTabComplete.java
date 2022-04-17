@@ -1,6 +1,6 @@
-package jeremynoesen.volleyball.command;
+package xyz.jeremynoesen.volleyball.command;
 
-import jeremynoesen.volleyball.court.Court;
+import xyz.jeremynoesen.volleyball.court.Court;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;

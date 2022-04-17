@@ -1,10 +1,10 @@
-package jeremynoesen.volleyball.command;
+package xyz.jeremynoesen.volleyball.command;
 
-import jeremynoesen.volleyball.Message;
-import jeremynoesen.volleyball.ball.Ball;
-import jeremynoesen.volleyball.Config;
-import jeremynoesen.volleyball.court.Court;
-import jeremynoesen.volleyball.court.CourtIO;
+import xyz.jeremynoesen.volleyball.Message;
+import xyz.jeremynoesen.volleyball.ball.Ball;
+import xyz.jeremynoesen.volleyball.Config;
+import xyz.jeremynoesen.volleyball.court.Court;
+import xyz.jeremynoesen.volleyball.court.CourtIO;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

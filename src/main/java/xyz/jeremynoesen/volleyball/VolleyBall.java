@@ -1,10 +1,10 @@
-package jeremynoesen.volleyball;
+package xyz.jeremynoesen.volleyball;
 
-import jeremynoesen.volleyball.ball.Ball;
-import jeremynoesen.volleyball.ball.BallListener;
-import jeremynoesen.volleyball.command.CommandExec;
-import jeremynoesen.volleyball.command.CommandTabComplete;
-import jeremynoesen.volleyball.court.CourtIO;
+import xyz.jeremynoesen.volleyball.ball.Ball;
+import xyz.jeremynoesen.volleyball.ball.BallListener;
+import xyz.jeremynoesen.volleyball.command.CommandExec;
+import xyz.jeremynoesen.volleyball.command.CommandTabComplete;
+import xyz.jeremynoesen.volleyball.court.CourtIO;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.Listener;
 import org.bukkit.permissions.Permission;

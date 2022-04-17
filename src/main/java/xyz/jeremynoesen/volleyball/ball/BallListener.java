@@ -1,7 +1,7 @@
-package jeremynoesen.volleyball.ball;
+package xyz.jeremynoesen.volleyball.ball;
 
-import jeremynoesen.volleyball.Message;
-import jeremynoesen.volleyball.court.Court;
+import xyz.jeremynoesen.volleyball.Message;
+import xyz.jeremynoesen.volleyball.court.Court;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;

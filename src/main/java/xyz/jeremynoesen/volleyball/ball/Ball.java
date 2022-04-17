@@ -1,9 +1,9 @@
-package jeremynoesen.volleyball.ball;
+package xyz.jeremynoesen.volleyball.ball;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import jeremynoesen.volleyball.VolleyBall;
-import jeremynoesen.volleyball.court.Court;
+import xyz.jeremynoesen.volleyball.VolleyBall;
+import xyz.jeremynoesen.volleyball.court.Court;
 import org.apache.commons.codec.binary.Base64;
 import org.bukkit.*;
 import org.bukkit.entity.ArmorStand;
