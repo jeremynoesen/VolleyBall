@@ -74,7 +74,7 @@ For the message configuration, you can use color codes. You can also use the pla
 <div align="center" ><img src="img/demo.gif" alt="Demonstration" title="Demonstration" /></div>
 
 ## Building
-There is an included `build.gradle` to allow you to import the project into your IDE. To work fully, you will need your own Spigot 1.13.2 jar. This is required due to using NMS code, which the Spigot gradle repo does not include. I have commented where you need to change `build.gradle` to allow using the external jar. With this, you can run `./gradlew build` to generate `VolleyBall.jar`. Do not use any other jar that is generated.
+There is an included `build.gradle` to allow you to import the project into your IDE. To work fully, you will need your own Spigot 1.13.2 jar. This is required due to using NMS code, which the Spigot gradle repo does not include. I have commented where you need to change `build.gradle` to allow using the external jar. With this, you can run `./gradlew shadowJar` to generate `VolleyBall.jar`.
 
 ## Troubleshooting
 Ball not spawning?
