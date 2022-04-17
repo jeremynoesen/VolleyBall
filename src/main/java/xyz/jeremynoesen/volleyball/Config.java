@@ -1,4 +1,4 @@
-package jeremynoesen.volleyball;
+package xyz.jeremynoesen.volleyball;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 
