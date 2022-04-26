@@ -44,7 +44,7 @@ public class CourtListener implements Listener {
     @EventHandler
     public void onMove(PlayerMoveEvent e) {
         Player player = e.getPlayer();
-        if (Court.get(player.getLocation()) != null) {
+        if (Court.get(player.getLocation()) != null && Court.get(player.getLocation()).isEnabled()) {
             if (!onCourt.contains(player)) {
                 player.sendMessage(Message.ENTER_COURT);
                 onCourt.add(player);
