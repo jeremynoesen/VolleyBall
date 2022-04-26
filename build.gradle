@@ -10,12 +10,10 @@ compileJava.options.encoding = 'UTF-8'
 
 repositories {
     mavenCentral()
-    maven { url = 'https://maven.enginehub.org/repo/' }
 }
 
 dependencies {
     shadow files('/Users/jeremy/Downloads/spigot-1.13.2.jar') //replace with path to Spigot 1.13.2 jar
-    shadow 'com.sk89q.worldedit:worldedit-bukkit:7.2.8-SNAPSHOT'
     implementation group: 'commons-codec', name: 'commons-codec', version: '1.15'
 }
 

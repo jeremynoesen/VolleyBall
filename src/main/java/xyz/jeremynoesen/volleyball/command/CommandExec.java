@@ -72,8 +72,7 @@ public class CommandExec implements CommandExecutor {
                                             if (args.length > 2) {
                                                 if (Court.getCourts().get(args[2]) == null && !args[2].equalsIgnoreCase("create")
                                                         && !args[2].equalsIgnoreCase("help") && !args[2].equalsIgnoreCase("list")
-                                                        && !args[2].equalsIgnoreCase("remove") && !args[2].equalsIgnoreCase("select") &&
-                                                        !args[2].equalsIgnoreCase("info")) {
+                                                        && !args[2].equalsIgnoreCase("remove") && !args[2].equalsIgnoreCase("info")) {
                                                     new Court(args[2]);
                                                     player.sendMessage(Message.SUCCESS_COURT_CREATED.replace("$COURT$", args[2]));
                                                 } else {
@@ -95,15 +94,6 @@ public class CommandExec implements CommandExecutor {
                                             }
                                         } else player.sendMessage(Message.ERROR_NO_PERMS);
                                         break;
-                                    case "select":
-                                        if (player.hasPermission("volleyball.court.select")) {
-                                            if (args.length > 2) {
-                                                Court.getCourts().get(args[2]).select(player);
-                                            } else {
-                                                player.sendMessage(Message.ERROR_UNKNOWN_COURT);
-                                            }
-                                        } else player.sendMessage(Message.ERROR_NO_PERMS);
-                                        break;
                                     case "info":
                                         if (player.hasPermission("volleyball.court.info")) {
                                             if (args.length > 2 && Court.getCourts().get(args[2]) != null) {
@@ -114,20 +104,35 @@ public class CommandExec implements CommandExecutor {
                                         } else player.sendMessage(Message.ERROR_NO_PERMS);
                                         break;
                                     default:
-                                        if (args.length > 4 || (args.length > 3 && (args[3].equalsIgnoreCase("net") ||
-                                                args[3].equalsIgnoreCase("bounds")))) {
+                                        if (args.length > 4) {
                                             Court court = Court.getCourts().get(args[1]);
                                             if (court != null && args[2].equalsIgnoreCase("set")) {
                                                 switch (args[3].toLowerCase()) {
                                                     case "net":
-                                                        if (player.hasPermission("volleyball.court.set.net"))
-                                                            court.setNet(player);
-                                                        else player.sendMessage(Message.ERROR_NO_PERMS);
+                                                        if (player.hasPermission("volleyball.court.set.net")) {
+                                                            if (args[4].equalsIgnoreCase("pos1")) {
+                                                                court.setBounds(player, 1);
+                                                            } else if (args[4].equalsIgnoreCase("pos2")) {
+                                                                court.setBounds(player, 2);
+                                                            } else {
+                                                                player.sendMessage(Message.ERROR_UNKNOWN_ARGS);
+                                                            }
+                                                        } else {
+                                                            player.sendMessage(Message.ERROR_NO_PERMS);
+                                                        }
                                                         break;
                                                     case "bounds":
-                                                        if (player.hasPermission("volleyball.court.set.bounds"))
-                                                            court.setBounds(player);
-                                                        else player.sendMessage(Message.ERROR_NO_PERMS);
+                                                        if (player.hasPermission("volleyball.court.set.bounds")) {
+                                                            if (args[4].equalsIgnoreCase("pos1")) {
+                                                                court.setNet(player, 1);
+                                                            } else if (args[4].equalsIgnoreCase("pos2")) {
+                                                                court.setNet(player, 2);
+                                                            } else {
+                                                                player.sendMessage(Message.ERROR_UNKNOWN_ARGS);
+                                                            }
+                                                        } else {
+                                                            player.sendMessage(Message.ERROR_NO_PERMS);
+                                                        }
                                                         break;
                                                     case "speed":
                                                         if (player.hasPermission("volleyball.court.set.speed")) {

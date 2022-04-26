@@ -1,14 +1,8 @@
 package xyz.jeremynoesen.volleyball.court;
 
-import com.sk89q.worldedit.LocalSession;
-import com.sk89q.worldedit.WorldEdit;
-import com.sk89q.worldedit.bukkit.BukkitAdapter;
-import com.sk89q.worldedit.bukkit.WorldEditPlugin;
-import com.sk89q.worldedit.math.BlockVector3;
 import xyz.jeremynoesen.volleyball.Message;
 import xyz.jeremynoesen.volleyball.VolleyBall;
 import xyz.jeremynoesen.volleyball.ball.Ball;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -287,37 +281,27 @@ public class Court {
     public double[][] getBounds() {
         return bounds;
     }
-    
+
     /**
-     * set bounds using worldedit
+     * set bounds based on the position of the player
      *
-     * @param player worldedit player
+     * @param player player setting bounds
+     * @param pos position to set (1 or 2)
      */
-    private void setBounds(Player player, double[][] bounds) {
-        WorldEditPlugin worldEdit = (WorldEditPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");
-        
-        com.sk89q.worldedit.regions.Region selection;
-        try {
-            selection = worldEdit.getSession(player).getSelection(worldEdit.getSession(player).getSelectionWorld());
-        } catch (Exception e) {
-            player.sendMessage(Message.ERROR_NULL_BOUNDS);
-            return;
-        }
-        
-        if (selection != null) {
-            bounds[0][0] = selection.getMinimumPoint().getX();
-            bounds[0][1] = selection.getMinimumPoint().getY();
-            bounds[0][2] = selection.getMinimumPoint().getZ();
-            bounds[1][0] = selection.getMaximumPoint().getX();
-            bounds[1][1] = selection.getMaximumPoint().getY();
-            bounds[1][2] = selection.getMaximumPoint().getZ();
-            world = BukkitAdapter.adapt(selection.getWorld());
-            
-            
-            player.sendMessage(Message.SUCCESS_SET_BOUNDS.replace("$COURT$", name));
-            
-        } else {
-            player.sendMessage(Message.ERROR_NULL_BOUNDS);
+    private void setBounds(Player player, double[][] bounds, int pos) {
+        if (pos == 1 || pos == 2) {
+            double[][] temp = new double[2][3];
+            temp[pos - 1][0] = player.getLocation().getX();
+            temp[pos - 1][1] = player.getLocation().getY();
+            temp[pos - 1][2] = player.getLocation().getZ();
+            world = player.getWorld();
+
+            bounds[0][0] = Math.min(temp[0][0], temp[1][0]);
+            bounds[1][0] = Math.max(temp[0][0], temp[1][0]);
+            bounds[0][1] = Math.min(temp[0][1], temp[1][1]);
+            bounds[1][1] = Math.max(temp[0][1], temp[1][1]);
+            bounds[0][2] = Math.min(temp[0][2], temp[1][2]);
+            bounds[1][2] = Math.max(temp[0][2], temp[1][2]);
         }
     }
     
@@ -331,12 +315,14 @@ public class Court {
     }
     
     /**
-     * set court bounds using worldedit
+     * set the court bounds based on the player location
      *
-     * @param player worldedit player
+     * @param player player setting bounds
+     * @param pos position to set (1 or 2)
      */
-    public void setBounds(Player player) {
-        setBounds(player, bounds);
+    public void setBounds(Player player, int pos) {
+        setBounds(player, bounds, pos);
+        player.sendMessage(Message.SUCCESS_SET_COURT_BOUNDS.replace("$COURT$", name).replace("$POS$", Integer.toString(pos)));
     }
     
     /**
@@ -358,12 +344,14 @@ public class Court {
     }
     
     /**
-     * set the net bounds with worldedit
+     * set the net bounds based on the player location
      *
-     * @param player worldedit player
+     * @param player player setting bounds
+     * @param pos position to set (1 or 2)
      */
-    public void setNet(Player player) {
-        setBounds(player, net);
+    public void setNet(Player player, int pos) {
+        setBounds(player, net, pos);
+        player.sendMessage(Message.SUCCESS_SET_COURT_NET.replace("$COURT$", name).replace("$POS$", Integer.toString(pos)));
     }
     
     /**
@@ -442,28 +430,6 @@ public class Court {
                     (toy >= miny) && (toz <= maxz) && (toz >= minz));
         } catch (Exception e) {
             return false;
-        }
-    }
-    
-    /**
-     * select a court with worldedit
-     *
-     * @param player player to do the selecting
-     */
-    public void select(Player player) {
-        
-        try {
-            BlockVector3 min = BlockVector3.at(bounds[0][0], bounds[0][1], bounds[0][2]);
-            BlockVector3 max = BlockVector3.at(bounds[1][0], bounds[1][1], bounds[1][2]);
-            
-            com.sk89q.worldedit.entity.Player weplayer = BukkitAdapter.adapt(player);
-            LocalSession ls = WorldEdit.getInstance().getSessionManager().get(weplayer);
-            ls.getRegionSelector(BukkitAdapter.adapt(world)).selectPrimary(max, null);
-            ls.getRegionSelector(BukkitAdapter.adapt(world)).selectSecondary(min, null);
-            
-            player.sendMessage(Message.SUCCESS_COURT_SELECTED.replace("$COURT$", name));
-        } catch (Exception e) {
-            player.sendMessage(Message.ERROR_UNKNOWN_COURT.replace("$COURT$", name));
         }
     }
     

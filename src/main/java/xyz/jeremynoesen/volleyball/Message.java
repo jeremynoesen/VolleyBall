@@ -14,17 +14,16 @@ public class Message {
     public static String PREFIX;
     public static String ERROR_BALL_OUT;
     public static String ERROR_NOT_ON_COURT;
-    public static String ERROR_NULL_BOUNDS;
     public static String ERROR_UNKNOWN_COURT;
     public static String SUCCESS_COURT_REMOVED;
-    public static String SUCCESS_SET_BOUNDS;
     public static String SUCCESS_COURT_CREATED;
     public static String SUCCESS_SET_COURT_ENABLED;
     public static String ERROR_CANT_ENABLE;
+    public static String SUCCESS_SET_COURT_BOUNDS;
+    public static String SUCCESS_SET_COURT_NET;
     public static String SUCCESS_SET_COURT_SPEED;
     public static String SUCCESS_SET_COURT_HITRADIUS;
     public static String SUCCESS_SET_COURT_TEXTURE;
-    public static String SUCCESS_COURT_SELECTED;
     public static String SUCCESS_SET_COURT_ANIMATIONS;
     public static String SUCCESS_SET_COURT_PARTICLES;
     public static String SUCCESS_SET_COURT_NAME;
@@ -43,17 +42,16 @@ public class Message {
         PREFIX = format(messageConfig.getConfig().getString("PREFIX"));
         ERROR_BALL_OUT = PREFIX + format(messageConfig.getConfig().getString("ERROR_BALL_OUT"));
         ERROR_NOT_ON_COURT = PREFIX + format(messageConfig.getConfig().getString("ERROR_NOT_ON_COURT"));
-        ERROR_NULL_BOUNDS = PREFIX + format(messageConfig.getConfig().getString("ERROR_NULL_BOUNDS"));
         ERROR_UNKNOWN_COURT = PREFIX + format(messageConfig.getConfig().getString("ERROR_UNKNOWN_COURT"));
         SUCCESS_COURT_REMOVED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_COURT_REMOVED"));
-        SUCCESS_SET_BOUNDS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_BOUNDS"));
-        SUCCESS_COURT_CREATED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_COURT_CREATED"));
+        SUCCESS_SET_COURT_BOUNDS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_BOUNDS"));
         SUCCESS_SET_COURT_ENABLED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_ENABLED"));
         ERROR_CANT_ENABLE = PREFIX + format(messageConfig.getConfig().getString("ERROR_CANT_ENABLE"));
+        SUCCESS_SET_COURT_NET = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_NET"));
+        SUCCESS_COURT_CREATED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_COURT_CREATED"));
         SUCCESS_SET_COURT_SPEED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_SPEED"));
         SUCCESS_SET_COURT_HITRADIUS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_HITRADIUS"));
         SUCCESS_SET_COURT_TEXTURE = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_TEXTURE"));
-        SUCCESS_COURT_SELECTED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_COURT_SELECTED"));
         SUCCESS_SET_COURT_ANIMATIONS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_ANIMATIONS"));
         SUCCESS_SET_COURT_PARTICLES = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_PARTICLES"));
         SUCCESS_SET_COURT_NAME = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_NAME"));
@@ -100,12 +98,13 @@ public class Message {
             ChatColor.GRAY + "/volleyball court create <name>" + ChatColor.WHITE + ": Create a new court",
             ChatColor.GRAY + "/volleyball court remove <name>" + ChatColor.WHITE + ": Remove a court",
             ChatColor.GRAY + "/volleyball court info <name>" + ChatColor.WHITE + ": Get court info",
-            ChatColor.GRAY + "/volleyball court select <name>" + ChatColor.WHITE + ": Select court with worldedit",
-            ChatColor.GRAY + "/volleyball court <name> set net" + ChatColor.WHITE + ": Set the net region",
-            ChatColor.GRAY + "/volleyball court <name> set bounds" + ChatColor.WHITE + ": Change the court bounds",
+            ChatColor.GRAY + "/volleyball court <name> set net <pos1/pos2>" + ChatColor.WHITE + ": Set the net region",
+            ChatColor.GRAY + "/volleyball court <name> set bounds <pos1/pos2>" + ChatColor.WHITE + ": Set the court bounds",
             ChatColor.GRAY + "/volleyball court <name> set animations <true/false>" + ChatColor.WHITE + ": Enable ball animations",
+            ChatColor.GRAY + "/volleyball court <name> set particles <true/false>" + ChatColor.WHITE + ": Enable ball particles",
             ChatColor.GRAY + "/volleyball court <name> set restrictions <true/false>" + ChatColor.WHITE + ": Enable ball restrictions",
             ChatColor.GRAY + "/volleyball court <name> set speed <number>" + ChatColor.WHITE + ": Set ball speed",
+            ChatColor.GRAY + "/volleyball court <name> set hitradius <number>" + ChatColor.WHITE + ": Set ball hit radius",
             ChatColor.GRAY + "/volleyball court <name> set texture <url>" + ChatColor.WHITE + ": Set ball texture",
             ChatColor.GRAY + "/volleyball court <name> set name <newname>" + ChatColor.WHITE + ": Change court name",
             ChatColor.GRAY + "/volleyball court <name> set enabled <true/false>" + ChatColor.WHITE + ": Enable a court",

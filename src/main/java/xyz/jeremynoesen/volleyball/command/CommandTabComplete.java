@@ -59,7 +59,6 @@ public class CommandTabComplete implements TabCompleter {
                         if (player.hasPermission("volleyball.court.list")) tabList.add("list");
                         if (player.hasPermission("volleyball.court.create")) tabList.add("create");
                         if (player.hasPermission("volleyball.court.remove")) tabList.add("remove");
-                        if (player.hasPermission("volleyball.court.select")) tabList.add("select");
                         if (player.hasPermission("volleyball.court.info")) tabList.add("info");
                         
                     } else if (args[1].startsWith("h") && player.hasPermission("volleyball.court.help"))
@@ -70,14 +69,11 @@ public class CommandTabComplete implements TabCompleter {
                         tabList.add("create");
                     else if (args[1].startsWith("r") && player.hasPermission("volleyball.court.remove"))
                         tabList.add("remove");
-                    else if (args[1].startsWith("s") && player.hasPermission("volleyball.court.select"))
-                        tabList.add("select");
                     else if (args[1].startsWith("i") && player.hasPermission("volleyball.court.info"))
                         tabList.add("info");
                     
                     if (player.hasPermission("volleyball.court.create") ||
                             player.hasPermission("volleyball.court.remove") ||
-                            player.hasPermission("volleyball.court.select") ||
                             player.hasPermission("volleyball.court.info"))
                         for (String court : courts) {
                             
@@ -98,7 +94,6 @@ public class CommandTabComplete implements TabCompleter {
                     tabList.add("set");
                     
                 } else if ((args[1].equalsIgnoreCase("remove") && player.hasPermission("volleyball.court.remove")) ||
-                        (args[1].equalsIgnoreCase("select") && player.hasPermission("volleyball.court.select")) ||
                         (args[1].equalsIgnoreCase("info") && player.hasPermission("volleyball.court.info"))) {
                     
                     for (String court : courts) {
@@ -197,6 +192,14 @@ public class CommandTabComplete implements TabCompleter {
                         
                     }
                     
+                }
+
+                if ((args[3].equalsIgnoreCase("bounds") && player.hasPermission("volleyball.court.set.bounds")) ||
+                        (args[3].equalsIgnoreCase("net") && player.hasPermission("volleyball.court.set.net"))) {
+
+                    tabList.add("pos1");
+                    tabList.add("pos2");
+
                 }
                 
             }
