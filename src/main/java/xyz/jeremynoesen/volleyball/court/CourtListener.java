@@ -1,6 +1,5 @@
 package xyz.jeremynoesen.volleyball.court;
 
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -43,16 +42,20 @@ public class CourtListener implements Listener {
      */
     @EventHandler
     public void onMove(PlayerMoveEvent e) {
-        Player player = e.getPlayer();
-        if (Court.get(player.getLocation()) != null && Court.get(player.getLocation()).isEnabled()) {
-            if (!onCourt.contains(player)) {
-                player.sendMessage(Message.ENTER_COURT);
-                onCourt.add(player);
-            }
-        } else {
-            if (onCourt.contains(player)) {
-                player.sendMessage(Message.EXIT_COURT);
-                onCourt.remove(player);
+        if (e.getFrom().getBlockX() != e.getTo().getBlockX() ||
+                e.getFrom().getBlockY() != e.getTo().getBlockY() ||
+                e.getFrom().getBlockZ() != e.getTo().getBlockZ()) {
+            Player player = e.getPlayer();
+            if (Court.get(player.getLocation()) != null && Court.get(player.getLocation()).isEnabled()) {
+                if (!onCourt.contains(player)) {
+                    player.sendMessage(Message.ENTER_COURT);
+                    onCourt.add(player);
+                }
+            } else {
+                if (onCourt.contains(player)) {
+                    player.sendMessage(Message.EXIT_COURT);
+                    onCourt.remove(player);
+                }
             }
         }
     }
