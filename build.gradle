@@ -14,7 +14,7 @@ repositories {
 }
 
 dependencies {
-    shadow files('/path/to/spigot-1.13.2.jar') //replace with path to Spigot 1.13.2 jar
+    shadow files('/Users/jeremy/Downloads/spigot-1.13.2.jar') //replace with path to Spigot 1.13.2 jar
     shadow 'com.sk89q.worldedit:worldedit-bukkit:7.2.8-SNAPSHOT'
 }
 

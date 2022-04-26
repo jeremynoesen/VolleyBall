@@ -142,6 +142,19 @@ public class CommandExec implements CommandExecutor {
                                                             }
                                                         } else player.sendMessage(Message.ERROR_NO_PERMS);
                                                         break;
+                                                    case "hitradius":
+                                                        if (player.hasPermission("volleyball.court.set.hitradius")) {
+                                                            try {
+                                                                double hitRadius = Double.parseDouble(args[4]);
+                                                                court.setHitRadius(hitRadius);
+                                                                player.sendMessage(Message.SUCCESS_SET_COURT_HITRADIUS
+                                                                        .replace("$COURT$", args[1])
+                                                                        .replace("$RADIUS$", args[4]));
+                                                            } catch (NumberFormatException e) {
+                                                                player.sendMessage(Message.ERROR_UNKNOWN_ARGS);
+                                                            }
+                                                        } else player.sendMessage(Message.ERROR_NO_PERMS);
+                                                        break;
                                                     case "texture":
                                                         if (player.hasPermission("volleyball.court.set.texture")) {
                                                             court.setTexture(args[4]);

@@ -38,6 +38,8 @@ public class CourtIO {
             court.setEnabled(courtConfig.getConfig().getBoolean(name + ".enabled"));
         if (courtConfig.getConfig().get(name + ".speed") != null)
             court.setSpeed(courtConfig.getConfig().getDouble(name + ".speed"));
+        if (courtConfig.getConfig().get(name + ".hitradius") != null)
+            court.setHitRadius(courtConfig.getConfig().getDouble(name + ".hitradius"));
         if (courtConfig.getConfig().get(name + ".texture") != null)
             court.setTexture(courtConfig.getConfig().getString(name + ".texture"));
         if (courtConfig.getConfig().get(name + ".restrictions") != null)
@@ -90,6 +92,7 @@ public class CourtIO {
         courtConfig.getConfig().set(name + ".animations", court.hasAnimations());
         courtConfig.getConfig().set(name + ".enabled", court.isEnabled());
         courtConfig.getConfig().set(name + ".speed", court.getSpeed());
+        courtConfig.getConfig().set(name + ".hitradius", court.getHitRadius());
         courtConfig.getConfig().set(name + ".texture", court.getTexture());
         courtConfig.getConfig().set(name + ".restrictions", court.hasRestrictions());
         if (court.getBounds() != null) {

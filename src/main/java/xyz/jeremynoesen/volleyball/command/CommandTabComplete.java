@@ -120,6 +120,7 @@ public class CommandTabComplete implements TabCompleter {
                         
                         if (player.hasPermission("volleyball.court.set.animations")) tabList.add("animations");
                         if (player.hasPermission("volleyball.court.set.speed")) tabList.add("speed");
+                        if (player.hasPermission("volleyball.court.set.hitradius")) tabList.add("hitradius");
                         if (player.hasPermission("volleyball.court.set.texture")) tabList.add("texture");
                         if (player.hasPermission("volleyball.court.set.bounds")) tabList.add("bounds");
                         if (player.hasPermission("volleyball.court.set.enabled")) tabList.add("enabled");
@@ -135,6 +136,10 @@ public class CommandTabComplete implements TabCompleter {
                         
                         tabList.add("speed");
                         
+                    } else if (args[3].startsWith("h") && player.hasPermission("volleyball.court.set.hitradius")) {
+
+                        tabList.add("hitradius");
+
                     } else if (args[3].startsWith("t") && player.hasPermission("volleyball.court.set.texture")) {
                         
                         tabList.add("texture");

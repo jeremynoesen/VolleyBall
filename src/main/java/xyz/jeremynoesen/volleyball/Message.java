@@ -22,6 +22,7 @@ public class Message {
     public static String SUCCESS_SET_COURT_ENABLED;
     public static String ERROR_CANT_ENABLE;
     public static String SUCCESS_SET_COURT_SPEED;
+    public static String SUCCESS_SET_COURT_HITRADIUS;
     public static String SUCCESS_SET_COURT_TEXTURE;
     public static String SUCCESS_COURT_SELECTED;
     public static String SUCCESS_SET_COURT_ANIMATIONS;
@@ -49,6 +50,7 @@ public class Message {
         SUCCESS_SET_COURT_ENABLED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_ENABLED"));
         ERROR_CANT_ENABLE = PREFIX + format(messageConfig.getConfig().getString("ERROR_CANT_ENABLE"));
         SUCCESS_SET_COURT_SPEED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_SPEED"));
+        SUCCESS_SET_COURT_HITRADIUS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_HITRADIUS"));
         SUCCESS_SET_COURT_TEXTURE = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_TEXTURE"));
         SUCCESS_COURT_SELECTED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_COURT_SELECTED"));
         SUCCESS_SET_COURT_ANIMATIONS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_ANIMATIONS"));

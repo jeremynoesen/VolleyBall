@@ -62,6 +62,11 @@ public class Court {
      * speed modifier of ball
      */
     private double speed;
+
+    /**
+     * radius around player to check for ball when hitting
+     */
+    private double hitRadius;
     
     /**
      * court bounds
@@ -89,6 +94,7 @@ public class Court {
         animations = true;
         restrictions = true;
         speed = 1;
+        hitRadius = 1;
         texture = "http://textures.minecraft.net/texture/9b2513c8d08c60ad3785d3a9a651b7329c5f26937aca2fc8dfaf3441c9bd9da2";
         world = VolleyBall.getInstance().getServer().getWorlds().get(0);
         
@@ -229,6 +235,24 @@ public class Court {
      */
     public void setSpeed(double speed) {
         this.speed = speed;
+    }
+
+    /**
+     * get the hit radius for the court's ball
+     *
+     * @return hit radius of ball
+     */
+    public double getHitRadius() {
+        return hitRadius;
+    }
+
+    /**
+     * set the hit radius for the court's ball
+     *
+     * @param hitRadius hit radius
+     */
+    public void setHitRadius(double hitRadius) {
+        this.hitRadius = hitRadius;
     }
     
     /**
@@ -432,6 +456,7 @@ public class Court {
                 .replace("$RESTRICTIONS$", Boolean.toString(hasRestrictions()))
                 .replace("$ANIMATIONS$", Boolean.toString(hasAnimations()))
                 .replace("$SPEED$", Double.toString(getSpeed()))
+                .replace("$RADIUS$", Double.toString(getHitRadius()))
                 .replace("$TEXTURE$", getTexture())
                 .replace("$WORLD$", world.getName())
                 .replace("$BOUNDS$",

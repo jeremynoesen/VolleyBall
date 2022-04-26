@@ -64,8 +64,8 @@ public class BallListener implements Listener {
     private void hitBall(Player player) {
         if (Court.isOnCourt(player.getLocation())) {
             Court court = Court.get(player);
-            
-            for (Entity s : player.getNearbyEntities(1, 1, 1)) {
+            double hitRadius = court.getHitRadius();
+            for (Entity s : player.getNearbyEntities(hitRadius, hitRadius, hitRadius)) {
                 if (Ball.getBalls().contains(s) && court.getBall().isOut()) {
                     s.getWorld().playSound(s.getLocation(), Sound.ENTITY_CHICKEN_EGG, 2, 0);
                     s.setVelocity(player.getLocation().getDirection().setY(Math.abs(player.getLocation().getDirection().getY()))
