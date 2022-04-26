@@ -41,6 +41,11 @@ public class Court {
      * whether the court has particles visible
      */
     private boolean particles;
+
+    /**
+     * whether the court has sounds enabled
+     */
+    private boolean sounds;
     
     /**
      * whether the court will keep the ball within the bounds
@@ -92,6 +97,7 @@ public class Court {
         enabled = false;
         animations = true;
         particles = true;
+        sounds = true;
         restrictions = true;
         speed = 1;
         hitRadius = 1;
@@ -199,6 +205,24 @@ public class Court {
      */
     public void setParticles(boolean particles) {
         this.particles = particles;
+    }
+
+    /**
+     * check if a court has sounds enabled
+     *
+     * @return true if sounds are enabled
+     */
+    public boolean hasSounds() {
+        return sounds;
+    }
+
+    /**
+     * enable or disable sounds for a court
+     *
+     * @param sounds true to enable
+     */
+    public void setSounds(boolean sounds) {
+        this.sounds = sounds;
     }
     
     /**
@@ -446,6 +470,7 @@ public class Court {
                 .replace("$RESTRICTIONS$", Boolean.toString(hasRestrictions()))
                 .replace("$ANIMATIONS$", Boolean.toString(hasAnimations()))
                 .replace("$PARTICLES$", Boolean.toString(hasParticles()))
+                .replace("$SOUNDS$", Boolean.toString(hasSounds()))
                 .replace("$SPEED$", Double.toString(getSpeed()))
                 .replace("$RADIUS$", Double.toString(getHitRadius()))
                 .replace("$TEXTURE$", getTexture())

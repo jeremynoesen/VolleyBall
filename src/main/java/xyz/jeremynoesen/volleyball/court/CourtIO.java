@@ -36,6 +36,8 @@ public class CourtIO {
             court.setAnimations(courtConfig.getConfig().getBoolean(name + ".animations"));
         if (courtConfig.getConfig().get(name + ".particles") != null)
             court.setParticles(courtConfig.getConfig().getBoolean(name + ".particles"));
+        if (courtConfig.getConfig().get(name + ".sounds") != null)
+            court.setSounds(courtConfig.getConfig().getBoolean(name + ".sounds"));
         if (courtConfig.getConfig().get(name + ".enabled") != null)
             court.setEnabled(courtConfig.getConfig().getBoolean(name + ".enabled"));
         if (courtConfig.getConfig().get(name + ".speed") != null)
@@ -93,6 +95,7 @@ public class CourtIO {
         
         courtConfig.getConfig().set(name + ".animations", court.hasAnimations());
         courtConfig.getConfig().set(name + ".particles", court.hasParticles());
+        courtConfig.getConfig().set(name + ".sounds", court.hasSounds());
         courtConfig.getConfig().set(name + ".enabled", court.isEnabled());
         courtConfig.getConfig().set(name + ".speed", court.getSpeed());
         courtConfig.getConfig().set(name + ".hitradius", court.getHitRadius());

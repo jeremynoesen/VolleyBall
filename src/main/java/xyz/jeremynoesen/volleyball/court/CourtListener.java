@@ -47,13 +47,11 @@ public class CourtListener implements Listener {
         if (Court.get(player.getLocation()) != null) {
             if (!onCourt.contains(player)) {
                 player.sendMessage(Message.ENTER_COURT);
-                player.playSound(player.getLocation(), Sound.BLOCK_SAND_PLACE, 1, 0);
                 onCourt.add(player);
             }
         } else {
             if (onCourt.contains(player)) {
                 player.sendMessage(Message.EXIT_COURT);
-                player.playSound(player.getLocation(), Sound.BLOCK_SAND_BREAK, 1, 0);
                 onCourt.remove(player);
             }
         }

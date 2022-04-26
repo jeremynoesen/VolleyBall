@@ -115,6 +115,7 @@ public class CommandTabComplete implements TabCompleter {
                         
                         if (player.hasPermission("volleyball.court.set.animations")) tabList.add("animations");
                         if (player.hasPermission("volleyball.court.set.particles")) tabList.add("particles");
+                        if (player.hasPermission("volleyball.court.set.sounds")) tabList.add("sounds");
                         if (player.hasPermission("volleyball.court.set.speed")) tabList.add("speed");
                         if (player.hasPermission("volleyball.court.set.hitradius")) tabList.add("hitradius");
                         if (player.hasPermission("volleyball.court.set.texture")) tabList.add("texture");
@@ -132,10 +133,16 @@ public class CommandTabComplete implements TabCompleter {
 
                         tabList.add("particles");
 
-                    } else if (args[3].startsWith("s") && player.hasPermission("volleyball.court.set.speed")) {
-                        
-                        tabList.add("speed");
-                        
+                    } else if (args[3].startsWith("s")) {
+
+                        if (player.hasPermission("volleyball.court.set.sounds")) tabList.add("sounds");
+                        if (player.hasPermission("volleyball.court.set.speed")) tabList.add("speed");
+
+                        if (args[3].startsWith("so") && player.hasPermission("volleyball.court.set.sounds"))
+                            tabList.remove("sounds");
+                        if (args[3].startsWith("sp") && player.hasPermission("volleyball.court.set.speed"))
+                            tabList.remove("speed");
+
                     } else if (args[3].startsWith("h") && player.hasPermission("volleyball.court.set.hitradius")) {
 
                         tabList.add("hitradius");
@@ -175,6 +182,7 @@ public class CommandTabComplete implements TabCompleter {
                 if ((args[3].equalsIgnoreCase("animations") && player.hasPermission("volleyball.court.set.animations")) ||
                         (args[3].equalsIgnoreCase("enabled") && player.hasPermission("volleyball.court.set.enabled")) ||
                         (args[3].equalsIgnoreCase("restrictions") && player.hasPermission("volleyball.court.set.restrictions")) ||
+                        (args[3].equalsIgnoreCase("sounds") && player.hasPermission("volleyball.court.set.sounds")) ||
                         (args[3].equalsIgnoreCase("particles") && player.hasPermission("volleyball.court.set.particles"))) {
                     
                     if (args[4].equalsIgnoreCase("")) {

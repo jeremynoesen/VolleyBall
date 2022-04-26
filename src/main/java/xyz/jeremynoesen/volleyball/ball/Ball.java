@@ -84,9 +84,6 @@ public class Ball {
         setTexture(court.getTexture());
 
         balls.add(ball);
-
-        ball.getWorld().playSound(ball.getLocation(), Sound.ENTITY_ARROW_SHOOT, 2, 0);
-
     }
 
     /**
@@ -119,7 +116,11 @@ public class Ball {
         court.setBall(this);
         boolean animations = court.hasAnimations();
         boolean particles = court.hasParticles();
+        boolean sounds = court.hasSounds();
         boolean restricted = court.hasRestrictions();
+
+        if (sounds)
+            ball.getWorld().playSound(ball.getLocation(), Sound.ENTITY_ARROW_SHOOT, 2, 0);
 
         ball.setVelocity(player.getLocation().getDirection().multiply(0.05).add(new Vector(0, 0.5 + (0.1 * court.getSpeed()), 0)));
 
@@ -205,7 +206,8 @@ public class Ball {
         double hitRadius = court.getHitRadius();
         for (Entity s : player.getNearbyEntities(hitRadius, hitRadius, hitRadius)) {
             if (s.equals(ball) && court.getBall().isOut()) {
-                s.getWorld().playSound(s.getLocation(), Sound.ENTITY_CHICKEN_EGG, 2, 0);
+                if (court.hasSounds())
+                    s.getWorld().playSound(s.getLocation(), Sound.ENTITY_CHICKEN_EGG, 2, 0);
                 s.setVelocity(player.getLocation().getDirection().setY(Math.abs(player.getLocation().getDirection().getY()))
                         .normalize().add(player.getVelocity().multiply(0.25)).multiply(court.getSpeed())
                         .add(new Vector(0, Math.max(0, player.getEyeHeight() - s.getLocation().getY()), 0)));
@@ -265,8 +267,10 @@ public class Ball {
             }
         }.runTaskLater(VolleyBall.getInstance(), (long) 6.28);
 
-        ball.getWorld().playSound(ball.getLocation(), Sound.BLOCK_SAND_PLACE, 2, 1);
-        ball.getWorld().playSound(ball.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASEDRUM, 2, 1);
+        if (court.hasSounds()) {
+            ball.getWorld().playSound(ball.getLocation(), Sound.BLOCK_SAND_PLACE, 2, 1);
+            ball.getWorld().playSound(ball.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASEDRUM, 2, 1);
+        }
     }
 
     /**

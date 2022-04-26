@@ -26,6 +26,7 @@ public class Message {
     public static String SUCCESS_SET_COURT_TEXTURE;
     public static String SUCCESS_SET_COURT_ANIMATIONS;
     public static String SUCCESS_SET_COURT_PARTICLES;
+    public static String SUCCESS_SET_COURT_SOUNDS;
     public static String SUCCESS_SET_COURT_NAME;
     public static String SUCCESS_SET_COURT_RESTRICTIONS;
     public static String ERROR_NO_PERMS;
@@ -56,6 +57,7 @@ public class Message {
         SUCCESS_SET_COURT_TEXTURE = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_TEXTURE"));
         SUCCESS_SET_COURT_ANIMATIONS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_ANIMATIONS"));
         SUCCESS_SET_COURT_PARTICLES = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_PARTICLES"));
+        SUCCESS_SET_COURT_SOUNDS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_SOUNDS"));
         SUCCESS_SET_COURT_NAME = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_NAME"));
         SUCCESS_SET_COURT_RESTRICTIONS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_RESTRICTIONS"));
         ERROR_NO_PERMS = PREFIX + format(messageConfig.getConfig().getString("ERROR_NO_PERMS"));

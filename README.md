@@ -20,6 +20,7 @@ VolleyBall was originally written for a tropical island themed event on a Minecr
 - `/volleyball court <name> set restrictions <true/false>` - Enable or disable ball court restrictions
 - `/volleyball court <name> set animations <true/false>` - Enable or disable ball animations
 - `/volleyball court <name> set particles <true/false>` - Enable or disable ball particles
+- `/volleyball court <name> set sounds <true/false>` - Enable or disable court sound effects
 - `/volleyball court <name> set enabled <true/false>` - Enable or disable a court
 - `/volleyball court <name> set texture <url>` - Set the ball texture based on a Minecraft skin texture url
 - `/volleyball court <name> set speed <number>` - Set the ball speed, default is 1.0
@@ -61,6 +62,7 @@ For the message configuration, you can use color codes. You can also use the pla
 - `volleyball.court.help` - Allow seeing court help
 - `volleyball.court.set.animations` - Allow setting ball animations
 - `volleyball.court.set.particles` - Allow setting ball particles
+- `volleyball.court.set.sounds` - Allow setting court sounds
 - `volleyball.court.set.speed` - Allow setting ball speed
 - `volleyball.court.set.hitradius` - Allow setting ball hit radius
 - `volleyball.court.set.texture` - Allow setting ball texture
