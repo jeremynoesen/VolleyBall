@@ -43,8 +43,8 @@ To install the plugin, download the latest release, put it in your server plugin
 There is no main configuration, all configuring is done in-game.
 
 - Use the `court create` command to create a court. The court will be created, but not enabled.
-- Use WorldEdit to select a cuboid region to set as the bounds. Include the floor and the air above it, not just the floor! run the `court set bounds` command with this selected.
-- Select the net with WorldEdit. Do not include the air under the net. Run the ` court set net` command to set this as the net.
+- Use the `court set bounds <pos1/pos2>` command to select a cuboid region to set as the bounds. Include the floor and the air above it, not just the floor!
+- Do the same with `court set net <pos1/pos2>` to set a region as the net.
 - Use the other court commands to customize your court to your liking.
 - Once you are finished, run the `court set enabled` command with `true` to enable your court. This court can not have its blocks modified while it is enabled, so make sure you make build edits before enabling!
 
@@ -60,17 +60,17 @@ For the message configuration, you can use color codes. You can also use the pla
 - `volleyball.court.info` - Allow seeing info about courts
 - `volleyball.court.list` - Allow seeing the list of courts
 - `volleyball.court.help` - Allow seeing court help
-- `volleyball.court.set.animations` - Allow setting ball animations
-- `volleyball.court.set.particles` - Allow setting ball particles
-- `volleyball.court.set.sounds` - Allow setting court sounds
+- `volleyball.court.set.animations` - Allow enabling ball animations
+- `volleyball.court.set.particles` - Allow enabling ball particles
+- `volleyball.court.set.sounds` - Allow enabling court sounds
 - `volleyball.court.set.speed` - Allow setting ball speed
 - `volleyball.court.set.hitradius` - Allow setting ball hit radius
 - `volleyball.court.set.texture` - Allow setting ball texture
 - `volleyball.court.set.bounds` - Allow setting court bounds
-- `volleyball.court.set.enabled` - Allow setting court enabled
+- `volleyball.court.set.enabled` - Allow enabling court
 - `volleyball.court.set.net` - Allow setting court net
 - `volleyball.court.set.name` - Allow setting court name
-- `volleyball.court.set.restrictions` - Allow ball setting restrictions
+- `volleyball.court.set.restrictions` - Allow setting ball restrictions
 
 ## Demonstration
 
