@@ -34,7 +34,9 @@ public class Message {
     public static String SUCCESS_RELOADED;
     public static String COURT_INFO;
     public static String COURT_LIST;
-    
+    public static String ENTER_COURT;
+    public static String EXIT_COURT;
+
     /**
      * reload all messages from file
      */
@@ -62,6 +64,8 @@ public class Message {
         SUCCESS_RELOADED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_RELOADED"));
         COURT_INFO = PREFIX + format(messageConfig.getConfig().getString("COURT_INFO"));
         COURT_LIST = PREFIX + format(messageConfig.getConfig().getString("COURT_LIST"));
+        ENTER_COURT = PREFIX + format(messageConfig.getConfig().getString("ENTER_COURT"));
+        EXIT_COURT = PREFIX + format(messageConfig.getConfig().getString("EXIT_COURT"));
     }
     
     /**

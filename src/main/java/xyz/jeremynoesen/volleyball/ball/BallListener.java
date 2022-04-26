@@ -2,7 +2,6 @@ package xyz.jeremynoesen.volleyball.ball;
 
 import xyz.jeremynoesen.volleyball.Message;
 import xyz.jeremynoesen.volleyball.court.Court;
-import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,7 +12,6 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
-import org.bukkit.util.Vector;
 
 /**
  * Listeners related to the ball object
@@ -34,46 +32,15 @@ public class BallListener implements Listener {
     }
     
     /**
-     * protect the court from breaking
+     * hit the ball
      */
     @EventHandler
     public void onInteract(PlayerInteractEvent e) {
         Player player = e.getPlayer();
         Action action = e.getAction();
-        if (action == Action.LEFT_CLICK_BLOCK) {
-            if ((Court.isOnCourt(e.getClickedBlock().getLocation()) && Court.get(e.getClickedBlock().getLocation()).isEnabled()) ||
-                    (Court.isOnCourt(player.getLocation()) && Court.get(player.getLocation()).isEnabled())) {
-                e.setCancelled(true);
-            }
-            hitBall(player);
-        } else if (action == Action.LEFT_CLICK_AIR) {
-            hitBall(player);
-        } else if (action == Action.RIGHT_CLICK_BLOCK) {
-            if ((Court.isOnCourt(e.getClickedBlock().getLocation()) && Court.get(e.getClickedBlock().getLocation()).isEnabled()) ||
-                    (Court.isOnCourt(player.getLocation()) && Court.get(player.getLocation()).isEnabled())) {
-                e.setCancelled(true);
-            }
-        }
-    }
-    
-    /**
-     * make a player hit the nearest ball
-     *
-     * @param player player hitting
-     */
-    private void hitBall(Player player) {
-        if (Court.isOnCourt(player.getLocation())) {
-            Court court = Court.get(player);
-            double hitRadius = court.getHitRadius();
-            for (Entity s : player.getNearbyEntities(hitRadius, hitRadius, hitRadius)) {
-                if (Ball.getBalls().contains(s) && court.getBall().isOut()) {
-                    s.getWorld().playSound(s.getLocation(), Sound.ENTITY_CHICKEN_EGG, 2, 0);
-                    s.setVelocity(player.getLocation().getDirection().setY(Math.abs(player.getLocation().getDirection().getY()))
-                            .normalize().add(player.getVelocity().multiply(0.25)).multiply(court.getSpeed())
-                            .add(new Vector(0, Math.max(0, player.getEyeHeight() - s.getLocation().getY()), 0)));
-                    break;
-                }
-            }
+        if ((action == Action.LEFT_CLICK_BLOCK || action == Action.LEFT_CLICK_AIR) &&
+                Court.get(player) != null && Court.get(player).getBall() != null) {
+            Court.get(player).getBall().hit(player);
         }
     }
     

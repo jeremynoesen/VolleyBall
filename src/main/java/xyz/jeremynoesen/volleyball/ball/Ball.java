@@ -197,6 +197,24 @@ public class Ball {
     }
 
     /**
+     * make a player hit the nearest ball
+     *
+     * @param player player hitting
+     */
+    public void hit(Player player) {
+        double hitRadius = court.getHitRadius();
+        for (Entity s : player.getNearbyEntities(hitRadius, hitRadius, hitRadius)) {
+            if (s.equals(ball) && court.getBall().isOut()) {
+                s.getWorld().playSound(s.getLocation(), Sound.ENTITY_CHICKEN_EGG, 2, 0);
+                s.setVelocity(player.getLocation().getDirection().setY(Math.abs(player.getLocation().getDirection().getY()))
+                        .normalize().add(player.getVelocity().multiply(0.25)).multiply(court.getSpeed())
+                        .add(new Vector(0, Math.max(0, player.getEyeHeight() - s.getLocation().getY()), 0)));
+                break;
+            }
+        }
+    }
+
+    /**
      * removes the volleyball with or without animations
      */
     public void remove() {
@@ -268,5 +286,4 @@ public class Ball {
     public static Set<Entity> getBalls() {
         return balls;
     }
-
 }

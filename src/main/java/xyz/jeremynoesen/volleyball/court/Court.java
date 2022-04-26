@@ -496,22 +496,6 @@ public class Court {
     }
     
     /**
-     * check if a location is on any court
-     *
-     * @param l location to check
-     * @return true if on any court
-     */
-    public static boolean isOnCourt(Location l) {
-        
-        for (Court court : courts.values()) {
-            if (court.contains(l)) return true;
-        }
-        
-        return false;
-        
-    }
-    
-    /**
      * get the court the player is on
      *
      * @param player player to check for courts

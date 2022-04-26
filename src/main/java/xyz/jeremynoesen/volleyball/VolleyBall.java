@@ -11,6 +11,7 @@ import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
+import xyz.jeremynoesen.volleyball.court.CourtListener;
 
 /**
  * Main class for the plugin. registers commands and listeners
@@ -38,7 +39,8 @@ public class VolleyBall extends JavaPlugin implements Listener {
         PluginManager pm = getServer().getPluginManager();
         
         pm.registerEvents(new BallListener(), plugin);
-        
+        pm.registerEvents(new CourtListener(), plugin);
+
         pm.addPermission(new Permission("volleyball.help"));
         pm.addPermission(new Permission("volleyball.reload"));
         pm.addPermission(new Permission("volleyball.court.create"));
