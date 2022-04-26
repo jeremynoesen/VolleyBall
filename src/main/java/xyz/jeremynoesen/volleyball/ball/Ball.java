@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.EulerAngle;
 import org.bukkit.util.Vector;
 import xyz.jeremynoesen.volleyball.VolleyBall;
 import xyz.jeremynoesen.volleyball.court.Court;
@@ -74,6 +75,8 @@ public class Ball {
         this.court = Court.get(player);
 
         Location loc = player.getEyeLocation().add(player.getLocation().getDirection().multiply(0.75).setY(-0.5));
+        loc.setYaw(0);
+        loc.setPitch(0);
 
         this.ball = player.getLocation().getWorld().spawn(loc, ArmorStand.class);
         ball.setSmall(true);
@@ -136,6 +139,8 @@ public class Ball {
             }
         }
 
+        double[] rot = {0, 0, 0};
+
         new BukkitRunnable() {
             @Override
             public void run() {
@@ -168,13 +173,11 @@ public class Ball {
                         ball.setVelocity(vec.setZ(-vec.getZ() * 1.25));
                 }
 
-                if (!end) {
-                    if (animations) {
-
-                    } else {
-                        double rotation = Math.toDegrees(Math.atan2(ball.getVelocity().getZ(), ball.getVelocity().getX()));
-                        if (Double.isFinite(rotation)) ball.setRotation((float) rotation - 90, 0);
-                    }
+                if (!end && animations) {
+                    ball.setHeadPose(new EulerAngle(rot[0], rot[1], rot[2]));
+                    rot[0] += Math.abs(ball.getVelocity().getX()) / Math.PI;
+                    rot[1] += Math.abs(ball.getVelocity().getY()) / Math.PI;
+                    rot[2] += Math.abs(ball.getVelocity().getZ()) / Math.PI;
                 }
 
                 if (ball.isDead()) {
