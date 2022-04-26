@@ -2,8 +2,6 @@ package xyz.jeremynoesen.volleyball.ball;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import xyz.jeremynoesen.volleyball.VolleyBall;
-import xyz.jeremynoesen.volleyball.court.Court;
 import org.apache.commons.codec.binary.Base64;
 import org.bukkit.*;
 import org.bukkit.entity.ArmorStand;
@@ -13,6 +11,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
+import xyz.jeremynoesen.volleyball.VolleyBall;
+import xyz.jeremynoesen.volleyball.court.Court;
 
 import java.lang.reflect.Field;
 import java.util.HashSet;
@@ -117,12 +117,13 @@ public class Ball {
      */
     public void serve() {
         court.setBall(this);
-        boolean animated = court.hasAnimations();
+        boolean animations = court.hasAnimations();
+        boolean particles = court.hasParticles();
         boolean restricted = court.hasRestrictions();
 
         ball.setVelocity(player.getLocation().getDirection().multiply(0.05).add(new Vector(0, 0.5 + (0.1 * court.getSpeed()), 0)));
 
-        if (animated) {
+        if (particles) {
             Location loc = player.getLocation();
             double radius = 0.5;
             for (double y = 0; y <= Math.PI * 2; y += 0.175) {
@@ -150,7 +151,7 @@ public class Ball {
                     volleyed = false;
                 }
 
-                if (animated && !end) {
+                if (particles && !end) {
                     ball.getWorld().spawnParticle(Particle.CRIT,
                             ball.getLocation().add(new Vector(0, 0.75, 0)), 0, 0, 0, 0, 1);
                 }
@@ -167,8 +168,12 @@ public class Ball {
                 }
 
                 if (!end) {
-                    double rotation = Math.toDegrees(Math.atan2(ball.getVelocity().getZ(), ball.getVelocity().getX()));
-                    if (Double.isFinite(rotation)) ball.setRotation((float) rotation - 90, 0);
+                    if (animations) {
+
+                    } else {
+                        double rotation = Math.toDegrees(Math.atan2(ball.getVelocity().getZ(), ball.getVelocity().getX()));
+                        if (Double.isFinite(rotation)) ball.setRotation((float) rotation - 90, 0);
+                    }
                 }
 
                 if (ball.isDead()) {
@@ -196,54 +201,54 @@ public class Ball {
      */
     public void remove() {
         boolean animated = court.hasAnimations();
-        if (animated) {
-            end = true;
-            double radius = 1;
-            Location loc = ball.getLocation().clone();
-            for (double y = 0; y <= 6.28; y += 1.04) {
-                double finalY = y;
-                new BukkitRunnable() {
-                    @Override
-                    public void run() {
-                        double x = (radius - 0.14 * finalY) * Math.cos(finalY);
-                        double z = (radius - 0.14 * finalY) * Math.sin(finalY);
+        boolean particles = court.hasParticles();
+        end = true;
+        double radius = 1;
+        Location loc = ball.getLocation().clone();
+        for (double y = 0; y <= 6.28; y += 1.04) {
+            double finalY = y;
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    double x = (radius - 0.14 * finalY) * Math.cos(finalY);
+                    double z = (radius - 0.14 * finalY) * Math.sin(finalY);
+                    if (particles)
                         ball.getWorld().spawnParticle(Particle.CLOUD,
                                 (float) (loc.getX() + x), (float) (loc.getY() + 0.3),
                                 (float) (loc.getZ() + z), 0, 0, 0, 0, 1);
+                    if (animated) {
                         loc.setYaw((float) finalY * 20);
                         loc.setY(loc.subtract(0, 0.1 * finalY, 0).getY());
                         ball.teleport(loc);
                     }
-                }.runTaskLater(VolleyBall.getInstance(), (long) y);
-            }
-            Location loc1 = ball.getLocation().clone();
-            for (double y = 0; y <= 6.28; y += 0.2) {
-                double finalY = y;
-                new BukkitRunnable() {
-                    @Override
-                    public void run() {
-                        double x = (radius - 0.14 * finalY) * Math.cos(finalY + 3.14159);
-                        double z = (radius - 0.14 * finalY) * Math.sin(finalY + 3.14159);
-                        ball.getWorld().spawnParticle(Particle.CLOUD,
-                                (float) (loc1.getX() + x), (float) (loc1.getY() + 0.3),
-                                (float) (loc1.getZ() + z), 0, 0, 0, 0, 1);
-                    }
-                }.runTaskLater(VolleyBall.getInstance(), (long) y);
-            }
+                }
+            }.runTaskLater(VolleyBall.getInstance(), (long) y);
+        }
+        Location loc1 = ball.getLocation().clone();
+        for (double y = 0; y <= 6.28; y += 0.2) {
+            double finalY = y;
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    balls.remove(ball);
-                    ball.remove();
+                    double x = (radius - 0.14 * finalY) * Math.cos(finalY + 3.14159);
+                    double z = (radius - 0.14 * finalY) * Math.sin(finalY + 3.14159);
+                    if (particles)
+                        ball.getWorld().spawnParticle(Particle.CLOUD,
+                                (float) (loc1.getX() + x), (float) (loc1.getY() + 0.3),
+                                (float) (loc1.getZ() + z), 0, 0, 0, 0, 1);
                 }
-            }.runTaskLater(VolleyBall.getInstance(), (long) 6.28);
-
-            ball.getWorld().playSound(ball.getLocation(), Sound.BLOCK_SAND_PLACE, 2, 1);
-            ball.getWorld().playSound(ball.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASEDRUM, 2, 1);
-        } else {
-            balls.remove(ball);
-            ball.remove();
+            }.runTaskLater(VolleyBall.getInstance(), (long) y);
         }
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                balls.remove(ball);
+                ball.remove();
+            }
+        }.runTaskLater(VolleyBall.getInstance(), (long) 6.28);
+
+        ball.getWorld().playSound(ball.getLocation(), Sound.BLOCK_SAND_PLACE, 2, 1);
+        ball.getWorld().playSound(ball.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASEDRUM, 2, 1);
     }
 
     /**

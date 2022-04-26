@@ -42,6 +42,11 @@ public class Court {
      * whether the court has animation enabled
      */
     private boolean animations;
+
+    /**
+     * whether the court has particles visible
+     */
+    private boolean particles;
     
     /**
      * whether the court will keep the ball within the bounds
@@ -92,6 +97,7 @@ public class Court {
         this.name = name;
         enabled = false;
         animations = true;
+        particles = true;
         restrictions = true;
         speed = 1;
         hitRadius = 1;
@@ -181,6 +187,24 @@ public class Court {
      */
     public void setAnimations(boolean animations) {
         this.animations = animations;
+    }
+
+    /**
+     * check if a court has particles enabled
+     *
+     * @return true if particles are enabled
+     */
+    public boolean hasParticles() {
+        return particles;
+    }
+
+    /**
+     * enable or disable animations for a court
+     *
+     * @param particles true to enable
+     */
+    public void setParticles(boolean particles) {
+        this.particles = particles;
     }
     
     /**
@@ -455,6 +479,7 @@ public class Court {
                 .replace("$ENABLED$", Boolean.toString(isEnabled()))
                 .replace("$RESTRICTIONS$", Boolean.toString(hasRestrictions()))
                 .replace("$ANIMATIONS$", Boolean.toString(hasAnimations()))
+                .replace("$PARTICLES$", Boolean.toString(hasParticles()))
                 .replace("$SPEED$", Double.toString(getSpeed()))
                 .replace("$RADIUS$", Double.toString(getHitRadius()))
                 .replace("$TEXTURE$", getTexture())
