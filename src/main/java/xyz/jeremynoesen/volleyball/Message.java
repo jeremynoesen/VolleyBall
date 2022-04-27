@@ -101,6 +101,8 @@ public class Message {
                         "" + ChatColor.BOLD + "Help"
                         + ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "]-------------");
 
+        if (player.hasPermission("volleyball.help"))
+            help.add(ChatColor.GRAY + "/volleyball help" + ChatColor.WHITE + ": Show plugin help");
         if (player.hasPermission("volleyball.reload"))
             help.add(ChatColor.GRAY + "/volleyball reload" + ChatColor.WHITE + ": Reload plugin and configs");
         if (player.hasPermission("volleyball.list"))

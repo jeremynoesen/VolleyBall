@@ -10,7 +10,7 @@ VolleyBall was originally written for a tropical island themed event on a Minecr
 
 ## Usage
 
-- `/volleyball help` - Show the help message
+- `/volleyball help` - Show plugin help
 - `/volleyball reload` - Reload configs and delete ball entities
 - `/volleyball list` - List all courts
 - `/volleyball create <name>` - Create a new court
@@ -56,10 +56,9 @@ Do not modify the courts config, as you can possibly break your saved courts!
 For the message configuration, you can use color codes. You can also use the placeholders used per message, as shown in the default configuration. The messages and their names should explain what they are used for.
 
 ### Permissions
-- `volleyball.help` - Allow using the main help command
+- `volleyball.help` - Allow using the help command
 - `volleyball.reload` - Allow reloading the plugin
 - `volleyball.create` - Allow creating a court
-- `volleyball.help` - Allow seeing court help
 - `volleyball.info` - Allow seeing info about courts
 - `volleyball.list` - Allow seeing the list of courts
 - `volleyball.remove` - Allow removing a court
