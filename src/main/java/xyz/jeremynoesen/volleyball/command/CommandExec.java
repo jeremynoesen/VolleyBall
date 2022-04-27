@@ -111,9 +111,9 @@ public class CommandExec implements CommandExecutor {
                                                     case "net":
                                                         if (player.hasPermission("volleyball.court.set.net")) {
                                                             if (args[4].equalsIgnoreCase("pos1")) {
-                                                                court.setBounds(player, 1);
+                                                                court.setNet(player, 1);
                                                             } else if (args[4].equalsIgnoreCase("pos2")) {
-                                                                court.setBounds(player, 2);
+                                                                court.setNet(player, 2);
                                                             } else {
                                                                 player.sendMessage(Message.ERROR_UNKNOWN_ARGS);
                                                             }
@@ -124,9 +124,9 @@ public class CommandExec implements CommandExecutor {
                                                     case "bounds":
                                                         if (player.hasPermission("volleyball.court.set.bounds")) {
                                                             if (args[4].equalsIgnoreCase("pos1")) {
-                                                                court.setNet(player, 1);
+                                                                court.setBounds(player, 1);
                                                             } else if (args[4].equalsIgnoreCase("pos2")) {
-                                                                court.setNet(player, 2);
+                                                                court.setBounds(player, 2);
                                                             } else {
                                                                 player.sendMessage(Message.ERROR_UNKNOWN_ARGS);
                                                             }
@@ -189,7 +189,7 @@ public class CommandExec implements CommandExecutor {
                                                     case "sounds":
                                                         if (player.hasPermission("volleyball.court.set.sounds")) {
                                                             boolean sounds = Boolean.parseBoolean(args[4]);
-                                                            court.setParticles(sounds);
+                                                            court.setSounds(sounds);
                                                             player.sendMessage(Message.SUCCESS_SET_COURT_SOUNDS
                                                                     .replace("$COURT$", args[1])
                                                                     .replace("$BOOL$", Boolean.toString(sounds)));
