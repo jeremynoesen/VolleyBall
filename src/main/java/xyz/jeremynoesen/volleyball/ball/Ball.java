@@ -210,7 +210,7 @@ public class Ball {
      */
     public void hit(Player player) {
         double hitRadius = court.getHitRadius();
-        for (Entity s : player.getNearbyEntities(hitRadius, hitRadius, hitRadius)) {
+        for (Entity s : player.getNearbyEntities(hitRadius, 1 + ((0.1 * hitRadius) - 0.1), hitRadius)) {
             if (s.equals(ball) && court.getBall().isOut()) {
                 if (court.hasSounds())
                     s.getWorld().playSound(s.getLocation(), Sound.ENTITY_CHICKEN_EGG, 2, 0);
