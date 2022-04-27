@@ -45,11 +45,11 @@ To install the plugin, download the latest release, put it in your server plugin
 ## Configuration
 There is no main configuration, all configuring is done in-game.
 
-- Use the `court create` command to create a court. The court will be created, but not enabled.
-- Use the `court set bounds <pos1/pos2>` commands to select a cuboid region to set as the bounds. Include the floor and the air above it, not just the floor!
-- Do the same with `court set net <pos1/pos2>` to set a region as the net.
-- Use the other court commands to customize your court to your liking.
-- Once you are finished, run the `court set enabled` command with `true` to enable your court. This court can not have its blocks modified while it is enabled, so make sure you make build edits before enabling!
+- Use the `volleyball create` command to create a court. The court will be created, but not enabled.
+- Use the `volleyball bounds <name> <pos1/pos2>` command to select a cuboid region to set as the bounds. Include the floor and the air above it, not just the floor!
+- Do the same with `volleyball net <name> <pos1/pos2>` to set a region as the net. Select from the floor to the top of the net!
+- Use the other commands to customize your court to your liking.
+- Once you are finished, run `volleyball enabled <name> true` to enable your court. This court can not have its blocks modified while it is enabled, so make sure you make build edits before enabling!
 
 Do not modify the courts config, as you can possibly break your saved courts!
 
