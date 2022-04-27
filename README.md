@@ -21,6 +21,8 @@ VolleyBall was originally written for a tropical island themed event on a Minecr
 - `/volleyball court <name> set animations <true/false>` - Enable or disable ball animations
 - `/volleyball court <name> set particles <true/false>` - Enable or disable ball particles
 - `/volleyball court <name> set sounds <true/false>` - Enable or disable court sound effects
+- `/volleyball court <name> set scoring <true/false>` - Enable or disable scoring
+- `/volleyball court <name> set hints <true/false>` - Enable or disable hints on court
 - `/volleyball court <name> set enabled <true/false>` - Enable or disable a court
 - `/volleyball court <name> set texture <url>` - Set the ball texture based on a Minecraft skin texture url
 - `/volleyball court <name> set speed <number>` - Set the ball speed, default is 1.0
@@ -43,7 +45,7 @@ To install the plugin, download the latest release, put it in your server plugin
 There is no main configuration, all configuring is done in-game.
 
 - Use the `court create` command to create a court. The court will be created, but not enabled.
-- Use the `court set bounds <pos1/pos2>` command to select a cuboid region to set as the bounds. Include the floor and the air above it, not just the floor!
+- Use the `court set bounds <pos1/pos2>` commands to select a cuboid region to set as the bounds. Include the floor and the air above it, not just the floor!
 - Do the same with `court set net <pos1/pos2>` to set a region as the net.
 - Use the other court commands to customize your court to your liking.
 - Once you are finished, run the `court set enabled` command with `true` to enable your court. This court can not have its blocks modified while it is enabled, so make sure you make build edits before enabling!
@@ -70,7 +72,9 @@ For the message configuration, you can use color codes. You can also use the pla
 - `volleyball.court.set.enabled` - Allow enabling court
 - `volleyball.court.set.net` - Allow setting court net
 - `volleyball.court.set.name` - Allow setting court name
-- `volleyball.court.set.restrictions` - Allow setting ball restrictions
+- `volleyball.court.set.restrictions` - Allow enabling ball restrictions
+- `volleyball.court.set.scoring` - Allow enabling scoring
+- `volleyball.court.set.hints` - Allow enabling court hints
 
 ## Demonstration
 
