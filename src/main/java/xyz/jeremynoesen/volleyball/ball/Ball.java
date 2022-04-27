@@ -148,14 +148,16 @@ public class Ball {
 
                 ball.setFallDistance(0);
 
-                if (court.isAboveNet(ball.getLocation()) && !volleyed) {
-                    volleyed = true;
-                    volleys++;
-                    for (Player players : court.getPlayersOnCourt()) {
-                        players.sendTitle(" ", Message.SCORE_TITLE.replace("$SCORE$", Integer.toString(volleys)), 0, 10, 10);
+                if (court.hasScoring()) {
+                    if (court.isAboveNet(ball.getLocation()) && !volleyed) {
+                        volleyed = true;
+                        volleys++;
+                        for (Player players : court.getPlayersOnCourt()) {
+                            players.sendTitle(" ", Message.SCORE_TITLE.replace("$SCORE$", Integer.toString(volleys)), 0, 10, 10);
+                        }
+                    } else if (!court.isAboveNet(ball.getLocation())) {
+                        volleyed = false;
                     }
-                } else if (!court.isAboveNet(ball.getLocation())) {
-                    volleyed = false;
                 }
 
                 if (particles && !end) {

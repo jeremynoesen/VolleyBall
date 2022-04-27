@@ -16,6 +16,7 @@ SUCCESS_SET_COURT_PARTICLES: "&7Successfully set particles to &f$BOOL$ &7on cour
 SUCCESS_SET_COURT_SOUNDS: "&7Successfully set sounds to &f$BOOL$ &7on court &f$COURT$&7!"
 SUCCESS_SET_COURT_NAME: "&7Successfully changed court name from &f$OLD$ &7to &f$NEW$&7!"
 SUCCESS_SET_COURT_RESTRICTIONS: "&7Successfully set restrictions to &f$BOOL$ &7on court &f$COURT$&7!"
+SUCCESS_SET_COURT_SCORING: "&7Successfully set scoring to &f$BOOL$ &7on court &f$COURT$&7!"
 ERROR_NO_PERMS: "&7You do not have permission to do this!"
 ERROR_UNKNOWN_ARGS: "&7Unknown arguments!"
 ERROR_COURT_EXISTS: "&7That court already exists!"

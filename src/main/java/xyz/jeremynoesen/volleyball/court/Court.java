@@ -1,11 +1,11 @@
 package xyz.jeremynoesen.volleyball.court;
 
-import xyz.jeremynoesen.volleyball.Message;
-import xyz.jeremynoesen.volleyball.VolleyBall;
-import xyz.jeremynoesen.volleyball.ball.Ball;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import xyz.jeremynoesen.volleyball.Message;
+import xyz.jeremynoesen.volleyball.VolleyBall;
+import xyz.jeremynoesen.volleyball.ball.Ball;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,22 +16,22 @@ import java.util.HashMap;
  * @author Jeremy Noesen
  */
 public class Court {
-    
+
     /**
      * all loaded courts
      */
     private static HashMap<String, Court> courts = new HashMap<>();
-    
+
     /**
      * name of the court
      */
     private String name;
-    
+
     /**
      * whether the court is enabled
      */
     private boolean enabled;
-    
+
     /**
      * whether the court has animation enabled
      */
@@ -46,22 +46,27 @@ public class Court {
      * whether the court has sounds enabled
      */
     private boolean sounds;
-    
+
     /**
      * whether the court will keep the ball within the bounds
      */
     private boolean restrictions;
-    
+
+    /**
+     * whether to enable scoring
+     */
+    private boolean scoring;
+
     /**
      * player head texture for the ball
      */
     private String texture;
-    
+
     /**
      * world the court is in
      */
     private World world;
-    
+
     /**
      * speed modifier of ball
      */
@@ -71,22 +76,22 @@ public class Court {
      * radius around player to check for ball when hitting
      */
     private double hitRadius;
-    
+
     /**
      * court bounds
      */
     private double[][] bounds;
-    
+
     /**
      * net bounds
      */
     private double[][] net;
-    
+
     /**
      * ball used in court
      */
     private Ball ball;
-    
+
     /**
      * create a court with default values with the specified name
      *
@@ -99,11 +104,12 @@ public class Court {
         particles = true;
         sounds = true;
         restrictions = true;
+        scoring = true;
         speed = 1;
         hitRadius = 1;
         texture = "http://textures.minecraft.net/texture/9b2513c8d08c60ad3785d3a9a651b7329c5f26937aca2fc8dfaf3441c9bd9da2";
         world = VolleyBall.getInstance().getServer().getWorlds().get(0);
-        
+
         bounds = new double[2][3];
         bounds[0][0] = 0;
         bounds[0][1] = 0;
@@ -111,7 +117,7 @@ public class Court {
         bounds[1][0] = 0;
         bounds[1][1] = 0;
         bounds[1][2] = 0;
-        
+
         net = new double[2][3];
         net[0][0] = 0;
         net[0][1] = 0;
@@ -119,11 +125,11 @@ public class Court {
         net[1][0] = 0;
         net[1][1] = 0;
         net[1][2] = 0;
-        
+
         ball = null;
         courts.put(name, this);
     }
-    
+
     /**
      * get all loaded courts
      *
@@ -132,7 +138,7 @@ public class Court {
     public static HashMap<String, Court> getCourts() {
         return courts;
     }
-    
+
     /**
      * get the name of this court
      *
@@ -141,7 +147,7 @@ public class Court {
     public String getName() {
         return name;
     }
-    
+
     /**
      * set the name of this court
      *
@@ -152,7 +158,7 @@ public class Court {
         this.name = name;
         courts.put(name, this);
     }
-    
+
     /**
      * check if a court is enabled
      *
@@ -161,7 +167,7 @@ public class Court {
     public boolean isEnabled() {
         return enabled;
     }
-    
+
     /**
      * enable or disable a court
      *
@@ -170,7 +176,7 @@ public class Court {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
-    
+
     /**
      * check if a court has animations enabled
      *
@@ -179,7 +185,7 @@ public class Court {
     public boolean hasAnimations() {
         return animations;
     }
-    
+
     /**
      * enable or disable animations for a court
      *
@@ -224,7 +230,7 @@ public class Court {
     public void setSounds(boolean sounds) {
         this.sounds = sounds;
     }
-    
+
     /**
      * get the url for the ball texture
      *
@@ -233,7 +239,7 @@ public class Court {
     public String getTexture() {
         return texture;
     }
-    
+
     /**
      * set the ball texture for this court
      *
@@ -242,7 +248,7 @@ public class Court {
     public void setTexture(String texture) {
         this.texture = texture;
     }
-    
+
     /**
      * get the world the court is in
      *
@@ -251,7 +257,7 @@ public class Court {
     public World getWorld() {
         return world;
     }
-    
+
     /**
      * set the world the court is in
      *
@@ -260,7 +266,7 @@ public class Court {
     public void setWorld(World world) {
         this.world = world;
     }
-    
+
     /**
      * get the speed modifier for the court's ball
      *
@@ -269,7 +275,7 @@ public class Court {
     public double getSpeed() {
         return speed;
     }
-    
+
     /**
      * set the speed modifier for the court's ball
      *
@@ -296,7 +302,7 @@ public class Court {
     public void setHitRadius(double hitRadius) {
         this.hitRadius = hitRadius;
     }
-    
+
     /**
      * get the court bounds
      *
@@ -310,7 +316,7 @@ public class Court {
      * set bounds based on the position of the player
      *
      * @param player player setting bounds
-     * @param pos position to set (1 or 2)
+     * @param pos    position to set (1 or 2)
      */
     private void setBounds(Player player, double[][] bounds, int pos) {
         if (pos == 1 || pos == 2) {
@@ -338,7 +344,7 @@ public class Court {
             }
         }
     }
-    
+
     /**
      * set the court bounds
      *
@@ -347,17 +353,17 @@ public class Court {
     public void setBounds(double[][] bounds) {
         this.bounds = bounds;
     }
-    
+
     /**
      * set the court bounds based on the player location
      *
      * @param player player setting bounds
-     * @param pos position to set (1 or 2)
+     * @param pos    position to set (1 or 2)
      */
     public void setBounds(Player player, int pos) {
         setBounds(player, bounds, pos);
     }
-    
+
     /**
      * get net bounds for court
      *
@@ -366,7 +372,7 @@ public class Court {
     public double[][] getNet() {
         return net;
     }
-    
+
     /**
      * set the court net bounds
      *
@@ -375,17 +381,53 @@ public class Court {
     public void setNet(double[][] net) {
         this.net = net;
     }
-    
+
     /**
      * set the net bounds based on the player location
      *
      * @param player player setting bounds
-     * @param pos position to set (1 or 2)
+     * @param pos    position to set (1 or 2)
      */
     public void setNet(Player player, int pos) {
         setBounds(player, net, pos);
     }
-    
+
+    /**
+     * check if the court has ball restrictions to keep the ball in bounds
+     *
+     * @return true if court has restrictions
+     */
+    public boolean hasRestrictions() {
+        return restrictions;
+    }
+
+    /**
+     * enable or disable court ball restrictions
+     *
+     * @param restrictions true to enable
+     */
+    public void setRestrictions(boolean restrictions) {
+        this.restrictions = restrictions;
+    }
+
+    /**
+     * check if the court has scoring enabled
+     *
+     * @return true if court has scoring
+     */
+    public boolean hasScoring() {
+        return scoring;
+    }
+
+    /**
+     * enable or disable scoring
+     *
+     * @param scoring true to enable
+     */
+    public void setScoring(boolean scoring) {
+        this.scoring = scoring;
+    }
+
     /**
      * check if a location is on a court
      *
@@ -403,14 +445,14 @@ public class Court {
             double tox = l.getBlock().getLocation().getX();
             double toy = l.getBlock().getLocation().getY();
             double toz = l.getBlock().getLocation().getZ();
-            
+
             return (l.getWorld().equals(world) && (tox <= maxx) && (tox >= minx) && (toy <= maxy) &&
                     (toy >= miny) && (toz <= maxz) && (toz >= minz));
         } catch (Exception e) {
             return false;
         }
     }
-    
+
     /**
      * get a list of all players on the specified court
      *
@@ -418,7 +460,7 @@ public class Court {
      */
     public ArrayList<Player> getPlayersOnCourt() {
         ArrayList<Player> players = new ArrayList<>();
-        
+
         if (world != null)
             for (Player worldPlayer : world.getPlayers()) {
                 if (!worldPlayer.isOnline()) continue;
@@ -426,10 +468,10 @@ public class Court {
                     players.add(worldPlayer);
                 }
             }
-        
+
         return players;
     }
-    
+
     /**
      * check if a player is in a court
      *
@@ -439,7 +481,7 @@ public class Court {
     public boolean contains(Player player) {
         return getPlayersOnCourt().contains(player);
     }
-    
+
     /**
      * check if a location is above a net
      *
@@ -447,7 +489,7 @@ public class Court {
      * @return true if location is above a net
      */
     public boolean isAboveNet(Location l) {
-        
+
         try {
             double maxx = net[1][0];
             double maxz = net[1][2];
@@ -457,14 +499,64 @@ public class Court {
             double tox = l.getBlock().getLocation().getX();
             double toy = l.getBlock().getLocation().getY();
             double toz = l.getBlock().getLocation().getZ();
-            
+
             return (l.getWorld().equals(world) && (tox <= maxx) && (tox >= minx) &&
                     (toy >= miny) && (toz <= maxz) && (toz >= minz));
         } catch (Exception e) {
             return false;
         }
     }
-    
+
+    /**
+     * get the ball on the court
+     *
+     * @return ball on court
+     */
+    public Ball getBall() {
+        return ball;
+    }
+
+    /**
+     * set the current ball
+     *
+     * @param ball ball
+     */
+    public void setBall(Ball ball) {
+        this.ball = ball;
+    }
+
+    /**
+     * get the court the player is on
+     *
+     * @param player player to check for courts
+     * @return court player is on
+     */
+    public static Court get(Player player) {
+
+        for (Court court : courts.values()) {
+            if (court.contains(player)) {
+                return court;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * get the court a location is in
+     *
+     * @param loc location to check
+     * @return court location is in
+     */
+    public static Court get(Location loc) {
+
+        for (Court court : courts.values()) {
+            if (court.contains(loc)) {
+                return court;
+            }
+        }
+        return null;
+    }
+
     /**
      * get the court in a decorated string format for chat
      *
@@ -479,6 +571,7 @@ public class Court {
                 .replace("$ANIMATIONS$", Boolean.toString(hasAnimations()))
                 .replace("$PARTICLES$", Boolean.toString(hasParticles()))
                 .replace("$SOUNDS$", Boolean.toString(hasSounds()))
+                .replace("$SCORING$", Boolean.toString(hasScoring()))
                 .replace("$SPEED$", Double.toString(getSpeed()))
                 .replace("$RADIUS$", Double.toString(getHitRadius()))
                 .replace("$TEXTURE$", getTexture())
@@ -489,74 +582,6 @@ public class Court {
                 .replace("$NET$",
                         "(" + net[0][0] + "," + net[0][1] + "," + net[0][2] + ") to (" +
                                 net[1][0] + "," + net[1][1] + "," + net[1][2] + ")");
-        
-    }
-    
-    /**
-     * get the ball on the court
-     *
-     * @return ball on court
-     */
-    public Ball getBall() {
-        return ball;
-    }
-    
-    /**
-     * set the current ball
-     *
-     * @param ball ball
-     */
-    public void setBall(Ball ball) {
-        this.ball = ball;
-    }
-    
-    /**
-     * check if the court has ball restrictions to keep the ball in bounds
-     *
-     * @return true if court has restrictions
-     */
-    public boolean hasRestrictions() {
-        return restrictions;
-    }
-    
-    /**
-     * enable or disable court ball restrictions
-     *
-     * @param restrictions true to enable
-     */
-    public void setRestrictions(boolean restrictions) {
-        this.restrictions = restrictions;
-    }
-    
-    /**
-     * get the court the player is on
-     *
-     * @param player player to check for courts
-     * @return court player is on
-     */
-    public static Court get(Player player) {
-        
-        for (Court court : courts.values()) {
-            if (court.contains(player)) {
-                return court;
-            }
-        }
-        return null;
-    }
-    
-    /**
-     * get the court a location is in
-     *
-     * @param loc location to check
-     * @return court location is in
-     */
-    public static Court get(Location loc) {
-        
-        for (Court court : courts.values()) {
-            if (court.contains(loc)) {
-                return court;
-            }
-        }
-        return null;
+
     }
 }

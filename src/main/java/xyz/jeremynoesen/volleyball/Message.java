@@ -29,6 +29,7 @@ public class Message {
     public static String SUCCESS_SET_COURT_SOUNDS;
     public static String SUCCESS_SET_COURT_NAME;
     public static String SUCCESS_SET_COURT_RESTRICTIONS;
+    public static String SUCCESS_SET_COURT_SCORING;
     public static String ERROR_NO_PERMS;
     public static String ERROR_UNKNOWN_ARGS;
     public static String ERROR_COURT_EXISTS;
@@ -61,6 +62,7 @@ public class Message {
         SUCCESS_SET_COURT_SOUNDS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_SOUNDS"));
         SUCCESS_SET_COURT_NAME = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_NAME"));
         SUCCESS_SET_COURT_RESTRICTIONS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_RESTRICTIONS"));
+        SUCCESS_SET_COURT_SCORING = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SET_COURT_SCORING"));
         ERROR_NO_PERMS = PREFIX + format(messageConfig.getConfig().getString("ERROR_NO_PERMS"));
         ERROR_UNKNOWN_ARGS = PREFIX + format(messageConfig.getConfig().getString("ERROR_UNKNOWN_ARGS"));
         ERROR_COURT_EXISTS = PREFIX + format(messageConfig.getConfig().getString("ERROR_COURT_EXISTS"));
@@ -111,6 +113,7 @@ public class Message {
             ChatColor.GRAY + "/volleyball court <name> set animations <true/false>" + ChatColor.WHITE + ": Enable ball animations",
             ChatColor.GRAY + "/volleyball court <name> set particles <true/false>" + ChatColor.WHITE + ": Enable ball particles",
             ChatColor.GRAY + "/volleyball court <name> set restrictions <true/false>" + ChatColor.WHITE + ": Enable ball restrictions",
+            ChatColor.GRAY + "/volleyball court <name> set scoring <true/false>" + ChatColor.WHITE + ": Enable scoring",
             ChatColor.GRAY + "/volleyball court <name> set speed <number>" + ChatColor.WHITE + ": Set ball speed",
             ChatColor.GRAY + "/volleyball court <name> set hitradius <number>" + ChatColor.WHITE + ": Set ball hit radius",
             ChatColor.GRAY + "/volleyball court <name> set texture <url>" + ChatColor.WHITE + ": Set ball texture",

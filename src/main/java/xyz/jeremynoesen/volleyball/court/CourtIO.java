@@ -48,6 +48,8 @@ public class CourtIO {
             court.setTexture(courtConfig.getConfig().getString(name + ".texture"));
         if (courtConfig.getConfig().get(name + ".restrictions") != null)
             court.setRestrictions(courtConfig.getConfig().getBoolean(name + ".restrictions"));
+        if (courtConfig.getConfig().get(name + ".scoreboard") != null)
+            court.setScoring(courtConfig.getConfig().getBoolean(name + ".scoring"));
         if (courtConfig.getConfig().get(name + ".court") != null) {
             double[][] bounds = new double[2][3];
             bounds[0][0] = courtConfig.getConfig().getDouble(name + ".court.min.x");
@@ -101,6 +103,7 @@ public class CourtIO {
         courtConfig.getConfig().set(name + ".hitradius", court.getHitRadius());
         courtConfig.getConfig().set(name + ".texture", court.getTexture());
         courtConfig.getConfig().set(name + ".restrictions", court.hasRestrictions());
+        courtConfig.getConfig().set(name + ".scoring", court.hasScoring());
         if (court.getBounds() != null) {
             double[][] bounds = court.getBounds();
             courtConfig.getConfig().set(name + ".court.min.x", bounds[0][0]);
