@@ -249,7 +249,7 @@ public class CommandExec implements CommandExecutor {
                             default:
                                 player.sendMessage(Message.ERROR_UNKNOWN_ARGS);
                         }
-                    } else player.sendMessage(Message.ERROR_UNKNOWN_ARGS);
+                    } else player.sendMessage(Message.ERROR_UNKNOWN_COURT);
                 } else {
                     player.sendMessage(Message.ERROR_UNKNOWN_ARGS);
                 }
