@@ -139,9 +139,9 @@ public class CommandTabComplete implements TabCompleter {
                         if (player.hasPermission("volleyball.court.set.speed")) tabList.add("speed");
 
                         if (args[3].startsWith("so") && player.hasPermission("volleyball.court.set.sounds"))
-                            tabList.remove("sounds");
-                        if (args[3].startsWith("sp") && player.hasPermission("volleyball.court.set.speed"))
                             tabList.remove("speed");
+                        if (args[3].startsWith("sp") && player.hasPermission("volleyball.court.set.speed"))
+                            tabList.remove("sounds");
 
                     } else if (args[3].startsWith("h") && player.hasPermission("volleyball.court.set.hitradius")) {
 
