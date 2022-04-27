@@ -314,18 +314,28 @@ public class Court {
      */
     private void setBounds(Player player, double[][] bounds, int pos) {
         if (pos == 1 || pos == 2) {
-            double[][] temp = new double[2][3];
-            temp[pos - 1][0] = player.getLocation().getX();
-            temp[pos - 1][1] = player.getLocation().getY();
-            temp[pos - 1][2] = player.getLocation().getZ();
+            bounds[pos - 1][0] = player.getLocation().getBlock().getX();
+            bounds[pos - 1][1] = player.getLocation().getBlock().getY();
+            bounds[pos - 1][2] = player.getLocation().getBlock().getZ();
             world = player.getWorld();
 
-            bounds[0][0] = Math.min(temp[0][0], temp[1][0]);
-            bounds[1][0] = Math.max(temp[0][0], temp[1][0]);
-            bounds[0][1] = Math.min(temp[0][1], temp[1][1]);
-            bounds[1][1] = Math.max(temp[0][1], temp[1][1]);
-            bounds[0][2] = Math.min(temp[0][2], temp[1][2]);
-            bounds[1][2] = Math.max(temp[0][2], temp[1][2]);
+            if (bounds[0][0] > bounds[1][0]) {
+                double temp = bounds[0][0];
+                bounds[0][0] = bounds[1][0];
+                bounds[1][0] = temp;
+            }
+
+            if (bounds[0][1] > bounds[1][1]) {
+                double temp = bounds[0][1];
+                bounds[0][1] = bounds[1][1];
+                bounds[1][1] = temp;
+            }
+
+            if (bounds[0][2] > bounds[1][2]) {
+                double temp = bounds[0][2];
+                bounds[0][2] = bounds[1][2];
+                bounds[1][2] = temp;
+            }
         }
     }
     
@@ -346,7 +356,6 @@ public class Court {
      */
     public void setBounds(Player player, int pos) {
         setBounds(player, bounds, pos);
-        player.sendMessage(Message.SUCCESS_SET_COURT_BOUNDS.replace("$COURT$", name).replace("$POS$", Integer.toString(pos)));
     }
     
     /**
@@ -375,7 +384,6 @@ public class Court {
      */
     public void setNet(Player player, int pos) {
         setBounds(player, net, pos);
-        player.sendMessage(Message.SUCCESS_SET_COURT_NET.replace("$COURT$", name).replace("$POS$", Integer.toString(pos)));
     }
     
     /**

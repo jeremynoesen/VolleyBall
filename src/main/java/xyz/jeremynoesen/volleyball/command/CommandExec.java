@@ -112,8 +112,14 @@ public class CommandExec implements CommandExecutor {
                                                         if (player.hasPermission("volleyball.court.set.net")) {
                                                             if (args[4].equalsIgnoreCase("pos1")) {
                                                                 court.setNet(player, 1);
+                                                                player.sendMessage(Message.SUCCESS_SET_COURT_NET
+                                                                        .replace("$COURT$", args[1])
+                                                                        .replace("$POS$", "1"));
                                                             } else if (args[4].equalsIgnoreCase("pos2")) {
                                                                 court.setNet(player, 2);
+                                                                player.sendMessage(Message.SUCCESS_SET_COURT_NET
+                                                                        .replace("$COURT$", args[1])
+                                                                        .replace("$POS$", "2"));
                                                             } else {
                                                                 player.sendMessage(Message.ERROR_UNKNOWN_ARGS);
                                                             }
@@ -125,8 +131,14 @@ public class CommandExec implements CommandExecutor {
                                                         if (player.hasPermission("volleyball.court.set.bounds")) {
                                                             if (args[4].equalsIgnoreCase("pos1")) {
                                                                 court.setBounds(player, 1);
+                                                                player.sendMessage(Message.SUCCESS_SET_COURT_BOUNDS
+                                                                        .replace("$COURT$", args[1])
+                                                                        .replace("$POS$", "1"));
                                                             } else if (args[4].equalsIgnoreCase("pos2")) {
                                                                 court.setBounds(player, 2);
+                                                                player.sendMessage(Message.SUCCESS_SET_COURT_BOUNDS
+                                                                        .replace("$COURT$", args[1])
+                                                                        .replace("$POS$", "2"));
                                                             } else {
                                                                 player.sendMessage(Message.ERROR_UNKNOWN_ARGS);
                                                             }
