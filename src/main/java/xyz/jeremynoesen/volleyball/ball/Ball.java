@@ -126,7 +126,7 @@ public class Ball {
         if (sounds)
             ball.getWorld().playSound(ball.getLocation(), Sound.ENTITY_ARROW_SHOOT, 2, 0);
 
-        ball.setVelocity(player.getLocation().getDirection().multiply(0.05).add(new Vector(0, 0.5 + (0.1 * court.getSpeed()), 0)));
+        ball.setVelocity(player.getLocation().getDirection().multiply(0.05).add(new Vector(0, 0.5 + (0.05 * court.getSpeed()), 0)));
 
         if (particles) {
             Location loc = player.getLocation();
