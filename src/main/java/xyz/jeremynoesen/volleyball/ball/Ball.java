@@ -12,6 +12,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.EulerAngle;
 import org.bukkit.util.Vector;
+import xyz.jeremynoesen.volleyball.Message;
 import xyz.jeremynoesen.volleyball.VolleyBall;
 import xyz.jeremynoesen.volleyball.court.Court;
 
@@ -113,7 +114,7 @@ public class Ball {
     }
 
     /**
-     * serves the volleyball
+     * serves the volleyball and starts all loops
      */
     public void serve() {
         court.setBall(this);
@@ -151,7 +152,7 @@ public class Ball {
                     volleyed = true;
                     volleys++;
                     for (Player players : court.getPlayersOnCourt()) {
-                        players.sendTitle(" ", ChatColor.WHITE + Integer.toString(volleys), 0, 10, 10);
+                        players.sendTitle(" ", Message.SCORE_TITLE.replace("$SCORE$", Integer.toString(volleys)), 0, 10, 10);
                     }
                 } else if (!court.isAboveNet(ball.getLocation())) {
                     volleyed = false;

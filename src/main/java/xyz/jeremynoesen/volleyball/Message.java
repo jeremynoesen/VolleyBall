@@ -37,6 +37,7 @@ public class Message {
     public static String COURT_LIST;
     public static String ENTER_COURT;
     public static String EXIT_COURT;
+    public static String SCORE_TITLE;
 
     /**
      * reload all messages from file
@@ -68,6 +69,7 @@ public class Message {
         COURT_LIST = PREFIX + format(messageConfig.getConfig().getString("COURT_LIST"));
         ENTER_COURT = PREFIX + format(messageConfig.getConfig().getString("ENTER_COURT"));
         EXIT_COURT = PREFIX + format(messageConfig.getConfig().getString("EXIT_COURT"));
+        SCORE_TITLE = format(messageConfig.getConfig().getString("SCORE_TITLE"));
     }
     
     /**
