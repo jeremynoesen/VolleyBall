@@ -23,14 +23,9 @@ public class Court {
     private static HashMap<String, Court> courts = new HashMap<>();
 
     /**
-     * name of the court
+     * ball used in court
      */
-    private String name;
-
-    /**
-     * whether the court is enabled
-     */
-    private boolean enabled;
+    private Ball ball;
 
     /**
      * whether the court has animation enabled
@@ -38,14 +33,39 @@ public class Court {
     private boolean animations;
 
     /**
+     * court bounds
+     */
+    private double[][] bounds;
+
+    /**
+     * whether the court is enabled
+     */
+    private boolean enabled;
+
+    /**
+     * whether hint messages show up or not
+     */
+    private boolean hints;
+
+    /**
+     * radius around player to check for ball when hitting
+     */
+    private double hitRadius;
+
+    /**
+     * name of the court
+     */
+    private String name;
+
+    /**
+     * net bounds
+     */
+    private double[][] net;
+
+    /**
      * whether the court has particles visible
      */
     private boolean particles;
-
-    /**
-     * whether the court has sounds enabled
-     */
-    private boolean sounds;
 
     /**
      * whether the court will keep the ball within the bounds
@@ -58,9 +78,9 @@ public class Court {
     private boolean scoring;
 
     /**
-     * whether hint messages show up or not
+     * whether the court has sounds enabled
      */
-    private boolean hints;
+    private boolean sounds;
 
     /**
      * player head texture for the ball
@@ -68,34 +88,14 @@ public class Court {
     private String texture;
 
     /**
-     * world the court is in
-     */
-    private World world;
-
-    /**
      * speed modifier of ball
      */
     private double speed;
 
     /**
-     * radius around player to check for ball when hitting
+     * world the court is in
      */
-    private double hitRadius;
-
-    /**
-     * court bounds
-     */
-    private double[][] bounds;
-
-    /**
-     * net bounds
-     */
-    private double[][] net;
-
-    /**
-     * ball used in court
-     */
-    private Ball ball;
+    private World world;
 
     /**
      * create a court with default values with the specified name
@@ -104,15 +104,15 @@ public class Court {
      */
     public Court(String name) {
         this.name = name;
-        enabled = false;
         animations = true;
+        enabled = false;
+        hints = true;
+        hitRadius = 1;
         particles = true;
-        sounds = true;
         restrictions = true;
         scoring = true;
-        hints = true;
+        sounds = true;
         speed = 1;
-        hitRadius = 1;
         texture = "http://textures.minecraft.net/texture/9b2513c8d08c60ad3785d3a9a651b7329c5f26937aca2fc8dfaf3441c9bd9da2";
         world = VolleyBall.getInstance().getServer().getWorlds().get(0);
 
@@ -146,41 +146,21 @@ public class Court {
     }
 
     /**
-     * get the name of this court
+     * get the ball on the court
      *
-     * @return name of court
+     * @return ball on court
      */
-    public String getName() {
-        return name;
+    public Ball getBall() {
+        return ball;
     }
 
     /**
-     * set the name of this court
+     * set the current ball
      *
-     * @param name new name
+     * @param ball ball
      */
-    public void setName(String name) {
-        courts.remove(this.name);
-        this.name = name;
-        courts.put(name, this);
-    }
-
-    /**
-     * check if a court is enabled
-     *
-     * @return true if enabled
-     */
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    /**
-     * enable or disable a court
-     *
-     * @param enabled true to enable
-     */
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
+    public void setBall(Ball ball) {
+        this.ball = ball;
     }
 
     /**
@@ -202,93 +182,67 @@ public class Court {
     }
 
     /**
-     * check if a court has particles enabled
+     * get the court bounds
      *
-     * @return true if particles are enabled
+     * @return 2D array bounds
      */
-    public boolean hasParticles() {
-        return particles;
+    public double[][] getBounds() {
+        return bounds;
     }
 
     /**
-     * enable or disable animations for a court
+     * set the court bounds
      *
-     * @param particles true to enable
+     * @param bounds 2D array bounds
      */
-    public void setParticles(boolean particles) {
-        this.particles = particles;
+    public void setBounds(double[][] bounds) {
+        this.bounds = bounds;
     }
 
     /**
-     * check if a court has sounds enabled
+     * set the court bounds based on the player location
      *
-     * @return true if sounds are enabled
+     * @param player player setting bounds
+     * @param pos    position to set (1 or 2)
      */
-    public boolean hasSounds() {
-        return sounds;
+    public void setBounds(Player player, int pos) {
+        setBounds(player, bounds, pos);
     }
 
     /**
-     * enable or disable sounds for a court
+     * check if a court is enabled
      *
-     * @param sounds true to enable
+     * @return true if enabled
      */
-    public void setSounds(boolean sounds) {
-        this.sounds = sounds;
+    public boolean isEnabled() {
+        return enabled;
     }
 
     /**
-     * get the url for the ball texture
+     * enable or disable a court
      *
-     * @return string url of ball texture
+     * @param enabled true to enable
      */
-    public String getTexture() {
-        return texture;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     /**
-     * set the ball texture for this court
+     * check if the court has hints enabled
      *
-     * @param texture string url of ball texture
+     * @return true if court has hints
      */
-    public void setTexture(String texture) {
-        this.texture = texture;
+    public boolean hasHints() {
+        return hints;
     }
 
     /**
-     * get the world the court is in
+     * enable or disable hints
      *
-     * @return world the court is in
+     * @param hints true to enable
      */
-    public World getWorld() {
-        return world;
-    }
-
-    /**
-     * set the world the court is in
-     *
-     * @param world world
-     */
-    public void setWorld(World world) {
-        this.world = world;
-    }
-
-    /**
-     * get the speed modifier for the court's ball
-     *
-     * @return speed of ball
-     */
-    public double getSpeed() {
-        return speed;
-    }
-
-    /**
-     * set the speed modifier for the court's ball
-     *
-     * @param speed speed modifier
-     */
-    public void setSpeed(double speed) {
-        this.speed = speed;
+    public void setHints(boolean hints) {
+        this.hints = hints;
     }
 
     /**
@@ -310,64 +264,23 @@ public class Court {
     }
 
     /**
-     * get the court bounds
+     * get the name of this court
      *
-     * @return 2D array bounds
+     * @return name of court
      */
-    public double[][] getBounds() {
-        return bounds;
+    public String getName() {
+        return name;
     }
 
     /**
-     * set bounds based on the position of the player
+     * set the name of this court
      *
-     * @param player player setting bounds
-     * @param pos    position to set (1 or 2)
+     * @param name new name
      */
-    private void setBounds(Player player, double[][] bounds, int pos) {
-        if (pos == 1 || pos == 2) {
-            bounds[pos - 1][0] = player.getLocation().getBlock().getX();
-            bounds[pos - 1][1] = player.getLocation().getBlock().getY();
-            bounds[pos - 1][2] = player.getLocation().getBlock().getZ();
-            world = player.getWorld();
-
-            if (bounds[0][0] > bounds[1][0]) {
-                double temp = bounds[0][0];
-                bounds[0][0] = bounds[1][0];
-                bounds[1][0] = temp;
-            }
-
-            if (bounds[0][1] > bounds[1][1]) {
-                double temp = bounds[0][1];
-                bounds[0][1] = bounds[1][1];
-                bounds[1][1] = temp;
-            }
-
-            if (bounds[0][2] > bounds[1][2]) {
-                double temp = bounds[0][2];
-                bounds[0][2] = bounds[1][2];
-                bounds[1][2] = temp;
-            }
-        }
-    }
-
-    /**
-     * set the court bounds
-     *
-     * @param bounds 2D array bounds
-     */
-    public void setBounds(double[][] bounds) {
-        this.bounds = bounds;
-    }
-
-    /**
-     * set the court bounds based on the player location
-     *
-     * @param player player setting bounds
-     * @param pos    position to set (1 or 2)
-     */
-    public void setBounds(Player player, int pos) {
-        setBounds(player, bounds, pos);
+    public void setName(String name) {
+        courts.remove(this.name);
+        this.name = name;
+        courts.put(name, this);
     }
 
     /**
@@ -396,6 +309,24 @@ public class Court {
      */
     public void setNet(Player player, int pos) {
         setBounds(player, net, pos);
+    }
+
+    /**
+     * check if a court has particles enabled
+     *
+     * @return true if particles are enabled
+     */
+    public boolean hasParticles() {
+        return particles;
+    }
+
+    /**
+     * enable or disable animations for a court
+     *
+     * @param particles true to enable
+     */
+    public void setParticles(boolean particles) {
+        this.particles = particles;
     }
 
     /**
@@ -435,21 +366,108 @@ public class Court {
     }
 
     /**
-     * check if the court has hints enabled
+     * check if a court has sounds enabled
      *
-     * @return true if court has hints
+     * @return true if sounds are enabled
      */
-    public boolean hasHints() {
-        return hints;
+    public boolean hasSounds() {
+        return sounds;
     }
 
     /**
-     * enable or disable hints
+     * enable or disable sounds for a court
      *
-     * @param hints true to enable
+     * @param sounds true to enable
      */
-    public void setHints(boolean hints) {
-        this.hints = hints;
+    public void setSounds(boolean sounds) {
+        this.sounds = sounds;
+    }
+
+    /**
+     * get the speed modifier for the court's ball
+     *
+     * @return speed of ball
+     */
+    public double getSpeed() {
+        return speed;
+    }
+
+    /**
+     * set the speed modifier for the court's ball
+     *
+     * @param speed speed modifier
+     */
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
+
+    /**
+     * get the url for the ball texture
+     *
+     * @return string url of ball texture
+     */
+    public String getTexture() {
+        return texture;
+    }
+
+    /**
+     * set the ball texture for this court
+     *
+     * @param texture string url of ball texture
+     */
+    public void setTexture(String texture) {
+        this.texture = texture;
+    }
+
+    /**
+     * get the world the court is in
+     *
+     * @return world the court is in
+     */
+    public World getWorld() {
+        return world;
+    }
+
+    /**
+     * set the world the court is in
+     *
+     * @param world world
+     */
+    public void setWorld(World world) {
+        this.world = world;
+    }
+
+    /**
+     * set bounds based on the position of the player
+     *
+     * @param player player setting bounds
+     * @param pos    position to set (1 or 2)
+     */
+    private void setBounds(Player player, double[][] bounds, int pos) {
+        if (pos == 1 || pos == 2) {
+            bounds[pos - 1][0] = player.getLocation().getBlock().getX();
+            bounds[pos - 1][1] = player.getLocation().getBlock().getY();
+            bounds[pos - 1][2] = player.getLocation().getBlock().getZ();
+            world = player.getWorld();
+
+            if (bounds[0][0] > bounds[1][0]) {
+                double temp = bounds[0][0];
+                bounds[0][0] = bounds[1][0];
+                bounds[1][0] = temp;
+            }
+
+            if (bounds[0][1] > bounds[1][1]) {
+                double temp = bounds[0][1];
+                bounds[0][1] = bounds[1][1];
+                bounds[1][1] = temp;
+            }
+
+            if (bounds[0][2] > bounds[1][2]) {
+                double temp = bounds[0][2];
+                bounds[0][2] = bounds[1][2];
+                bounds[1][2] = temp;
+            }
+        }
     }
 
     /**
@@ -529,24 +547,6 @@ public class Court {
         } catch (Exception e) {
             return false;
         }
-    }
-
-    /**
-     * get the ball on the court
-     *
-     * @return ball on court
-     */
-    public Ball getBall() {
-        return ball;
-    }
-
-    /**
-     * set the current ball
-     *
-     * @param ball ball
-     */
-    public void setBall(Ball ball) {
-        this.ball = ball;
     }
 
     /**

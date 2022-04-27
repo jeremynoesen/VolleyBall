@@ -11,23 +11,24 @@ VolleyBall was originally written for a tropical island themed event on a Minecr
 ## Usage
 
 - `/volleyball help` and `/volleyball court help` - Show the help messages
-- `/volleyball reload` - Reload all configs and delete volleyball entities
-- `/volleyball court create <name>` - Create a new court using a world edit selection
+- `/volleyball reload` - Reload configs and delete ball entities
+- `/volleyball court create <name>` - Create a new court
+- `/volleyball court info <name>` - Get info about a court
+- `/volleyball court list` - List all courts
 - `/volleyball court remove <name>` - Delete a court
-- `/volleyball court info <name>` - Get info about the court
-- `/volleyball court <name> set net <pos1/pos2>` - Set the net bounds based on player location
-- `/volleyball court <name> set bounds <pos1/pos2>` - Set the court bounds based on player location
-- `/volleyball court <name> set restrictions <true/false>` - Enable or disable ball court restrictions
 - `/volleyball court <name> set animations <true/false>` - Enable or disable ball animations
-- `/volleyball court <name> set particles <true/false>` - Enable or disable ball particles
-- `/volleyball court <name> set sounds <true/false>` - Enable or disable court sound effects
-- `/volleyball court <name> set scoring <true/false>` - Enable or disable scoring
-- `/volleyball court <name> set hints <true/false>` - Enable or disable hints on court
+- `/volleyball court <name> set bounds <pos1/pos2>` - Set the court bounds based on player location
 - `/volleyball court <name> set enabled <true/false>` - Enable or disable a court
-- `/volleyball court <name> set texture <url>` - Set the ball texture based on a Minecraft skin texture url
-- `/volleyball court <name> set speed <number>` - Set the ball speed, default is 1.0
+- `/volleyball court <name> set hints <true/false>` - Enable or disable hints on court
 - `/volleyball court <name> set hitradius <number>` - Set the ball hit radius, default is 1.0
-- `/volleyball court <name> set name <newname>` - Change a court's name
+- `/volleyball court <name> set name <name>` - Change a court's name
+- `/volleyball court <name> set net <pos1/pos2>` - Set the net bounds based on player location
+- `/volleyball court <name> set particles <true/false>` - Enable or disable ball particles
+- `/volleyball court <name> set restrictions <true/false>` - Enable or disable ball court restrictions
+- `/volleyball court <name> set scoring <true/false>` - Enable or disable scoring
+- `/volleyball court <name> set sounds <true/false>` - Enable or disable court sound effects
+- `/volleyball court <name> set speed <number>` - Set the ball speed, default is 1.0
+- `/volleyball court <name> set texture <url>` - Set the ball texture based on a Minecraft skin texture url
 
 ### Playing
 - Press and release your sneak key to serve the ball when on a court
@@ -58,23 +59,23 @@ For the message configuration, you can use color codes. You can also use the pla
 - `volleyball.help` - Allow using the main help command
 - `volleyball.reload` - Allow reloading the plugin
 - `volleyball.court.create` - Allow creating a court
-- `volleyball.court.remove` - Allow removing a court
+- `volleyball.court.help` - Allow seeing court help
 - `volleyball.court.info` - Allow seeing info about courts
 - `volleyball.court.list` - Allow seeing the list of courts
-- `volleyball.court.help` - Allow seeing court help
+- `volleyball.court.remove` - Allow removing a court
 - `volleyball.court.set.animations` - Allow enabling ball animations
-- `volleyball.court.set.particles` - Allow enabling ball particles
-- `volleyball.court.set.sounds` - Allow enabling court sounds
-- `volleyball.court.set.speed` - Allow setting ball speed
-- `volleyball.court.set.hitradius` - Allow setting ball hit radius
-- `volleyball.court.set.texture` - Allow setting ball texture
 - `volleyball.court.set.bounds` - Allow setting court bounds
 - `volleyball.court.set.enabled` - Allow enabling court
-- `volleyball.court.set.net` - Allow setting court net
+- `volleyball.court.set.hints` - Allow enabling court hints
+- `volleyball.court.set.hitradius` - Allow setting ball hit radius
 - `volleyball.court.set.name` - Allow setting court name
+- `volleyball.court.set.net` - Allow setting court net
+- `volleyball.court.set.particles` - Allow enabling ball particles
 - `volleyball.court.set.restrictions` - Allow enabling ball restrictions
 - `volleyball.court.set.scoring` - Allow enabling scoring
-- `volleyball.court.set.hints` - Allow enabling court hints
+- `volleyball.court.set.sounds` - Allow enabling court sounds
+- `volleyball.court.set.speed` - Allow setting ball speed
+- `volleyball.court.set.texture` - Allow setting ball texture
 
 ## Demonstration
 

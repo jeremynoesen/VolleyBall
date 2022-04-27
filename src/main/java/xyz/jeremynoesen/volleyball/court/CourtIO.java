@@ -34,36 +34,24 @@ public class CourtIO {
         Court court = new Court(name);
         if (courtConfig.getConfig().get(name + ".animations") != null)
             court.setAnimations(courtConfig.getConfig().getBoolean(name + ".animations"));
-        if (courtConfig.getConfig().get(name + ".particles") != null)
-            court.setParticles(courtConfig.getConfig().getBoolean(name + ".particles"));
-        if (courtConfig.getConfig().get(name + ".sounds") != null)
-            court.setSounds(courtConfig.getConfig().getBoolean(name + ".sounds"));
-        if (courtConfig.getConfig().get(name + ".enabled") != null)
-            court.setEnabled(courtConfig.getConfig().getBoolean(name + ".enabled"));
-        if (courtConfig.getConfig().get(name + ".speed") != null)
-            court.setSpeed(courtConfig.getConfig().getDouble(name + ".speed"));
-        if (courtConfig.getConfig().get(name + ".hitradius") != null)
-            court.setHitRadius(courtConfig.getConfig().getDouble(name + ".hitradius"));
-        if (courtConfig.getConfig().get(name + ".texture") != null)
-            court.setTexture(courtConfig.getConfig().getString(name + ".texture"));
-        if (courtConfig.getConfig().get(name + ".restrictions") != null)
-            court.setRestrictions(courtConfig.getConfig().getBoolean(name + ".restrictions"));
-        if (courtConfig.getConfig().get(name + ".scoring") != null)
-            court.setScoring(courtConfig.getConfig().getBoolean(name + ".scoring"));
-        if (courtConfig.getConfig().get(name + ".hints") != null)
-            court.setHints(courtConfig.getConfig().getBoolean(name + ".hints"));
-        if (courtConfig.getConfig().get(name + ".court") != null) {
+        if (courtConfig.getConfig().get(name + ".bounds") != null) {
             double[][] bounds = new double[2][3];
-            bounds[0][0] = courtConfig.getConfig().getDouble(name + ".court.min.x");
-            bounds[0][1] = courtConfig.getConfig().getDouble(name + ".court.min.y");
-            bounds[0][2] = courtConfig.getConfig().getDouble(name + ".court.min.z");
-            bounds[1][0] = courtConfig.getConfig().getDouble(name + ".court.max.x");
-            bounds[1][1] = courtConfig.getConfig().getDouble(name + ".court.max.y");
-            bounds[1][2] = courtConfig.getConfig().getDouble(name + ".court.max.z");
+            bounds[0][0] = courtConfig.getConfig().getDouble(name + ".bounds.min.x");
+            bounds[0][1] = courtConfig.getConfig().getDouble(name + ".bounds.min.y");
+            bounds[0][2] = courtConfig.getConfig().getDouble(name + ".bounds.min.z");
+            bounds[1][0] = courtConfig.getConfig().getDouble(name + ".bounds.max.x");
+            bounds[1][1] = courtConfig.getConfig().getDouble(name + ".bounds.max.y");
+            bounds[1][2] = courtConfig.getConfig().getDouble(name + ".bounds.max.z");
             String world = courtConfig.getConfig().getString(name + ".world");
             court.setBounds(bounds);
             court.setWorld(VolleyBall.getInstance().getServer().getWorld(world));
         }
+        if (courtConfig.getConfig().get(name + ".enabled") != null)
+            court.setEnabled(courtConfig.getConfig().getBoolean(name + ".enabled"));
+        if (courtConfig.getConfig().get(name + ".hints") != null)
+            court.setHints(courtConfig.getConfig().getBoolean(name + ".hints"));
+        if (courtConfig.getConfig().get(name + ".hitradius") != null)
+            court.setHitRadius(courtConfig.getConfig().getDouble(name + ".hitradius"));
         if (courtConfig.getConfig().get(name + ".net") != null) {
             double[][] net = new double[2][3];
             net[0][0] = courtConfig.getConfig().getDouble(name + ".net.min.x");
@@ -74,6 +62,18 @@ public class CourtIO {
             net[1][2] = courtConfig.getConfig().getDouble(name + ".net.max.z");
             court.setNet(net);
         }
+        if (courtConfig.getConfig().get(name + ".particles") != null)
+            court.setParticles(courtConfig.getConfig().getBoolean(name + ".particles"));
+        if (courtConfig.getConfig().get(name + ".restrictions") != null)
+            court.setRestrictions(courtConfig.getConfig().getBoolean(name + ".restrictions"));
+        if (courtConfig.getConfig().get(name + ".scoring") != null)
+            court.setScoring(courtConfig.getConfig().getBoolean(name + ".scoring"));
+        if (courtConfig.getConfig().get(name + ".sounds") != null)
+            court.setSounds(courtConfig.getConfig().getBoolean(name + ".sounds"));
+        if (courtConfig.getConfig().get(name + ".speed") != null)
+            court.setSpeed(courtConfig.getConfig().getDouble(name + ".speed"));
+        if (courtConfig.getConfig().get(name + ".texture") != null)
+            court.setTexture(courtConfig.getConfig().getString(name + ".texture"));
     }
     
     /**
@@ -98,25 +98,19 @@ public class CourtIO {
         String name = court.getName();
         
         courtConfig.getConfig().set(name + ".animations", court.hasAnimations());
-        courtConfig.getConfig().set(name + ".particles", court.hasParticles());
-        courtConfig.getConfig().set(name + ".sounds", court.hasSounds());
-        courtConfig.getConfig().set(name + ".enabled", court.isEnabled());
-        courtConfig.getConfig().set(name + ".speed", court.getSpeed());
-        courtConfig.getConfig().set(name + ".hitradius", court.getHitRadius());
-        courtConfig.getConfig().set(name + ".texture", court.getTexture());
-        courtConfig.getConfig().set(name + ".restrictions", court.hasRestrictions());
-        courtConfig.getConfig().set(name + ".scoring", court.hasScoring());
-        courtConfig.getConfig().set(name + ".hints", court.hasHints());
         if (court.getBounds() != null) {
             double[][] bounds = court.getBounds();
-            courtConfig.getConfig().set(name + ".court.min.x", bounds[0][0]);
-            courtConfig.getConfig().set(name + ".court.min.y", bounds[0][1]);
-            courtConfig.getConfig().set(name + ".court.min.z", bounds[0][2]);
-            courtConfig.getConfig().set(name + ".court.max.x", bounds[1][0]);
-            courtConfig.getConfig().set(name + ".court.max.y", bounds[1][1]);
-            courtConfig.getConfig().set(name + ".court.max.z", bounds[1][2]);
+            courtConfig.getConfig().set(name + ".bounds.min.x", bounds[0][0]);
+            courtConfig.getConfig().set(name + ".bounds.min.y", bounds[0][1]);
+            courtConfig.getConfig().set(name + ".bounds.min.z", bounds[0][2]);
+            courtConfig.getConfig().set(name + ".bounds.max.x", bounds[1][0]);
+            courtConfig.getConfig().set(name + ".bounds.max.y", bounds[1][1]);
+            courtConfig.getConfig().set(name + ".bounds.max.z", bounds[1][2]);
             courtConfig.getConfig().set(name + ".world", court.getWorld().getName());
         }
+        courtConfig.getConfig().set(name + ".enabled", court.isEnabled());
+        courtConfig.getConfig().set(name + ".hints", court.hasHints());
+        courtConfig.getConfig().set(name + ".hitradius", court.getHitRadius());
         if (court.getNet() != null) {
             double[][] net = court.getNet();
             courtConfig.getConfig().set(name + ".net.min.x", net[0][0]);
@@ -126,5 +120,11 @@ public class CourtIO {
             courtConfig.getConfig().set(name + ".net.max.y", net[1][1]);
             courtConfig.getConfig().set(name + ".net.max.z", net[1][2]);
         }
+        courtConfig.getConfig().set(name + ".particles", court.hasParticles());
+        courtConfig.getConfig().set(name + ".restrictions", court.hasRestrictions());
+        courtConfig.getConfig().set(name + ".scoring", court.hasScoring());
+        courtConfig.getConfig().set(name + ".sounds", court.hasSounds());
+        courtConfig.getConfig().set(name + ".speed", court.getSpeed());
+        courtConfig.getConfig().set(name + ".texture", court.getTexture());
     }
 }
