@@ -175,9 +175,9 @@ public class Ball {
 
                 if (!end && animations) {
                     ball.setHeadPose(new EulerAngle(rot[0], rot[1], rot[2]));
-                    rot[0] += Math.abs(ball.getVelocity().getX()) / Math.PI;
-                    rot[1] += Math.abs(ball.getVelocity().getY()) / Math.PI;
-                    rot[2] += Math.abs(ball.getVelocity().getZ()) / Math.PI;
+                    rot[0] += (Math.abs(ball.getVelocity().getY()) + Math.abs(ball.getVelocity().getZ())) / (Math.PI * 2);
+                    rot[1] += (Math.abs(ball.getVelocity().getX()) + Math.abs(ball.getVelocity().getZ())) / (Math.PI * 2);
+                    rot[2] += (Math.abs(ball.getVelocity().getY()) + Math.abs(ball.getVelocity().getX())) / (Math.PI * 2);
                 }
 
                 if (ball.isDead()) {
