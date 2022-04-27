@@ -216,6 +216,15 @@ public class CommandExec implements CommandExecutor {
                                                                     .replace("$BOOL$", Boolean.toString(scoring)));
                                                         } else player.sendMessage(Message.ERROR_NO_PERMS);
                                                         break;
+                                                    case "hints":
+                                                        if (player.hasPermission("volleyball.court.set.hints")) {
+                                                            boolean hints = Boolean.parseBoolean(args[4]);
+                                                            court.setHints(hints);
+                                                            player.sendMessage(Message.SUCCESS_SET_COURT_HINTS
+                                                                    .replace("$COURT$", args[1])
+                                                                    .replace("$BOOL$", Boolean.toString(hints)));
+                                                        } else player.sendMessage(Message.ERROR_NO_PERMS);
+                                                        break;
                                                     case "enabled":
                                                         if (player.hasPermission("volleyball.court.set.enabled")) {
                                                             boolean enabled = Boolean.parseBoolean(args[4]);

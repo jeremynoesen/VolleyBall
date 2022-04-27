@@ -47,7 +47,7 @@ public class CourtListener implements Listener {
                 e.getFrom().getBlockZ() != e.getTo().getBlockZ()) {
             Player player = e.getPlayer();
             if (Court.get(player.getLocation()) != null && Court.get(player.getLocation()).isEnabled()) {
-                if (!onCourt.contains(player)) {
+                if (!onCourt.contains(player) && Court.get(player.getLocation()).hasHints()) {
                     player.sendMessage(Message.ENTER_COURT);
                     onCourt.add(player);
                 }

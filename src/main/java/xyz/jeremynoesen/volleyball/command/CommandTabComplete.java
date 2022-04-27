@@ -125,6 +125,7 @@ public class CommandTabComplete implements TabCompleter {
                         if (player.hasPermission("volleyball.court.set.name")) tabList.add("name");
                         if (player.hasPermission("volleyball.court.set.restrictions")) tabList.add("restrictions");
                         if (player.hasPermission("volleyball.court.set.scoring")) tabList.add("scoring");
+                        if (player.hasPermission("volleyball.court.set.hints")) tabList.add("hints");
 
                     } else if (args[3].startsWith("a") && player.hasPermission("volleyball.court.set.animations")) {
                         
@@ -151,9 +152,16 @@ public class CommandTabComplete implements TabCompleter {
                             tabList.remove("sounds");
                         }
 
-                    } else if (args[3].startsWith("h") && player.hasPermission("volleyball.court.set.hitradius")) {
+                    } else if (args[3].startsWith("h")) {
 
-                        tabList.add("hitradius");
+                        if (player.hasPermission("volleyball.court.set.hitradius")) tabList.add("hitradius");
+                        if (player.hasPermission("volleyball.court.set.hints")) tabList.add("hints");
+
+                        if (args[3].startsWith("hit") && player.hasPermission("volleyball.court.set.hitradius")) {
+                            tabList.remove("hints");
+                        } else if (args[3].startsWith("hin") && player.hasPermission("volleyball.court.set.hints")) {
+                            tabList.remove("hitradius");
+                        }
 
                     } else if (args[3].startsWith("t") && player.hasPermission("volleyball.court.set.texture")) {
                         
@@ -174,7 +182,7 @@ public class CommandTabComplete implements TabCompleter {
                         
                         if (args[3].startsWith("ne") && player.hasPermission("volleyball.court.set.name"))
                             tabList.remove("name");
-                        if (args[3].startsWith("na") && player.hasPermission("volleyball.court.set.net"))
+                        else if (args[3].startsWith("na") && player.hasPermission("volleyball.court.set.net"))
                             tabList.remove("net");
                         
                     } else if (args[3].startsWith("r") && player.hasPermission("volleyball.court.set.restrictions")) {
@@ -192,6 +200,7 @@ public class CommandTabComplete implements TabCompleter {
                         (args[3].equalsIgnoreCase("restrictions") && player.hasPermission("volleyball.court.set.restrictions")) ||
                         (args[3].equalsIgnoreCase("sounds") && player.hasPermission("volleyball.court.set.sounds")) ||
                         (args[3].equalsIgnoreCase("scoring") && player.hasPermission("volleyball.court.set.scoring")) ||
+                        (args[3].equalsIgnoreCase("hints") && player.hasPermission("volleyball.court.set.hints")) ||
                         (args[3].equalsIgnoreCase("particles") && player.hasPermission("volleyball.court.set.particles"))) {
                     
                     if (args[4].equalsIgnoreCase("")) {

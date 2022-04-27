@@ -58,6 +58,11 @@ public class Court {
     private boolean scoring;
 
     /**
+     * whether hint messages show up or not
+     */
+    private boolean hints;
+
+    /**
      * player head texture for the ball
      */
     private String texture;
@@ -105,6 +110,7 @@ public class Court {
         sounds = true;
         restrictions = true;
         scoring = true;
+        hints = true;
         speed = 1;
         hitRadius = 1;
         texture = "http://textures.minecraft.net/texture/9b2513c8d08c60ad3785d3a9a651b7329c5f26937aca2fc8dfaf3441c9bd9da2";
@@ -429,6 +435,24 @@ public class Court {
     }
 
     /**
+     * check if the court has hints enabled
+     *
+     * @return true if court has hints
+     */
+    public boolean hasHints() {
+        return hints;
+    }
+
+    /**
+     * enable or disable hints
+     *
+     * @param hints true to enable
+     */
+    public void setHints(boolean hints) {
+        this.hints = hints;
+    }
+
+    /**
      * check if a location is on a court
      *
      * @param l location to check
@@ -572,6 +596,7 @@ public class Court {
                 .replace("$PARTICLES$", Boolean.toString(hasParticles()))
                 .replace("$SOUNDS$", Boolean.toString(hasSounds()))
                 .replace("$SCORING$", Boolean.toString(hasScoring()))
+                .replace("$HINTS$", Boolean.toString(hasHints()))
                 .replace("$SPEED$", Double.toString(getSpeed()))
                 .replace("$RADIUS$", Double.toString(getHitRadius()))
                 .replace("$TEXTURE$", getTexture())

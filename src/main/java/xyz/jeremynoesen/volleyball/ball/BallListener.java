@@ -1,7 +1,5 @@
 package xyz.jeremynoesen.volleyball.ball;
 
-import xyz.jeremynoesen.volleyball.Message;
-import xyz.jeremynoesen.volleyball.court.Court;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,6 +10,8 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
+import xyz.jeremynoesen.volleyball.Message;
+import xyz.jeremynoesen.volleyball.court.Court;
 
 /**
  * Listeners related to the ball object
@@ -19,7 +19,7 @@ import org.bukkit.event.player.PlayerToggleSneakEvent;
  * @author Jeremy Noesen
  */
 public class BallListener implements Listener {
-    
+
     /**
      * prevent the armor stand from breaking when hurt by players or mobs
      *
@@ -30,7 +30,7 @@ public class BallListener implements Listener {
         if (Ball.getBalls().contains(e.getEntity()))
             e.setCancelled(true);
     }
-    
+
     /**
      * hit the ball
      */
@@ -43,7 +43,7 @@ public class BallListener implements Listener {
             Court.get(player).getBall().hit(player);
         }
     }
-    
+
     /**
      * prevent players from taking the head off the volleyball armorstand
      */
@@ -52,7 +52,7 @@ public class BallListener implements Listener {
         if (e.getRightClicked() != null && Ball.getBalls().contains(e.getRightClicked()))
             e.setCancelled(true);
     }
-    
+
     /**
      * Serve the volleyball
      */
@@ -61,13 +61,14 @@ public class BallListener implements Listener {
         Player p = e.getPlayer();
         if (p.isSneaking()) {
             if (Court.get(p) != null) {
-                
+
                 Court court = Court.get(p);
-                
+
                 if (court.isEnabled()) {
-                    
+
                     if (court.getBall() != null && court.getBall().isOut()) {
-                        p.sendMessage(Message.ERROR_BALL_OUT);
+                        if (court.hasHints())
+                            p.sendMessage(Message.ERROR_BALL_OUT);
                         return;
                     } else {
                         Ball ball = new Ball(p);
@@ -77,7 +78,7 @@ public class BallListener implements Listener {
             }
         }
     }
-    
+
     /**
      * prevent ball from dropping anything
      *
