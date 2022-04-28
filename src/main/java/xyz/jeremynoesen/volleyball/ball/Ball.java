@@ -184,16 +184,14 @@ public class Ball {
                     rot[2] += (Math.abs(ball.getVelocity().getY()) + Math.abs(ball.getVelocity().getX())) / (Math.PI * 2);
                 }
 
-                if (scoring) {
+                if (scoring && !teams) {
                     if (court.isAboveNet(ball.getLocation()) && !volleyed) {
                         volleyed = true;
                     } else if (!court.isAboveNet(ball.getLocation()) && volleyed) {
                         volleyed = false;
                         volleys++;
-                        if (!teams) {
-                            for (Player players : court.getPlayersOnCourt()) {
-                                players.sendTitle(" ", Message.SCORE_TITLE.replace("$SCORE$", Integer.toString(volleys)), 0, 10, 10);
-                            }
+                        for (Player players : court.getPlayersOnCourt()) {
+                            players.sendTitle(" ", Message.SCORE_TITLE.replace("$SCORE$", Integer.toString(volleys)), 0, 10, 10);
                         }
                     }
                 }
@@ -210,7 +208,7 @@ public class Ball {
                         public void run() {
                             if (ball.isOnGround() || ball.getLocation().add(0, 0.5, 0).getBlock().getType() != Material.AIR) {
                                 if (!end) {
-                                    if (teams) {
+                                    if (scoring && teams) {
                                         int team = court.getSide(ball.getLocation());
                                         if (team == 0)
                                             team = lastHit;
