@@ -30,6 +30,7 @@ public class Message {
     public static String SUCCESS_SCORING;
     public static String SUCCESS_SOUNDS;
     public static String SUCCESS_SPEED;
+    public static String SUCCESS_TEAMS;
     public static String SUCCESS_TEXTURE;
     public static String ERROR_BALL_OUT;
     public static String ERROR_UNKNOWN_COURT;
@@ -41,6 +42,7 @@ public class Message {
     public static String ENTER_COURT;
     public static String EXIT_COURT;
     public static String SCORE_TITLE;
+    public static String TEAM_SCORE_TITLE;
 
     /**
      * reload all messages from file
@@ -62,6 +64,7 @@ public class Message {
         SUCCESS_SCORING = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SCORING"));
         SUCCESS_SOUNDS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SOUNDS"));
         SUCCESS_SPEED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SPEED"));
+        SUCCESS_TEAMS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_TEAMS"));
         SUCCESS_TEXTURE = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_TEXTURE"));
         ERROR_BALL_OUT = PREFIX + format(messageConfig.getConfig().getString("ERROR_BALL_OUT"));
         ERROR_UNKNOWN_COURT = PREFIX + format(messageConfig.getConfig().getString("ERROR_UNKNOWN_COURT"));
@@ -73,6 +76,7 @@ public class Message {
         ENTER_COURT = PREFIX + format(messageConfig.getConfig().getString("ENTER_COURT"));
         EXIT_COURT = PREFIX + format(messageConfig.getConfig().getString("EXIT_COURT"));
         SCORE_TITLE = format(messageConfig.getConfig().getString("SCORE_TITLE"));
+        TEAM_SCORE_TITLE = format(messageConfig.getConfig().getString("TEAM_SCORE_TITLE"));
     }
     
     /**
@@ -137,6 +141,8 @@ public class Message {
             help.add(ChatColor.GRAY + "/volleyball sounds <name> <true/false>" + ChatColor.WHITE + ": Enable ball sounds");
         if (player.hasPermission("volleyball.speed"))
             help.add(ChatColor.GRAY + "/volleyball speed <name> <number>" + ChatColor.WHITE + ": Set ball speed");
+        if (player.hasPermission("volleyball.teams"))
+            help.add(ChatColor.GRAY + "/volleyball teams <name> <true/false>" + ChatColor.WHITE + ": Enable team scoring");
         if (player.hasPermission("volleyball.texture"))
             help.add(ChatColor.GRAY + "/volleyball texture <name> <url>" + ChatColor.WHITE + ": Set ball texture");
 

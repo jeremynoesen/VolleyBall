@@ -8,7 +8,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import xyz.jeremynoesen.volleyball.Message;
 
-import java.util.HashSet;
+import java.util.HashMap;
 
 /**
  * Listener for some court events
@@ -18,9 +18,9 @@ import java.util.HashSet;
 public class CourtListener implements Listener {
 
     /**
-     * set of players on courts, used to check when they enter oe exit them
+     * set of players on courts, used to check when they enter or exit them
      */
-    HashSet<Player> onCourt = new HashSet<>();
+    HashMap<Player, Court> onCourt = new HashMap<>();
 
     /**
      * protect the court from breaking
@@ -46,14 +46,17 @@ public class CourtListener implements Listener {
                 e.getFrom().getBlockY() != e.getTo().getBlockY() ||
                 e.getFrom().getBlockZ() != e.getTo().getBlockZ()) {
             Player player = e.getPlayer();
-            if (Court.get(player.getLocation()) != null && Court.get(player.getLocation()).isEnabled()) {
-                if (!onCourt.contains(player) && Court.get(player.getLocation()).hasHints()) {
+            if (Court.get(player.getLocation()) != null) {
+                Court court = Court.get(player.getLocation());
+                if (!onCourt.containsKey(player) && court.isEnabled() && court.hasHints()) {
                     player.sendMessage(Message.ENTER_COURT);
-                    onCourt.add(player);
+                    onCourt.put(player, court);
                 }
             } else {
-                if (onCourt.contains(player)) {
+                if (onCourt.containsKey(player)) {
                     player.sendMessage(Message.EXIT_COURT);
+                    if (onCourt.get(player).getPlayersOnCourt().size() == 0)
+                        onCourt.get(player).clearScores();
                     onCourt.remove(player);
                 }
             }

@@ -9,7 +9,6 @@ VolleyBall is a minigame that emulates volleyball for a Spigot Minecraft server.
 VolleyBall was originally written for a tropical island themed event on a Minecraft server. This was to add more player interactive content to the build to make it feel more lively. From there, this plugin has grown more complex to allow other servers to enjoy the features of VolleyBall for themselves.
 
 ## Usage
-
 - `/volleyball help` - Show plugin help
 - `/volleyball reload` - Reload configs and delete ball entities
 - `/volleyball list` - List all courts
@@ -20,14 +19,15 @@ VolleyBall was originally written for a tropical island themed event on a Minecr
 - `/volleyball bounds <name> <pos1/pos2>` - Set the court bounds based on player location
 - `/volleyball enabled <name> <true/false>` - Enable or disable a court
 - `/volleyball hints <name> <true/false>` - Enable or disable hints on court
-- `/volleyball hitradius <name> <number>` - Set the ball hit radius, default is 1.0
+- `/volleyball hitradius <name> <number>` - Set the ball hit radius
 - `/volleyball name <name> <newname>` - Change a court's name
 - `/volleyball net <name> <pos1/pos2>` - Set the net bounds based on player location
 - `/volleyball particles <name> <true/false>` - Enable or disable ball particles
 - `/volleyball restrictions <name> <true/false>` - Enable or disable ball court restrictions
 - `/volleyball scoring <name> <true/false>` - Enable or disable scoring
 - `/volleyball sounds <name> <true/false>` - Enable or disable court sound effects
-- `/volleyball speed <name> <number>` - Set the ball speed, default is 1.0
+- `/volleyball speed <name> <number>` - Set the ball speed
+- `/volleyball teams <name> <true/false>` - Enable or disable team scoring
 - `/volleyball texture <name> <url>` - Set the ball texture based on a Minecraft skin texture url
 
 ### Playing
@@ -74,6 +74,7 @@ For the message configuration, you can use color codes. You can also use the pla
 - `volleyball.scoring` - Allow enabling scoring
 - `volleyball.sounds` - Allow enabling court sounds
 - `volleyball.speed` - Allow setting ball speed
+- `volleyball.teams` - Allow enabling team scoring
 - `volleyball.texture` - Allow setting ball texture
 
 ## Demonstration

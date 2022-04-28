@@ -28,6 +28,11 @@ public class Court {
     private Ball ball;
 
     /**
+     * scores per team
+     */
+    private int[] teamScores;
+
+    /**
      * whether the court has animation enabled
      */
     private boolean animations;
@@ -83,14 +88,19 @@ public class Court {
     private boolean sounds;
 
     /**
-     * player head texture for the ball
-     */
-    private String texture;
-
-    /**
      * speed modifier of ball
      */
     private double speed;
+
+    /**
+     * whether team scoring is enabled
+     */
+    private boolean teams;
+
+    /**
+     * player head texture for the ball
+     */
+    private String texture;
 
     /**
      * world the court is in
@@ -113,6 +123,7 @@ public class Court {
         scoring = true;
         sounds = true;
         speed = 1;
+        teams = false;
         texture = "http://textures.minecraft.net/texture/9b2513c8d08c60ad3785d3a9a651b7329c5f26937aca2fc8dfaf3441c9bd9da2";
         world = VolleyBall.getInstance().getServer().getWorlds().get(0);
 
@@ -132,6 +143,7 @@ public class Court {
         net[1][1] = 0;
         net[1][2] = 0;
 
+        teamScores = new int[2];
         ball = null;
         courts.put(name, this);
     }
@@ -161,6 +173,33 @@ public class Court {
      */
     public void setBall(Ball ball) {
         this.ball = ball;
+    }
+
+    /**
+     * add +1 to the score for a team
+     *
+     * @param team team 1 or 2
+     */
+    public void addScore(int team) {
+        teamScores[team - 1]++;
+    }
+
+    /**
+     * get the score for a team
+     *
+     * @param team team 1 or 2
+     * @return score of team
+     */
+    public int getScore(int team) {
+        return teamScores[team - 1];
+    }
+
+    /**
+     * reset scores of all teams to 0
+     */
+    public void clearScores() {
+        teamScores[0] = 0;
+        teamScores[1] = 0;
     }
 
     /**
@@ -402,6 +441,24 @@ public class Court {
     }
 
     /**
+     * check if a court has teams enabled
+     *
+     * @return true if teams are enabled
+     */
+    public boolean hasTeams() {
+        return teams;
+    }
+
+    /**
+     * enable or disable team scoring
+     *
+     * @param teams true to enable
+     */
+    public void setTeams(boolean teams) {
+        this.teams = teams;
+    }
+
+    /**
      * get the url for the ball texture
      *
      * @return string url of ball texture
@@ -550,19 +607,28 @@ public class Court {
     }
 
     /**
-     * get the court the player is on
+     * get the team based on the location on the court
      *
-     * @param player player to check for courts
-     * @return court player is on
+     * @param loc location to check
+     * @return team 1 or 2, or 0 if neither
      */
-    public static Court get(Player player) {
-
-        for (Court court : courts.values()) {
-            if (court.contains(player)) {
-                return court;
+    public int getSide(Location loc) {
+        if (contains(loc) && !isAboveNet(loc)) {
+            if (net[1][0] - net[0][0] > net[1][2] - net[0][2]) {
+                if (loc.getZ() > net[1][2]) {
+                    return 1;
+                } else if (loc.getZ() < net[0][2]) {
+                    return 2;
+                }
+            } else {
+                if (loc.getX() > net[1][0]) {
+                    return 1;
+                } else if (loc.getX() < net[0][0]) {
+                    return 2;
+                }
             }
         }
-        return null;
+        return 0;
     }
 
     /**
@@ -589,16 +655,17 @@ public class Court {
     @Override
     public String toString() {
         return Message.COURT_INFO
-                .replace("$NAME$", name)
-                .replace("$ENABLED$", Boolean.toString(isEnabled()))
-                .replace("$RESTRICTIONS$", Boolean.toString(hasRestrictions()))
                 .replace("$ANIMATIONS$", Boolean.toString(hasAnimations()))
-                .replace("$PARTICLES$", Boolean.toString(hasParticles()))
-                .replace("$SOUNDS$", Boolean.toString(hasSounds()))
-                .replace("$SCORING$", Boolean.toString(hasScoring()))
+                .replace("$ENABLED$", Boolean.toString(isEnabled()))
                 .replace("$HINTS$", Boolean.toString(hasHints()))
-                .replace("$SPEED$", Double.toString(getSpeed()))
                 .replace("$RADIUS$", Double.toString(getHitRadius()))
+                .replace("$NAME$", name)
+                .replace("$PARTICLES$", Boolean.toString(hasParticles()))
+                .replace("$RESTRICTIONS$", Boolean.toString(hasRestrictions()))
+                .replace("$SCORING$", Boolean.toString(hasScoring()))
+                .replace("$SOUNDS$", Boolean.toString(hasSounds()))
+                .replace("$SPEED$", Double.toString(getSpeed()))
+                .replace("$TEAMS$", Boolean.toString(hasTeams()))
                 .replace("$TEXTURE$", getTexture())
                 .replace("$WORLD$", world.getName())
                 .replace("$BOUNDS$",

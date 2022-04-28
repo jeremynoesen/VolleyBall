@@ -59,6 +59,7 @@ public class CommandTabComplete implements TabCompleter {
                     if (player.hasPermission("volleyball.scoring")) tabList.add("scoring");
                     if (player.hasPermission("volleyball.sounds")) tabList.add("sounds");
                     if (player.hasPermission("volleyball.speed")) tabList.add("speed");
+                    if (player.hasPermission("volleyball.teams")) tabList.add("teams");
                     if (player.hasPermission("volleyball.texture")) tabList.add("texture");
 
                 } else if (args[0].startsWith("a") && player.hasPermission("volleyball.animations")) {
@@ -158,9 +159,15 @@ public class CommandTabComplete implements TabCompleter {
                         tabList.remove("scoring");
                     }
 
-                } else if (args[0].startsWith("t") && player.hasPermission("volleyball.texture")) {
+                } else if (args[0].startsWith("t")) {
 
-                    tabList.add("texture");
+                    if (player.hasPermission("volleyball.teams")) tabList.add("teams");
+                    if (player.hasPermission("volleyball.texture")) tabList.add("texture");
+
+                    if (args[0].startsWith("tea") && player.hasPermission("volleyball.teams"))
+                        tabList.remove("texture");
+                    else if (args[0].startsWith("tex") && player.hasPermission("volleyball.texture"))
+                        tabList.remove("teams");
 
                 }
 
@@ -180,6 +187,7 @@ public class CommandTabComplete implements TabCompleter {
                         (args[0].equalsIgnoreCase("scoring") && player.hasPermission("volleyball.scoring")) ||
                         (args[0].equalsIgnoreCase("sounds") && player.hasPermission("volleyball.sounds")) ||
                         (args[0].equalsIgnoreCase("speed") && player.hasPermission("volleyball.speed")) ||
+                        (args[0].equalsIgnoreCase("teams") && player.hasPermission("volleyball.teams")) ||
                         (args[0].equalsIgnoreCase("texture") && player.hasPermission("volleyball.texture"))) {
 
                     for (String court : courts) {
@@ -197,7 +205,8 @@ public class CommandTabComplete implements TabCompleter {
                         (args[0].equalsIgnoreCase("particles") && player.hasPermission("volleyball.particles")) ||
                         (args[0].equalsIgnoreCase("restrictions") && player.hasPermission("volleyball.restrictions")) ||
                         (args[0].equalsIgnoreCase("scoring") && player.hasPermission("volleyball.scoring")) ||
-                        (args[0].equalsIgnoreCase("sounds") && player.hasPermission("volleyball.sounds"))) {
+                        (args[0].equalsIgnoreCase("sounds") && player.hasPermission("volleyball.sounds")) ||
+                        (args[0].equalsIgnoreCase("teams") && player.hasPermission("volleyball.teams"))) {
 
                     if (args[2].equalsIgnoreCase("")) {
 

@@ -3,7 +3,10 @@ package xyz.jeremynoesen.volleyball.ball;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import org.apache.commons.codec.binary.Base64;
-import org.bukkit.*;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -59,6 +62,11 @@ public class Ball {
     private int volleys;
 
     /**
+     * team that last hit the ball
+     */
+    private int lastHit;
+
+    /**
      * court this ball is on
      */
     private final Court court;
@@ -73,7 +81,8 @@ public class Ball {
         this.end = false;
         this.volleyed = false;
         this.volleys = 0;
-        this.court = Court.get(player);
+        this.lastHit = 0;
+        this.court = Court.get(player.getLocation());
 
         Location loc = player.getEyeLocation().add(player.getLocation().getDirection().multiply(0.75).setY(-0.5));
         if (!court.hasAnimations()) {
@@ -124,6 +133,8 @@ public class Ball {
         boolean particles = court.hasParticles();
         boolean sounds = court.hasSounds();
         boolean restricted = court.hasRestrictions();
+        boolean scoring = court.hasScoring();
+        boolean teams = court.hasTeams();
 
         if (sounds)
             ball.getWorld().playSound(ball.getLocation(), Sound.ENTITY_ARROW_SHOOT, 2, 0);
@@ -150,23 +161,6 @@ public class Ball {
 
                 ball.setFallDistance(0);
 
-                if (court.hasScoring()) {
-                    if (court.isAboveNet(ball.getLocation()) && !volleyed) {
-                        volleyed = true;
-                    } else if (!court.isAboveNet(ball.getLocation()) && volleyed) {
-                        volleyed = false;
-                        volleys++;
-                        for (Player players : court.getPlayersOnCourt()) {
-                            players.sendTitle(" ", Message.SCORE_TITLE.replace("$SCORE$", Integer.toString(volleys)), 0, 10, 10);
-                        }
-                    }
-                }
-
-                if (particles && !end) {
-                    ball.getWorld().spawnParticle(Particle.CRIT,
-                            ball.getLocation().add(new Vector(0, 0.75, 0)), 0, 0, 0, 0, 1);
-                }
-
                 if (restricted) {
                     Vector vec = ball.getVelocity();
                     Location loc = ball.getLocation();
@@ -178,11 +172,30 @@ public class Ball {
                         ball.setVelocity(vec.setZ(-vec.getZ() * 1.25));
                 }
 
+                if (!end && particles) {
+                    ball.getWorld().spawnParticle(Particle.CRIT,
+                            ball.getLocation().add(new Vector(0, 0.75, 0)), 0, 0, 0, 0, 1);
+                }
+
                 if (!end && animations) {
                     ball.setHeadPose(new EulerAngle(rot[0], rot[1], rot[2]));
                     rot[0] += (Math.abs(ball.getVelocity().getY()) + Math.abs(ball.getVelocity().getZ())) / (Math.PI * 2);
                     rot[1] += (Math.abs(ball.getVelocity().getX()) + Math.abs(ball.getVelocity().getZ())) / (Math.PI * 2);
                     rot[2] += (Math.abs(ball.getVelocity().getY()) + Math.abs(ball.getVelocity().getX())) / (Math.PI * 2);
+                }
+
+                if (scoring) {
+                    if (court.isAboveNet(ball.getLocation()) && !volleyed) {
+                        volleyed = true;
+                    } else if (!court.isAboveNet(ball.getLocation()) && volleyed) {
+                        volleyed = false;
+                        volleys++;
+                        if (!teams) {
+                            for (Player players : court.getPlayersOnCourt()) {
+                                players.sendTitle(" ", Message.SCORE_TITLE.replace("$SCORE$", Integer.toString(volleys)), 0, 10, 10);
+                            }
+                        }
+                    }
                 }
 
                 if (ball.isDead()) {
@@ -196,7 +209,27 @@ public class Ball {
                         @Override
                         public void run() {
                             if (ball.isOnGround() || ball.getLocation().add(0, 0.5, 0).getBlock().getType() != Material.AIR) {
-                                if (!end) remove();
+                                if (!end) {
+                                    if (teams) {
+                                        int team = court.getSide(ball.getLocation());
+                                        if (team == 0)
+                                            team = lastHit;
+                                        if (team == 1)
+                                            court.addScore(2);
+                                        if (team == 2)
+                                            court.addScore(1);
+                                        if (team != 0) {
+                                            for (Player players : court.getPlayersOnCourt()) {
+                                                players.sendTitle(" ", Message.TEAM_SCORE_TITLE
+                                                                .replace("$SCORE1$", Integer.toString(court.getScore(1)))
+                                                                .replace("$SCORE2$", Integer.toString(court.getScore(2))),
+                                                        0, 10, 10);
+                                            }
+                                        }
+                                        lastHit = 0;
+                                    }
+                                    remove();
+                                }
                             }
                         }
                     }.runTaskLater(VolleyBall.getInstance(), 3);
@@ -219,6 +252,7 @@ public class Ball {
                 s.setVelocity(player.getLocation().getDirection().setY(Math.abs(player.getLocation().getDirection().getY()))
                         .normalize().add(player.getVelocity().multiply(0.25)).multiply(court.getSpeed())
                         .add(new Vector(0, Math.max(0, player.getEyeHeight() - s.getLocation().getY()), 0)));
+                lastHit = court.getSide(player.getLocation());
                 break;
             }
         }

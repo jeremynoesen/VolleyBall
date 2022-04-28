@@ -38,9 +38,11 @@ public class BallListener implements Listener {
     public void onInteract(PlayerInteractEvent e) {
         Player player = e.getPlayer();
         Action action = e.getAction();
-        if ((action == Action.LEFT_CLICK_BLOCK || action == Action.LEFT_CLICK_AIR) &&
-                Court.get(player) != null && Court.get(player).getBall() != null) {
-            Court.get(player).getBall().hit(player);
+        if ((action == Action.LEFT_CLICK_BLOCK || action == Action.LEFT_CLICK_AIR) && Court.get(player.getLocation()) != null) {
+            Court court = Court.get(player.getLocation());
+            if (court.getBall() != null) {
+                court.getBall().hit(player);
+            }
         }
     }
 
@@ -60,9 +62,9 @@ public class BallListener implements Listener {
     public void onSneak(PlayerToggleSneakEvent e) {
         Player p = e.getPlayer();
         if (p.isSneaking()) {
-            if (Court.get(p) != null) {
+            if (Court.get(p.getLocation()) != null) {
 
-                Court court = Court.get(p);
+                Court court = Court.get(p.getLocation());
 
                 if (court.isEnabled()) {
 
