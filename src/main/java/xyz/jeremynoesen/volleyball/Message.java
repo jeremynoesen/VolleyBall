@@ -140,7 +140,7 @@ public class Message {
         if (player.hasPermission("volleyball.texture"))
             help.add(ChatColor.GRAY + "/volleyball texture <name> <url>" + ChatColor.WHITE + ": Set ball texture");
 
-        help.add(ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "---------------------------------------");
+        help.add(ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "----------------------------------------");
         help.add("");
 
         String[] out = new String[help.size()];
