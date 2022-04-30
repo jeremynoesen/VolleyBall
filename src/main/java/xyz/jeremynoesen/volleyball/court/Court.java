@@ -593,14 +593,14 @@ public class Court {
             double maxx = net[1][0];
             double maxz = net[1][2];
             double minx = net[0][0];
-            double miny = net[0][1];
+            double maxy = net[1][1];
             double minz = net[0][2];
             double tox = l.getBlock().getLocation().getX();
             double toy = l.getBlock().getLocation().getY();
             double toz = l.getBlock().getLocation().getZ();
 
             return (l.getWorld().equals(world) && (tox <= maxx) && (tox >= minx) &&
-                    (toy >= miny) && (toz <= maxz) && (toz >= minz));
+                    (toy >= maxy) && (toz <= maxz) && (toz >= minz));
         } catch (Exception e) {
             return false;
         }
