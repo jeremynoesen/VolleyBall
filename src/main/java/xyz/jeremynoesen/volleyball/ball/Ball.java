@@ -143,7 +143,7 @@ public class Ball {
         boolean teams = court.hasTeams();
 
         if (sounds)
-            ball.getWorld().playSound(ball.getLocation(), Sound.ENTITY_ARROW_SHOOT, 2, 0);
+            ball.getWorld().playSound(ball.getLocation(), Sound.ENTITY_ARROW_SHOOT, 1, 0);
 
         ball.setVelocity(player.getLocation().getDirection().multiply(0.05).add(new Vector(0, 0.5 + (0.05 * court.getSpeed()), 0)));
 
@@ -154,8 +154,7 @@ public class Ball {
                 double x = radius * Math.cos(y);
                 double z = radius * Math.sin((Math.PI * 2) - y);
                 player.getWorld().spawnParticle(Particle.TOTEM,
-                        (float) (loc.getX() + x), (float) (loc.getY() + 2),
-                        (float) (loc.getZ() + z), 0, 0, 0, 0, 1);
+                        loc.getX() + x, loc.getY() + 2, loc.getZ() + z, 1, 0, 0, 0, 0);
             }
         }
 
@@ -165,40 +164,51 @@ public class Ball {
             @Override
             public void run() {
 
-                ball.setFallDistance(0);
+                if (!end) {
 
-                if (restricted) {
-                    Vector vec = ball.getVelocity();
-                    Location loc = ball.getLocation();
-                    if (loc.getBlock().getX() < court.getBounds()[0][0] || loc.getBlock().getX() > court.getBounds()[1][0])
-                        ball.setVelocity(vec.setX(-vec.getX() * 1.25));
-                    if (loc.getBlock().getY() < court.getBounds()[0][1] || loc.getBlock().getY() > court.getBounds()[1][1])
-                        ball.setVelocity(vec.setY(-vec.getY() * 1.25));
-                    if (loc.getBlock().getZ() < court.getBounds()[0][2] || loc.getBlock().getZ() > court.getBounds()[1][2])
-                        ball.setVelocity(vec.setZ(-vec.getZ() * 1.25));
-                }
+                    ball.setFallDistance(0);
 
-                if (!end && particles) {
-                    ball.getWorld().spawnParticle(Particle.CRIT,
-                            ball.getLocation().add(new Vector(0, 0.75, 0)), 0, 0, 0, 0, 1);
-                }
+                    if (restricted) {
+                        Vector vec = ball.getVelocity();
+                        Location loc = ball.getLocation();
+                        if (loc.getBlock().getX() < court.getBounds()[0][0] || loc.getBlock().getX() > court.getBounds()[1][0]) {
+                            ball.setVelocity(vec.setX(-vec.getX() * 1.25));
+                            if (sounds) ball.getWorld().playSound(ball.getLocation(), Sound.ENTITY_CHICKEN_EGG, 1, 1);
+                        }
+                        if (loc.getBlock().getY() < court.getBounds()[0][1] || loc.getBlock().getY() > court.getBounds()[1][1]) {
+                            ball.setVelocity(vec.setY(-vec.getY() * 1.25));
+                            if (sounds) ball.getWorld().playSound(ball.getLocation(), Sound.ENTITY_CHICKEN_EGG, 1, 1);
+                        }
+                        if (loc.getBlock().getZ() < court.getBounds()[0][2] || loc.getBlock().getZ() > court.getBounds()[1][2]) {
+                            ball.setVelocity(vec.setZ(-vec.getZ() * 1.25));
+                            if (sounds) ball.getWorld().playSound(ball.getLocation(), Sound.ENTITY_CHICKEN_EGG, 1, 1);
+                        }
+                    }
 
-                if (!end && animations) {
-                    ball.setHeadPose(new EulerAngle(rot[0], rot[1], rot[2]));
-                    rot[0] += (Math.abs(ball.getVelocity().getY()) + Math.abs(ball.getVelocity().getZ())) / (Math.PI * 2);
-                    rot[1] += (Math.abs(ball.getVelocity().getX()) + Math.abs(ball.getVelocity().getZ())) / (Math.PI * 2);
-                    rot[2] += (Math.abs(ball.getVelocity().getY()) + Math.abs(ball.getVelocity().getX())) / (Math.PI * 2);
-                }
+                    if (particles) {
+                        ball.getWorld().spawnParticle(Particle.CRIT,
+                                ball.getLocation().add(new Vector(0, 0.75, 0)), 1, 0, 0, 0, 0);
+                    }
 
-                if (scoring) {
-                    if (court.isAboveNet(ball.getLocation()) && !volleyed) {
-                        volleyed = true;
-                    } else if (!court.isAboveNet(ball.getLocation()) && volleyed) {
-                        volleyed = false;
-                        volleys++;
-                        if (!teams) {
-                            for (Player players : court.getPlayersOnCourt()) {
-                                players.sendTitle(" ", Message.SCORE_TITLE.replace("$SCORE$", Integer.toString(volleys)), 0, 10, 10);
+                    if (animations) {
+                        ball.setHeadPose(new EulerAngle(rot[0], rot[1], rot[2]));
+                        rot[0] += (Math.abs(ball.getVelocity().getY()) + Math.abs(ball.getVelocity().getZ())) / (Math.PI * 2);
+                        rot[1] += (Math.abs(ball.getVelocity().getX()) + Math.abs(ball.getVelocity().getZ())) / (Math.PI * 2);
+                        rot[2] += (Math.abs(ball.getVelocity().getY()) + Math.abs(ball.getVelocity().getX())) / (Math.PI * 2);
+                    }
+
+                    if (scoring) {
+                        if (court.isAboveNet(ball.getLocation()) && !volleyed) {
+                            volleyed = true;
+                        } else if (!court.isAboveNet(ball.getLocation()) && volleyed) {
+                            volleyed = false;
+                            volleys++;
+                            if (!teams) {
+                                for (Player players : court.getPlayersOnCourt()) {
+                                    players.sendTitle(" ", Message.SCORE_TITLE.replace("$SCORE$", Integer.toString(volleys)), 0, 10, 10);
+                                    if (sounds)
+                                        players.playSound(players.getLocation(), Sound.BLOCK_WOODEN_BUTTON_CLICK_ON, 1, 1);
+                                }
                             }
                         }
                     }
@@ -227,6 +237,8 @@ public class Ball {
                                                             .replace("$SCORE1$", Integer.toString(court.getScore(1)))
                                                             .replace("$SCORE2$", Integer.toString(court.getScore(2))),
                                                     0, 10, 10);
+                                            if (sounds)
+                                                players.playSound(players.getLocation(), Sound.BLOCK_WOODEN_BUTTON_CLICK_ON, 1, 1);
                                         }
                                     }
                                     remove();
@@ -249,10 +261,10 @@ public class Ball {
         for (Entity s : player.getNearbyEntities(hitRadius, 1 + ((0.1 * hitRadius) - 0.1), hitRadius)) {
             if (s.equals(ball) && court.getBall().isOut()) {
                 if (court.hasSounds())
-                    s.getWorld().playSound(s.getLocation(), Sound.ENTITY_CHICKEN_EGG, 2, 0);
-                s.setVelocity(player.getLocation().getDirection().setY(Math.abs(player.getLocation().getDirection().getY()))
+                    ball.getWorld().playSound(ball.getLocation(), Sound.ENTITY_CHICKEN_EGG, 1, 0);
+                ball.setVelocity(player.getLocation().getDirection().setY(Math.abs(player.getLocation().getDirection().getY()))
                         .normalize().add(player.getVelocity().multiply(0.25)).multiply(court.getSpeed())
-                        .add(new Vector(0, Math.max(0, player.getEyeHeight() - s.getLocation().getY()), 0)));
+                        .add(new Vector(0, Math.max(0, player.getEyeHeight() - ball.getLocation().getY()), 0)));
                 int hit = court.getSide(player.getLocation());
                 if (hit != lastHit) hits++;
                 lastHit = hit;
@@ -279,8 +291,7 @@ public class Ball {
                     double z = (radius - 0.14 * finalY) * Math.sin(finalY);
                     if (particles)
                         ball.getWorld().spawnParticle(Particle.CLOUD,
-                                (float) (loc.getX() + x), (float) (loc.getY() + 0.3),
-                                (float) (loc.getZ() + z), 0, 0, 0, 0, 1);
+                                loc.getX() + x, loc.getY() + 0.3, loc.getZ() + z, 1, 0, 0, 0, 0);
                     if (animated) {
                         loc.setYaw((float) finalY * 20);
                         loc.setY(loc.subtract(0, 0.1 * finalY, 0).getY());
@@ -299,8 +310,7 @@ public class Ball {
                     double z = (radius - 0.14 * finalY) * Math.sin(finalY + 3.14159);
                     if (particles)
                         ball.getWorld().spawnParticle(Particle.CLOUD,
-                                (float) (loc1.getX() + x), (float) (loc1.getY() + 0.3),
-                                (float) (loc1.getZ() + z), 0, 0, 0, 0, 1);
+                                loc1.getX() + x, loc1.getY() + 0.3, loc1.getZ() + z, 1, 0, 0, 0, 0);
                 }
             }.runTaskLater(VolleyBall.getInstance(), (long) y);
         }
@@ -313,8 +323,8 @@ public class Ball {
         }.runTaskLater(VolleyBall.getInstance(), (long) 6.28);
 
         if (court.hasSounds()) {
-            ball.getWorld().playSound(ball.getLocation(), Sound.BLOCK_SAND_PLACE, 2, 1);
-            ball.getWorld().playSound(ball.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASEDRUM, 2, 1);
+            ball.getWorld().playSound(ball.getLocation(), Sound.BLOCK_SAND_PLACE, 1, 1);
+            ball.getWorld().playSound(ball.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASEDRUM, 1, 1);
         }
     }
 

@@ -1,5 +1,6 @@
 package xyz.jeremynoesen.volleyball.ball;
 
+import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -69,9 +70,12 @@ public class BallListener implements Listener {
                 if (court.isEnabled()) {
 
                     if (court.getBall() != null && court.getBall().isOut()) {
-                        if (court.hasHints())
+                        if (court.hasHints()) {
                             p.sendMessage(Message.ERROR_BALL_OUT);
-                        return;
+                            if (court.hasSounds()) {
+                                p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASEDRUM, 1, 0);
+                            }
+                        }
                     } else {
                         Ball ball = new Ball(p);
                         ball.serve();
