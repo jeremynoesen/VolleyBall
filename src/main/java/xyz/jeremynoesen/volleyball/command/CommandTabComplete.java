@@ -228,8 +228,16 @@ public class CommandTabComplete implements TabCompleter {
                 if ((args[0].equalsIgnoreCase("bounds") && player.hasPermission("volleyball.bounds")) ||
                         (args[0].equalsIgnoreCase("net") && player.hasPermission("volleyball.net"))) {
 
-                    tabList.add("pos1");
-                    tabList.add("pos2");
+                    if (args[2].equalsIgnoreCase("")) {
+                        tabList.add("pos1");
+                        tabList.add("pos2");
+                        tabList.add("set");
+                    } else if (args[2].startsWith("p")) {
+                        tabList.add("pos1");
+                        tabList.add("pos2");
+                    } else if (args[2].startsWith("s")) {
+                        tabList.add("set");
+                    }
 
                 }
 

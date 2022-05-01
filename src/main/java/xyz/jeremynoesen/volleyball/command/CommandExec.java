@@ -115,15 +115,20 @@ public class CommandExec implements CommandExecutor {
                             case "bounds":
                                 if (player.hasPermission("volleyball.bounds")) {
                                     if (args[2].equalsIgnoreCase("pos1")) {
-                                        court.setBounds(player, 1);
-                                        player.sendMessage(Message.SUCCESS_BOUNDS
+                                        court.selectBounds(player, 1);
+                                        player.sendMessage(Message.SUCCESS_BOUNDS_SELECTED
                                                 .replace("$COURT$", args[1])
                                                 .replace("$POS$", "1"));
                                     } else if (args[2].equalsIgnoreCase("pos2")) {
-                                        court.setBounds(player, 2);
-                                        player.sendMessage(Message.SUCCESS_BOUNDS
+                                        court.selectBounds(player, 2);
+                                        player.sendMessage(Message.SUCCESS_BOUNDS_SELECTED
                                                 .replace("$COURT$", args[1])
                                                 .replace("$POS$", "2"));
+                                    } else if (args[2].equalsIgnoreCase("set")) {
+                                        court.setBounds(player);
+                                        court.setWorld(player.getWorld());
+                                        player.sendMessage(Message.SUCCESS_BOUNDS_SET
+                                                .replace("$COURT$", args[1]));
                                     } else {
                                         player.sendMessage(Message.ERROR_UNKNOWN_ARGS);
                                     }
@@ -173,15 +178,19 @@ public class CommandExec implements CommandExecutor {
                             case "net":
                                 if (player.hasPermission("volleyball.net")) {
                                     if (args[2].equalsIgnoreCase("pos1")) {
-                                        court.setNet(player, 1);
-                                        player.sendMessage(Message.SUCCESS_NET
+                                        court.selectNet(player, 1);
+                                        player.sendMessage(Message.SUCCESS_NET_SELECTED
                                                 .replace("$COURT$", args[1])
                                                 .replace("$POS$", "1"));
                                     } else if (args[2].equalsIgnoreCase("pos2")) {
-                                        court.setNet(player, 2);
-                                        player.sendMessage(Message.SUCCESS_NET
+                                        court.selectNet(player, 2);
+                                        player.sendMessage(Message.SUCCESS_NET_SELECTED
                                                 .replace("$COURT$", args[1])
                                                 .replace("$POS$", "2"));
+                                    } else if (args[2].equalsIgnoreCase("set")) {
+                                        court.setNet(player);
+                                        player.sendMessage(Message.SUCCESS_NET_SET
+                                                .replace("$COURT$", args[1]));
                                     } else {
                                         player.sendMessage(Message.ERROR_UNKNOWN_ARGS);
                                     }

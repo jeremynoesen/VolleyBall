@@ -19,12 +19,14 @@ public class Message {
     public static String SUCCESS_CREATED;
     public static String SUCCESS_RELOADED;
     public static String SUCCESS_ANIMATIONS;
-    public static String SUCCESS_BOUNDS;
+    public static String SUCCESS_BOUNDS_SELECTED;
+    public static String SUCCESS_BOUNDS_SET;
     public static String SUCCESS_ENABLED;
     public static String SUCCESS_HINTS;
     public static String SUCCESS_HITRADIUS;
     public static String SUCCESS_NAME;
-    public static String SUCCESS_NET;
+    public static String SUCCESS_NET_SELECTED;
+    public static String SUCCESS_NET_SET;
     public static String SUCCESS_PARTICLES;
     public static String SUCCESS_RESTRICTIONS;
     public static String SUCCESS_SCORING;
@@ -53,12 +55,14 @@ public class Message {
         SUCCESS_CREATED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_CREATED"));
         SUCCESS_RELOADED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_RELOADED"));
         SUCCESS_ANIMATIONS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_ANIMATIONS"));
-        SUCCESS_BOUNDS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_BOUNDS"));
+        SUCCESS_BOUNDS_SELECTED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_BOUNDS_SELECTED"));
+        SUCCESS_BOUNDS_SET = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_BOUNDS_SET"));
         SUCCESS_ENABLED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_ENABLED"));
         SUCCESS_HINTS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_HINTS"));
         SUCCESS_HITRADIUS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_HITRADIUS"));
         SUCCESS_NAME = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_NAME"));
-        SUCCESS_NET = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_NET"));
+        SUCCESS_NET_SELECTED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_NET_SELECTED"));
+        SUCCESS_NET_SET = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_NET_SET"));
         SUCCESS_PARTICLES = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_PARTICLES"));
         SUCCESS_RESTRICTIONS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_RESTRICTIONS"));
         SUCCESS_SCORING = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SCORING"));
@@ -120,7 +124,7 @@ public class Message {
         if (player.hasPermission("volleyball.animations"))
             help.add(ChatColor.GRAY + "/volleyball animations <name> <true/false>" + ChatColor.WHITE + ": Enable ball animations");
         if (player.hasPermission("volleyball.bounds"))
-            help.add(ChatColor.GRAY + "/volleyball bounds <name> <pos1/pos2>" + ChatColor.WHITE + ": Set the court bounds");
+            help.add(ChatColor.GRAY + "/volleyball bounds <name> <pos1/pos2/set>" + ChatColor.WHITE + ": Set the court bounds");
         if (player.hasPermission("volleyball.enabled"))
             help.add(ChatColor.GRAY + "/volleyball enabled <name> <true/false>" + ChatColor.WHITE + ": Enable a court");
         if (player.hasPermission("volleyball.hints"))
@@ -130,7 +134,7 @@ public class Message {
         if (player.hasPermission("volleyball.name"))
             help.add(ChatColor.GRAY + "/volleyball name <name> <newname>" + ChatColor.WHITE + ": Change court name");
         if (player.hasPermission("volleyball.net"))
-            help.add(ChatColor.GRAY + "/volleyball net <name> <pos1/pos2>" + ChatColor.WHITE + ": Set the net region");
+            help.add(ChatColor.GRAY + "/volleyball net <name> <pos1/pos2/set>" + ChatColor.WHITE + ": Set the net region");
         if (player.hasPermission("volleyball.particles"))
             help.add(ChatColor.GRAY + "/volleyball particles <name> <true/false>" + ChatColor.WHITE + ": Enable ball particles");
         if (player.hasPermission("volleyball.restrictions"))

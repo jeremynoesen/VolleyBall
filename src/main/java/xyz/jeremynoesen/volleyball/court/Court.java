@@ -108,6 +108,16 @@ public class Court {
     private World world;
 
     /**
+     * selected points for setting bounds
+     */
+    private HashMap<Player, int[][]> boundsSelections;
+
+    /**
+     * selected points for setting net
+     */
+    private HashMap<Player, int[][]> netSelections;
+
+    /**
      * create a court with default values with the specified name
      *
      * @param name court name
@@ -126,6 +136,9 @@ public class Court {
         teams = false;
         texture = "http://textures.minecraft.net/texture/9b2513c8d08c60ad3785d3a9a651b7329c5f26937aca2fc8dfaf3441c9bd9da2";
         world = VolleyBall.getInstance().getServer().getWorlds().get(0);
+
+        boundsSelections = new HashMap<>();
+        netSelections = new HashMap<>();
 
         bounds = new double[2][3];
         bounds[0][0] = 0;
@@ -239,13 +252,22 @@ public class Court {
     }
 
     /**
-     * set the court bounds based on the player location
+     * set the court bounds based on the selected positions from a player
      *
-     * @param player player setting bounds
-     * @param pos    position to set (1 or 2)
+     * @param player player setting the bounds
      */
-    public void setBounds(Player player, int pos) {
-        setBounds(player, bounds, pos);
+    public void setBounds(Player player) {
+        setBounds(player, boundsSelections);
+    }
+
+    /**
+     * select the court bounds based on the player location
+     *
+     * @param player player selecting bounds
+     * @param pos    position to select (1 or 2)
+     */
+    public void selectBounds(Player player, int pos) {
+        selectBounds(player, pos, boundsSelections);
     }
 
     /**
@@ -341,13 +363,22 @@ public class Court {
     }
 
     /**
-     * set the net bounds based on the player location
+     * set the net bounds based on the selected positions from a player
      *
-     * @param player player setting bounds
-     * @param pos    position to set (1 or 2)
+     * @param player player setting the bounds
      */
-    public void setNet(Player player, int pos) {
-        setBounds(player, net, pos);
+    public void setNet(Player player) {
+        setBounds(player, netSelections);
+    }
+
+    /**
+     * select the net bounds based on the player location
+     *
+     * @param player player selecting bounds
+     * @param pos    position to select (1 or 2)
+     */
+    public void selectNet(Player player, int pos) {
+        selectBounds(player, pos, netSelections);
     }
 
     /**
@@ -495,36 +526,44 @@ public class Court {
     }
 
     /**
-     * set bounds based on the position of the player
+     * set bounds based on player selections
      *
-     * @param player player setting bounds
-     * @param pos    position to set (1 or 2)
+     * @param player     player setting bounds
+     * @param selections map of currently selected positions
      */
-    private void setBounds(Player player, double[][] bounds, int pos) {
+    private void setBounds(Player player, HashMap<Player, int[][]> selections) {
+        int[][] selection = selections.get(player);
+        bounds[0][0] = Math.min(selection[0][0], selection[1][0]);
+        bounds[0][1] = Math.min(selection[0][1], selection[1][1]);
+        bounds[0][2] = Math.min(selection[0][2], selection[1][2]);
+        bounds[1][0] = Math.max(selection[0][0], selection[1][0]);
+        bounds[1][1] = Math.max(selection[0][1], selection[1][1]);
+        bounds[1][2] = Math.max(selection[0][2], selection[1][2]);
+    }
+
+    /**
+     * select a position to be used for bounds setting
+     *
+     * @param player     player selecting a position
+     * @param pos        position being selected
+     * @param selections map to place selected positions in
+     */
+    private void selectBounds(Player player, int pos, HashMap<Player, int[][]> selections) {
+        int[][] bounds;
+
+        if (selections.get(player) == null) {
+            bounds = new int[2][3];
+        } else {
+            bounds = selections.get(player);
+        }
+
         if (pos == 1 || pos == 2) {
             bounds[pos - 1][0] = player.getLocation().getBlock().getX();
             bounds[pos - 1][1] = player.getLocation().getBlock().getY();
             bounds[pos - 1][2] = player.getLocation().getBlock().getZ();
-            world = player.getWorld();
-
-            if (bounds[0][0] > bounds[1][0]) {
-                double temp = bounds[0][0];
-                bounds[0][0] = bounds[1][0];
-                bounds[1][0] = temp;
-            }
-
-            if (bounds[0][1] > bounds[1][1]) {
-                double temp = bounds[0][1];
-                bounds[0][1] = bounds[1][1];
-                bounds[1][1] = temp;
-            }
-
-            if (bounds[0][2] > bounds[1][2]) {
-                double temp = bounds[0][2];
-                bounds[0][2] = bounds[1][2];
-                bounds[1][2] = temp;
-            }
         }
+
+        selections.put(player, bounds);
     }
 
     /**

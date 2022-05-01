@@ -16,12 +16,12 @@ VolleyBall was originally written for a tropical island themed event on a Minecr
 - `/volleyball info <name>` - Get info about a court
 - `/volleyball remove <name>` - Delete a court
 - `/volleyball animations <name> <true/false>` - Enable or disable ball animations
-- `/volleyball bounds <name> <pos1/pos2>` - Set the court bounds based on player location
+- `/volleyball bounds <name> <pos1/pos2/set>` - Set the court bounds based on player location
 - `/volleyball enabled <name> <true/false>` - Enable or disable a court
 - `/volleyball hints <name> <true/false>` - Enable or disable hints on court
 - `/volleyball hitradius <name> <number>` - Set the ball hit radius
 - `/volleyball name <name> <newname>` - Change a court's name
-- `/volleyball net <name> <pos1/pos2>` - Set the net bounds based on player location
+- `/volleyball net <name> <pos1/pos2/set>` - Set the net bounds based on player location
 - `/volleyball particles <name> <true/false>` - Enable or disable ball particles
 - `/volleyball restrictions <name> <true/false>` - Enable or disable ball court restrictions
 - `/volleyball scoring <name> <true/false>` - Enable or disable scoring
@@ -47,7 +47,8 @@ There is no main configuration, all configuring is done in-game.
 
 - Use the `volleyball create` command to create a court. The court will be created, but not enabled.
 - Use the `volleyball bounds <name> <pos1/pos2>` command to select a cuboid region to set as the bounds. Include the floor and the air above it, not just the floor!
-- Do the same with `volleyball net <name> <pos1/pos2>` to set a region as the net. Select from the floor to the top of the net!
+- Run `volleyball bounds <name> set` to set the selected region as the court bounds.
+- Do the same with `volleyball net <name> <pos1/pos2/set>` to set a region as the net. Select from the floor to the top of the net!
 - Use the other commands to customize your court to your liking.
 - Once you are finished, run `volleyball enabled <name> true` to enable your court. This court can not have its blocks modified while it is enabled, so make sure you make build edits before enabling!
 
