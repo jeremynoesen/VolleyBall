@@ -108,6 +108,8 @@ public class Ball {
     }
 
     /**
+     * set the skull texture for the ball
+     *
      * @param url link to the player skin to get the skull from
      */
     public void setTexture(String url) {

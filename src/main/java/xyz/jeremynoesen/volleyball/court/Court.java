@@ -134,7 +134,7 @@ public class Court {
         sounds = true;
         speed = 1;
         teams = false;
-        texture = "http://textures.minecraft.net/texture/9b2513c8d08c60ad3785d3a9a651b7329c5f26937aca2fc8dfaf3441c9bd9da2";
+        texture = "http://textures.minecraft.net/texture/1e6df1c2bf5b918f6c8879af4c4ecc1dabbe37229284e1f8f6bccdb1ea3d0ac";
         world = VolleyBall.getInstance().getServer().getWorlds().get(0);
 
         boundsSelections = new HashMap<>();
