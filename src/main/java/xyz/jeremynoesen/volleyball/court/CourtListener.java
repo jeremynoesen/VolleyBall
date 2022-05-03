@@ -62,7 +62,7 @@ public class CourtListener implements Listener {
                         player.sendMessage(Message.EXIT_COURT);
                         if (court.getPlayersOnCourt().size() == 0) {
                             court.clearScores();
-                            if (court.getBall().isOut()) court.getBall().remove();
+                            if (court.getBall() != null && court.getBall().isOut()) court.getBall().remove();
                         }
                         if (court.hasSounds())
                             player.playSound(player.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 1, 2);
