@@ -144,21 +144,9 @@ public class Ball {
         boolean scoring = court.hasScoring();
         boolean teams = court.hasTeams();
 
-        if (sounds)
-            ball.getWorld().playSound(ball.getLocation(), Sound.ENTITY_ARROW_SHOOT, 1, 0);
+        if (sounds) ball.getWorld().playSound(ball.getLocation(), Sound.ENTITY_ARROW_SHOOT, 1, 0);
 
         ball.setVelocity(player.getLocation().getDirection().multiply(0.05).add(new Vector(0, 0.5 + (0.05 * court.getSpeed()), 0)));
-
-        if (particles) {
-            Location loc = player.getLocation();
-            double radius = 0.5;
-            for (double y = 0; y <= Math.PI * 2; y += 0.175) {
-                double x = radius * Math.cos(y);
-                double z = radius * Math.sin((Math.PI * 2) - y);
-                player.getWorld().spawnParticle(Particle.TOTEM,
-                        loc.getX() + x, loc.getY() + 2, loc.getZ() + z, 1, 0, 0, 0, 0);
-            }
-        }
 
         double[] rot = {0, 0, 0};
 
@@ -175,19 +163,19 @@ public class Ball {
                         Location loc = ball.getLocation();
                         if (loc.getBlock().getX() < court.getBounds()[0][0] || loc.getBlock().getX() > court.getBounds()[1][0]) {
                             ball.setVelocity(vec.setX(-vec.getX() * 1.25));
-                            if (sounds) ball.getWorld().playSound(ball.getLocation(), Sound.ENTITY_CHICKEN_EGG, 1, 1);
+                            if (sounds) ball.getWorld().playSound(ball.getLocation(), Sound.ENTITY_CHICKEN_EGG, 1, 0);
                         }
                         if (loc.getBlock().getY() < court.getBounds()[0][1] || loc.getBlock().getY() > court.getBounds()[1][1]) {
                             ball.setVelocity(vec.setY(-vec.getY() * 1.25));
-                            if (sounds) ball.getWorld().playSound(ball.getLocation(), Sound.ENTITY_CHICKEN_EGG, 1, 1);
+                            if (sounds) ball.getWorld().playSound(ball.getLocation(), Sound.ENTITY_CHICKEN_EGG, 1, 0);
                         }
                         if (loc.getBlock().getZ() < court.getBounds()[0][2] || loc.getBlock().getZ() > court.getBounds()[1][2]) {
                             ball.setVelocity(vec.setZ(-vec.getZ() * 1.25));
-                            if (sounds) ball.getWorld().playSound(ball.getLocation(), Sound.ENTITY_CHICKEN_EGG, 1, 1);
+                            if (sounds) ball.getWorld().playSound(ball.getLocation(), Sound.ENTITY_CHICKEN_EGG, 1, 0);
                         }
                     }
 
-                    if (particles) {
+                    if (particles && hits > 0) {
                         ball.getWorld().spawnParticle(Particle.CRIT,
                                 ball.getLocation().add(new Vector(0, 0.75, 0)), 1, 0, 0, 0, 0);
                     }
@@ -263,8 +251,8 @@ public class Ball {
         for (Entity s : player.getNearbyEntities(hitRadius, 1 + ((0.1 * hitRadius) - 0.1), hitRadius)) {
             if (s.equals(ball) && court.getBall().isOut()) {
                 if (court.hasSounds())
-                    ball.getWorld().playSound(ball.getLocation(), Sound.ENTITY_CHICKEN_EGG, 1, 0);
-                ball.setVelocity(player.getLocation().getDirection().setY(Math.abs(player.getLocation().getDirection().getY()))
+                    ball.getWorld().playSound(ball.getLocation(), Sound.ENTITY_PLAYER_ATTACK_SWEEP, 1, 0.8f);
+                ball.setVelocity(player.getLocation().getDirection().setY(Math.abs(player.getLocation().getDirection().getY()) + 0.25)
                         .normalize().add(player.getVelocity().multiply(0.25)).multiply(court.getSpeed())
                         .add(new Vector(0, Math.max(0, player.getEyeHeight() - ball.getLocation().getY()), 0)));
                 int hit = court.getSide(player.getLocation());
@@ -279,55 +267,26 @@ public class Ball {
      * removes the volleyball with or without animations
      */
     public void remove() {
-        boolean animated = court.hasAnimations();
-        boolean particles = court.hasParticles();
         end = true;
-        double radius = 1;
-        Location loc = ball.getLocation().clone();
-        for (double y = 0; y <= 6.28; y += 1.04) {
-            double finalY = y;
-            new BukkitRunnable() {
-                @Override
-                public void run() {
-                    double x = (radius - 0.14 * finalY) * Math.cos(finalY);
-                    double z = (radius - 0.14 * finalY) * Math.sin(finalY);
-                    if (particles)
-                        ball.getWorld().spawnParticle(Particle.CLOUD,
-                                loc.getX() + x, loc.getY() + 0.3, loc.getZ() + z, 1, 0, 0, 0, 0);
-                    if (animated) {
-                        loc.setYaw((float) finalY * 20);
-                        loc.setY(loc.subtract(0, 0.1 * finalY, 0).getY());
-                        ball.teleport(loc);
-                    }
-                }
-            }.runTaskLater(VolleyBall.getInstance(), (long) y);
-        }
-        Location loc1 = ball.getLocation().clone();
-        for (double y = 0; y <= 6.28; y += 0.2) {
-            double finalY = y;
-            new BukkitRunnable() {
-                @Override
-                public void run() {
-                    double x = (radius - 0.14 * finalY) * Math.cos(finalY + 3.14159);
-                    double z = (radius - 0.14 * finalY) * Math.sin(finalY + 3.14159);
-                    if (particles)
-                        ball.getWorld().spawnParticle(Particle.CLOUD,
-                                loc1.getX() + x, loc1.getY() + 0.3, loc1.getZ() + z, 1, 0, 0, 0, 0);
-                }
-            }.runTaskLater(VolleyBall.getInstance(), (long) y);
-        }
+
+        if (court.hasParticles())
+            ball.getWorld().spawnParticle(Particle.CLOUD,
+                    ball.getLocation().getX(), ball.getLocation().getY() + 0.3, ball.getLocation().getZ(),
+                    10, 0.2, 0, 0.2, 0);
+
+        if (court.hasAnimations())
+            ball.teleport(ball.getLocation().subtract(0, 1.1, 0));
+
+        if (court.hasSounds())
+            ball.getWorld().playSound(ball.getLocation(), Sound.ENTITY_PLAYER_SMALL_FALL, 1, 0);
+
         new BukkitRunnable() {
             @Override
             public void run() {
                 balls.remove(ball);
                 ball.remove();
             }
-        }.runTaskLater(VolleyBall.getInstance(), (long) 6.28);
-
-        if (court.hasSounds()) {
-            ball.getWorld().playSound(ball.getLocation(), Sound.BLOCK_SAND_PLACE, 1, 1);
-            ball.getWorld().playSound(ball.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASEDRUM, 1, 1);
-        }
+        }.runTaskLater(VolleyBall.getInstance(), 5);
     }
 
     /**
