@@ -45,6 +45,29 @@ public class Message {
     public static String EXIT_COURT;
     public static String SCORE_TITLE;
     public static String TEAM_SCORE_TITLE;
+    public static String HELP_HEADER;
+    public static String HELP_HELP;
+    public static String HELP_RELOAD;
+    public static String HELP_LIST;
+    public static String HELP_CREATE;
+    public static String HELP_INFO;
+    public static String HELP_REMOVE;
+    public static String HELP_ANIMATIONS;
+    public static String HELP_BOUNDS;
+    public static String HELP_ENABLED;
+    public static String HELP_HINTS;
+    public static String HELP_HITRADIUS;
+    public static String HELP_NAME;
+    public static String HELP_NET;
+    public static String HELP_PARTICLES;
+    public static String HELP_RESTRICTIONS;
+    public static String HELP_SCORING;
+    public static String HELP_SOUNDS;
+    public static String HELP_SPEED;
+    public static String HELP_TEAMS;
+    public static String HELP_TEXTURE;
+    public static String HELP_FOOTER;
+
 
     /**
      * reload all messages from file
@@ -81,6 +104,28 @@ public class Message {
         EXIT_COURT = PREFIX + format(messageConfig.getConfig().getString("EXIT_COURT"));
         SCORE_TITLE = format(messageConfig.getConfig().getString("SCORE_TITLE"));
         TEAM_SCORE_TITLE = format(messageConfig.getConfig().getString("TEAM_SCORE_TITLE"));
+        HELP_HEADER = format(messageConfig.getConfig().getString("HELP_HEADER"));
+        HELP_HELP = format(messageConfig.getConfig().getString("HELP_HELP"));
+        HELP_RELOAD = format(messageConfig.getConfig().getString("HELP_RELOAD"));
+        HELP_LIST = format(messageConfig.getConfig().getString("HELP_LIST"));
+        HELP_CREATE = format(messageConfig.getConfig().getString("HELP_CREATE"));
+        HELP_INFO = format(messageConfig.getConfig().getString("HELP_INFO"));
+        HELP_REMOVE = format(messageConfig.getConfig().getString("HELP_REMOVE"));
+        HELP_ANIMATIONS = format(messageConfig.getConfig().getString("HELP_ANIMATIONS"));
+        HELP_BOUNDS = format(messageConfig.getConfig().getString("HELP_BOUNDS"));
+        HELP_ENABLED = format(messageConfig.getConfig().getString("HELP_ENABLED"));
+        HELP_HINTS = format(messageConfig.getConfig().getString("HELP_HINTS"));
+        HELP_HITRADIUS = format(messageConfig.getConfig().getString("HELP_HITRADIUS"));
+        HELP_NAME = format(messageConfig.getConfig().getString("HELP_NAME"));
+        HELP_NET = format(messageConfig.getConfig().getString("HELP_NET"));
+        HELP_PARTICLES = format(messageConfig.getConfig().getString("HELP_PARTICLES"));
+        HELP_RESTRICTIONS = format(messageConfig.getConfig().getString("HELP_RESTRICTIONS"));
+        HELP_SCORING = format(messageConfig.getConfig().getString("HELP_SCORING"));
+        HELP_SOUNDS = format(messageConfig.getConfig().getString("HELP_SOUNDS"));
+        HELP_SPEED = format(messageConfig.getConfig().getString("HELP_SPEED"));
+        HELP_TEAMS = format(messageConfig.getConfig().getString("HELP_TEAMS"));
+        HELP_TEXTURE = format(messageConfig.getConfig().getString("HELP_TEXTURE"));
+        HELP_FOOTER = format(messageConfig.getConfig().getString("HELP_FOOTER"));
     }
     
     /**
@@ -103,54 +148,30 @@ public class Message {
         ArrayList<String> help = new ArrayList<>();
 
         help.add("");
-        help.add(ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "-------------[" + ChatColor.YELLOW +
-                        "" + ChatColor.BOLD + "Volley" + ChatColor.GOLD +
-                        "" + ChatColor.BOLD + "Ball " + ChatColor.GRAY +
-                        "" + ChatColor.BOLD + "Help"
-                        + ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "]-------------");
+        help.add(HELP_HEADER);
 
-        if (player.hasPermission("volleyball.help"))
-            help.add(ChatColor.GRAY + "/volleyball help" + ChatColor.WHITE + ": Show plugin help");
-        if (player.hasPermission("volleyball.reload"))
-            help.add(ChatColor.GRAY + "/volleyball reload" + ChatColor.WHITE + ": Reload plugin and configs");
-        if (player.hasPermission("volleyball.list"))
-            help.add(ChatColor.GRAY + "/volleyball list" + ChatColor.WHITE + ": List all courts");
-        if (player.hasPermission("volleyball.create"))
-            help.add(ChatColor.GRAY + "/volleyball create <name>" + ChatColor.WHITE + ": Create a new court");
-        if (player.hasPermission("volleyball.info"))
-            help.add(ChatColor.GRAY + "/volleyball info <name>" + ChatColor.WHITE + ": Get court info");
-        if (player.hasPermission("volleyball.remove"))
-            help.add(ChatColor.GRAY + "/volleyball remove <name>" + ChatColor.WHITE + ": Remove a court");
-        if (player.hasPermission("volleyball.animations"))
-            help.add(ChatColor.GRAY + "/volleyball animations <name> <true/false>" + ChatColor.WHITE + ": Enable ball animations");
-        if (player.hasPermission("volleyball.bounds"))
-            help.add(ChatColor.GRAY + "/volleyball bounds <name> <pos1/pos2/set>" + ChatColor.WHITE + ": Set the court bounds");
-        if (player.hasPermission("volleyball.enabled"))
-            help.add(ChatColor.GRAY + "/volleyball enabled <name> <true/false>" + ChatColor.WHITE + ": Enable a court");
-        if (player.hasPermission("volleyball.hints"))
-            help.add(ChatColor.GRAY + "/volleyball hints <name> <pos1/pos2>" + ChatColor.WHITE + ": Enable court hints");
-        if (player.hasPermission("volleyball.hitradius"))
-            help.add(ChatColor.GRAY + "/volleyball hitradius <name> <number>" + ChatColor.WHITE + ": Set ball hit radius");
-        if (player.hasPermission("volleyball.name"))
-            help.add(ChatColor.GRAY + "/volleyball name <name> <newname>" + ChatColor.WHITE + ": Change court name");
-        if (player.hasPermission("volleyball.net"))
-            help.add(ChatColor.GRAY + "/volleyball net <name> <pos1/pos2/set>" + ChatColor.WHITE + ": Set the net region");
-        if (player.hasPermission("volleyball.particles"))
-            help.add(ChatColor.GRAY + "/volleyball particles <name> <true/false>" + ChatColor.WHITE + ": Enable ball particles");
-        if (player.hasPermission("volleyball.restrictions"))
-            help.add(ChatColor.GRAY + "/volleyball restrictions <name> <true/false>" + ChatColor.WHITE + ": Enable ball restrictions");
-        if (player.hasPermission("volleyball.scoring"))
-            help.add(ChatColor.GRAY + "/volleyball scoring <name> <true/false>" + ChatColor.WHITE + ": Enable scoring");
-        if (player.hasPermission("volleyball.sounds"))
-            help.add(ChatColor.GRAY + "/volleyball sounds <name> <true/false>" + ChatColor.WHITE + ": Enable ball sounds");
-        if (player.hasPermission("volleyball.speed"))
-            help.add(ChatColor.GRAY + "/volleyball speed <name> <number>" + ChatColor.WHITE + ": Set ball speed");
-        if (player.hasPermission("volleyball.teams"))
-            help.add(ChatColor.GRAY + "/volleyball teams <name> <true/false>" + ChatColor.WHITE + ": Enable team scoring");
-        if (player.hasPermission("volleyball.texture"))
-            help.add(ChatColor.GRAY + "/volleyball texture <name> <url>" + ChatColor.WHITE + ": Set ball texture");
+        if (player.hasPermission("volleyball.help")) help.add(HELP_HELP);
+        if (player.hasPermission("volleyball.reload")) help.add(HELP_RELOAD);
+        if (player.hasPermission("volleyball.list")) help.add(HELP_LIST);
+        if (player.hasPermission("volleyball.create")) help.add(HELP_CREATE);
+        if (player.hasPermission("volleyball.info")) help.add(HELP_INFO);
+        if (player.hasPermission("volleyball.remove")) help.add(HELP_REMOVE);
+        if (player.hasPermission("volleyball.animations")) help.add(HELP_ANIMATIONS);
+        if (player.hasPermission("volleyball.bounds")) help.add(HELP_BOUNDS);
+        if (player.hasPermission("volleyball.enabled")) help.add(HELP_ENABLED);
+        if (player.hasPermission("volleyball.hints")) help.add(HELP_HINTS);
+        if (player.hasPermission("volleyball.hitradius")) help.add(HELP_HITRADIUS);
+        if (player.hasPermission("volleyball.name")) help.add(HELP_NAME);
+        if (player.hasPermission("volleyball.net")) help.add(HELP_NET);
+        if (player.hasPermission("volleyball.particles")) help.add(HELP_PARTICLES);
+        if (player.hasPermission("volleyball.restrictions")) help.add(HELP_RESTRICTIONS);
+        if (player.hasPermission("volleyball.scoring")) help.add(HELP_SCORING);
+        if (player.hasPermission("volleyball.sounds")) help.add(HELP_SOUNDS);
+        if (player.hasPermission("volleyball.speed")) help.add(HELP_SPEED);
+        if (player.hasPermission("volleyball.teams")) help.add(HELP_TEAMS);
+        if (player.hasPermission("volleyball.texture")) help.add(HELP_TEXTURE);
 
-        help.add(ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "----------------------------------------");
+        help.add(HELP_FOOTER);
         help.add("");
 
         String[] out = new String[help.size()];
