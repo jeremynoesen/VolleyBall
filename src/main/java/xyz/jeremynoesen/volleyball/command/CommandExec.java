@@ -272,7 +272,7 @@ public class CommandExec implements CommandExecutor {
                     player.sendMessage(Message.ERROR_UNKNOWN_ARGS);
                 }
             }
-        } else sender.sendMessage("This command can only be executed by a player");
+        }
         return true;
     }
 }
