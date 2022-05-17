@@ -247,7 +247,6 @@ public class Ball {
      * removes the volleyball and stops loops
      */
     public void remove() {
-        boolean animations = court.hasAnimations();
         boolean particles = court.hasParticles();
         boolean sounds = court.hasSounds();
         boolean scoring = court.hasScoring();
@@ -276,11 +275,10 @@ public class Ball {
                     ball.getLocation().getX(), ball.getLocation().getY() + 0.3, ball.getLocation().getZ(),
                     10, 0.2, 0, 0.2, 0);
 
-        if (animations)
-            ball.teleport(ball.getLocation().subtract(0, 1.1, 0));
-
         if (sounds)
             ball.getWorld().playSound(ball.getLocation(), Sound.ENTITY_PLAYER_SMALL_FALL, 1, 0);
+
+        ball.teleport(ball.getLocation().subtract(0, 1.1, 0));
 
         new BukkitRunnable() {
             @Override
