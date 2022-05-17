@@ -42,9 +42,9 @@ public class Ball {
     private final ArmorStand ball;
 
     /**
-     * whether the ball removal has been started or not
+     * whether the ball is out or not
      */
-    private boolean end;
+    private boolean out;
 
     /**
      * player serving this ball
@@ -83,7 +83,7 @@ public class Ball {
      */
     public Ball(Player player) {
         this.player = player;
-        this.end = false;
+        this.out = true;
         this.volleyed = false;
         this.volleys = 0;
         this.lastHit = 0;
@@ -154,7 +154,7 @@ public class Ball {
             @Override
             public void run() {
 
-                if (!end) {
+                if (out) {
 
                     ball.setFallDistance(0);
 
@@ -204,7 +204,7 @@ public class Ball {
                     }
 
                     if (ball.isDead())
-                        end = true;
+                        out = false;
 
                     if (ball.isOnGround())
                         remove();
@@ -244,7 +244,7 @@ public class Ball {
     }
 
     /**
-     * removes the volleyball with or without animations
+     * removes the volleyball and stops loops
      */
     public void remove() {
         boolean animations = court.hasAnimations();
@@ -253,7 +253,7 @@ public class Ball {
         boolean scoring = court.hasScoring();
         boolean teams = court.hasTeams();
 
-        end = true;
+        out = false;
 
         if (scoring && teams && lastHit != 0) {
             if (volleys == hits && court.contains(ball.getLocation())) {
@@ -297,7 +297,7 @@ public class Ball {
      * @return true if ball is out
      */
     public boolean isOut() {
-        return !end;
+        return out;
     }
 
     /**
