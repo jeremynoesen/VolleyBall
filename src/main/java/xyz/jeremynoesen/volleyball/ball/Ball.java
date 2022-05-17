@@ -105,6 +105,7 @@ public class Ball {
         setTexture(court.getTexture());
 
         balls.add(ball);
+        court.setBall(this);
     }
 
     /**
@@ -112,7 +113,7 @@ public class Ball {
      *
      * @param url link to the player skin to get the skull from
      */
-    public void setTexture(String url) {
+    private void setTexture(String url) {
         ItemStack head = new ItemStack(Material.PLAYER_HEAD, 1);
         if (url.isEmpty())
             return;
@@ -136,7 +137,6 @@ public class Ball {
      * serves the volleyball and starts all loops
      */
     public void serve() {
-        court.setBall(this);
         boolean animations = court.hasAnimations();
         boolean particles = court.hasParticles();
         boolean sounds = court.hasSounds();
@@ -202,40 +202,15 @@ public class Ball {
                             }
                         }
                     }
-                }
 
-                if (ball.isDead()) {
-                    end = true;
+                    if (ball.isDead())
+                        end = true;
+
+                    if (ball.isOnGround())
+                        remove();
+
+                } else {
                     this.cancel();
-                }
-
-                if (ball.isOnGround() || ball.getLocation().add(0, 0.5, 0).getBlock().getType() != Material.AIR) {
-
-                    new BukkitRunnable() {
-                        @Override
-                        public void run() {
-                            if (ball.isOnGround() || ball.getLocation().add(0, 0.5, 0).getBlock().getType() != Material.AIR) {
-                                if (!end) {
-                                    if (scoring && teams && lastHit != 0) {
-                                        if (volleys == hits && court.contains(ball.getLocation())) {
-                                            court.addScore(lastHit);
-                                        } else {
-                                            court.addScore(lastHit == 1 ? 2 : 1);
-                                        }
-                                        for (Player players : court.getPlayersOnCourt()) {
-                                            players.sendTitle(" ", Message.TEAM_SCORE_TITLE
-                                                            .replace("$SCORE1$", Integer.toString(court.getScore(1)))
-                                                            .replace("$SCORE2$", Integer.toString(court.getScore(2))),
-                                                    0, 10, 10);
-                                            if (sounds)
-                                                players.playSound(players.getLocation(), Sound.BLOCK_WOODEN_BUTTON_CLICK_ON, 1, 1);
-                                        }
-                                    }
-                                    remove();
-                                }
-                            }
-                        }
-                    }.runTaskLater(VolleyBall.getInstance(), 3);
                 }
             }
         }.runTaskTimer(VolleyBall.getInstance(), 0, 1);
@@ -248,16 +223,21 @@ public class Ball {
      */
     public void hit(Player player) {
         double hitRadius = court.getHitRadius();
+
         for (Entity s : player.getNearbyEntities(hitRadius, 1 + ((0.1 * hitRadius) - 0.1), hitRadius)) {
             if (s.equals(ball) && court.getBall().isOut()) {
+
                 if (court.hasSounds())
                     ball.getWorld().playSound(ball.getLocation(), Sound.ENTITY_PLAYER_ATTACK_SWEEP, 1, 0.8f);
+
                 ball.setVelocity(player.getLocation().getDirection().setY(Math.abs(player.getLocation().getDirection().getY()) + 0.25)
                         .normalize().add(player.getVelocity().multiply(0.25)).multiply(court.getSpeed())
                         .add(new Vector(0, Math.max(0, player.getEyeHeight() - ball.getLocation().getY()), 0)));
+
                 int hit = court.getSide(player.getLocation());
                 if (hit != lastHit) hits++;
                 lastHit = hit;
+
                 break;
             }
         }
@@ -267,17 +247,39 @@ public class Ball {
      * removes the volleyball with or without animations
      */
     public void remove() {
+        boolean animations = court.hasAnimations();
+        boolean particles = court.hasParticles();
+        boolean sounds = court.hasSounds();
+        boolean scoring = court.hasScoring();
+        boolean teams = court.hasTeams();
+
         end = true;
 
-        if (court.hasParticles())
+        if (scoring && teams && lastHit != 0) {
+            if (volleys == hits && court.contains(ball.getLocation())) {
+                court.addScore(lastHit);
+            } else {
+                court.addScore(lastHit == 1 ? 2 : 1);
+            }
+            for (Player players : court.getPlayersOnCourt()) {
+                players.sendTitle(" ", Message.TEAM_SCORE_TITLE
+                                .replace("$SCORE1$", Integer.toString(court.getScore(1)))
+                                .replace("$SCORE2$", Integer.toString(court.getScore(2))),
+                        0, 10, 10);
+                if (sounds)
+                    players.playSound(players.getLocation(), Sound.BLOCK_WOODEN_BUTTON_CLICK_ON, 1, 1);
+            }
+        }
+
+        if (particles)
             ball.getWorld().spawnParticle(Particle.CLOUD,
                     ball.getLocation().getX(), ball.getLocation().getY() + 0.3, ball.getLocation().getZ(),
                     10, 0.2, 0, 0.2, 0);
 
-        if (court.hasAnimations())
+        if (animations)
             ball.teleport(ball.getLocation().subtract(0, 1.1, 0));
 
-        if (court.hasSounds())
+        if (sounds)
             ball.getWorld().playSound(ball.getLocation(), Sound.ENTITY_PLAYER_SMALL_FALL, 1, 0);
 
         new BukkitRunnable() {
