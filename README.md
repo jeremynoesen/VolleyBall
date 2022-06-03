@@ -90,6 +90,3 @@ Ball not spawning?
 - If you are using world guard, enable armor stand spawning in the region the court is in. 
 - Also make sure block-plugin-spawning is set to false in the world guard config. 
 - If you are using EssentialsProtect, make sure to not block armor stand spawning.
-
-## Notice
-This project is no longer in development.
