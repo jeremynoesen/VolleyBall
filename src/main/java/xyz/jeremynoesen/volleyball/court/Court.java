@@ -20,7 +20,7 @@ public class Court {
     /**
      * all loaded courts
      */
-    private static HashMap<String, Court> courts = new HashMap<>();
+    private static final HashMap<String, Court> courts = new HashMap<>();
 
     /**
      * ball used in court
@@ -30,7 +30,7 @@ public class Court {
     /**
      * scores per team
      */
-    private int[] teamScores;
+    private final int[] teamScores;
 
     /**
      * whether the court has animation enabled
@@ -110,12 +110,12 @@ public class Court {
     /**
      * selected points for setting bounds
      */
-    private HashMap<Player, int[][]> boundsSelections;
+    private final HashMap<Player, int[][]> boundsSelections;
 
     /**
      * selected points for setting net
      */
-    private HashMap<Player, int[][]> netSelections;
+    private final HashMap<Player, int[][]> netSelections;
 
     /**
      * create a court with default values with the specified name

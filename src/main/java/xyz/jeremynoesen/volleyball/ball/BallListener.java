@@ -64,11 +64,8 @@ public class BallListener implements Listener {
         Player p = e.getPlayer();
         if (p.isSneaking()) {
             if (Court.get(p.getLocation()) != null) {
-
                 Court court = Court.get(p.getLocation());
-
                 if (court.isEnabled()) {
-
                     if (court.getBall() != null && court.getBall().isOut()) {
                         if (court.hasHints()) {
                             p.sendMessage(Message.ERROR_BALL_OUT);
@@ -77,7 +74,7 @@ public class BallListener implements Listener {
                             }
                         }
                     } else {
-                        Ball ball = new Ball(p);
+                        Ball ball = new Ball(p, court);
                         ball.serve();
                     }
                 }

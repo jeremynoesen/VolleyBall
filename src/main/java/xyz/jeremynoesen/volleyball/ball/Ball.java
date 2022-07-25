@@ -34,7 +34,7 @@ public class Ball {
     /**
      * list of all alive ball entities
      */
-    private static Set<Entity> balls = new HashSet<>();
+    private static final Set<Entity> balls = new HashSet<>();
 
     /**
      * armorstand to make ball physics and wear the head
@@ -80,15 +80,17 @@ public class Ball {
      * Creates a new ball
      *
      * @param player player to create the ball at
+     * @param court court the ball is assigned to
      */
-    public Ball(Player player) {
+    public Ball(Player player, Court court) {
         this.player = player;
+        this.court = court;
+
         this.out = true;
         this.volleyed = false;
         this.volleys = 0;
         this.lastHit = 0;
         this.hits = 0;
-        this.court = Court.get(player.getLocation());
 
         Location loc = player.getEyeLocation().add(player.getLocation().getDirection().multiply(0.75).setY(-0.5));
         if (!court.hasAnimations()) {

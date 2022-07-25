@@ -19,11 +19,6 @@ import java.util.HashMap;
 public class CourtListener implements Listener {
 
     /**
-     * set of players on courts, used to check when they enter or exit them
-     */
-    HashMap<Player, Court> onCourt = new HashMap<>();
-
-    /**
      * protect the court from breaking
      */
     @EventHandler
@@ -47,27 +42,23 @@ public class CourtListener implements Listener {
                 e.getFrom().getBlockY() != e.getTo().getBlockY() ||
                 e.getFrom().getBlockZ() != e.getTo().getBlockZ()) {
             Player player = e.getPlayer();
-            if (Court.get(player.getLocation()) != null) {
-                Court court = Court.get(player.getLocation());
-                if (!onCourt.containsKey(player) && court.isEnabled() && court.hasHints()) {
+            if (Court.get(e.getTo()) != null && Court.get(e.getFrom()) == null) {
+                Court court = Court.get(e.getTo());
+                if (court.isEnabled() && court.hasHints()) {
                     player.sendMessage(Message.ENTER_COURT);
                     if (court.hasSounds())
                         player.playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 1, 2);
-                    onCourt.put(player, court);
                 }
-            } else {
-                if (onCourt.containsKey(player)) {
-                    Court court = onCourt.get(player);
-                    if (court.isEnabled() && court.hasHints()) {
-                        player.sendMessage(Message.EXIT_COURT);
-                        if (court.getPlayersOnCourt().size() == 0) {
-                            court.clearScores();
-                            if (court.getBall() != null && court.getBall().isOut()) court.getBall().remove();
-                        }
-                        if (court.hasSounds())
-                            player.playSound(player.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 1, 2);
-                        onCourt.remove(player);
+            } else if (Court.get(e.getTo()) == null && Court.get(e.getFrom()) != null) {
+                Court court = Court.get(e.getFrom());
+                if (court.isEnabled() && court.hasHints()) {
+                    player.sendMessage(Message.EXIT_COURT);
+                    if (court.getPlayersOnCourt().size() == 0) {
+                        court.clearScores();
+                        if (court.getBall() != null && court.getBall().isOut()) court.getBall().remove();
                     }
+                    if (court.hasSounds())
+                        player.playSound(player.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 1, 2);
                 }
             }
         }

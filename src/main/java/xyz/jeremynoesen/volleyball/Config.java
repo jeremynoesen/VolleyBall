@@ -19,12 +19,12 @@ public class Config {
     /**
      * court config instance
      */
-    private static Config court = new Config("courts.yml");
+    private static final Config court = new Config("courts.yml");
     
     /**
      * message config instance
      */
-    private static Config message = new Config("messages.yml");
+    private static final Config message = new Config("messages.yml");
     
     /**
      * file used for the config
