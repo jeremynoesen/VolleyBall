@@ -74,8 +74,7 @@ public class BallListener implements Listener {
                             }
                         }
                     } else {
-                        Ball ball = new Ball(p, court);
-                        ball.serve();
+                        new Ball(p, court);
                     }
                 }
             }

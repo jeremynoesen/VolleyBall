@@ -47,11 +47,6 @@ public class Ball {
     private boolean out;
 
     /**
-     * player serving this ball
-     */
-    private final Player player;
-
-    /**
      * whether the ball has gone over the net or not
      */
     private boolean volleyed;
@@ -79,20 +74,18 @@ public class Ball {
     /**
      * Creates a new ball
      *
-     * @param player player to create the ball at
+     * @param player player to spawn the ball at
      * @param court court the ball is assigned to
      */
     public Ball(Player player, Court court) {
-        this.player = player;
         this.court = court;
-
         this.out = true;
         this.volleyed = false;
         this.volleys = 0;
         this.lastHit = 0;
         this.hits = 0;
 
-        Location loc = player.getEyeLocation().add(player.getLocation().getDirection().multiply(0.75).setY(-0.5));
+        Location loc = player.getLocation().add(player.getLocation().getDirection().multiply(0.75).setY(-0.5));
         if (!court.hasAnimations()) {
             loc.setYaw(0);
             loc.setPitch(0);
@@ -108,6 +101,8 @@ public class Ball {
 
         balls.add(ball);
         court.setBall(this);
+
+        serve(player);
     }
 
     /**
@@ -137,8 +132,10 @@ public class Ball {
 
     /**
      * serves the volleyball and starts all loops
+     *
+     * @param player player serving the ball
      */
-    public void serve() {
+    private void serve(Player player) {
         boolean animations = court.hasAnimations();
         boolean particles = court.hasParticles();
         boolean sounds = court.hasSounds();
@@ -148,7 +145,7 @@ public class Ball {
 
         if (sounds) ball.getWorld().playSound(ball.getLocation(), Sound.ENTITY_ARROW_SHOOT, 1, 0);
 
-        ball.setVelocity(player.getLocation().getDirection().multiply(0.05).add(new Vector(0, 0.5 + (0.05 * court.getSpeed()), 0)));
+        ball.setVelocity(player.getLocation().getDirection().multiply(0.05).add(new Vector(0, 0.667 + (0.05 * court.getSpeed()), 0)));
 
         double[] rot = {0, 0, 0};
 
