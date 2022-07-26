@@ -257,7 +257,7 @@ public class Court {
      * @param player player setting the bounds
      */
     public void setBounds(Player player) {
-        setBounds(player, boundsSelections);
+        setCuboid(player, boundsSelections, bounds);
     }
 
     /**
@@ -267,7 +267,7 @@ public class Court {
      * @param pos    position to select (1 or 2)
      */
     public void selectBounds(Player player, int pos) {
-        selectBounds(player, pos, boundsSelections);
+        selectCuboid(player, pos, boundsSelections);
     }
 
     /**
@@ -368,7 +368,7 @@ public class Court {
      * @param player player setting the bounds
      */
     public void setNet(Player player) {
-        setBounds(player, netSelections);
+        setCuboid(player, netSelections, net);
     }
 
     /**
@@ -378,7 +378,7 @@ public class Court {
      * @param pos    position to select (1 or 2)
      */
     public void selectNet(Player player, int pos) {
-        selectBounds(player, pos, netSelections);
+        selectCuboid(player, pos, netSelections);
     }
 
     /**
@@ -526,44 +526,45 @@ public class Court {
     }
 
     /**
-     * set bounds based on player selections
+     * set bounds or net based on player selections
      *
-     * @param player     player setting bounds
+     * @param player     player setting bounds or net
      * @param selections map of currently selected positions
+     * @param cuboid     region to set positions for
      */
-    private void setBounds(Player player, HashMap<Player, int[][]> selections) {
+    private void setCuboid(Player player, HashMap<Player, int[][]> selections, double[][] cuboid) {
         int[][] selection = selections.get(player);
-        bounds[0][0] = Math.min(selection[0][0], selection[1][0]);
-        bounds[0][1] = Math.min(selection[0][1], selection[1][1]);
-        bounds[0][2] = Math.min(selection[0][2], selection[1][2]);
-        bounds[1][0] = Math.max(selection[0][0], selection[1][0]);
-        bounds[1][1] = Math.max(selection[0][1], selection[1][1]);
-        bounds[1][2] = Math.max(selection[0][2], selection[1][2]);
+        cuboid[0][0] = Math.min(selection[0][0], selection[1][0]);
+        cuboid[0][1] = Math.min(selection[0][1], selection[1][1]);
+        cuboid[0][2] = Math.min(selection[0][2], selection[1][2]);
+        cuboid[1][0] = Math.max(selection[0][0], selection[1][0]);
+        cuboid[1][1] = Math.max(selection[0][1], selection[1][1]);
+        cuboid[1][2] = Math.max(selection[0][2], selection[1][2]);
     }
 
     /**
-     * select a position to be used for bounds setting
+     * select a position to be used for bounds or net setting
      *
      * @param player     player selecting a position
      * @param pos        position being selected
      * @param selections map to place selected positions in
      */
-    private void selectBounds(Player player, int pos, HashMap<Player, int[][]> selections) {
-        int[][] bounds;
+    private void selectCuboid(Player player, int pos, HashMap<Player, int[][]> selections) {
+        int[][] cuboid;
 
         if (selections.get(player) == null) {
-            bounds = new int[2][3];
+            cuboid = new int[2][3];
         } else {
-            bounds = selections.get(player);
+            cuboid = selections.get(player);
         }
 
         if (pos == 1 || pos == 2) {
-            bounds[pos - 1][0] = player.getLocation().getBlock().getX();
-            bounds[pos - 1][1] = player.getLocation().getBlock().getY();
-            bounds[pos - 1][2] = player.getLocation().getBlock().getZ();
+            cuboid[pos - 1][0] = player.getLocation().getBlock().getX();
+            cuboid[pos - 1][1] = player.getLocation().getBlock().getY();
+            cuboid[pos - 1][2] = player.getLocation().getBlock().getZ();
         }
 
-        selections.put(player, bounds);
+        selections.put(player, cuboid);
     }
 
     /**
