@@ -67,6 +67,11 @@ public class Ball {
     private int hits;
 
     /**
+     * whether the serve has completed or not
+     */
+    private boolean served;
+
+    /**
      * court this ball is on
      */
     private final Court court;
@@ -84,6 +89,7 @@ public class Ball {
         this.volleys = 0;
         this.lastHit = 0;
         this.hits = 0;
+        this.served = false;
 
         Location loc = player.getLocation().add(player.getLocation().getDirection().multiply(0.75).setY(-0.5));
         if (!court.hasAnimations()) {
@@ -157,6 +163,8 @@ public class Ball {
 
                     ball.setFallDistance(0);
 
+                    if (ball.getVelocity().getY() < 0) served = true;
+
                     if (restricted) {
                         Vector vec = ball.getVelocity();
                         Location loc = ball.getLocation();
@@ -221,23 +229,24 @@ public class Ball {
      * @param player player hitting
      */
     public void hit(Player player) {
-        double hitRadius = court.getHitRadius();
+        if (served) {
+            double hitRadius = court.getHitRadius();
+            for (Entity s : player.getNearbyEntities(hitRadius, 1 + ((0.1 * hitRadius) - 0.1), hitRadius)) {
+                if (s.equals(ball) && court.getBall().isOut()) {
 
-        for (Entity s : player.getNearbyEntities(hitRadius, 1 + ((0.1 * hitRadius) - 0.1), hitRadius)) {
-            if (s.equals(ball) && court.getBall().isOut()) {
+                    if (court.hasSounds())
+                        ball.getWorld().playSound(ball.getLocation(), Sound.ENTITY_PLAYER_ATTACK_SWEEP, 1, 0.8f);
 
-                if (court.hasSounds())
-                    ball.getWorld().playSound(ball.getLocation(), Sound.ENTITY_PLAYER_ATTACK_SWEEP, 1, 0.8f);
+                    ball.setVelocity(player.getLocation().getDirection().setY(Math.abs(player.getLocation().getDirection().getY()) + 0.25)
+                            .normalize().add(player.getVelocity().multiply(0.25)).multiply(court.getSpeed())
+                            .add(new Vector(0, Math.max(0, player.getEyeHeight() - ball.getLocation().getY()), 0)));
 
-                ball.setVelocity(player.getLocation().getDirection().setY(Math.abs(player.getLocation().getDirection().getY()) + 0.25)
-                        .normalize().add(player.getVelocity().multiply(0.25)).multiply(court.getSpeed())
-                        .add(new Vector(0, Math.max(0, player.getEyeHeight() - ball.getLocation().getY()), 0)));
+                    int hit = court.getSide(player.getLocation());
+                    if (hit != lastHit) hits++;
+                    lastHit = hit;
 
-                int hit = court.getSide(player.getLocation());
-                if (hit != lastHit) hits++;
-                lastHit = hit;
-
-                break;
+                    break;
+                }
             }
         }
     }
