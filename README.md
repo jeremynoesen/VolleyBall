@@ -1,4 +1,4 @@
-<img src="img/Logo.png" align="right" alt="Logo" title="Logo" width="200" height="200" />
+<img src="img/Logo.svg" align="right" alt="Logo" title="Logo" width="200" height="200" />
 
 # VolleyBall
 
