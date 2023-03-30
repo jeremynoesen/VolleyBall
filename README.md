@@ -3,12 +3,19 @@
 # VolleyBall
 
 ## About
-VolleyBall is a minigame that emulates volleyball for a Spigot Minecraft server. Players can serve a ball on a volleyball court and punch it to volley it. Volleys are counted when the ball goes over the net. Multiple courts can be created and modified with this plugin.
+
+VolleyBall is a minigame that emulates volleyball for a Spigot Minecraft server. Players can serve a ball on a
+volleyball court and punch it to volley it. Volleys are counted when the ball goes over the net. Multiple courts can be
+created and modified with this plugin.
 
 ## Purpose
-VolleyBall was originally written for a tropical island themed event on a Minecraft server. This was to add more player interactive content to the build to make it feel more lively. From there, this plugin has grown more complex to allow other servers to enjoy the features of VolleyBall for themselves.
+
+VolleyBall was originally written for a tropical island themed event on a Minecraft server. This was to add more player
+interactive content to the build to make it feel more lively. From there, this plugin has grown more complex to allow
+other servers to enjoy the features of VolleyBall for themselves.
 
 ## Usage
+
 - `/volleyball help` - Show plugin help
 - `/volleyball reload` - Reload configs and delete ball entities
 - `/volleyball list` - List all courts
@@ -31,32 +38,42 @@ VolleyBall was originally written for a tropical island themed event on a Minecr
 - `/volleyball texture <name> <url>` - Set the ball texture based on a Minecraft skin texture url
 
 ### Playing
+
 - Press and release your sneak key to serve the ball when on a court
 - Punch when the ball is close to you
 - Try to keep the ball from hitting the ground and get it over the net
 
 ## Requirements
+
 - Spigot or Paper 1.13 - 1.18
 - Java 8 or higher
 
 ## Installation
-To install the plugin, download the latest release, put it in your server plugins folder, and start or restart your server. This will generate the necessary files for configuration of the plugin, located in `plugins/VolleyBall`.
+
+To install the plugin, download the latest release, put it in your server plugins folder, and start or restart your
+server. This will generate the necessary files for configuration of the plugin, located in `plugins/VolleyBall`.
 
 ## Configuration
+
 There is no main configuration, all configuring is done in-game.
 
 - Use the `volleyball create` command to create a court. The court will be created, but not enabled.
-- Use the `volleyball bounds <name> <pos1/pos2>` command to select a cuboid region to set as the bounds. Include the floor and the air above it, not just the floor!
+- Use the `volleyball bounds <name> <pos1/pos2>` command to select a cuboid region to set as the bounds. Include the
+  floor and the air above it, not just the floor!
 - Run `volleyball bounds <name> set` to set the selected region as the court bounds.
-- Do the same with `volleyball net <name> <pos1/pos2/set>` to set a region as the net. Select from the floor to the top of the net!
+- Do the same with `volleyball net <name> <pos1/pos2/set>` to set a region as the net. Select from the floor to the top
+  of the net!
 - Use the other commands to customize your court to your liking.
-- Once you are finished, run `volleyball enabled <name> true` to enable your court. This court can not have its blocks modified while it is enabled, so make sure you make build edits before enabling!
+- Once you are finished, run `volleyball enabled <name> true` to enable your court. This court can not have its blocks
+  modified while it is enabled, so make sure you make build edits before enabling!
 
 Do not modify the courts config, as you can possibly break your saved courts!
 
-For the message configuration, you can use color codes. You can also use the placeholders used per message, as shown in the default configuration. The messages and their names should explain what they are used for.
+For the message configuration, you can use color codes. You can also use the placeholders used per message, as shown in
+the default configuration. The messages and their names should explain what they are used for.
 
 ### Permissions
+
 - `volleyball.help` - Allow using the help command
 - `volleyball.reload` - Allow reloading the plugin
 - `volleyball.create` - Allow creating a court
@@ -83,10 +100,16 @@ For the message configuration, you can use color codes. You can also use the pla
 <div align="center" ><img src="img/demo.gif" alt="Demonstration" title="Demonstration" /></div>
 
 ## Building
-There is an included `build.gradle` to allow you to import the project into your IDE. To work fully, you will need your own Spigot 1.13.2 jar. This is required due to using NMS code, which the Spigot gradle repo does not include. I have commented where you need to change `build.gradle` to allow using the external jar. With this, you can run `./gradlew shadowJar` to generate `VolleyBall.jar`.
+
+There is an included `build.gradle` to allow you to import the project into your IDE. To work fully, you will need your
+own Spigot 1.13.2 jar. This is required due to using NMS code, which the Spigot gradle repo does not include. I have
+commented where you need to change `build.gradle` to allow using the external jar. With this, you can
+run `./gradlew shadowJar` to generate `VolleyBall.jar`.
 
 ## Troubleshooting
+
 Ball not spawning?
-- If you are using world guard, enable armor stand spawning in the region the court is in. 
-- Also make sure block-plugin-spawning is set to false in the world guard config. 
+
+- If you are using world guard, enable armor stand spawning in the region the court is in.
+- Also make sure block-plugin-spawning is set to false in the world guard config.
 - If you are using EssentialsProtect, make sure to not block armor stand spawning.
