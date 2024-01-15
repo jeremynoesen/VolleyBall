@@ -103,7 +103,7 @@ public class Ball {
         ball.setInvulnerable(true);
         ball.setVisible(false);
         ball.setBasePlate(false);
-        setTexture(court.getTexture());
+        setHead(court.getTexture());
 
         balls.add(ball);
         court.setBall(this);
@@ -112,27 +112,27 @@ public class Ball {
     }
 
     /**
-     * set the skull texture for the ball
+     * set the player head for the ball
      *
-     * @param url link to the player skin to get the skull from
+     * @param url link to the player skin to get the texture from
      */
-    private void setTexture(String url) {
+    private void setHead(String url) {
         ItemStack head = new ItemStack(Material.PLAYER_HEAD, 1);
-        if (url.isEmpty())
-            return;
-        SkullMeta headMeta = (SkullMeta) head.getItemMeta();
-        GameProfile profile = new GameProfile(UUID.randomUUID(), null);
-        byte[] encodedData = Base64.encodeBase64(String.format("{textures:{SKIN:{url:\"%s\"}}}", url).getBytes());
-        profile.getProperties().put("textures", new Property("textures", new String(encodedData)));
-        Field profileField;
-        try {
-            profileField = headMeta.getClass().getDeclaredField("profile");
-            profileField.setAccessible(true);
-            profileField.set(headMeta, profile);
-        } catch (NoSuchFieldException | IllegalArgumentException | IllegalAccessException e1) {
-            e1.printStackTrace();
+        if (!url.isEmpty()) {
+            SkullMeta headMeta = (SkullMeta) head.getItemMeta();
+            GameProfile profile = new GameProfile(UUID.randomUUID(), null);
+            byte[] encodedData = Base64.encodeBase64(String.format("{textures:{SKIN:{url:\"%s\"}}}", url).getBytes());
+            profile.getProperties().put("textures", new Property("textures", new String(encodedData)));
+            Field profileField;
+            try {
+                profileField = headMeta.getClass().getDeclaredField("profile");
+                profileField.setAccessible(true);
+                profileField.set(headMeta, profile);
+            } catch (NoSuchFieldException | IllegalArgumentException | IllegalAccessException e1) {
+                e1.printStackTrace();
+            }
+            head.setItemMeta(headMeta);
         }
-        head.setItemMeta(headMeta);
         ball.getEquipment().setHelmet(head);
     }
 
