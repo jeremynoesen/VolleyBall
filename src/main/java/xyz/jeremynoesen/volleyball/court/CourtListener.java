@@ -45,15 +45,19 @@ public class CourtListener implements Listener {
             Court from = Court.get(e.getFrom());
             Court to = Court.get(e.getTo());
             if (to != null && from == null) {
-                if (to.isEnabled() && to.hasHints()) {
-                    player.sendMessage(Message.ENTER_COURT);
+                to.getPlayersOnCourt().add(player);
+                if (to.isEnabled()) {
+                    if (to.hasHints())
+                        player.sendMessage(Message.ENTER_COURT);
                     if (to.hasSounds())
                         player.playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 1, 2);
                 }
             } else if (to == null && from != null) {
-                if (from.isEnabled() && from.hasHints()) {
-                    player.sendMessage(Message.EXIT_COURT);
-                    if (from.getPlayersOnCourt().size() <= 1) {
+                from.getPlayersOnCourt().remove(player);
+                if (from.isEnabled()) {
+                    if (from.hasHints())
+                        player.sendMessage(Message.EXIT_COURT);
+                    if (from.getPlayersOnCourt().isEmpty()) {
                         from.clearScores();
                         if (from.getBall() != null && from.getBall().isOut()) from.getBall().remove();
                     }

@@ -7,8 +7,8 @@ import xyz.jeremynoesen.volleyball.Message;
 import xyz.jeremynoesen.volleyball.VolleyBall;
 import xyz.jeremynoesen.volleyball.ball.Ball;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * volleyball court with customizable ball stats and court size
@@ -113,6 +113,11 @@ public class Court {
     private World world;
 
     /**
+     * players on the court
+     */
+    private final HashSet<Player> players;
+
+    /**
      * selected points for setting bounds
      */
     private final HashMap<Player, int[][]> boundsSelections;
@@ -142,6 +147,8 @@ public class Court {
         editable = false;
         texture = "http://textures.minecraft.net/texture/1e6df1c2bf5b918f6c8879af4c4ecc1dabbe37229284e1f8f6bccdb1ea3d0ac";
         world = VolleyBall.getInstance().getServer().getWorlds().get(0);
+
+        players = new HashSet<>();
 
         boundsSelections = new HashMap<>();
         netSelections = new HashMap<>();
@@ -617,32 +624,12 @@ public class Court {
     }
 
     /**
-     * get a list of all players on the specified court
+     * get a set of all players on the court
      *
-     * @return list of players on court
+     * @return set of players on court
      */
-    public ArrayList<Player> getPlayersOnCourt() {
-        ArrayList<Player> players = new ArrayList<>();
-
-        if (world != null)
-            for (Player worldPlayer : world.getPlayers()) {
-                if (!worldPlayer.isOnline()) continue;
-                if (contains(worldPlayer.getLocation())) {
-                    players.add(worldPlayer);
-                }
-            }
-
+    public HashSet<Player> getPlayersOnCourt() {
         return players;
-    }
-
-    /**
-     * check if a player is in a court
-     *
-     * @param player player to see if court contains
-     * @return true if player is on court
-     */
-    public boolean contains(Player player) {
-        return getPlayersOnCourt().contains(player);
     }
 
     /**
