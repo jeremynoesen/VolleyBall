@@ -45,7 +45,7 @@ other servers to enjoy the features of VolleyBall for themselves.
 
 ## Requirements
 
-- Spigot or Paper 1.13 - 1.18
+- Spigot or Paper 1.13 - 1.19 (1.20+ works, but emits a lot of warnings)
 - Java 8 or higher
 
 ## Installation
