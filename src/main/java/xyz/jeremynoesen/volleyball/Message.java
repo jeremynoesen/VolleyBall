@@ -34,7 +34,6 @@ public class Message {
     public static String SUCCESS_SPEED;
     public static String SUCCESS_TEAMS;
     public static String SUCCESS_TEXTURE;
-    public static String ERROR_BALL_OUT;
     public static String ERROR_UNKNOWN_COURT;
     public static String ERROR_NO_PERMS;
     public static String ERROR_UNKNOWN_ARGS;
@@ -45,6 +44,7 @@ public class Message {
     public static String EXIT_COURT;
     public static String SCORE_TITLE;
     public static String TEAM_SCORE_TITLE;
+    public static String BALL_OUT;
     public static String HELP_HEADER;
     public static String HELP_HELP;
     public static String HELP_RELOAD;
@@ -93,7 +93,6 @@ public class Message {
         SUCCESS_SPEED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_SPEED"));
         SUCCESS_TEAMS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_TEAMS"));
         SUCCESS_TEXTURE = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_TEXTURE"));
-        ERROR_BALL_OUT = PREFIX + format(messageConfig.getConfig().getString("ERROR_BALL_OUT"));
         ERROR_UNKNOWN_COURT = PREFIX + format(messageConfig.getConfig().getString("ERROR_UNKNOWN_COURT"));
         ERROR_NO_PERMS = PREFIX + format(messageConfig.getConfig().getString("ERROR_NO_PERMS"));
         ERROR_UNKNOWN_ARGS = PREFIX + format(messageConfig.getConfig().getString("ERROR_UNKNOWN_ARGS"));
@@ -104,6 +103,7 @@ public class Message {
         EXIT_COURT = PREFIX + format(messageConfig.getConfig().getString("EXIT_COURT"));
         SCORE_TITLE = format(messageConfig.getConfig().getString("SCORE_TITLE"));
         TEAM_SCORE_TITLE = format(messageConfig.getConfig().getString("TEAM_SCORE_TITLE"));
+        BALL_OUT = PREFIX + format(messageConfig.getConfig().getString("BALL_OUT"));
         HELP_HEADER = format(messageConfig.getConfig().getString("HELP_HEADER"));
         HELP_HELP = format(messageConfig.getConfig().getString("HELP_HELP"));
         HELP_RELOAD = format(messageConfig.getConfig().getString("HELP_RELOAD"));

@@ -68,7 +68,7 @@ public class BallListener implements Listener {
                 if (court.isEnabled()) {
                     if (court.getBall() != null && court.getBall().isOut()) {
                         if (court.hasHints()) {
-                            p.sendMessage(Message.ERROR_BALL_OUT);
+                            p.sendMessage(Message.BALL_OUT);
                             if (court.hasSounds()) {
                                 p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASEDRUM, 1, 0);
                             }
