@@ -24,6 +24,7 @@ other servers to enjoy the features of VolleyBall for themselves.
 - `/volleyball remove <name>` - Delete a court
 - `/volleyball animations <name> <true/false>` - Enable or disable ball animations
 - `/volleyball bounds <name> <pos1/pos2/set>` - Set the court bounds based on player location
+- `/volleyball editable <name> <true/false>` - Enable or disable editing of court blocks
 - `/volleyball enabled <name> <true/false>` - Enable or disable a court
 - `/volleyball hints <name> <true/false>` - Enable or disable hints on court
 - `/volleyball hitradius <name> <number>` - Set the ball hit radius
@@ -82,6 +83,7 @@ the default configuration. The messages and their names should explain what they
 - `volleyball.remove` - Allow removing a court
 - `volleyball.animations` - Allow enabling ball animations
 - `volleyball.bounds` - Allow setting court bounds
+- `volleyball.editable` - Allow enabling court editing
 - `volleyball.enabled` - Allow enabling court
 - `volleyball.hints` - Allow enabling court hints
 - `volleyball.hitradius` - Allow setting ball hit radius
@@ -100,11 +102,11 @@ the default configuration. The messages and their names should explain what they
 <div align="center" ><img src="img/demo.gif" alt="Demonstration" title="Demonstration" /></div>
 
 ## Building
+1. Clone or download this repository.
+2. Run `./gradlew shadowJar` in the directory of the project.
+3. `/build/libs/VolleyBall.jar` should have been generated.
 
-There is an included `build.gradle` to allow you to import the project into your IDE. To work fully, you will need your
-own Spigot 1.13.2 jar. This is required due to using NMS code, which the Spigot gradle repo does not include. I have
-commented where you need to change `build.gradle` to allow using the external jar. With this, you can
-run `./gradlew shadowJar` to generate `VolleyBall.jar`.
+You can also grab `VolleyBall.jar` from the latest releases.
 
 ## Troubleshooting
 

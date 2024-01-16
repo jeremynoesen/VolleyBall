@@ -98,6 +98,11 @@ public class Court {
     private boolean teams;
 
     /**
+     * whether blocks can be placed or broken in the court
+     */
+    private boolean editable;
+
+    /**
      * player head texture for the ball
      */
     private String texture;
@@ -134,6 +139,7 @@ public class Court {
         sounds = true;
         speed = 1;
         teams = false;
+        editable = false;
         texture = "http://textures.minecraft.net/texture/1e6df1c2bf5b918f6c8879af4c4ecc1dabbe37229284e1f8f6bccdb1ea3d0ac";
         world = VolleyBall.getInstance().getServer().getWorlds().get(0);
 
@@ -487,6 +493,24 @@ public class Court {
      */
     public void setTeams(boolean teams) {
         this.teams = teams;
+    }
+
+    /**
+     * check if a court is editable
+     *
+     * @return true if court is editable
+     */
+    public boolean isEditable() {
+        return editable;
+    }
+
+    /**
+     * enable or disable court editing
+     *
+     * @param editable true to enable
+     */
+    public void setEditable(boolean editable) {
+        this.editable = editable;
     }
 
     /**

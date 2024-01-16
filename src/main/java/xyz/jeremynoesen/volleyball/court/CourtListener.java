@@ -26,8 +26,12 @@ public class CourtListener implements Listener {
         Player player = e.getPlayer();
         Action action = e.getAction();
         if (action == Action.LEFT_CLICK_BLOCK || action == Action.RIGHT_CLICK_BLOCK) {
-            if ((Court.get(e.getClickedBlock().getLocation()) != null && Court.get(e.getClickedBlock().getLocation()).isEnabled()) ||
-                    (Court.get(player.getLocation()) != null && Court.get(player.getLocation()).isEnabled())) {
+            if ((Court.get(e.getClickedBlock().getLocation()) != null &&
+                    Court.get(e.getClickedBlock().getLocation()).isEnabled() &&
+                    !Court.get(e.getClickedBlock().getLocation()).isEditable()) ||
+                    (Court.get(player.getLocation()) != null &&
+                            Court.get(player.getLocation()).isEnabled() &&
+                            !Court.get(player.getLocation()).isEditable())) {
                 e.setCancelled(true);
             }
         }

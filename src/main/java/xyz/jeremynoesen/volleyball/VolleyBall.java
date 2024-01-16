@@ -49,6 +49,7 @@ public class VolleyBall extends JavaPlugin implements Listener {
         pm.addPermission(new Permission("volleyball.remove"));
         pm.addPermission(new Permission("volleyball.animations"));
         pm.addPermission(new Permission("volleyball.bounds"));
+        pm.addPermission(new Permission("volleyball.editable"));
         pm.addPermission(new Permission("volleyball.enabled"));
         pm.addPermission(new Permission("volleyball.hints"));
         pm.addPermission(new Permission("volleyball.hitradius"));

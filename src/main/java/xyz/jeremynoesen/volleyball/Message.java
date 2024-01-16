@@ -21,6 +21,7 @@ public class Message {
     public static String SUCCESS_ANIMATIONS;
     public static String SUCCESS_BOUNDS_SELECTED;
     public static String SUCCESS_BOUNDS_SET;
+    public static String SUCCESS_EDITABLE;
     public static String SUCCESS_ENABLED;
     public static String SUCCESS_HINTS;
     public static String SUCCESS_HITRADIUS;
@@ -54,6 +55,7 @@ public class Message {
     public static String HELP_REMOVE;
     public static String HELP_ANIMATIONS;
     public static String HELP_BOUNDS;
+    public static String HELP_EDITABLE;
     public static String HELP_ENABLED;
     public static String HELP_HINTS;
     public static String HELP_HITRADIUS;
@@ -80,6 +82,7 @@ public class Message {
         SUCCESS_ANIMATIONS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_ANIMATIONS"));
         SUCCESS_BOUNDS_SELECTED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_BOUNDS_SELECTED"));
         SUCCESS_BOUNDS_SET = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_BOUNDS_SET"));
+        SUCCESS_EDITABLE = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_EDITABLE"));
         SUCCESS_ENABLED = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_ENABLED"));
         SUCCESS_HINTS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_HINTS"));
         SUCCESS_HITRADIUS = PREFIX + format(messageConfig.getConfig().getString("SUCCESS_HITRADIUS"));
@@ -158,6 +161,7 @@ public class Message {
         if (player.hasPermission("volleyball.remove")) help.add(HELP_REMOVE);
         if (player.hasPermission("volleyball.animations")) help.add(HELP_ANIMATIONS);
         if (player.hasPermission("volleyball.bounds")) help.add(HELP_BOUNDS);
+        if (player.hasPermission("volleyball.editable")) help.add(HELP_EDITABLE);
         if (player.hasPermission("volleyball.enabled")) help.add(HELP_ENABLED);
         if (player.hasPermission("volleyball.hints")) help.add(HELP_HINTS);
         if (player.hasPermission("volleyball.hitradius")) help.add(HELP_HITRADIUS);

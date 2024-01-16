@@ -74,6 +74,8 @@ public class CourtIO {
             court.setSpeed(courtConfig.getConfig().getDouble(name + ".speed"));
         if (courtConfig.getConfig().get(name + ".teams") != null)
             court.setTeams(courtConfig.getConfig().getBoolean(name + ".teams"));
+        if (courtConfig.getConfig().get(name + ".editable") != null)
+            court.setEditable(courtConfig.getConfig().getBoolean(name + ".editable"));
         if (courtConfig.getConfig().get(name + ".texture") != null)
             court.setTexture(courtConfig.getConfig().getString(name + ".texture"));
     }
@@ -128,6 +130,7 @@ public class CourtIO {
         courtConfig.getConfig().set(name + ".sounds", court.hasSounds());
         courtConfig.getConfig().set(name + ".speed", court.getSpeed());
         courtConfig.getConfig().set(name + ".teams", court.hasTeams());
+        courtConfig.getConfig().set(name + ".editable", court.isEditable());
         courtConfig.getConfig().set(name + ".texture", court.getTexture());
     }
 }

@@ -49,6 +49,7 @@ public class CommandTabComplete implements TabCompleter {
                     if (player.hasPermission("volleyball.remove")) tabList.add("remove");
                     if (player.hasPermission("volleyball.animations")) tabList.add("animations");
                     if (player.hasPermission("volleyball.bounds")) tabList.add("bounds");
+                    if (player.hasPermission("volleyball.editable")) tabList.add("editable");
                     if (player.hasPermission("volleyball.enabled")) tabList.add("enabled");
                     if (player.hasPermission("volleyball.hints")) tabList.add("hints");
                     if (player.hasPermission("volleyball.hitradius")) tabList.add("hitradius");
@@ -76,7 +77,13 @@ public class CommandTabComplete implements TabCompleter {
 
                 } else if (args[0].startsWith("e") && player.hasPermission("volleyball.enabled")) {
 
-                    tabList.add("enabled");
+                    if (player.hasPermission("volleyball.editable")) tabList.add("editable");
+                    if (player.hasPermission("volleyball.enabled")) tabList.add("enabled");
+
+                    if (args[0].startsWith("ed") && player.hasPermission("volleyball.editable"))
+                        tabList.remove("enabled");
+                    else if (args[0].startsWith("en") && player.hasPermission("volleyball.enabled"))
+                        tabList.remove("editable");
 
                 } else if (args[0].startsWith("h")) {
 
@@ -177,6 +184,7 @@ public class CommandTabComplete implements TabCompleter {
                         (args[0].equalsIgnoreCase("remove") && player.hasPermission("volleyball.remove")) ||
                         (args[0].equalsIgnoreCase("animations") && player.hasPermission("volleyball.animations")) ||
                         (args[0].equalsIgnoreCase("bounds") && player.hasPermission("volleyball.bounds")) ||
+                        (args[0].equalsIgnoreCase("editable") && player.hasPermission("volleyball.editable")) ||
                         (args[0].equalsIgnoreCase("enabled") && player.hasPermission("volleyball.enabled")) ||
                         (args[0].equalsIgnoreCase("hints") && player.hasPermission("volleyball.hints")) ||
                         (args[0].equalsIgnoreCase("hitradius") && player.hasPermission("volleyball.hitradius")) ||
@@ -200,6 +208,7 @@ public class CommandTabComplete implements TabCompleter {
             } else if (args.length == 3) {
 
                 if ((args[0].equalsIgnoreCase("animations") && player.hasPermission("volleyball.animations")) ||
+                        (args[0].equalsIgnoreCase("editable") && player.hasPermission("volleyball.editable")) ||
                         (args[0].equalsIgnoreCase("enabled") && player.hasPermission("volleyball.enabled")) ||
                         (args[0].equalsIgnoreCase("hints") && player.hasPermission("volleyball.hints")) ||
                         (args[0].equalsIgnoreCase("particles") && player.hasPermission("volleyball.particles")) ||

@@ -136,6 +136,15 @@ public class CommandExec implements CommandExecutor {
                                     player.sendMessage(Message.ERROR_NO_PERMS);
                                 }
                                 break;
+                            case "editable":
+                                if (player.hasPermission("volleyball.editable")) {
+                                    boolean editable = Boolean.parseBoolean(args[2]);
+                                    court.setEditable(editable);
+                                    player.sendMessage(Message.SUCCESS_EDITABLE
+                                            .replace("$COURT$", args[1])
+                                            .replace("$BOOL$", Boolean.toString(editable)));
+                                } else player.sendMessage(Message.ERROR_NO_PERMS);
+                                break;
                             case "enabled":
                                 if (player.hasPermission("volleyball.enabled")) {
                                     boolean enabled = Boolean.parseBoolean(args[2]);
