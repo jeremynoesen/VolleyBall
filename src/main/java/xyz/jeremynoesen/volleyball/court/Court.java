@@ -705,27 +705,25 @@ public class Court {
      */
     @Override
     public String toString() {
-        return Message.COURT_INFO
-                .replace("$ANIMATIONS$", Boolean.toString(hasAnimations()))
-                .replace("$EDITABLE$", Boolean.toString(isEditable()))
-                .replace("$ENABLED$", Boolean.toString(isEnabled()))
-                .replace("$HINTS$", Boolean.toString(hasHints()))
-                .replace("$RADIUS$", Double.toString(getHitRadius()))
-                .replace("$NAME$", name)
-                .replace("$PARTICLES$", Boolean.toString(hasParticles()))
-                .replace("$RESTRICTIONS$", Boolean.toString(hasRestrictions()))
-                .replace("$SCORING$", Boolean.toString(hasScoring()))
-                .replace("$SOUNDS$", Boolean.toString(hasSounds()))
-                .replace("$SPEED$", Double.toString(getSpeed()))
-                .replace("$TEAMS$", Boolean.toString(hasTeams()))
-                .replace("$TEXTURE$", getTexture())
-                .replace("$WORLD$", world.getName())
-                .replace("$BOUNDS$",
+        return Message.COURT_INFO_ANIMATIONS.replace("$ANIMATIONS$", Boolean.toString(hasAnimations())) + "\n" +
+                Message.COURT_INFO_EDITABLE.replace("$EDITABLE$", Boolean.toString(isEditable())) + "\n" +
+                Message.COURT_INFO_ENABLED.replace("$ENABLED$", Boolean.toString(isEnabled())) + "\n" +
+                Message.COURT_INFO_HINTS.replace("$HINTS$", Boolean.toString(hasHints())) + "\n" +
+                Message.COURT_INFO_HITRADIUS.replace("$RADIUS$", Double.toString(getHitRadius())) + "\n" +
+                Message.COURT_INFO_NAME.replace("$NAME$", name) + "\n" +
+                Message.COURT_INFO_PARTICLES.replace("$PARTICLES$", Boolean.toString(hasParticles())) + "\n" +
+                Message.COURT_INFO_RESTRICTIONS.replace("$RESTRICTIONS$", Boolean.toString(hasRestrictions())) + "\n" +
+                Message.COURT_INFO_SCORING.replace("$SCORING$", Boolean.toString(hasScoring())) + "\n" +
+                Message.COURT_INFO_SOUNDS.replace("$SOUNDS$", Boolean.toString(hasSounds())) + "\n" +
+                Message.COURT_INFO_SPEED.replace("$SPEED$", Double.toString(getSpeed())) + "\n" +
+                Message.COURT_INFO_TEAMS.replace("$TEAMS$", Boolean.toString(hasTeams())) + "\n" +
+                Message.COURT_INFO_TEXTURE.replace("$TEXTURE$", getTexture()) + "\n" +
+                Message.COURT_INFO_WORLD.replace("$WORLD$", world.getName()) + "\n" +
+                Message.COURT_INFO_BOUNDS.replace("$BOUNDS$",
                         "(" + bounds[0][0] + "," + bounds[0][1] + "," + bounds[0][2] + ") to (" +
-                                bounds[1][0] + "," + bounds[1][1] + "," + bounds[1][2] + ")")
-                .replace("$NET$",
+                                bounds[1][0] + "," + bounds[1][1] + "," + bounds[1][2] + ")") + "\n" +
+                Message.COURT_INFO_NET.replace("$NET$",
                         "(" + net[0][0] + "," + net[0][1] + "," + net[0][2] + ") to (" +
-                                net[1][0] + "," + net[1][1] + "," + net[1][2] + ")");
-
+                                net[1][0] + "," + net[1][1] + "," + net[1][2] + ")") + "\n";
     }
 }
