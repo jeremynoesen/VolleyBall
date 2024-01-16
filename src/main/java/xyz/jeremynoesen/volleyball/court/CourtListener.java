@@ -9,8 +9,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import xyz.jeremynoesen.volleyball.Message;
 
-import java.util.HashMap;
-
 /**
  * Listener for some court events
  *
@@ -26,12 +24,10 @@ public class CourtListener implements Listener {
         Player player = e.getPlayer();
         Action action = e.getAction();
         if (action == Action.LEFT_CLICK_BLOCK || action == Action.RIGHT_CLICK_BLOCK) {
-            if ((Court.get(e.getClickedBlock().getLocation()) != null &&
-                    Court.get(e.getClickedBlock().getLocation()).isEnabled() &&
-                    !Court.get(e.getClickedBlock().getLocation()).isEditable()) ||
-                    (Court.get(player.getLocation()) != null &&
-                            Court.get(player.getLocation()).isEnabled() &&
-                            !Court.get(player.getLocation()).isEditable())) {
+            Court blockCourt = Court.get(e.getClickedBlock().getLocation());
+            Court playerCourt = Court.get(player.getLocation());
+            if ((blockCourt != null && blockCourt.isEnabled() && !blockCourt.isEditable()) ||
+                    (playerCourt != null && playerCourt.isEnabled() && !playerCourt.isEditable())) {
                 e.setCancelled(true);
             }
         }
@@ -46,22 +42,22 @@ public class CourtListener implements Listener {
                 e.getFrom().getBlockY() != e.getTo().getBlockY() ||
                 e.getFrom().getBlockZ() != e.getTo().getBlockZ()) {
             Player player = e.getPlayer();
-            if (Court.get(e.getTo()) != null && Court.get(e.getFrom()) == null) {
-                Court court = Court.get(e.getTo());
-                if (court.isEnabled() && court.hasHints()) {
+            Court from = Court.get(e.getFrom());
+            Court to = Court.get(e.getTo());
+            if (to != null && from == null) {
+                if (to.isEnabled() && to.hasHints()) {
                     player.sendMessage(Message.ENTER_COURT);
-                    if (court.hasSounds())
+                    if (to.hasSounds())
                         player.playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 1, 2);
                 }
-            } else if (Court.get(e.getTo()) == null && Court.get(e.getFrom()) != null) {
-                Court court = Court.get(e.getFrom());
-                if (court.isEnabled() && court.hasHints()) {
+            } else if (to == null && from != null) {
+                if (from.isEnabled() && from.hasHints()) {
                     player.sendMessage(Message.EXIT_COURT);
-                    if (court.getPlayersOnCourt().size() <= 1) {
-                        court.clearScores();
-                        if (court.getBall() != null && court.getBall().isOut()) court.getBall().remove();
+                    if (from.getPlayersOnCourt().size() <= 1) {
+                        from.clearScores();
+                        if (from.getBall() != null && from.getBall().isOut()) from.getBall().remove();
                     }
-                    if (court.hasSounds())
+                    if (from.hasSounds())
                         player.playSound(player.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 1, 2);
                 }
             }
