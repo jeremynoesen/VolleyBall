@@ -57,7 +57,7 @@ public class CourtListener implements Listener {
                 Court court = Court.get(e.getFrom());
                 if (court.isEnabled() && court.hasHints()) {
                     player.sendMessage(Message.EXIT_COURT);
-                    if (court.getPlayersOnCourt().size() == 0) {
+                    if (court.getPlayersOnCourt().size() <= 1) {
                         court.clearScores();
                         if (court.getBall() != null && court.getBall().isOut()) court.getBall().remove();
                     }
