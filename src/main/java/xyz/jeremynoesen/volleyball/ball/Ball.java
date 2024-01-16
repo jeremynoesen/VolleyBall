@@ -97,13 +97,14 @@ public class Ball {
             loc.setPitch(0);
         }
 
-        this.ball = player.getLocation().getWorld().spawn(loc, ArmorStand.class);
-        ball.setSmall(true);
-        ball.setSilent(true);
-        ball.setInvulnerable(true);
-        ball.setVisible(false);
-        ball.setBasePlate(false);
-        setHead(court.getTexture());
+        this.ball = player.getLocation().getWorld().spawn(loc, ArmorStand.class, as -> {
+            as.setSmall(true);
+            as.setSilent(true);
+            as.setInvulnerable(true);
+            as.setVisible(false);
+            as.setBasePlate(false);
+            as.getEquipment().setHelmet(getHead(court.getTexture()));
+        });
 
         balls.add(ball);
         court.setBall(this);
@@ -112,11 +113,11 @@ public class Ball {
     }
 
     /**
-     * set the player head for the ball
+     * get the player head for the ball
      *
      * @param url link to the player skin to get the texture from
      */
-    private void setHead(String url) {
+    private ItemStack getHead(String url) {
         ItemStack head = new ItemStack(Material.PLAYER_HEAD, 1);
         if (!url.isEmpty()) {
             SkullMeta headMeta = (SkullMeta) head.getItemMeta();
@@ -133,7 +134,7 @@ public class Ball {
             }
             head.setItemMeta(headMeta);
         }
-        ball.getEquipment().setHelmet(head);
+        return head;
     }
 
     /**
