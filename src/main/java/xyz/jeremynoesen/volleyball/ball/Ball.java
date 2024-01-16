@@ -121,7 +121,7 @@ public class Ball {
         ItemStack head = new ItemStack(Material.PLAYER_HEAD, 1);
         if (!url.isEmpty()) {
             SkullMeta headMeta = (SkullMeta) head.getItemMeta();
-            GameProfile profile = new GameProfile(UUID.randomUUID(), null);
+            GameProfile profile = new GameProfile(UUID.randomUUID(), "");
             byte[] encodedData = Base64.encodeBase64(String.format("{textures:{SKIN:{url:\"%s\"}}}", url).getBytes());
             profile.getProperties().put("textures", new Property("textures", new String(encodedData)));
             Field profileField;
