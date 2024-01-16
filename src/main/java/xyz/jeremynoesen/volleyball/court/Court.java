@@ -720,6 +720,7 @@ public class Court {
     public String toString() {
         return Message.COURT_INFO
                 .replace("$ANIMATIONS$", Boolean.toString(hasAnimations()))
+                .replace("$EDITABLE$", Boolean.toString(isEditable()))
                 .replace("$ENABLED$", Boolean.toString(isEnabled()))
                 .replace("$HINTS$", Boolean.toString(hasHints()))
                 .replace("$RADIUS$", Double.toString(getHitRadius()))

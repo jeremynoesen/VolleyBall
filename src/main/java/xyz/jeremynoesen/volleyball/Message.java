@@ -116,6 +116,7 @@ public class Message {
         HELP_REMOVE = format(messageConfig.getConfig().getString("HELP_REMOVE"));
         HELP_ANIMATIONS = format(messageConfig.getConfig().getString("HELP_ANIMATIONS"));
         HELP_BOUNDS = format(messageConfig.getConfig().getString("HELP_BOUNDS"));
+        HELP_EDITABLE = format(messageConfig.getConfig().getString("HELP_EDITABLE"));
         HELP_ENABLED = format(messageConfig.getConfig().getString("HELP_ENABLED"));
         HELP_HINTS = format(messageConfig.getConfig().getString("HELP_HINTS"));
         HELP_HITRADIUS = format(messageConfig.getConfig().getString("HELP_HITRADIUS"));
